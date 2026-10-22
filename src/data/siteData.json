@@ -1,0 +1,36 @@
+{
+  "brand": {
+    "name": "Jolotundo",
+    "fullName": "Jolotundo Glamping & Edupark",
+    "group": "Dian Group",
+    "tagline": "Heningnya Hutan Pinus, Mewahnya Beristirahat.",
+    "subHeadline": "Destinasi ekowisata terpadu pionir di lereng Gunung Wilis. Menghadirkan harmoni alam terbuka, kemewahan glamping tematik, outbound korporat, dan eduwisata berkelanjutan.",
+    "coordinates": "07°42'S 111°54'E",
+    "elevation": "±800 MDPL",
+    "est": "EST. 2023",
+    "status": "BUKA SETIAP HARI (24 JAM)",
+    "location": "Dusun Plakat, Desa Bajulan, Kec. Loceret, Kab. Nganjuk, Jawa Timur 64471",
+    "whatsapp": "6282249828998",
+    "email": "jolotundoedupark@gmail.com"
+  },
+  "heroStats": [
+    {
+      "code": "01",
+      "label": "TIPE AKOMODASI",
+      "value": "7 Pilihan",
+      "desc": "Dari Camping Ground s/d Deluxe Cabin AC"
+    },
+    {
+      "code": "02",
+      "label": "PORTOFOLIO B2B",
+      "value": "50+ Mitra",
+      "desc": "Pertamina, KAI, Mandiri, SIG, INKA & BUMN"
+    },
+    {
+      "code": "03",
+      "label": "WANA WISATA",
+      "value": "All-in-One",
+      "desc": "ATV, Jeep Offroad, Berkuda & Edupark"
+    }
+  ]
+}

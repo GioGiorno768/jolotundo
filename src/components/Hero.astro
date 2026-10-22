@@ -1,0 +1,130 @@
+---
+import siteData from '../data/siteData.json';
+---
+
+<section 
+  id="hero-section" 
+  class="relative h-[100svh] min-h-[720px] w-full overflow-hidden flex flex-col justify-between bg-[#0b130e] px-6 sm:px-10 lg:px-14 xl:px-20 pb-8 pt-24"
+>
+  <!-- Parallax Background Image Layer (Sinks slowly on scroll) -->
+  <div 
+    id="hero-parallax-bg" 
+    class="absolute inset-0 w-full h-[125%] -top-[12%] pointer-events-none select-none will-change-transform z-0"
+  >
+    <img 
+      src="/images/hero.jpg" 
+      alt="Pemandangan Jolotundo Glamping & Edupark Lereng Wilis Nganjuk" 
+      class="w-full h-full object-cover object-center brightness-[0.82] contrast-[1.05]"
+      loading="eager"
+    />
+    
+    <!-- Cinematic Gradients for razor-sharp typography readability -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Top Spacer for the floating navbar -->
+  <div class="relative z-10 w-full"></div>
+
+  <!-- Bottom Main Editorial Section -->
+  <div 
+    id="hero-content" 
+    class="relative z-10 w-full max-w-[1680px] mx-auto flex flex-col justify-end will-change-transform pb-2"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-end">
+      
+      <!-- Left Column: Eyebrow + Headline + CTA Buttons directly below -->
+      <div class="lg:col-span-8 xl:col-span-9 flex flex-col text-left">
+        <span class="text-xs sm:text-sm md:text-base font-medium tracking-wide text-white/80 mb-3.5 font-sans">
+          We are Jolotundo Glamping & Edupark
+        </span>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-extrabold tracking-tight text-white uppercase leading-[0.96] drop-shadow-lg">
+          HENINGNYA HUTAN PINUS,<br />
+          MEWAHNYA<br />
+          BERISTIRAHAT.
+        </h1>
+
+        <!-- Action Buttons Directly Under the Big Text -->
+        <div class="mt-7 flex flex-wrap items-center gap-3.5">
+          <a
+            href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20konsultasi%20paket%20glamping."}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-6 py-3 rounded-full bg-white text-[#111] hover:bg-[#d8c39e] hover:text-[#111] font-semibold text-xs md:text-sm tracking-wide transition-all duration-200 shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Reservasi Cepat
+          </a>
+          <a
+            href="#akomodasi"
+            class="px-5 py-3 rounded-full bg-black/40 hover:bg-black/60 text-white border border-white/20 font-medium text-xs md:text-sm tracking-wide backdrop-blur-md transition-all duration-200"
+          >
+            Lihat Tenda ↓
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Narrative Paragraph -->
+      <div class="lg:col-span-4 xl:col-span-3 flex flex-col lg:items-end text-left lg:text-left">
+        <p class="text-xs sm:text-sm md:text-[15px] text-white/85 max-w-md lg:max-w-xs leading-relaxed font-light">
+          Pionir destinasi ekowisata terpadu di lereng Gunung Wilis, Bajulan, Nganjuk. 
+          Menyajikan 7 ragam akomodasi tematik dari River Camp alami hingga kabin Deluxe berpendingin ruangan, 
+          lengkap dengan outbound korporat dan eduwisata berkelanjutan.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Ticker Line (Full Width Divider) -->
+    <div class="mt-10 pt-5 border-t border-white/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono-tag text-white/70 tracking-wider">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-white/90">Bajulan, Loceret, Nganjuk based</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-5 sm:gap-8 text-white/80 uppercase">
+        <span class="text-white/40">ELEV: ±800 MDPL</span>
+        <span class="text-white/40">EST. 2023</span>
+        <span class="text-emerald-300 font-semibold">BUKA 24 JAM</span>
+        <a href={"https://wa.me/" + siteData.brand.whatsapp} target="_blank" class="hover:text-white transition-colors underline decoration-white/40 underline-offset-4">
+          WHATSAPP ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Smooth Vanilla CSS/JS Parallax Sinking Engine (Hardware Accelerated GPU) -->
+<script is:inline>
+  const heroSection = document.getElementById('hero-section');
+  const heroBg = document.getElementById('hero-parallax-bg');
+  const heroContent = document.getElementById('hero-content');
+
+  let ticking = false;
+
+  function updateParallax() {
+    const scrollY = window.scrollY;
+    const heroHeight = heroSection ? heroSection.offsetHeight : 800;
+
+    if (scrollY <= heroHeight * 1.5) {
+      if (heroBg) {
+        heroBg.style.transform = "translate3d(0, " + (scrollY * 0.32) + "px, 0) scale(" + (1.02 + scrollY * 0.0002) + ")";
+      }
+
+      if (heroContent) {
+        const progress = Math.min(1, scrollY / (heroHeight * 0.75));
+        heroContent.style.transform = "translate3d(0, " + (scrollY * 0.65) + "px, 0)";
+        heroContent.style.opacity = Math.max(0, 1 - progress * 1.2).toString();
+        heroContent.style.filter = "blur(" + (progress * 10) + "px)";
+      }
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+</script>

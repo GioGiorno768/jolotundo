@@ -1,0 +1,33 @@
+---
+import siteData from '../data/siteData.json';
+---
+
+<header class="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+  <nav class="pointer-events-auto flex items-center justify-between px-6 py-3 rounded-2xl bg-[#141210]/90 backdrop-blur-xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.6)] w-full max-w-md transition-all duration-300">
+    
+    <!-- Left: Menu trigger / anchor -->
+    <a href="#akomodasi" class="text-[11px] font-mono-tag font-medium tracking-widest text-white/80 hover:text-white uppercase transition-colors">
+      MENU
+    </a>
+
+    <!-- Center: Brand name -->
+    <a href="#" class="flex flex-col items-center">
+      <span class="text-base font-bold tracking-tight text-white uppercase leading-none">
+        {siteData.brand.name}
+      </span>
+      <span class="text-[8px] tracking-[0.25em] text-[#d8c39e] uppercase font-mono-tag mt-0.5">
+        {siteData.brand.group}
+      </span>
+    </a>
+
+    <!-- Right: CTA action -->
+    <a
+      href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20reservasi."}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-[11px] font-mono-tag font-semibold tracking-wider text-[#d8c39e] hover:text-white transition-colors"
+    >
+      Plan a trip ↗
+    </a>
+  </nav>
+</header>
