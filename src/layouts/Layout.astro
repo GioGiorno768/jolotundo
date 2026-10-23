@@ -13,7 +13,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,6 +29,41 @@ const {
 	</head>
 	<body class="bg-[#0b130e] text-[#f3ede2] antialiased selection:bg-emerald-500 selection:text-white font-sans overflow-x-hidden">
 		<slot />
+
+		<!-- Lenis Ultra-Smooth Scroll Engine -->
+		<script>
+			import Lenis from 'lenis';
+			import 'lenis/dist/lenis.css';
+
+			// Konfigurasi "Butter Smooth" (Lerp interpolation ala studio kreatif Awwwards)
+			const lenis = new Lenis({
+				lerp: 0.065,         // Nilai lerp semakin kecil = semakin halus dan mengapung (floaty luxury glide)
+				wheelMultiplier: 0.85, // Menghilangkan loncatan kasar saat roda mouse diputar cepat
+				touchMultiplier: 1.4,
+				infinite: false,
+			});
+
+			// Simpan ke window agar sinkron frame-by-frame dengan animasi parallax
+			// @ts-ignore
+			window.__lenis = lenis;
+
+			function raf(time: number) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+			requestAnimationFrame(raf);
+
+			// Handle klik tombol anchor (#akomodasi, dll) agar meluncur sangat mulus
+			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener('click', function (e) {
+					const href = this.getAttribute('href');
+					if (href && href !== '#') {
+						e.preventDefault();
+						lenis.scrollTo(href, { offset: -20, duration: 1.8 });
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
 
@@ -42,5 +77,25 @@ const {
 	}
 	.font-mono-tag {
 		font-family: var(--font-mono);
+	}
+
+	/* Wajib untuk Lenis: matikan native scroll-behavior agar tidak bertabrakan */
+	html, body {
+		scroll-behavior: auto !important;
+	}
+	html.lenis, html.lenis body {
+		height: auto;
+	}
+	.lenis.lenis-smooth {
+		scroll-behavior: auto !important;
+	}
+	.lenis.lenis-smooth [data-lenis-prevent] {
+		overscroll-behavior: contain;
+	}
+	.lenis.lenis-stopped {
+		overflow: hidden;
+	}
+	.lenis.lenis-smooth iframe {
+		pointer-events: none;
 	}
 </style>

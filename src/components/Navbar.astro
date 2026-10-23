@@ -1,33 +1,190 @@
 ---
 import siteData from '../data/siteData.json';
+
+// Exact GoUncharted Menu Row Architecture
+const menuRows = [
+  { title: "Home", tag: "START HERE", href: "#hero-section" },
+  { title: "Akomodasi & Glamping", tag: "7 TIPE TENDA", href: "#akomodasi" },
+  { title: "Wahana & Rekreasi", tag: "ADVENTURE", href: "#wahana" },
+  { title: "Corporate Gathering", tag: "B2B & BUMN", href: "#b2b" },
+  { title: "Fasilitas & Resto", tag: "AMENITIES", href: "#fasilitas" },
+  { title: "Tentang Kami", tag: "DANGROUP", href: "#tentang" },
+  { title: "Lokasi & Rute", tag: "BAJULAN", href: "#lokasi" }
+];
 ---
 
 <header class="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-  <nav class="pointer-events-auto flex items-center justify-between px-6 py-3 rounded-2xl bg-[#141210]/90 backdrop-blur-xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.6)] w-full max-w-md transition-all duration-300">
-    
-    <!-- Left: Menu trigger / anchor -->
-    <a href="#akomodasi" class="text-[11px] font-mono-tag font-medium tracking-widest text-white/80 hover:text-white uppercase transition-colors">
-      MENU
-    </a>
+  <!-- 
+    The GoUncharted Expanding Pill Capsule:
+    - Collapsed: Sleek pill (height ~52px)
+    - Expanded: Morphs & expands downward seamlessly into the full editorial menu card!
+  -->
+  <div 
+    id="nav-pill-container"
+    class="pointer-events-auto w-full max-w-[564px] bg-[#141110]/90 backdrop-blur-2xl border border-white/20 shadow-[0_16px_50px_rgba(0,0,0,0.75)] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+  >
+    <!-- TOP ROW (Always visible: Menu Toggle | Brand | CTA) -->
+    <div class="flex items-center justify-between px-6 py-3.5 h-[54px] select-none">
+      
+      <!-- Left: Menu / Close Trigger -->
+      <button 
+        id="menu-toggle-btn"
+        type="button"
+        aria-expanded="false"
+        class="group flex items-center gap-1.5 text-xs font-mono-tag font-semibold tracking-widest text-white/80 hover:text-white uppercase transition-colors cursor-pointer"
+      >
+        <span id="menu-label-text">MENU</span>
+        <span id="menu-label-icon" class="text-white/40 group-hover:text-white transition-transform duration-300">↓</span>
+      </button>
 
-    <!-- Center: Brand name -->
-    <a href="#" class="flex flex-col items-center">
-      <span class="text-base font-bold tracking-tight text-white uppercase leading-none">
-        {siteData.brand.name}
-      </span>
-      <span class="text-[8px] tracking-[0.25em] text-[#d8c39e] uppercase font-mono-tag mt-0.5">
-        {siteData.brand.group}
-      </span>
-    </a>
+      <!-- Center: Brand Logo -->
+      <a href="#" class="flex flex-col items-center group">
+        <span class="text-base font-bold tracking-tight text-white uppercase leading-none group-hover:text-emerald-300 transition-colors font-sans">
+          {siteData.brand.name}
+        </span>
+        <span class="text-[8px] tracking-[0.25em] text-[#d8c39e] uppercase font-mono-tag mt-0.5">
+          {siteData.brand.group}
+        </span>
+      </a>
 
-    <!-- Right: CTA action -->
-    <a
-      href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20reservasi."}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-[11px] font-mono-tag font-semibold tracking-wider text-[#d8c39e] hover:text-white transition-colors"
+      <!-- Right: Direct Plan a Trip / WA Action -->
+      <a
+        href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20reservasi."}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-mono-tag font-semibold tracking-wider text-[#d8c39e] hover:text-white transition-colors"
+      >
+        Plan a trip ↗
+      </a>
+    </div>
+
+    <!-- EXPANDING BODY (GoUncharted Accordion Body with Menu Rows) -->
+    <div 
+      id="nav-expanded-body" 
+      class="grid grid-rows-[0fr] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0"
     >
-      Plan a trip ↗
-    </a>
-  </nav>
+      <div class="overflow-hidden">
+        
+        <!-- Menu Rows Stack (Border top on each row, Large Title + Monospace Tag on Right) -->
+        <nav class="flex flex-col px-6 pt-2 pb-4">
+          {menuRows.map((row) => (
+            <a
+              href={row.href}
+              class="menu-row-link group flex items-center justify-between py-4 border-t border-white/10 hover:border-[#d8c39e]/40 transition-colors"
+            >
+              <!-- Left: Big Editorial Title -->
+              <span class="text-lg sm:text-xl font-medium tracking-tight text-white/90 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-200">
+                {row.title}
+              </span>
+
+              <!-- Right: Monospace Metadata Tag -->
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono-tag text-[#d8c39e]/80 tracking-widest uppercase">
+                  {row.tag}
+                </span>
+                <span class="text-xs text-white/30 group-hover:text-[#d8c39e] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
+                  ↗
+                </span>
+              </div>
+            </a>
+          ))}
+        </nav>
+
+        <!-- Bottom CTA Area (GoUncharted Menu CTA) -->
+        <div class="px-6 pb-6 pt-2 border-t border-white/10 flex flex-col gap-3">
+          <a
+            href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20konsultasi%20paket%20glamping%20dan%20outbound."}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full py-3 rounded-xl bg-[#d8c39e] hover:bg-[#ebdcc4] text-[#141110] font-semibold text-xs tracking-wider uppercase font-mono-tag text-center transition-all duration-200 shadow-md hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+          >
+            <span>Reservasi via WhatsApp</span>
+            <span>↗</span>
+          </a>
+
+          <div class="flex items-center justify-between text-[10px] font-mono-tag text-white/50 px-1">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span>Bajulan, Loceret, Nganjuk</span>
+            </div>
+            <span class="text-emerald-300">BUKA 24 JAM</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </header>
+
+<!-- GoUncharted Morphing & Expanding Pill Logic -->
+<script is:inline>
+  const navContainer = document.getElementById('nav-pill-container');
+  const toggleBtn = document.getElementById('menu-toggle-btn');
+  const labelText = document.getElementById('menu-label-text');
+  const labelIcon = document.getElementById('menu-label-icon');
+  const expandedBody = document.getElementById('nav-expanded-body');
+  const links = document.querySelectorAll('.menu-row-link');
+
+  let isMenuOpen = false;
+
+  function setMenuState(open) {
+    isMenuOpen = open;
+    toggleBtn.setAttribute('aria-expanded', String(open));
+
+    if (open) {
+      // Expand the container down
+      expandedBody.classList.remove('grid-rows-[0fr]', 'opacity-0');
+      expandedBody.classList.add('grid-rows-[1fr]', 'opacity-100');
+      labelText.innerText = 'CLOSE';
+      labelIcon.innerText = '✕';
+      labelIcon.classList.add('text-[#d8c39e]', 'rotate-90');
+    } else {
+      // Collapse back into a sleek pill
+      expandedBody.classList.remove('grid-rows-[1fr]', 'opacity-100');
+      expandedBody.classList.add('grid-rows-[0fr]', 'opacity-0');
+      labelText.innerText = 'MENU';
+      labelIcon.innerText = '↓';
+      labelIcon.classList.remove('text-[#d8c39e]', 'rotate-90');
+    }
+  }
+
+  // Toggle on click
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setMenuState(!isMenuOpen);
+  });
+
+  // Smooth scroll with Lenis on link click
+  links.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      setMenuState(false);
+
+      if (targetId && targetId.startsWith('#')) {
+        e.preventDefault();
+        // @ts-ignore
+        const lenis = window.__lenis;
+        if (lenis && targetId !== '#') {
+          lenis.scrollTo(targetId, { offset: -30, duration: 1.6 });
+        } else if (targetId === '#hero-section' || targetId === '#') {
+          if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+        }
+      }
+    });
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isMenuOpen && !navContainer.contains(e.target)) {
+      setMenuState(false);
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) {
+      setMenuState(false);
+    }
+  });
+</script>

@@ -13,7 +13,7 @@ import siteData from '../data/siteData.json';
   >
     <img 
       src="/images/hero.jpg" 
-      alt="Pemandangan Jolotundo Glamping & Edupark Lereng Wilis Nganjuk" 
+      alt="Suasana Nyata River Camp & Hutan Pinus Jolotundo Glamping & Edupark di Tepi Sungai Alami Nganjuk" 
       class="w-full h-full object-cover object-center brightness-[0.82] contrast-[1.05]"
       loading="eager"
     />
@@ -40,9 +40,8 @@ import siteData from '../data/siteData.json';
         </span>
         
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4.2rem] 2xl:text-[4.8rem] font-extrabold tracking-tight text-white uppercase leading-[0.96] drop-shadow-lg">
-          HENINGNYA HUTAN PINUS,<br />
-          MEWAHNYA<br />
-          BERISTIRAHAT.
+          HENINGNYA HUTAN PINUS,
+          MEWAHNYA BERISTIRAHAT
         </h1>
 
         <!-- Action Buttons Directly Under the Big Text -->
@@ -51,13 +50,13 @@ import siteData from '../data/siteData.json';
             href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20konsultasi%20paket%20glamping."}
             target="_blank"
             rel="noopener noreferrer"
-            class="px-6 py-3 rounded-full bg-white text-[#111] hover:bg-[#d8c39e] hover:text-[#111] font-semibold text-xs md:text-sm tracking-wide transition-all duration-200 shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+            class="px-6 py-3 bg-white text-[#111] hover:bg-[#d8c39e] hover:text-[#111] font-semibold text-xs md:text-sm tracking-wide transition-all duration-200 shadow-lg hover:scale-[1.02] active:scale-[0.98]"
           >
             Reservasi Cepat
           </a>
           <a
             href="#akomodasi"
-            class="px-5 py-3 rounded-full bg-black/40 hover:bg-black/60 text-white border border-white/20 font-medium text-xs md:text-sm tracking-wide backdrop-blur-md transition-all duration-200"
+            class="px-5 py-3 bg-black/40 hover:bg-black/60 text-white border border-white/20 font-medium text-xs md:text-sm tracking-wide backdrop-blur-md transition-all duration-200"
           >
             Lihat Tenda ↓
           </a>
@@ -93,38 +92,52 @@ import siteData from '../data/siteData.json';
   </div>
 </section>
 
-<!-- Smooth Vanilla CSS/JS Parallax Sinking Engine (Hardware Accelerated GPU) -->
+<!-- Direct Lenis-Synced Parallax Engine for 100% Sub-Pixel Smoothness -->
 <script is:inline>
   const heroSection = document.getElementById('hero-section');
   const heroBg = document.getElementById('hero-parallax-bg');
   const heroContent = document.getElementById('hero-content');
 
-  let ticking = false;
-
-  function updateParallax() {
-    const scrollY = window.scrollY;
+  function renderParallax(scrollY) {
     const heroHeight = heroSection ? heroSection.offsetHeight : 800;
 
     if (scrollY <= heroHeight * 1.5) {
       if (heroBg) {
-        heroBg.style.transform = "translate3d(0, " + (scrollY * 0.32) + "px, 0) scale(" + (1.02 + scrollY * 0.0002) + ")";
+        heroBg.style.transform = "translate3d(0, " + (scrollY * 0.32).toFixed(2) + "px, 0) scale(" + (1.02 + scrollY * 0.0002).toFixed(4) + ")";
       }
 
       if (heroContent) {
         const progress = Math.min(1, scrollY / (heroHeight * 0.75));
-        heroContent.style.transform = "translate3d(0, " + (scrollY * 0.65) + "px, 0)";
-        heroContent.style.opacity = Math.max(0, 1 - progress * 1.2).toString();
-        heroContent.style.filter = "blur(" + (progress * 10) + "px)";
+        heroContent.style.transform = "translate3d(0, " + (scrollY * 0.65).toFixed(2) + "px, 0)";
+        heroContent.style.opacity = Math.max(0, 1 - progress * 1.2).toFixed(3);
+        heroContent.style.filter = "blur(" + (progress * 10).toFixed(1) + "px)";
       }
     }
-
-    ticking = false;
   }
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
+  // Cek apakah Lenis sudah siap di window, sync langsung dengan event scroll Lenis
+  function connectParallax() {
+    // @ts-ignore
+    const lenis = window.__lenis;
+    if (lenis && typeof lenis.on === 'function') {
+      lenis.on('scroll', (e) => {
+        renderParallax(e.scroll);
+      });
+    } else {
+      window.addEventListener('scroll', () => {
+        renderParallax(window.scrollY);
+      }, { passive: true });
     }
-  }, { passive: true });
+  }
+
+  // Polling halus sekali di awal untuk mengaitkan ke Lenis instance
+  const interval = setInterval(() => {
+    // @ts-ignore
+    if (window.__lenis) {
+      clearInterval(interval);
+      connectParallax();
+    }
+  }, 50);
+
+  setTimeout(() => clearInterval(interval), 2000);
 </script>
