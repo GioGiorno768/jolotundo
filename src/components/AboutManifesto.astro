@@ -1,169 +1,336 @@
 ---
 import siteData from '../data/siteData.json';
+import PartnerMarquee from './PartnerMarquee.astro';
 
-const pillars = [
+// Split kata untuk efek Scroll-Driven Scrollytelling Reveal (GoUncharted / Apple Keynote Style)
+const headlinePart1 = "Memadukan kemewahan menginap di alam dengan".split(" ");
+const headlinePart2 = "pengalaman edukasi interaktif dan pariwisata berkelanjutan.".split(" ");
+
+// Minimalist Editorial Stats (GoUncharted Typographic Style)
+const editorialStats = [
   {
     code: "01",
-    name: "Sustainability",
-    title: "Kelestarian Ekosistem",
-    desc: "Menjaga keasrian hutan pinus dan kejernihan mata air lereng Gunung Wilis dengan praktik ramah lingkungan."
+    tag: "TRANSFORMASI",
+    value: "2023",
+    unit: "",
+    label: "Tahun Berdiri",
+    desc: "Bermula dari 4 tenda konsolidasi internal Dan Group hingga bertransformasi menjadi kawasan ekowisata terpadu."
   },
   {
     code: "02",
-    name: "Empowerment",
-    title: "Pemberdayaan Desa",
-    desc: "Membuka lapangan kerja dan memajukan perekonomian warga lokal Desa Bajulan secara inklusif."
+    tag: "ELEVASI WILIS",
+    value: "±800",
+    unit: "MDPL",
+    label: "Udara Sejuk Pegunungan",
+    desc: "Kawasan hutan pinus alami berkabut dengan gemericik air sungai jernih di Dusun Plakat, Desa Bajulan."
   },
   {
     code: "03",
-    name: "Education",
-    title: "Ekowisata & Karakter",
-    desc: "Mengintegrasikan liburan alam dengan modul edukasi interaktif, outbound, dan pelestarian flora-fauna."
+    tag: "AKOMODASI",
+    value: "7",
+    unit: "Tipe",
+    label: "Koleksi Menginap",
+    desc: "Pilihan berjenjang dari Camping Ground alami, River Camp dek kayu, hingga kemewahan Deluxe Cabin AC."
   },
   {
     code: "04",
-    name: "Hospitality",
-    title: "Kebaruan Layanan",
-    desc: "Standarisasi kenyamanan akomodasi modern setara resor bintang lima di tengah ketenangan alam bebas."
+    tag: "PORTOFOLIO B2B",
+    value: "100+",
+    unit: "Instansi",
+    label: "Mitra Korporasi & BUMN",
+    desc: "Dipercaya BUMN, perbankan, dan korporat nasional sebagai destinasi resmi gathering, outbound, & rapat kerja."
   }
 ];
 
-const partners = [
-  "PERTAMINA",
-  "PT KERETA API INDONESIA",
-  "BANK MANDIRI",
-  "SEMEN INDONESIA (SIG)",
-  "PT INKA",
-  "PERUM BULOG",
-  "PEGADAIAN",
-  "BANK JATIM",
-  "YAMAHA MOTOR",
-  "RSUD DR. SOEGIRI",
-  "BKD TULUNGAGUNG"
-];
 ---
 
 <!-- 
-  SECTION 02: ABOUT & MANIFESTO (GoUncharted Editorial Style)
-  - Transisi dari Dark Hero menuju Warm Stone Canvas (#F5F1EA / #FAF7F0)
-  - Tipografi raksasa font-light dengan kontras charcoal (#141110)
-  - Partner Rail Marquee di bagian bawah
+  SECTION 02: ABOUT & MANIFESTO (GoUncharted Editorial Architecture)
+  - Warm Stone Editorial Canvas (#f5f1ea) with Deep Obsidian Typography (#141110)
+  - Scroll-Driven Word-by-Word Text Reveal (Tadinya samar -> Terang penuh seiring scroll)
+  - Clean & Breathable: Negative space, zero heavy box clutter
+  - Minimalist Editorial Stats Strip (4 Kolom Tipografi Raksasa)
+  - 100+ Corporate Partner Rail Marquee
 -->
 <section id="tentang" class="relative z-20 bg-[#f5f1ea] text-[#141110] py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20 transition-colors duration-300">
-  <div class="max-w-[1680px] mx-auto flex flex-col gap-20 sm:gap-28">
+  <div class="max-w-[1680px] mx-auto flex flex-col gap-16 sm:gap-24">
 
-    <!-- Top Eyebrow Tag -->
+    <!-- Top Eyebrow Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-8 border-b border-[#141110]/15 gap-4">
-      <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase">
-        <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-        <span>[ 01 // OUR MANIFESTO & PHILOSOPHY ]</span>
+      <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/80 tracking-widest uppercase">
+        <span class="w-2 h-2 rounded-full bg-emerald-700 animate-pulse"></span>
+        <span>[ 01 // COMPANY OVERVIEW & MANIFESTO ]</span>
       </div>
       <div class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
-        DANGROUP ECOSYSTEM • BAJULAN, NGANJUK
+        DAN GROUP ECOSYSTEM • BAJULAN, NGANJUK (±800 MDPL)
       </div>
     </div>
 
-    <!-- Main Statement Grid (Besar, Bold/Light, Editorial Lookbook) -->
+    <!-- Main Editorial Statement & Transformation Story -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       
-      <!-- Left Column: Big Lit Statement -->
+      <!-- Left Column: Big Typographic Statement with Word Reveal -->
       <div class="lg:col-span-8 flex flex-col">
-        <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.6rem] font-light tracking-[-0.03em] leading-[1.08] text-[#141110]">
-          Ketika gemercik air sungai alami, sejuknya pinus lereng Wilis, dan keheningan menyatu — <span class="font-bold text-emerald-950">di sanalah istirahat menemukan makna sesungguhnya.</span>
+        <h2 
+          id="manifesto-reveal-heading"
+          class="text-3xl sm:text-5xl md:text-6xl lg:text-[3.8rem] xl:text-[4.4rem] leading-[1.08] tracking-[-0.03em] text-[#141110]"
+        >
+          <span class="font-light">
+            {headlinePart1.map((word) => (
+              <span 
+                class="reveal-word inline-block mr-[0.24em] transition-opacity duration-150 ease-out will-change-[opacity]" 
+                style="opacity: 0.18;"
+              >
+                {word}
+              </span>
+            ))}
+          </span>
+          <span class="font-bold text-emerald-950">
+            {headlinePart2.map((word) => (
+              <span 
+                class="reveal-word inline-block mr-[0.24em] transition-opacity duration-150 ease-out will-change-[opacity]" 
+                style="opacity: 0.18;"
+              >
+                {word}
+              </span>
+            ))}
+          </span>
         </h2>
+
+        <!-- Milestone Callout Minimalist -->
+        <div class="mt-10 p-6 sm:p-7 bg-white/70 border border-[#141110]/10 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
+          <div class="flex items-start gap-4">
+            <span class="text-xs font-mono-tag px-3 py-1 uppercase tracking-wider font-semibold border border-[#141110]/20 text-[#141110]">
+              EST. 2023
+            </span>
+            <div class="text-xs sm:text-sm text-[#141110]/80 leading-relaxed font-light">
+              <strong class="font-semibold text-[#141110]">Tonggak Pencapaian:</strong> Bermula dari inisiatif 4 tenda internal Dan Group untuk gathering privat, kini berkembang menjadi destinasi ekowisata terpadu pionir di lereng Gunung Wilis.
+            </div>
+          </div>
+          <div class="shrink-0 text-xs font-mono-tag text-[#141110]/60 tracking-wider uppercase sm:text-right">
+            <span>DUSUN PLAKAT</span>
+            <span class="block text-[10px] text-[#141110]/45 mt-0.5 font-normal">BUKA SETIAP HARI • 09.00–22.00</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Right Column: Narrative Story & Transformation -->
+      <!-- Right Column: Narrative Story & Official Vision -->
       <div class="lg:col-span-4 flex flex-col justify-between h-full pt-2">
         <div class="space-y-5 text-sm sm:text-base text-[#141110]/80 font-light leading-relaxed">
           <p>
-            Banyak destinasi menawarkan sekadar tenda untuk bermalam. Di <strong>Jolotundo Glamping & Edupark</strong>, kami membangun ekosistem ekowisata terpadu yang dirancang dari hati.
+            <strong>Jolotundo Glamping & Edupark</strong>, bagian dari ekosistem bisnis <strong>Dan Group</strong>, adalah pelopor destinasi wisata terpadu di Kabupaten Nganjuk yang menghadirkan ruang di mana pengunjung dapat terhubung kembali dengan alam, mendalami budaya lokal, dan membangun kebersamaan.
           </p>
           <p>
-            Berawal dari 4 tenda konsolidasi internal <strong>DANGROUP</strong> untuk gathering privat, kawasan ini resmi bertransformasi pada 2023 menjadi pusat ekowisata alam, outbound korporat, edupark interaktif, serta penginapan tematik berkonsep keberlanjutan.
+            Didukung lanskap asri Desa Bajulan, kami merancang fasilitas glamping tematik, wahana petualangan seru, hingga program outbound korporat yang edukatif dan menumbuhkan karakter, dengan komitmen teguh terhadap <em>sustainable tourism</em>.
           </p>
         </div>
 
-        <!-- Read More Action / WA Link -->
-        <div class="pt-8">
+        <!-- Direct CTA to WA Booking & Profil -->
+        <div class="pt-8 lg:pb-4">
           <a
-            href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20tanya%20profil%20dan%20kunjungan."}
+            href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin konsultasi profil kawasan, reservasi glamping, dan paket outbound.")}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-3 text-xs sm:text-sm font-mono-tag font-semibold text-[#141110] hover:text-emerald-800 tracking-wider uppercase border-b-2 border-[#141110] pb-1 transition-all group"
+            class="inline-flex items-center gap-3 text-xs sm:text-sm font-mono-tag font-semibold text-[#141110] hover:text-emerald-900 tracking-wider uppercase border-b-2 border-[#141110] pb-1 transition-all group"
           >
-            <span>Pelajari Selengkapnya</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
+            <span>Konsultasi Reservasi & Outbound</span>
+            <span class="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Four Pillars Grid (GoUncharted Feature Stack) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-[#141110]/15">
-      {pillars.map((pillar) => (
-        <div class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white/60 border border-[#141110]/10 hover:border-[#141110]/30 transition-all duration-300 hover:shadow-lg group">
+    <!-- Editorial Key Metrics / Clean Stats Strip (Clean GoUncharted Architecture) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pt-12 border-t border-[#141110]/15">
+      {editorialStats.map((stat) => (
+        <div class="stat-card flex flex-col justify-between group cursor-pointer">
           <div>
-            <div class="flex items-center justify-between text-xs font-mono-tag text-[#141110]/60 mb-6">
-              <span>[ {pillar.code} ]</span>
-              <span class="text-[10px] uppercase tracking-widest text-emerald-800 font-semibold">{pillar.name}</span>
+            <div class="text-[11px] font-mono-tag text-[#141110]/50 uppercase tracking-widest mb-4">
+              [ {stat.code} // {stat.tag} ]
             </div>
-            <h3 class="text-xl font-bold text-[#141110] mb-2.5 tracking-tight group-hover:text-emerald-900 transition-colors">
-              {pillar.title}
+            
+            <div class="flex items-baseline gap-2 mb-2">
+              <span 
+                class="scramble-stat text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#141110] font-sans group-hover:text-emerald-950 transition-colors inline-block tabular-nums min-w-[2ch]"
+                data-scramble={stat.value}
+              >
+                {stat.value}
+              </span>
+              {stat.unit && (
+                <span class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider font-semibold">
+                  {stat.unit}
+                </span>
+              )}
+            </div>
+
+            <h3 class="text-xs font-mono-tag font-semibold text-[#141110] uppercase tracking-wider mb-2">
+              {stat.label}
             </h3>
+
             <p class="text-xs sm:text-sm text-[#141110]/70 leading-relaxed font-light">
-              {pillar.desc}
+              {stat.desc}
             </p>
           </div>
-          <div class="mt-8 pt-4 border-t border-[#141110]/10 flex justify-end">
-            <span class="text-xs font-mono-tag text-[#141110]/40 group-hover:text-[#141110] transition-colors">↗</span>
+
+          <div class="mt-6 pt-3 border-t border-[#141110]/10 flex items-center justify-between text-[11px] font-mono-tag text-[#141110]/40">
+            <span>OFFICIAL DATA</span>
+            <span class="group-hover:text-emerald-800 group-hover:translate-x-0.5 transition-transform">→</span>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Partner Rail Marquee (Koleksi 50+ Klien BUMN & Korporat) -->
+    <!-- Partner Rail Marquee (Koleksi 100+ Klien BUMN & Korporat dari Slide 20) -->
     <div class="pt-8 border-t border-[#141110]/15 flex flex-col gap-6">
-      <div class="flex items-center justify-between text-xs font-mono-tag text-[#141110]/60 tracking-wider uppercase">
-        <span>[ DIPERCAYA OLEH 50+ INSTANSI BUMN & KORPORAT NASIONAL ]</span>
-        <span class="hidden sm:inline">OFFICIAL GATHERING PARTNER</span>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono-tag text-[#141110]/70 tracking-wider uppercase gap-2">
+        <span class="font-semibold text-[#141110]">
+          [ DIPERCAYA OLEH 100+ INSTANSI BUMN, PERBANKAN & KORPORASI NASIONAL ]
+        </span>
+        <span class="text-[#141110]/50">OFFICIAL GATHERING & OUTBOUND PARTNER</span>
       </div>
 
-      <!-- Marquee Strip with Vanilla CSS infinite scroll -->
-      <div class="relative w-full overflow-hidden py-4 border-y border-[#141110]/10">
-        <div class="marquee-track flex items-center gap-12 whitespace-nowrap">
-          {partners.concat(partners).map((partner) => (
-            <div class="flex items-center gap-12">
-              <span class="text-base sm:text-lg font-bold font-mono-tag tracking-wider text-[#141110]/80 hover:text-[#141110] transition-colors">
-                {partner}
-              </span>
-              <span class="text-[#141110]/30 text-xs">•</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <!-- Vector SVG Logo Marquee Component -->
+      <PartnerMarquee />
     </div>
 
   </div>
 </section>
 
-<style>
-  @keyframes marquee {
-    0% {
-      transform: translateX(0%);
+<!-- Scrollytelling Script: Word-by-Word Smooth Opacity Reveal synced with Lenis -->
+<script>
+  function initScrollTextReveal() {
+    const heading = document.getElementById('manifesto-reveal-heading');
+    if (!heading) return;
+
+    const words = heading.querySelectorAll<HTMLElement>('.reveal-word');
+    if (!words || words.length === 0) return;
+
+    const totalWords = words.length;
+
+    const updateWords = () => {
+      const rect = heading.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Mulai menyala saat heading berada di 82% viewport (mulai masuk dari bawah)
+      // Menyala penuh 100% saat berada di 36% viewport (posisi nyaman membaca)
+      const startTrigger = viewportHeight * 0.82;
+      const endTrigger = viewportHeight * 0.36;
+
+      const rawProgress = (startTrigger - rect.top) / (startTrigger - endTrigger);
+      const overallProgress = Math.max(0, Math.min(1, rawProgress));
+
+      words.forEach((word, idx) => {
+        // Rentang progres untuk tiap kata (staggered threshold)
+        const wordStart = idx / totalWords;
+        const wordEnd = (idx + 1) / totalWords;
+
+        // Kurva progress halus antar kata
+        const wordProgress = Math.max(0, Math.min(1, (overallProgress - wordStart) / (wordEnd - wordStart)));
+
+        // Interpolasi: dari samar (0.18) menuju terang penuh (1.0)
+        const opacity = 0.18 + wordProgress * 0.82;
+        word.style.opacity = opacity.toFixed(3);
+      });
+    };
+
+    // Sambungkan ke native scroll & event scroll Lenis
+    window.addEventListener('scroll', updateWords, { passive: true });
+    window.addEventListener('resize', updateWords, { passive: true });
+
+    const globalLenis = (window as unknown as { __lenis?: { on: (event: string, cb: () => void) => void } }).__lenis;
+    if (globalLenis && typeof globalLenis.on === 'function') {
+      globalLenis.on('scroll', updateWords);
     }
-    100% {
-      transform: translateX(-50%);
-    }
+
+    updateWords();
   }
 
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee 35s linear infinite;
+  // --- Scramble Text Decryption Effect untuk Stats Angka ---
+  function initScrambleStats() {
+    const statElements = document.querySelectorAll<HTMLElement>('.scramble-stat');
+    if (!statElements || statElements.length === 0) return;
+
+    const chars = "0123456789#%*+=-";
+
+    function scramble(el: HTMLElement, duration = 750) {
+      const target = el.dataset.scramble || el.textContent || "";
+      if (!target) return;
+
+      const length = target.length;
+      const fps = 30;
+      const totalFrames = Math.max(12, Math.round((duration / 1000) * fps));
+      let frame = 0;
+
+      // Hentikan timer sebelumnya jika ada
+      const activeTimer = (el as any).__scrambleTimer;
+      if (activeTimer) {
+        clearInterval(activeTimer);
+      }
+
+      const timer = setInterval(() => {
+        frame++;
+        const progress = frame / totalFrames;
+
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          // Ambang batas kapan karakter asli mengunci (lock-in)
+          const charThreshold = (i + 1) / (length + 0.4);
+          if (progress >= charThreshold) {
+            result += target[i];
+          } else {
+            result += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+
+        el.textContent = result;
+
+        if (frame >= totalFrames) {
+          clearInterval(timer);
+          (el as any).__scrambleTimer = null;
+          el.textContent = target;
+        }
+      }, 1000 / fps);
+
+      (el as any).__scrambleTimer = timer;
+    }
+
+    // Observer saat elemen masuk ke layar (enter screen)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          scramble(el, 800);
+          observer.unobserve(el);
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    statElements.forEach((el) => {
+      observer.observe(el);
+
+      // Re-trigger scramble saat kolom di-hover pengunjung
+      const parentCard = el.closest<HTMLElement>('.stat-card');
+      if (parentCard) {
+        parentCard.addEventListener('mouseenter', () => {
+          scramble(el, 480);
+        });
+      }
+    });
   }
 
-  .marquee-track:hover {
-    animation-play-state: paused;
+  function setupAboutManifesto() {
+    initScrollTextReveal();
+    initScrambleStats();
   }
-</style>
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAboutManifesto);
+  } else {
+    setupAboutManifesto();
+  }
+</script>
+
+

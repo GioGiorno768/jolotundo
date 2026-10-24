@@ -2,35 +2,99 @@
   "brand": {
     "name": "Jolotundo",
     "fullName": "Jolotundo Glamping & Edupark",
-    "group": "DANGROUP",
-    "tagline": "Heningnya Hutan Pinus, Mewahnya Beristirahat.",
-    "subHeadline": "Destinasi ekowisata terpadu pionir di lereng Gunung Wilis. Menghadirkan harmoni alam terbuka, kemewahan glamping tematik, outbound korporat, dan eduwisata berkelanjutan.",
+    "group": "Dan Group",
+    "tagline": "Where Nature Meets Elegance — Heningnya Hutan Pinus, Mewahnya Beristirahat.",
+    "subHeadline": "Pelopor destinasi ekowisata terpadu di lereng Gunung Wilis, Bajulan, Nganjuk. Menghadirkan harmoni alam terbuka, kemewahan glamping tematik, outbound korporat, dan eduwisata berkelanjutan.",
     "coordinates": "07°42'S 111°54'E",
     "elevation": "±800 MDPL",
     "est": "EST. 2023",
-    "status": "BUKA SETIAP HARI (24 JAM)",
+    "status": "BUKA SETIAP HARI",
+    "openingHours": {
+      "weekday": "Senin – Kamis: 09.00 – 20.00 WIB",
+      "weekend": "Jumat – Minggu: 09.00 – 22.00 WIB",
+      "summary": "Sen–Kam 09.00–20.00 | Jum–Min 09.00–22.00 WIB",
+      "schedule": [
+        { "days": "Senin – Kamis", "hours": "09.00 – 20.00 WIB" },
+        { "days": "Jumat – Minggu", "hours": "09.00 – 22.00 WIB" }
+      ]
+    },
     "location": "Dusun Plakat, Desa Bajulan, Kec. Loceret, Kab. Nganjuk, Jawa Timur 64471",
-    "whatsapp": "6282249828998",
+    "whatsapp": "6282249829998",
     "email": "jolotundoedupark@gmail.com"
   },
   "heroStats": [
     {
       "code": "01",
       "label": "TIPE AKOMODASI",
-      "value": "7 Pilihan",
-      "desc": "Dari Camping Ground s/d Deluxe Cabin AC"
+      "value": "7 Kategori",
+      "desc": "Dari Camping Ground murni hingga Deluxe Cabin AC"
     },
     {
       "code": "02",
       "label": "PORTOFOLIO B2B",
-      "value": "50+ Mitra",
-      "desc": "Pertamina, KAI, Mandiri, SIG, INKA & BUMN"
+      "value": "100+ Mitra",
+      "desc": "Pertamina, PLN, KAI, Mandiri, SIG, INKA & BUMN"
     },
     {
       "code": "03",
       "label": "WANA WISATA",
       "value": "All-in-One",
-      "desc": "ATV, Jeep Offroad, Berkuda & Edupark"
+      "desc": "ATV, Jeep Offroad, Berkuda & Mini Zoo"
     }
+  ],
+  "values": [
+    {
+      "code": "01",
+      "name": "Sustainability",
+      "title": "Kelestarian Ekosistem",
+      "desc": "Kami berkomitmen untuk menjaga kelestarian alam dengan menerapkan praktik ramah lingkungan di setiap aspek operasional demi ekosistem dan generasi mendatang."
+    },
+    {
+      "code": "02",
+      "name": "Environmental Education",
+      "title": "Edukasi Lingkungan",
+      "desc": "Kami percaya pemahaman mendalam tentang alam adalah kunci pelestarian. Melalui program edukatif yang interaktif, kami menginspirasi tamu untuk mencintai dan melindungi alam."
+    },
+    {
+      "code": "03",
+      "name": "Community Empowerment",
+      "title": "Pemberdayaan Komunitas",
+      "desc": "Kami tumbuh bersama masyarakat lokal Desa Bajulan melalui peluang kerja, kemitraan usaha, dan pelestarian budaya kearifan lokal."
+    },
+    {
+      "code": "04",
+      "name": "Innovation",
+      "title": "Inovasi Berkelanjutan",
+      "desc": "Kami tidak pernah berhenti meneliti dan mengembangkan pengalaman baru yang relevan dengan tren pariwisata modern dan kenyamanan pengunjung."
+    }
+  ],
+  "whyUs": [
+    {
+      "code": "01",
+      "title": "Natural Location",
+      "desc": "Kawasan lereng Gunung Wilis yang masih asri di tengah hutan pinus dan mata air alami. Tenang, sejuk, namun tetap mudah dijangkau."
+    },
+    {
+      "code": "02",
+      "title": "All-in-One Destination",
+      "desc": "Integrasi 7 tipe glamping, cafe & kuliner pegunungan, aula meeting, wahana petualangan (ATV & Jeep Offroad), hingga wisata edukasi keluarga (Mini Zoo)."
+    },
+    {
+      "code": "03",
+      "title": "Customization Program",
+      "desc": "Tim kami siap merancang program gathering, team building, dan outbound yang disesuaikan secara spesifik dengan kebutuhan korporasi Anda."
+    },
+    {
+      "code": "04",
+      "title": "Eco-Friendly Practices",
+      "desc": "Prinsip sustainable tourism yang menjaga harmoni ekosistem lokal dan memberikan dampak sosial-ekonomi positif bagi warga Bajulan."
+    }
+  ],
+  "vision": "Menjadi destinasi glamping dan eduwisata terkemuka di Indonesia yang menginspirasi gaya hidup selaras dengan alam, mempromosikan kelestarian lingkungan berkelanjutan, dan memberikan pengalaman liburan yang bermakna.",
+  "mission": [
+    "Menyediakan fasilitas glamping yang mengutamakan kenyamanan, keamanan, dan kehangatan pelayanan.",
+    "Menyelenggarakan program edupark dan aktivitas outbound yang interaktif, edukatif, dan membangun karakter.",
+    "Menerapkan praktik ramah lingkungan dalam setiap aspek operasional untuk menjaga kelestarian ekosistem lokal.",
+    "Mengangkat kearifan lokal Nganjuk dan tumbuh bersama masyarakat sekitar melalui kolaborasi dan penciptaan nilai ekonomi."
   ]
 }

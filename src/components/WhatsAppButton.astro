@@ -1,0 +1,169 @@
+---
+import siteData from '../data/siteData.json';
+
+interface Props {
+  phone?: string;
+  message?: string;
+}
+
+const { 
+  phone = siteData.brand.whatsapp || "6282249828998",
+  message = "Halo Jolotundo Glamping & Edupark, saya tertarik untuk reservasi dan menanyakan informasi layanan."
+} = Astro.props;
+
+const waUrl = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
+---
+
+<!-- Floating WhatsApp Container (Hidden on Hero, fades in afterwards) -->
+<div 
+  id="wa-floating-container"
+  class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0 scale-75 translate-y-6"
+>
+  <!-- Magnetic Interactive Hitbox Wrapper -->
+  <div id="wa-magnetic-wrapper" class="relative p-2 pointer-events-auto">
+    <a
+      id="wa-magnetic-btn"
+      href={waUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat WhatsApp Jolotundo Glamping & Edupark"
+      class="group relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-black mix-blend-difference shadow-2xl cursor-pointer will-change-transform select-none"
+      style="mix-blend-mode: difference;"
+    >
+      <!-- Fluid Pulse Outer Ring -->
+      <span 
+        class="absolute -inset-1.5 rounded-full border border-current opacity-25 group-hover:scale-125 group-hover:opacity-40 transition-all duration-700 ease-out pointer-events-none"
+      ></span>
+
+      <!-- Magnetic WhatsApp Icon -->
+      <span 
+        id="wa-magnetic-icon" 
+        class="relative z-10 flex items-center justify-center will-change-transform pointer-events-none transition-transform duration-75 ease-out"
+      >
+        <svg 
+          class="w-7 h-7 md:w-8 md:h-8 fill-current" 
+          viewBox="0 0 24 24" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 0 0 1.333 4.993L2 22l5.233-1.237a9.994 9.994 0 0 0 4.779 1.217h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.935 9.935 0 0 0 12.012 2zm0 18.291h-.003a8.318 8.318 0 0 1-4.24-1.155l-.304-.18-3.15.746.758-3.072-.198-.315a8.272 8.272 0 0 1-1.268-4.331c.001-4.577 3.731-8.303 8.31-8.303 2.217 0 4.301.864 5.87 2.434a8.27 8.27 0 0 1 2.43 5.872c-.001 4.577-3.731 8.304-8.304 8.304zm4.557-6.222c-.25-.125-1.478-.729-1.707-.812-.229-.083-.396-.125-.562.125-.166.25-.646.812-.792.979-.146.166-.292.187-.542.062-.25-.125-1.054-.388-2.008-1.238-.743-.662-1.245-1.48-1.391-1.73-.146-.25-.016-.385.109-.51.112-.112.25-.292.375-.438.125-.146.166-.25.25-.417.083-.166.042-.312-.021-.437-.062-.125-.562-1.354-.771-1.854-.203-.488-.41-.422-.563-.43-.145-.008-.312-.01-.479-.01-.167 0-.437.063-.666.313-.229.25-.875.854-.875 2.083 0 1.229.896 2.417 1.021 2.583.125.167 1.762 2.69 4.269 3.771.596.257 1.062.411 1.425.526.6.19 1.146.163 1.578.1.481-.07 1.478-.604 1.687-1.188.208-.583.208-1.083.146-1.188-.063-.104-.229-.167-.479-.292z"/>
+        </svg>
+      </span>
+    </a>
+  </div>
+</div>
+
+<script>
+  function initMagneticWhatsApp() {
+    const container = document.getElementById('wa-floating-container');
+    const wrapper = document.getElementById('wa-magnetic-wrapper');
+    const btn = document.getElementById('wa-magnetic-btn');
+    const icon = document.getElementById('wa-magnetic-icon');
+    const heroSection = document.getElementById('hero-section');
+
+    if (!container || !wrapper || !btn || !icon) return;
+
+    // --- 1. Scroll Visibility Trigger (Lewat Hero) ---
+    const checkScroll = () => {
+      if (!container) return;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const threshold = heroSection ? (heroSection.offsetTop + heroSection.offsetHeight * 0.7) : 500;
+
+      if (scrollY > threshold) {
+        container.classList.remove('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
+        container.classList.add('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        container.classList.add('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
+        container.classList.remove('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    };
+
+    // Sambungkan ke event scroll native & Lenis
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    
+    // Type-safe access ke instance Lenis global
+    const globalLenis = (window as unknown as { __lenis?: { on: (event: string, cb: () => void) => void } }).__lenis;
+    if (globalLenis && typeof globalLenis.on === 'function') {
+      globalLenis.on('scroll', checkScroll);
+    }
+    checkScroll();
+
+    // --- 2. Magnetic Fluid Cursor Pull Effect ---
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let iconCurrentX = 0;
+    let iconCurrentY = 0;
+    let isHovered = false;
+    let animId: number | null = null;
+
+    const renderMagnetic = () => {
+      if (!btn || !icon) return;
+
+      // Lerp interpolasi untuk sensasi elastis / fluida
+      currentX += (targetX - currentX) * 0.2;
+      currentY += (targetY - currentY) * 0.2;
+
+      // Icon bergeser lebih jauh (parallax depth 3D fluid)
+      iconCurrentX += (targetX * 1 - iconCurrentX) * 0.25;
+      iconCurrentY += (targetY * 1 - iconCurrentY) * 0.25;
+
+      if (isHovered) {
+        btn.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(1.1)`;
+        icon.style.transform = `translate3d(${iconCurrentX.toFixed(2)}px, ${iconCurrentY.toFixed(2)}px, 0)`;
+        animId = requestAnimationFrame(renderMagnetic);
+      } else {
+        // Return spring ke posisi semula
+        currentX += (0 - currentX) * 0.15;
+        currentY += (0 - currentY) * 0.15;
+        iconCurrentX += (0 - iconCurrentX) * 0.15;
+        iconCurrentY += (0 - iconCurrentY) * 0.15;
+
+        btn.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(1)`;
+        icon.style.transform = `translate3d(${iconCurrentX.toFixed(2)}px, ${iconCurrentY.toFixed(2)}px, 0)`;
+
+        if (Math.abs(currentX) > 0.05 || Math.abs(currentY) > 0.05) {
+          animId = requestAnimationFrame(renderMagnetic);
+        } else {
+          btn.style.transform = '';
+          icon.style.transform = '';
+          animId = null;
+        }
+      }
+    };
+
+    wrapper.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+
+      // Batasi tarikan magnet maksimal 22px agar tetap elegan & fluid
+      const maxPull = 22;
+      targetX = Math.max(-maxPull, Math.min(maxPull, deltaX * 0.45));
+      targetY = Math.max(-maxPull, Math.min(maxPull, deltaY * 0.45));
+
+      if (!isHovered) {
+        isHovered = true;
+        if (!animId) animId = requestAnimationFrame(renderMagnetic);
+      }
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      isHovered = false;
+      targetX = 0;
+      targetY = 0;
+      if (!animId) animId = requestAnimationFrame(renderMagnetic);
+    });
+  }
+
+  // Jalankan saat DOM siap atau setelah navigasi
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMagneticWhatsApp);
+  } else {
+    initMagneticWhatsApp();
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 interface Props {
 	title?: string;
@@ -29,6 +30,7 @@ const {
 	</head>
 	<body class="bg-[#0b130e] text-[#f3ede2] antialiased selection:bg-emerald-500 selection:text-white font-sans overflow-x-hidden">
 		<slot />
+		<WhatsAppButton />
 
 		<!-- Lenis Ultra-Smooth Scroll Engine -->
 		<script>
@@ -54,9 +56,9 @@ const {
 			requestAnimationFrame(raf);
 
 			// Handle klik tombol anchor (#akomodasi, dll) agar meluncur sangat mulus
-			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-				anchor.addEventListener('click', function (e) {
-					const href = this.getAttribute('href');
+			document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener('click', (e) => {
+					const href = anchor.getAttribute('href');
 					if (href && href !== '#') {
 						e.preventDefault();
 						lenis.scrollTo(href, { offset: -20, duration: 1.8 });

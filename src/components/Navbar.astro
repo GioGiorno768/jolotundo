@@ -38,7 +38,7 @@ const menuRows = [
       </button>
 
       <!-- Center: Brand Logo -->
-      <a href="#" class="flex flex-col items-center group">
+      <a href="/" class="flex flex-col items-center group">
         <span class="text-base font-bold tracking-tight text-white uppercase leading-none group-hover:text-emerald-300 transition-colors font-sans">
           {siteData.brand.name}
         </span>
@@ -96,7 +96,7 @@ const menuRows = [
             href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20konsultasi%20paket%20glamping%20dan%20outbound."}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full py-3 rounded-xl bg-[#d8c39e] hover:bg-[#ebdcc4] text-[#141110] font-semibold text-xs tracking-wider uppercase font-mono-tag text-center transition-all duration-200 shadow-md hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+            class="w-full py-3 bg-[#d8c39e] hover:bg-[#ebdcc4] text-[#141110] font-semibold text-xs tracking-wider uppercase font-mono-tag text-center transition-all duration-200 shadow-md hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
           >
             <span>Reservasi via WhatsApp</span>
             <span>↗</span>
@@ -107,7 +107,7 @@ const menuRows = [
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               <span>Bajulan, Loceret, Nganjuk</span>
             </div>
-            <span class="text-emerald-300">BUKA 24 JAM</span>
+            <span class="text-emerald-300">SEN–KAM 09.00–20.00 | JUM–MIN 09.00–22.00</span>
           </div>
         </div>
 
@@ -155,21 +155,37 @@ const menuRows = [
     setMenuState(!isMenuOpen);
   });
 
-  // Smooth scroll with Lenis on link click
+  // Smooth scroll with Lenis on link click (handles multi-page vs same-page anchors)
   links.forEach(link => {
     link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
+      const targetHref = this.getAttribute('href');
       setMenuState(false);
 
-      if (targetId && targetId.startsWith('#')) {
+      if (!targetHref) return;
+
+      const isHome = window.location.pathname === '/' || window.location.pathname === '';
+
+      if (targetHref.startsWith('#') || targetHref.startsWith('/#')) {
+        e.preventDefault();
+        const hash = targetHref.replace('/', '');
+        // @ts-ignore
+        const lenis = window.__lenis;
+        if (lenis) {
+          if (hash === '#hero-section' || hash === '#') {
+            lenis.scrollTo(0, { duration: 1.6 });
+          } else {
+            lenis.scrollTo(hash, { offset: -30, duration: 1.6 });
+          }
+        } else {
+          const el = document.querySelector(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (isHome && targetHref === '/') {
         e.preventDefault();
         // @ts-ignore
         const lenis = window.__lenis;
-        if (lenis && targetId !== '#') {
-          lenis.scrollTo(targetId, { offset: -30, duration: 1.6 });
-        } else if (targetId === '#hero-section' || targetId === '#') {
-          if (lenis) lenis.scrollTo(0, { duration: 1.6 });
-        }
+        if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   });

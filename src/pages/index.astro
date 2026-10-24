@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import AboutManifesto from '../components/AboutManifesto.astro';
+import AccommodationTeaser from '../components/AccommodationTeaser.astro';
 ---
 
 <Layout title="Jolotundo Glamping & Edupark — Ekowisata Pegunungan Nganjuk">
@@ -13,48 +14,10 @@ import AboutManifesto from '../components/AboutManifesto.astro';
 		<!-- Hero Section with Sinking Parallax -->
 		<Hero />
 
-		<!-- Section 02: About & Manifesto (GoUncharted Editorial Style + BUMN Partner Rail) -->
+		<!-- Section 01: About & Manifesto (GoUncharted Editorial Style + BUMN Partner Rail) -->
 		<AboutManifesto />
 
-		<!-- Section 03: Koleksi Akomodasi & Glamping -->
-		<section id="akomodasi" class="relative z-20 bg-[#0b130e] text-[#f4efe6] border-t border-white/10 py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20">
-			<div class="max-w-[1680px] mx-auto">
-				<!-- Section Header GoUncharted Style -->
-				<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-white/10">
-					<div>
-						<div class="text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase mb-3">
-							[ 02 // PORTFOLIO AKOMODASI ]
-						</div>
-						<h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase">
-							7 Kategori Menginap
-						</h2>
-					</div>
-					<p class="text-sm sm:text-base text-white/70 max-w-lg font-light leading-relaxed">
-						Dari sensasi back-to-nature murni di pinggir sungai berbatu hingga kemewahan kabin berpendingin udara di tengah sejuknya lereng bukit pinus.
-					</p>
-				</div>
-
-				<!-- Bento Grid Preview -->
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-					<div class="p-8 rounded-3xl bg-[#141210] border border-white/10 hover:border-[#d8c39e]/50 transition-all duration-300">
-						<span class="text-xs font-mono-tag text-[#d8c39e]">[ TIER 01 ]</span>
-						<h3 class="text-xl font-bold text-white mt-3">Rustic & Back to Nature</h3>
-						<p class="text-xs text-white/60 mt-2 leading-relaxed">Camping Ground & Pinus Camp. Sensasi hutan pinus murni dan area api unggun terpusat.</p>
-					</div>
-
-					<div class="p-8 rounded-3xl bg-[#141210] border border-white/10 hover:border-[#d8c39e]/50 transition-all duration-300">
-						<span class="text-xs font-mono-tag text-[#d8c39e]">[ TIER 02 ]</span>
-						<h3 class="text-xl font-bold text-white mt-3">Experiential Glamping</h3>
-						<p class="text-xs text-white/60 mt-2 leading-relaxed">River Camp, Korean Glamping, & Indian Camp. Gemercik suara sungai dan estetika kekinian.</p>
-					</div>
-
-					<div class="p-8 rounded-3xl bg-[#141210] border border-white/10 hover:border-[#d8c39e]/50 transition-all duration-300">
-						<span class="text-xs font-mono-tag text-[#d8c39e]">[ TIER 03 ]</span>
-						<h3 class="text-xl font-bold text-white mt-3">Premium Hospitality</h3>
-						<p class="text-xs text-white/60 mt-2 leading-relaxed">Superior Camp & Deluxe Camp. Kabin kayu kokoh ber-AC, kamar mandi dalam modern, & Smart TV.</p>
-					</div>
-				</div>
-			</div>
-		</section>
+		<!-- Section 02: Koleksi Akomodasi Unggulan & CTA Lihat Seluruh Akomodasi -->
+		<AccommodationTeaser />
 	</main>
 </Layout>
