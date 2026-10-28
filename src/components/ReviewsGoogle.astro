@@ -1,0 +1,395 @@
+---
+import reviews from '../data/reviews.json';
+import siteData from '../data/siteData.json';
+
+const googleMapsUrl = "https://maps.google.com/?q=Jolotundo+Glamping+and+Edupark+Bajulan+Nganjuk";
+
+// Split reviews into two distinct sets
+const row1 = reviews.slice(0, 4);
+const row2 = reviews.slice(4, 8);
+---
+
+<!-- 
+  SECTION 05 // ULASAN PENGUNJUNG (Interactive Draggable Marquee Architecture)
+  - Dark Mode Luxury Obsidian Background (#12100e)
+  - Interactive Grabbable & Swipeable Infinite Marquee (Drag Left/Right with Mouse or Touch)
+  - Resumes auto-scrolling automatically when unhovered / untouched
+  - Mobile Optimized: Generous top clearance, responsive card width, zero text-wrapping glitches
+  - Official Google Maps Verified Rating (4.9 / 5.0 from 1.450+ Reviews)
+-->
+<section id="ulasan" class="relative z-20 bg-[#12100e] text-[#f5f1ea] border-t border-white/10 pt-28 pb-20 sm:pt-32 sm:pb-28 overflow-hidden select-none">
+  
+  <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 flex flex-col gap-8 sm:gap-12">
+
+    <!-- Section Header (Editorial Monospace + Bold Sans + Google Maps Badge) -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/10">
+      <div>
+        <div class="flex items-center gap-2 text-[11px] sm:text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase mb-2.5">
+          <span class="w-1.5 h-1.5 bg-[#d8c39e]"></span>
+          <span>[ 05 // ULASAN PENGUNJUNG ]</span>
+          <span>•</span>
+          <span>GOOGLE MAPS 4.9 ★ VERIFIED</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase leading-none font-sans">
+          Kata Mereka
+        </h2>
+      </div>
+
+      <!-- Right Google Maps Verified Summary Pill (Responsive Mobile-Friendly) -->
+      <div class="flex items-center justify-between sm:justify-start gap-4 bg-[#181513] border border-white/15 px-4 py-2.5 sm:px-5 sm:py-3 self-start lg:self-auto shadow-xl w-full sm:w-auto">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 bg-white flex items-center justify-center shrink-0 border border-white/20">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm sm:text-base font-bold text-white font-sans leading-none">4.9</span>
+              <div class="flex items-center gap-0.5 text-amber-400 text-[11px] sm:text-xs">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono-tag text-white/60 uppercase tracking-wider mt-0.5">
+              1.450+ Ulasan Nyata
+            </span>
+          </div>
+        </div>
+
+        <div class="w-[1px] h-6 bg-white/15 mx-1 hidden sm:block"></div>
+
+        <a 
+          href={googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-[11px] sm:text-xs font-mono-tag font-bold uppercase tracking-wider text-[#d8c39e] hover:text-white transition-colors underline underline-offset-4 decoration-[#d8c39e]/40 hover:decoration-white inline-flex items-center gap-1 shrink-0"
+        >
+          <span>Lihat di Maps</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Gesture Hint Bar -->
+    <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono-tag text-white/50 uppercase tracking-widest -mt-4">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-1.5 h-1.5 bg-emerald-400 animate-pulse"></span>
+        <span>Drag atau geser untuk eksplorasi • Hover untuk berhenti</span>
+      </div>
+      <span class="hidden sm:inline">Ulasan Google Terverifikasi</span>
+    </div>
+
+  </div>
+
+  <!-- Interactive Draggable Marquee Container -->
+  <div id="marquee-master-wrapper" class="relative w-full mt-6 sm:mt-8">
+    
+    <!-- Left & Right Soft Fade Masks (Subtle on mobile, deeper on desktop) -->
+    <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-28 lg:w-40 bg-gradient-to-r from-[#12100e] via-[#12100e]/70 to-transparent z-10"></div>
+    <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-28 lg:w-40 bg-gradient-to-l from-[#12100e] via-[#12100e]/70 to-transparent z-10"></div>
+
+    <!-- ROW 1: Draggable Marquee (Auto-moves left, drag freely) -->
+    <div class="marquee-row-wrapper overflow-hidden py-1.5 cursor-grab active:cursor-grabbing">
+      <div 
+        id="marquee-track-1" 
+        class="flex gap-4 sm:gap-6 w-max will-change-transform"
+      >
+        {[...row1, ...row1, ...row1].map((rev) => (
+          <article class="w-[280px] sm:w-[380px] lg:w-[440px] shrink-0 bg-[#181513] border border-white/10 hover:border-[#d8c39e]/50 p-4 sm:p-6 lg:p-7 flex flex-col justify-between transition-colors duration-200 hover:bg-[#1d1916] shadow-lg select-none">
+            
+            <div>
+              <!-- Top Card Row: Stars + Date + Tag -->
+              <div class="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/10">
+                <div class="flex items-center gap-1 text-amber-400 text-xs">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-white/40 ml-1.5 uppercase">{rev.date}</span>
+                </div>
+                <span class="text-[9px] sm:text-[10px] font-mono-tag tracking-wider text-[#d8c39e] uppercase truncate max-w-[130px]">
+                  {rev.stayType}
+                </span>
+              </div>
+
+              <!-- Big Clean Editorial Quote -->
+              <blockquote class="text-xs sm:text-sm lg:text-[14px] text-white/90 font-light leading-relaxed italic mb-5">
+                {rev.quote}
+              </blockquote>
+            </div>
+
+            <!-- Bottom Reviewer Credit (Zero Text-Wrapping Glitch) -->
+            <div class="flex items-center justify-between gap-2 pt-3 border-t border-white/10">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 text-white font-mono-tag font-bold text-xs flex items-center justify-center shrink-0 border border-white/20">
+                  {rev.avatar}
+                </div>
+                <div class="min-w-0">
+                  <span class="text-xs sm:text-sm font-bold text-white uppercase tracking-tight block font-sans truncate">
+                    {rev.author}
+                  </span>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-[#d8c39e] tracking-wider uppercase block truncate">
+                    {rev.role}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Google Review Verified Tag -->
+              <div class="flex items-center gap-1 text-[9px] sm:text-[10px] font-mono-tag text-white/40 uppercase tracking-widest shrink-0">
+                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span class="hidden sm:inline">Ulasan Google</span>
+              </div>
+            </div>
+
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- ROW 2: Draggable Marquee (Auto-moves right, drag freely) -->
+    <div class="marquee-row-wrapper overflow-hidden py-1.5 cursor-grab active:cursor-grabbing mt-3 sm:mt-4">
+      <div 
+        id="marquee-track-2" 
+        class="flex gap-4 sm:gap-6 w-max will-change-transform"
+      >
+        {[...row2, ...row2, ...row2].map((rev) => (
+          <article class="w-[280px] sm:w-[380px] lg:w-[440px] shrink-0 bg-[#181513] border border-white/10 hover:border-[#d8c39e]/50 p-4 sm:p-6 lg:p-7 flex flex-col justify-between transition-colors duration-200 hover:bg-[#1d1916] shadow-lg select-none">
+            
+            <div>
+              <!-- Top Card Row: Stars + Date + Tag -->
+              <div class="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/10">
+                <div class="flex items-center gap-1 text-amber-400 text-xs">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-white/40 ml-1.5 uppercase">{rev.date}</span>
+                </div>
+                <span class="text-[9px] sm:text-[10px] font-mono-tag tracking-wider text-[#d8c39e] uppercase truncate max-w-[130px]">
+                  {rev.stayType}
+                </span>
+              </div>
+
+              <!-- Big Clean Editorial Quote -->
+              <blockquote class="text-xs sm:text-sm lg:text-[14px] text-white/90 font-light leading-relaxed italic mb-5">
+                {rev.quote}
+              </blockquote>
+            </div>
+
+            <!-- Bottom Reviewer Credit (Zero Text-Wrapping Glitch) -->
+            <div class="flex items-center justify-between gap-2 pt-3 border-t border-white/10">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-white/10 text-white font-mono-tag font-bold text-xs flex items-center justify-center shrink-0 border border-white/20">
+                  {rev.avatar}
+                </div>
+                <div class="min-w-0">
+                  <span class="text-xs sm:text-sm font-bold text-white uppercase tracking-tight block font-sans truncate">
+                    {rev.author}
+                  </span>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-[#d8c39e] tracking-wider uppercase block truncate">
+                    {rev.role}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Google Review Verified Tag -->
+              <div class="flex items-center gap-1 text-[9px] sm:text-[10px] font-mono-tag text-white/40 uppercase tracking-widest shrink-0">
+                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span class="hidden sm:inline">Ulasan Google</span>
+              </div>
+            </div>
+
+          </article>
+        ))}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Elegant Call-to-Action Bar -->
+  <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 mt-10 sm:mt-14">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-5 pt-6 sm:pt-8 border-t border-white/10 text-center sm:text-left">
+      <div class="flex items-center gap-2.5 text-[11px] sm:text-xs font-mono-tag text-white/60 uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-emerald-500 animate-pulse"></span>
+        <span>Punya cerita seru di Jolotundo? Ulas kami di Google Maps</span>
+      </div>
+
+      <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-center">
+        <a 
+          href={googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 bg-white hover:bg-[#f4efe6] text-[#12100e] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-300 border border-white hover:shadow-lg inline-flex items-center justify-center gap-1.5 cursor-pointer"
+        >
+          <span>Tulis Ulasan</span>
+          <span>↗</span>
+        </a>
+        <a 
+          href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin reservasi glamping.")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 bg-transparent hover:bg-white/10 text-white font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-300 border border-white/20 inline-flex items-center justify-center gap-1.5 cursor-pointer"
+        >
+          <span>Booking Glamping</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Interactive Draggable Marquee Engine Script -->
+<script is:inline>
+  function initDraggableMarquee() {
+    const track1 = document.getElementById('marquee-track-1');
+    const track2 = document.getElementById('marquee-track-2');
+    if (!track1 || !track2) return;
+
+    // Helper to setup a draggable + auto-scrolling marquee track
+    function setupTrack(track, baseSpeed, initialOffsetRatio = 0) {
+      let currentX = 0;
+      let isDragging = false;
+      let isHovered = false;
+      let startX = 0;
+      let dragStartX = 0;
+      let animationFrameId = null;
+
+      // Calculate unit width (the repeated sequence is repeated 3 times)
+      function getUnitWidth() {
+        return track.scrollWidth / 3;
+      }
+
+      // Initialize offset
+      const unit = getUnitWidth();
+      if (initialOffsetRatio !== 0) {
+        currentX = -unit * initialOffsetRatio;
+      }
+
+      function loop() {
+        const currentUnitWidth = getUnitWidth();
+
+        if (!isDragging && !isHovered) {
+          currentX += baseSpeed;
+        }
+
+        // Infinite wrap logic
+        if (baseSpeed < 0) {
+          // Moving Left
+          if (currentX <= -currentUnitWidth) {
+            currentX += currentUnitWidth;
+          }
+          if (currentX > 0) {
+            currentX -= currentUnitWidth;
+          }
+        } else {
+          // Moving Right
+          if (currentX >= 0) {
+            currentX -= currentUnitWidth;
+          }
+          if (currentX < -currentUnitWidth) {
+            currentX += currentUnitWidth;
+          }
+        }
+
+        track.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
+        animationFrameId = requestAnimationFrame(loop);
+      }
+
+      // Pointer & Mouse interactions
+      const wrapper = track.parentElement;
+
+      // Hover triggers pause on desktop
+      wrapper.addEventListener('mouseenter', () => {
+        isHovered = true;
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        isHovered = false;
+        if (isDragging) {
+          isDragging = false;
+          wrapper.style.cursor = 'grab';
+        }
+      });
+
+      // Pointer down (Mouse drag)
+      track.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        isHovered = true;
+        startX = e.clientX;
+        dragStartX = currentX;
+        wrapper.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const delta = e.clientX - startX;
+        currentX = dragStartX + delta;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        wrapper.style.cursor = 'grab';
+        // If cursor is still over wrapper, remains paused; otherwise resumes
+        const isStillOver = wrapper.matches(':hover');
+        if (!isStillOver) {
+          isHovered = false;
+        }
+      });
+
+      // Touch interactions (Mobile Swipe / Drag)
+      track.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          isHovered = true;
+          startX = e.touches[0].clientX;
+          dragStartX = currentX;
+        }
+      }, { passive: true });
+
+      track.addEventListener('touchmove', (e) => {
+        if (!isDragging || e.touches.length !== 1) return;
+        const delta = e.touches[0].clientX - startX;
+        currentX = dragStartX + delta;
+      }, { passive: true });
+
+      track.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        // Resume auto-scroll after a pleasant brief pause
+        setTimeout(() => {
+          isHovered = false;
+        }, 500);
+      });
+
+      track.addEventListener('touchcancel', () => {
+        isDragging = false;
+        isHovered = false;
+      });
+
+      // Start rAF loop
+      animationFrameId = requestAnimationFrame(loop);
+    }
+
+    // Setup Row 1: Slides Left (-0.65px per frame)
+    setupTrack(track1, -0.65, 0);
+
+    // Setup Row 2: Slides Right (+0.65px per frame), initial offset half unit
+    setupTrack(track2, 0.65, 0.5);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDraggableMarquee);
+  } else {
+    initDraggableMarquee();
+  }
+</script>

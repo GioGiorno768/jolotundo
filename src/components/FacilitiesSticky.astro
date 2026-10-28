@@ -1,0 +1,346 @@
+---
+import facilities from '../data/facilities.json';
+import siteData from '../data/siteData.json';
+---
+
+<!-- 
+  SECTION 04 // FASILITAS KAMI (GoUncharted Sticky Split-Scroll Architecture)
+  - Left Column: Sticky 4:5 Photo Frame with Pure Translate-Y Parallax Engine
+  - Right Column: Ultra-Clean, Elegant Editorial Typography (Simplified & Breathable)
+  - Immediate Parallax Activation: Parallax is active and moving immediately upon entering the viewport
+  - Zero Rounded (Strictly Sharp Brutalist-Luxury Lines, no border-radius)
+-->
+<section id="fasilitas" class="relative z-20 bg-[#f5f1ea] text-[#141110] border-t border-[#141110]/15 py-20 sm:py-28 px-6 sm:px-10 lg:px-14 xl:px-20 transition-colors duration-300">
+  <div class="max-w-[1680px] mx-auto flex flex-col gap-10 sm:gap-14">
+
+    <!-- Section Header (Editorial Monospace + Bold Sans) -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#141110]/15">
+      <div>
+        <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase mb-3">
+          <span class="w-1.5 h-1.5 bg-[#141110]"></span>
+          <span>[ 04 // FASILITAS KAMI ]</span>
+          <span>•</span>
+          <span>08 SARANA TERPADU LERENG WILIS</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#141110] uppercase leading-none font-sans">
+          Fasilitas Kami
+        </h2>
+      </div>
+
+      <!-- Right Header Status Indicator -->
+      <div class="text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest flex items-center gap-2 self-start sm:self-auto">
+        <span class="inline-block w-1.5 h-1.5 bg-emerald-700 animate-pulse"></span>
+        <span class="hidden sm:inline">Gulir ke bawah untuk menjelajahi seluruh fasilitas</span>
+        <span class="sm:hidden">Scroll untuk eksplorasi fasilitas</span>
+      </div>
+    </div>
+
+    <!-- Main Split-Scroll Container: Left Sticky Photo Frame, Right Scrolling Stories -->
+    <div id="facilities-split-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start relative">
+      
+      <!-- LEFT COLUMN: Sticky Vertical Photo Frame (GoUncharted 1:1 Architecture) -->
+      <div class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-28 sm:lg:top-32 w-full flex flex-col gap-4 select-none">
+        
+        <!-- Main Photo Frame Container with Vertical Reel & Translate-Y Parallax Engine -->
+        <div class="relative w-full aspect-[4/5] sm:h-[540px] lg:h-[580px] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl">
+          
+          <!-- Sliding Image Reel (Translates -Y by 100% per active index) -->
+          <div 
+            id="facilities-image-reel" 
+            class="w-full h-full flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+            style="transform: translateY(0%);"
+          >
+            {facilities.map((fac, idx) => (
+              <div class="w-full h-full shrink-0 relative bg-black overflow-hidden">
+                
+                <!-- Inner Parallax Layer (Taller than slide: 145% height with -22.5% offset, translated along Y on scroll) -->
+                <div 
+                  class="facility-parallax-layer absolute inset-x-0 w-full h-[145%] -top-[22.5%] will-change-transform"
+                  style="transform: translate3d(0, 0px, 0);"
+                >
+                  <img 
+                    src={fac.image} 
+                    alt={fac.title + " - Jolotundo Glamping & Edupark"}
+                    class="w-full h-full object-cover object-center brightness-[0.92] contrast-[1.03]"
+                    loading={idx < 2 ? "eager" : "lazy"}
+                  />
+                </div>
+                
+                <!-- Soft Contrast Gradient for Floating Badges & Typography -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 pointer-events-none"></div>
+
+                <!-- Floating Badge in Top-Left of Photo -->
+                <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                  <span class="text-[10px] font-mono-tag tracking-[0.2em] text-[#d8c39e] uppercase px-3 py-1.5 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
+                    INDEX // {fac.index}
+                  </span>
+                </div>
+
+                <!-- Floating Caption in Bottom-Left of Photo -->
+                <div class="absolute bottom-5 left-5 right-5 z-10 pointer-events-none">
+                  <span class="text-xs sm:text-sm font-mono-tag tracking-wider text-white/95 uppercase block font-semibold drop-shadow">
+                    {fac.title}
+                  </span>
+                  <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-widest block mt-0.5">
+                    {fac.category}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        <!-- Bottom Sub-bar (1:1 with GoUncharted: "FASILITAS   01 02 03 04 05 06 07 08") -->
+        <div class="flex items-center justify-between text-xs font-mono-tag text-[#141110]/70 pt-2 px-1 border-t border-[#141110]/15">
+          <span class="tracking-widest uppercase text-[11px] font-semibold text-[#141110]/80">
+            [ SARANA // {String(facilities.length).padStart(2, '0')} AREA ]
+          </span>
+
+          <!-- Numbers Index Tracker (Clickable to jump directly to that facility!) -->
+          <div id="facilities-nav-indicators" class="flex items-center gap-2 sm:gap-2.5">
+            {facilities.map((fac, idx) => (
+              <button 
+                type="button"
+                data-target-index={idx}
+                class={`facility-indicator-btn font-mono-tag text-xs tracking-wider transition-all duration-300 cursor-pointer ${
+                  idx === 0 
+                    ? "font-bold text-[#141110] border-b-2 border-[#141110] pb-0.5" 
+                    : "text-[#141110]/35 hover:text-[#141110]"
+                }`}
+                aria-label={`Lihat fasilitas ${fac.index} - ${fac.title}`}
+              >
+                {fac.index}
+              </button>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Scrolling Facility Story Cards (GoUncharted Ultra-Clean Typographic Stream) -->
+      <div id="facilities-stories-stream" class="lg:col-span-7 xl:col-span-7 flex flex-col">
+        {facilities.map((fac, idx) => (
+          <article 
+            id={`facility-card-${idx}`}
+            class={`facility-story-card min-h-[38vh] sm:min-h-[44vh] py-10 sm:py-14 flex flex-col justify-center border-b border-[#141110]/15 last:border-b-0 transition-opacity duration-500 ease-out ${
+              idx === 0 ? "opacity-100" : "opacity-25 hover:opacity-60 cursor-pointer"
+            }`}
+            data-index={idx}
+          >
+            <!-- Border Left Accent + Story Content (1:1 with GoUncharted Screenshot Line & Statement) -->
+            <div class={`facility-quote-wrapper border-l-2 pl-6 sm:pl-8 py-2 transition-all duration-500 ${
+              idx === 0 ? "border-[#141110]" : "border-transparent"
+            }`}>
+              
+              <!-- Category & Index Tag -->
+              <div class="flex items-center gap-3 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-3">
+                <span class="font-bold text-[#141110]">{fac.index}</span>
+                <span>//</span>
+                <span>{fac.category}</span>
+              </div>
+
+              <!-- Main Editorial Title -->
+              <h3 class="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#141110] uppercase tracking-tight font-sans mb-3.5 leading-tight">
+                {fac.title}
+              </h3>
+
+              <!-- Big Poetic Statement (GoUncharted Typographic Hallmark) -->
+              <blockquote class="text-lg sm:text-xl lg:text-[22px] font-light text-[#141110] leading-snug tracking-tight mb-5 italic max-w-2xl">
+                {fac.statement}
+              </blockquote>
+
+              <!-- Minimalist Metadata Row (GoUncharted Style) -->
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-mono-tag tracking-wider text-[#141110]/70 uppercase">
+                {fac.meta.map((item, mIdx) => (
+                  <span class="flex items-center gap-2">
+                    {mIdx > 0 && <span class="text-[#141110]/30">•</span>}
+                    <span class="font-medium">{item}</span>
+                  </span>
+                ))}
+              </div>
+
+              <!-- Refined Subtle Action -->
+              <div class="pt-5">
+                <a
+                  href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu informasi & ketersediaan fasilitas *${fac.title}*.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group inline-flex items-center gap-2 text-xs font-mono-tag font-bold uppercase tracking-widest text-[#141110] hover:text-[#141110]/70 transition-colors"
+                >
+                  <span class="underline underline-offset-4 decoration-[#141110]/30 group-hover:decoration-[#141110]">
+                    Tanya Ketersediaan
+                  </span>
+                  <span class="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                    ↗
+                  </span>
+                </a>
+              </div>
+
+            </div>
+
+          </article>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Sticky Image Reel, Translate-Y Parallax Engine & Scroll Trigger Logic -->
+<script is:inline>
+  function initFacilitiesSticky() {
+    const section = document.getElementById('fasilitas');
+    const reel = document.getElementById('facilities-image-reel');
+    const cards = document.querySelectorAll('.facility-story-card');
+    const indicatorBtns = document.querySelectorAll('.facility-indicator-btn');
+    const parallaxLayers = document.querySelectorAll('.facility-parallax-layer');
+    if (!section || !reel || !cards.length) return;
+
+    let activeIndex = 0;
+
+    // Switch active facility slide & card highlights
+    function setActiveIndex(idx) {
+      if (idx === activeIndex) return;
+      activeIndex = idx;
+
+      // 1. Slide Image Reel vertically (-idx * 100%)
+      reel.style.transform = `translateY(-${idx * 100}%)`;
+
+      // 2. Update Story Cards Opacity & Active Left Line
+      cards.forEach((card, i) => {
+        const quoteWrapper = card.querySelector('.facility-quote-wrapper');
+        if (i === idx) {
+          card.classList.remove('opacity-25', 'cursor-pointer');
+          card.classList.add('opacity-100');
+          if (quoteWrapper) {
+            quoteWrapper.classList.remove('border-transparent');
+            quoteWrapper.classList.add('border-[#141110]');
+          }
+        } else {
+          card.classList.remove('opacity-100');
+          card.classList.add('opacity-25', 'cursor-pointer');
+          if (quoteWrapper) {
+            quoteWrapper.classList.remove('border-[#141110]');
+            quoteWrapper.classList.add('border-transparent');
+          }
+        }
+      });
+
+      // 3. Update Indicator Numbers (01 through 08)
+      indicatorBtns.forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = "facility-indicator-btn font-mono-tag text-xs tracking-wider transition-all duration-300 cursor-pointer font-bold text-[#141110] border-b-2 border-[#141110] pb-0.5";
+        } else {
+          btn.className = "facility-indicator-btn font-mono-tag text-xs tracking-wider transition-all duration-300 cursor-pointer text-[#141110]/35 hover:text-[#141110]";
+        }
+      });
+    }
+
+    // Scroll Handler: Computes Translate-Y Parallax immediately from section enter & syncs active card
+    function onScroll() {
+      const sRect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // 1. TRANSLATE-Y PARALLAX ENGINE (Active immediately when section enters viewport)
+      if (sRect.top <= windowHeight && sRect.bottom >= 0) {
+        const viewportCenter = windowHeight * 0.45;
+
+        // Compute individual Translate-Y for each card/slide so each moves smoothly relative to viewport
+        cards.forEach((card, idx) => {
+          const layer = parallaxLayers[idx];
+          if (!layer) return;
+
+          const cRect = card.getBoundingClientRect();
+          // Active range when card is around the screen
+          if (cRect.bottom >= -windowHeight * 0.5 && cRect.top <= windowHeight * 1.5) {
+            const cardCenter = cRect.top + cRect.height * 0.45;
+            const diff = cardCenter - viewportCenter;
+            
+            // Responsive factor (0.12): every 100px scroll produces ~12px of smooth parallax gliding
+            const rawY = -diff * 0.12;
+            const clampedY = Math.max(-75, Math.min(75, rawY));
+            layer.style.transform = `translate3d(0, ${clampedY.toFixed(2)}px, 0)`;
+          }
+        });
+      }
+
+      // 2. ACTIVE STORY CARD DETECTION (Focal line at ~40% of viewport height)
+      const focalLine = windowHeight * 0.40;
+      let closestIdx = activeIndex;
+      let minDistance = Infinity;
+
+      cards.forEach((card, idx) => {
+        const cRect = card.getBoundingClientRect();
+        const cardCenter = cRect.top + cRect.height * 0.45;
+        const dist = Math.abs(cardCenter - focalLine);
+
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestIdx = idx;
+        }
+      });
+
+      if (closestIdx !== activeIndex) {
+        setActiveIndex(closestIdx);
+      }
+    }
+
+    // Listen to scroll events (Native + Lenis sync)
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // @ts-ignore
+    if (window.__lenis) {
+      // @ts-ignore
+      window.__lenis.on('scroll', onScroll);
+    } else {
+      setTimeout(() => {
+        // @ts-ignore
+        if (window.__lenis) window.__lenis.on('scroll', onScroll);
+      }, 300);
+    }
+
+    // Click on Inactive Card or Indicator Number to jump smoothly
+    cards.forEach((card, i) => {
+      card.addEventListener('click', (e) => {
+        if (i !== activeIndex) {
+          const isLink = e.target.closest('a');
+          if (!isLink) {
+            scrollToCard(i);
+          }
+        }
+      });
+    });
+
+    indicatorBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        const targetIdx = parseInt(btn.getAttribute('data-target-index') || '0', 10);
+        scrollToCard(targetIdx);
+      });
+    });
+
+    function scrollToCard(idx) {
+      const targetCard = cards[idx];
+      if (!targetCard) return;
+
+      // @ts-ignore
+      const lenis = window.__lenis;
+      if (lenis) {
+        lenis.scrollTo(targetCard, { offset: -140, duration: 1 });
+      } else {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Run initial scroll check
+    onScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFacilitiesSticky);
+  } else {
+    initFacilitiesSticky();
+  }
+</script>

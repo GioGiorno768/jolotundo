@@ -1,0 +1,429 @@
+---
+import activities from '../data/activities.json';
+import siteData from '../data/siteData.json';
+
+const titleWords = ["AKTIVITAS", "KAMI"];
+const introPart1 = "Menembus belantara pinus purba, memacu adrenalin di jalur bebatuan liar,".split(" ");
+const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".split(" ");
+---
+
+<!-- 
+  SECTION 03 // WANA WISATA & EDUPARK (GoUncharted Sticky Scrollytelling Architecture)
+  - Centered Intro Statement "AKTIVITAS KAMI" with Word-by-Word Scroll Reveal (synced with Lenis)
+  - Full-Width Edge-to-Edge (100vw, Zero Side Padding)
+  - Sticky Screen Lock (h-[100svh] pinned while scrolling through 500vh outer track)
+  - Crossfade & Scale Slide Transitions for 5 Curated Adventures
+  - Dynamic Two-Column Layout (Big Headline on Left, Action Button "Lihat Detail" on Right)
+  - Bottom 5-Column Dashboard Bar (Zero Rounded, Normal font-weight, GoUncharted 1:1)
+  - Top 65% Clean Landscape view (no top bar obstruction)
+-->
+<section id="wahana" class="relative z-20 w-full min-w-full select-none">
+  
+  <!-- ========================================================================= -->
+  <!-- 1. TRANSITION INTRO: Centered Typographic Statement with Word-by-Word Reveal -->
+  <!-- ========================================================================= -->
+  <div class="relative w-full bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 py-28 sm:py-36 lg:py-44 px-6 sm:px-10 lg:px-16 flex flex-col items-center justify-center text-center overflow-hidden">
+    
+    <div id="activities-intro-heading" class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+      
+      <!-- Top Eyebrow Tag -->
+      <div class="flex items-center gap-2.5 text-xs font-mono-tag tracking-widest text-[#141110]/70 uppercase mb-6 sm:mb-8">
+        <span class="w-2 h-2 bg-emerald-700 animate-pulse"></span>
+        <span>[ 03 // WANA WISATA & PETUALANGAN ]</span>
+        <span class="text-[#141110]/30">•</span>
+        <span class="text-[#141110]/60">LERENG GUNUNG WILIS</span>
+      </div>
+
+      <!-- Giant Centered Title "AKTIVITAS KAMI" -->
+      <h2 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase tracking-tight text-[#141110] mb-6 sm:mb-8 leading-none font-sans">
+        {titleWords.map((word) => (
+          <span 
+            class="activity-reveal-word inline-block mx-2 sm:mx-3 transition-opacity duration-150 ease-out will-change-[opacity]"
+            style="opacity: 0.18;"
+          >
+            {word}
+          </span>
+        ))}
+      </h2>
+
+      <!-- Narrative Statement with Word-by-Word Scroll Reveal -->
+      <p class="text-lg sm:text-2xl md:text-3xl lg:text-[2rem] leading-relaxed max-w-3xl mx-auto font-light tracking-normal text-[#141110]">
+        <span class="text-[#141110]/90">
+          {introPart1.map((word) => (
+            <span 
+              class="activity-reveal-word inline-block mr-[0.24em] transition-opacity duration-150 ease-out will-change-[opacity]"
+              style="opacity: 0.18;"
+            >
+              {word}
+            </span>
+          ))}
+        </span>
+        <span class="text-emerald-950 font-medium">
+          {introPart2.map((word) => (
+            <span 
+              class="activity-reveal-word inline-block mr-[0.24em] transition-opacity duration-150 ease-out will-change-[opacity]"
+              style="opacity: 0.18;"
+            >
+              {word}
+            </span>
+          ))}
+        </span>
+      </p>
+
+      <!-- Scroll Indicator Hint -->
+      <div class="mt-12 sm:mt-16 flex flex-col items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/50 uppercase">
+        <span>GULIR UNTUK MENJELAJAH</span>
+        <span class="animate-bounce text-emerald-800 text-sm">↓</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. STICKY SCROLLYTELLING TRACK (6 Curated Adventures Edge-to-Edge)        -->
+  <!-- ========================================================================= -->
+  <!-- Outer Tall Scroll Track (Provides 600vh of smooth scroll distance for 6 slides) -->
+  <div id="activities-scroll-track" class="relative w-full h-[600vh] bg-[#0b130e] text-[#f4efe6]">
+    
+    <!-- Pinned Sticky Full-Screen Viewport -->
+    <div id="activities-sticky-viewport" class="sticky top-0 h-[100svh] w-full min-w-full overflow-hidden flex flex-col justify-end bg-black">
+      
+      <!-- SLIDE BACKGROUND IMAGES STACK (Full-Bleed 100vw with Pure Translate-Y Parallax) -->
+      <div 
+        id="activities-parallax-stack"
+        class="absolute w-full h-[140%] -top-[20%] left-0 pointer-events-none z-0 overflow-hidden will-change-transform"
+      >
+        {activities.map((act, idx) => (
+          <div 
+            class="activity-bg-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            data-index={idx}
+            style={idx === 0 ? "opacity: 1; z-index: 2;" : "opacity: 0; z-index: 1;"}
+          >
+            <img 
+              src={act.image} 
+              alt={act.name + " - Wana Wisata Jolotundo"} 
+              class="w-full h-full object-cover object-center brightness-[0.82] contrast-[1.05]"
+              loading={idx === 0 ? "eager" : "lazy"}
+            />
+            
+            <!-- Dark Gradients for Razor-Sharp Readability of Headlines and Dashboard -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CENTER / LOWER-MIDDLE: Dynamic Headline & Action Button (Hero Grid Model) -->
+      <div class="relative z-20 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 pointer-events-none">
+        <div class="w-full max-w-[1680px] mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
+            
+            <!-- Left Column: Badge/Index/Category + Big Headline -->
+            <div class="lg:col-span-8 xl:col-span-8 flex flex-col text-left">
+              <!-- Activity Badge & Name Highlight -->
+              <div class="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-3 sm:mb-4">
+                <span id="slide-index-badge" class="px-2.5 py-1 bg-[#d8c39e] text-black font-mono-tag text-xs font-bold tracking-widest uppercase transition-opacity duration-300">
+                  {activities[0].index} / {String(activities.length).padStart(2, '0')}
+                </span>
+                <span id="slide-name" class="text-sm sm:text-base lg:text-lg font-mono-tag font-bold tracking-[0.2em] text-[#d8c39e] uppercase drop-shadow transition-opacity duration-300">
+                  {activities[0].name}
+                </span>
+                <span class="text-white/40 hidden sm:inline">•</span>
+                <span id="slide-tag" class="text-xs sm:text-sm font-mono-tag tracking-wider text-white/75 uppercase hidden sm:inline drop-shadow transition-opacity duration-300">
+                  {activities[0].tag}
+                </span>
+              </div>
+
+              <!-- Big Headline Overlay -->
+              <h2 id="slide-headline" class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] xl:text-[3.8rem] font-extrabold tracking-tight text-white uppercase leading-[0.98] font-sans drop-shadow-2xl transition-all duration-500">
+                {activities[0].headline}
+              </h2>
+            </div>
+
+            <!-- Right Column: Direct "Lihat Detail" Action Button (with Magnetic Arrow Slide Micro-interaction) -->
+            <div class="lg:col-span-4 xl:col-span-4 flex flex-col lg:items-end justify-end pointer-events-auto">
+              <a
+                id="slide-detail-btn"
+                href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu informasi & reservasi untuk aktivitas *${activities[0].name}*.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group relative inline-flex items-center gap-3 px-6 py-3.5 sm:px-8 sm:py-4 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 border border-[#f4efe6] hover:shadow-[0_0_25px_rgba(255,255,255,0.35)] hover:scale-[1.02] active:scale-[0.98] shrink-0 overflow-hidden cursor-pointer"
+              >
+                <span class="relative z-10 transition-transform duration-300 group-hover:-translate-x-0.5">
+                  Lihat Detail
+                </span>
+                
+                <!-- Animated Sliding Arrow Mask -->
+                <span class="relative w-4 h-4 overflow-hidden inline-flex items-center justify-center shrink-0">
+                  <!-- First Arrow (Shoots up-right out on hover) -->
+                  <svg 
+                    class="w-4 h-4 transform transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full group-hover:translate-x-full" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="2.5" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                  
+                  <!-- Duplicate Arrow (Enters smoothly from bottom-left to center) -->
+                  <svg 
+                    class="absolute inset-0 w-4 h-4 transform translate-y-full -translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:translate-x-0" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="2.5" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM DASHBOARD METADATA BAR (1:1 with GoUncharted Screenshot) -->
+      <!-- Spans edge-to-edge full width with vertical partition borders -->
+      <div class="relative z-20 w-full border-t border-white/20 bg-black/80 backdrop-blur-xl pointer-events-auto">
+        <div id="metrics-grid" class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 divide-x divide-y md:divide-y-0 divide-white/15">
+          
+          {activities[0].metrics.map((m) => (
+            <div class="p-3.5 sm:p-4 lg:p-5 flex flex-col justify-between">
+              <span class="metric-label text-[10px] sm:text-[11px] font-mono-tag text-white/50 tracking-widest uppercase block mb-1">
+                {m.label}
+              </span>
+              <div class="metric-value text-xs sm:text-sm lg:text-[13px] font-normal text-white/95 leading-snug">
+                {m.value}
+              </div>
+            </div>
+          ))}
+
+        </div>
+        
+        <!-- Bottom Thin Progress Bar -->
+        <div class="w-full h-1 bg-white/10 relative overflow-hidden">
+          <div id="slide-progress-bar" class="absolute top-0 left-0 h-full bg-[#d8c39e] w-[16.66%] transition-all duration-500 ease-out"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Scrollytelling & Sticky Transitions Logic -->
+<script is:inline define:vars={{ activitiesData: activities, brandWa: siteData.brand.whatsapp }}>
+  // 1. Word-by-Word Scroll Reveal for "AKTIVITAS KAMI" Intro
+  function initActivitiesReveal() {
+    const container = document.getElementById('activities-intro-heading');
+    if (!container) return;
+
+    const words = container.querySelectorAll('.activity-reveal-word');
+    if (!words || words.length === 0) return;
+
+    const totalWords = words.length;
+
+    const updateWords = () => {
+      const rect = container.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Start revealing when container enters 85% of viewport height
+      // Reach 100% full opacity when it reaches 35% of viewport height
+      const startTrigger = viewportHeight * 0.85;
+      const endTrigger = viewportHeight * 0.35;
+
+      const rawProgress = (startTrigger - rect.top) / (startTrigger - endTrigger);
+      const overallProgress = Math.max(0, Math.min(1, rawProgress));
+
+      words.forEach((word, idx) => {
+        const wordStart = idx / totalWords;
+        const wordEnd = (idx + 1) / totalWords;
+        const wordProgress = Math.max(0, Math.min(1, (overallProgress - wordStart) / (wordEnd - wordStart)));
+        const opacity = 0.18 + wordProgress * 0.82;
+        word.style.opacity = opacity.toFixed(3);
+      });
+    };
+
+    window.addEventListener('scroll', updateWords, { passive: true });
+    window.addEventListener('resize', updateWords, { passive: true });
+
+    // @ts-ignore
+    if (window.__lenis) {
+      // @ts-ignore
+      window.__lenis.on('scroll', updateWords);
+    } else {
+      setTimeout(() => {
+        // @ts-ignore
+        if (window.__lenis) window.__lenis.on('scroll', updateWords);
+      }, 300);
+    }
+
+    updateWords();
+  }
+
+  // 2. Sticky Scrollytelling Slides Transition
+  function initActivitiesSticky() {
+    const track = document.getElementById('activities-scroll-track');
+    const viewport = document.getElementById('activities-sticky-viewport');
+    if (!track || !viewport) return;
+
+    const bgSlides = document.querySelectorAll('.activity-bg-slide');
+    const parallaxStack = document.getElementById('activities-parallax-stack');
+    const slideIndexBadge = document.getElementById('slide-index-badge');
+    const slideName = document.getElementById('slide-name');
+    const slideTag = document.getElementById('slide-tag');
+    const slideHeadline = document.getElementById('slide-headline');
+    const slideDetailBtn = document.getElementById('slide-detail-btn');
+    const progressBar = document.getElementById('slide-progress-bar');
+    const metricsGrid = document.getElementById('metrics-grid');
+
+    const totalSlides = activitiesData.length;
+    let currentActiveIdx = 0;
+    let isTransitioning = false;
+
+    // Update the visual content of the slide
+    function renderSlide(idx) {
+      if (idx === currentActiveIdx && isTransitioning) return;
+      isTransitioning = true;
+      currentActiveIdx = idx;
+
+      const act = activitiesData[idx];
+
+      // 1. Crossfade Background Images (Opacity only, no zoom)
+      bgSlides.forEach((slide, i) => {
+        if (i === idx) {
+          slide.style.opacity = '1';
+          slide.style.zIndex = '2';
+        } else {
+          slide.style.opacity = '0';
+          slide.style.zIndex = '1';
+        }
+      });
+
+      // 2. Animate Headline & Badge text
+      if (slideIndexBadge) slideIndexBadge.style.opacity = '0';
+      if (slideName) slideName.style.opacity = '0';
+      if (slideTag) slideTag.style.opacity = '0';
+      if (slideHeadline) slideHeadline.style.opacity = '0';
+
+      setTimeout(() => {
+        if (slideIndexBadge) {
+          slideIndexBadge.innerText = `${act.index} / ${String(totalSlides).padStart(2, '0')}`;
+          slideIndexBadge.style.opacity = '1';
+        }
+        if (slideName) {
+          slideName.innerText = act.name;
+          slideName.style.opacity = '1';
+        }
+        if (slideTag) {
+          slideTag.innerText = act.tag;
+          slideTag.style.opacity = '1';
+        }
+        if (slideHeadline) {
+          slideHeadline.innerText = act.headline;
+          slideHeadline.style.opacity = '1';
+        }
+        if (slideDetailBtn) {
+          const waText = encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu informasi & reservasi untuk aktivitas *${act.name}*.`);
+          slideDetailBtn.href = `https://wa.me/${brandWa}?text=${waText}`;
+        }
+        if (progressBar) {
+          const pct = ((idx + 1) / totalSlides) * 100;
+          progressBar.style.width = pct + '%';
+        }
+      }, 180);
+
+      // 3. Update Metrics Dashboard Columns
+      if (metricsGrid) {
+        const labels = metricsGrid.querySelectorAll('.metric-label');
+        const values = metricsGrid.querySelectorAll('.metric-value');
+        
+        act.metrics.forEach((m, mIdx) => {
+          if (labels[mIdx]) labels[mIdx].innerText = m.label;
+          if (values[mIdx]) values[mIdx].innerText = m.value;
+        });
+      }
+
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 450);
+    }
+
+    // Scroll Listener for Sticky Track + Early Enter Translate-Y Parallax
+    function onScroll() {
+      const rect = track.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const trackTop = rect.top;
+      const scrollableDistance = rect.height - windowHeight;
+
+      if (scrollableDistance <= 0) return;
+
+      // 1. Parallax AKTIF LANGSUNG saat track pertama kali ENTER layar (trackTop <= windowHeight)
+      if (trackTop <= windowHeight && trackTop >= -scrollableDistance - windowHeight) {
+        // Total jarak tempuh dari pertama muncul di tepi bawah layar sampai keluar di atas
+        const totalTravel = scrollableDistance + windowHeight;
+        const enterProgress = Math.max(0, Math.min(1, (windowHeight - trackTop) / totalTravel));
+
+        // Meluncur vertikal Translate-Y murni (dari -90px ke +90px, sinking parallax 180px tanpa zoom)
+        const parallaxY = (enterProgress * 180 - 90).toFixed(2);
+        if (parallaxStack) {
+          parallaxStack.style.transform = `translate3d(0, ${parallaxY}px, 0)`;
+        }
+      }
+
+      // 2. Update Slide Index saat berada di rentang track aktif yang terkunci (Sticky Pinned)
+      if (trackTop <= 0 && trackTop >= -scrollableDistance) {
+        const progress = Math.abs(trackTop) / scrollableDistance;
+        const targetIdx = Math.min(
+          totalSlides - 1,
+          Math.floor(progress * totalSlides)
+        );
+
+        if (targetIdx !== currentActiveIdx) {
+          renderSlide(targetIdx);
+        }
+      }
+    }
+
+    // Listen to scroll events (Native + Lenis sync)
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // @ts-ignore
+    if (window.__lenis) {
+      // @ts-ignore
+      window.__lenis.on('scroll', onScroll);
+    } else {
+      setTimeout(() => {
+        // @ts-ignore
+        if (window.__lenis) window.__lenis.on('scroll', onScroll);
+      }, 300);
+    }
+
+    // Initial render
+    renderSlide(0);
+  }
+
+  // Initialize both modules
+  function initAll() {
+    initActivitiesReveal();
+    initActivitiesSticky();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+</script>

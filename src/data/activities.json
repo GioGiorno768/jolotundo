@@ -1,0 +1,98 @@
+[
+  {
+    "id": "atv-adventure",
+    "index": "01",
+    "tag": "OFFROAD & RIVER CROSSING",
+    "name": "ATV Adventure",
+    "headline": "Menembus Belantara Pinus & Arus Sungai",
+    "tagline": "Sensasi memacu adrenalin di atas quad bike melintasi bebatuan sungai alami dan jalur tanah basah hutan pinus lereng Wilis.",
+    "image": "/images/activities/atv-adventure.jpg",
+    "metrics": [
+      { "label": "MEDAN JALUR", "value": "Sungai & Hutan Pinus" },
+      { "label": "DURASI TRIP", "value": "45 — 60 Menit" },
+      { "label": "KAPASITAS", "value": "Single / Tandem (1–2 Pax)" },
+      { "label": "LEVEL TANTANGAN", "value": "Adrenalin Sedang — Tinggi" },
+      { "label": "SAFETY GEAR", "value": "Helm, Boots & Guide" }
+    ]
+  },
+  {
+    "id": "jeep-offroad",
+    "index": "02",
+    "tag": "4X4 MOUNTAIN EXPEDITION",
+    "name": "Jeep Offroad 4x4",
+    "headline": "Taklukkan Tanjakan Terjal Lereng Gunung Wilis",
+    "tagline": "Ekspedisi overland menembus tanjakan ekstrem dan jalur bebatuan purba dengan panorama lembah Nganjuk dari ketinggian kabut.",
+    "image": "/images/activities/jeep-offroad.jpg",
+    "metrics": [
+      { "label": "MEDAN JALUR", "value": "Batu Terjal & Puncak Wilis" },
+      { "label": "DURASI TRIP", "value": "2 — 3 Jam Ekspedisi" },
+      { "label": "KAPASITAS", "value": "4 — 6 Penumpang / Jeep" },
+      { "label": "LEVEL TANTANGAN", "value": "Ekstrem & Berkesan" },
+      { "label": "SAFETY GEAR", "value": "Driver Pro & Rollbar Guard" }
+    ]
+  },
+  {
+    "id": "horse-riding",
+    "index": "03",
+    "tag": "EQUESTRIAN & FOREST TRAIL",
+    "name": "Berkuda di Lereng Wilis",
+    "headline": "Menyusuri Keheningan Jalur Kanopi Purba",
+    "tagline": "Ketenangan ritmis menunggang kuda terlatih mengitari jalur asri perkebunan dan semilir kabut dingin pegunungan.",
+    "image": "/images/activities/horse-riding.jpg",
+    "metrics": [
+      { "label": "MEDAN JALUR", "value": "Trail Pinus & Kebun Asri" },
+      { "label": "DURASI TRIP", "value": "30 — 45 Menit" },
+      { "label": "KAPASITAS", "value": "1 Penunggang + Pawang" },
+      { "label": "LEVEL TANTANGAN", "value": "Santai & Meditatif" },
+      { "label": "SAFETY GEAR", "value": "Pelana, Helm & Pendamping" }
+    ]
+  },
+  {
+    "id": "mini-zoo",
+    "index": "04",
+    "tag": "EDUKASI SATWA & KELUARGA",
+    "name": "Mini Zoo Edupark",
+    "headline": "Sentuhan Hangat Bersama Satwa Ramah Keluarga",
+    "tagline": "Wahana interaksi edukatif terbuka yang mengenalkan anak-anak dan keluarga pada ragam satwa jinak di habitat alam bebas.",
+    "image": "/images/activities/mini-zoo.jpg",
+    "metrics": [
+      { "label": "HABITAT AREA", "value": "Kawasan Terbuka Asri" },
+      { "label": "JAM KUNJUNGAN", "value": "09.00 — 17.00 WIB" },
+      { "label": "KAPASITAS", "value": "Terbuka Semua Usia" },
+      { "label": "LEVEL TANTANGAN", "value": "Ramah Anak & Edukatif" },
+      { "label": "AKTIVITAS UTAMA", "value": "Feeding Satwa & Edukator" }
+    ]
+  },
+  {
+    "id": "outbound-gathering",
+    "index": "05",
+    "tag": "B2B TEAM BUILDING & LEADERSHIP",
+    "name": "Outbound & Team Building",
+    "headline": "Membangun Kekompakan di Bawah Naungan Alam",
+    "tagline": "Program sinergi dan dinamika kelompok terintegrasi yang dipercaya lebih dari 100 instansi korporasi dan BUMN nasional.",
+    "image": "/images/activities/outbound-gathering.jpg",
+    "metrics": [
+      { "label": "ARENA VENUE", "value": "Amfiteater & Lapangan Pinus" },
+      { "label": "DURASI PROGRAM", "value": "Halfday / Fullday Custom" },
+      { "label": "KAPASITAS", "value": "50 s/d 500 Peserta" },
+      { "label": "LEVEL TANTANGAN", "value": "Kolaborasi & Fun Sinergi" },
+      { "label": "FASILITAS B2B", "value": "Master Trainer, Sound & Props" }
+    ]
+  },
+  {
+    "id": "forest-spa",
+    "index": "06",
+    "tag": "FOREST WELLNESS & HERBAL HEALING",
+    "name": "Pine Forest Spa & Wellness",
+    "headline": "Relaksasi Alami di Keheningan Kanopi Pinus",
+    "tagline": "Sensasi pemulihan raga menyeluruh dengan sentuhan aromaterapi rempah alami dan alunan gemericik air sungai pegunungan.",
+    "image": "/images/activities/forest-spa.jpg",
+    "metrics": [
+      { "label": "ATMOSFER AREA", "value": "Bilik Kayu & Kanopi Pinus" },
+      { "label": "DURASI TERAPI", "value": "60 — 90 Menit" },
+      { "label": "KAPASITAS", "value": "Single & Couple Room" },
+      { "label": "LEVEL RELAKSASI", "value": "Menenangkan & Deep Rest" },
+      { "label": "TREATMENT UTAMA", "value": "Aromaterapi Herbal Wilis" }
+    ]
+  }
+]

@@ -4,6 +4,9 @@ import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import AboutManifesto from '../components/AboutManifesto.astro';
 import AccommodationTeaser from '../components/AccommodationTeaser.astro';
+import ActivitiesSticky from '../components/ActivitiesSticky.astro';
+import FacilitiesSticky from '../components/FacilitiesSticky.astro';
+import ReviewsGoogle from '../components/ReviewsGoogle.astro';
 ---
 
 <Layout title="Jolotundo Glamping & Edupark — Ekowisata Pegunungan Nganjuk">
@@ -17,7 +20,16 @@ import AccommodationTeaser from '../components/AccommodationTeaser.astro';
 		<!-- Section 01: About & Manifesto (GoUncharted Editorial Style + BUMN Partner Rail) -->
 		<AboutManifesto />
 
-		<!-- Section 02: Koleksi Akomodasi Unggulan & CTA Lihat Seluruh Akomodasi -->
+		<!-- Section 02: Koleksi Akomodasi Unggulan (Asymmetric Editorial Grid, Zero Rounded) -->
 		<AccommodationTeaser />
+
+		<!-- Section 03: Wana Wisata & Edupark (Full-Width Sticky Scrollytelling, GoUncharted 1:1) -->
+		<ActivitiesSticky />
+
+		<!-- Section 04: Fasilitas & Kuliner Pegunungan (Sticky Split-Scroll 1:1 GoUncharted) -->
+		<FacilitiesSticky />
+
+		<!-- Section 05: Ulasan Pengunjung Google Maps (Verified 4.9 Rating & Social Proof) -->
+		<ReviewsGoogle />
 	</main>
 </Layout>

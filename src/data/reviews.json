@@ -1,0 +1,90 @@
+[
+  {
+    "id": "rev-01",
+    "author": "Bambang Hariyanto",
+    "role": "Local Guide • Level 7",
+    "avatar": "BH",
+    "rating": 5,
+    "date": "1 minggu lalu",
+    "quote": "“Jujur kaget pas nyampe, tempatnya jauh lebih estetik dari fotonya! Suasana pinus adem, aliran sungai bikin tenang. Fasilitas Korean Glamping lengkap dan air hangatnya ngalir stabil padahal udara malamnya dingin.”",
+    "highlight": "Korean Glamping • Air Hangat Stabil",
+    "stayType": "Staycation Pasangan"
+  },
+  {
+    "id": "rev-02",
+    "author": "dr. Maya Permatasari",
+    "role": "Pengunjung Terverifikasi",
+    "avatar": "MP",
+    "rating": 5,
+    "date": "2 minggu lalu",
+    "quote": "“Wisata ramah keluarga terbaik di Nganjuk. Anak-anak seneng banget kasih makan kelinci di mini zoo dan main air di sungai yang dangkal jernih. Makanan resto enak dan harganya masuk akal.”",
+    "highlight": "Ramah Anak • Mini Zoo & Sungai",
+    "stayType": "Liburan Keluarga"
+  },
+  {
+    "id": "rev-03",
+    "author": "Rizky Ramadhan",
+    "role": "Local Guide • Level 6",
+    "avatar": "RR",
+    "rating": 5,
+    "date": "3 minggu lalu",
+    "quote": "“Gathering kantor 80 orang berjalan sangat profesional. Pendopo pertemuannya luas dan sejuk tanpa AC, audio siap pakai, plus jeep offroadnya seru banget. Prasmanannya lezat dan tepat waktu.”",
+    "highlight": "Corporate Gathering 80 Pax",
+    "stayType": "Acara Korporat"
+  },
+  {
+    "id": "rev-04",
+    "author": "Dimas Wicaksono",
+    "role": "Local Guide • Level 8",
+    "avatar": "DW",
+    "rating": 5,
+    "date": "1 bulan lalu",
+    "quote": "“Kopi lereng Wilis dan rawon iga di Pine Resto bener-bener syahdu! Dek kayunya persis di bibir sungai, udaranya segar berkabut tipis. Pas malam ada live akustik santai yang estetik.”",
+    "highlight": "Kopi Wilis & Rawon Iga",
+    "stayType": "Riverside Dining"
+  },
+  {
+    "id": "rev-05",
+    "author": "Citra Lestari",
+    "role": "Pengunjung Terverifikasi",
+    "avatar": "CL",
+    "rating": 5,
+    "date": "1 bulan lalu",
+    "quote": "“Pengalaman glamping pertama kali yang berkesan. Kasur empuk, tenda bersih nggak bau apek, dan Wi-Fi kenceng. Malamnya pesan paket barbeque & api unggun di bawah langit bertabur bintang.”",
+    "highlight": "Paket BBQ & Api Unggun",
+    "stayType": "Glamping Bersama Teman"
+  },
+  {
+    "id": "rev-06",
+    "author": "Ir. Hendro Kusumo",
+    "role": "Local Guide • Level 6",
+    "avatar": "HK",
+    "rating": 5,
+    "date": "1 bulan lalu",
+    "quote": "“Pengelolaan sanitasinya paling niat. Mushola kayunya bersih dengan air wudhu dingin murni dari mata air alami. Toilet berjejer rapi dan selalu kering. Sangat ramah untuk orang tua.”",
+    "highlight": "Mushola Asri & Sanitasi Bersih",
+    "stayType": "Keluarga Besar"
+  },
+  {
+    "id": "rev-07",
+    "author": "Aditya Putra",
+    "role": "Pengunjung Terverifikasi",
+    "avatar": "AP",
+    "rating": 5,
+    "date": "2 bulan lalu",
+    "quote": "“Rute jeep offroad dan ATV adventure nya beneran memacu adrenalin! Nembus kebun cengkeh dan hutan Wilis, drivernya ramah dan tau spot foto paling bagus. Cocok buat lepas penat kerjaan.”",
+    "highlight": "Jeep Offroad & ATV Adventure",
+    "stayType": "Petualangan Komunitas"
+  },
+  {
+    "id": "rev-08",
+    "author": "Anisa Rahmawati",
+    "role": "Local Guide • Level 5",
+    "avatar": "AR",
+    "rating": 5,
+    "date": "2 bulan lalu",
+    "quote": "“Madu hutan murni lereng Wilis dan kopi sangrainya wajib dibeli di gerai suvenir. Tempat parkir sangat luas dan tertata rapi. Stafnya ramah dan selalu siap membantu setiap saat.”",
+    "highlight": "Madu Wilis & Parkir Luas",
+    "stayType": "Wisata Akhir Pekan"
+  }
+]

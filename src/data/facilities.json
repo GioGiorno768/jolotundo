@@ -1,0 +1,106 @@
+[
+  {
+    "id": "parking-area",
+    "index": "01",
+    "category": "AKSES & TRANSPORTASI",
+    "title": "Parking Area Luas & Tertata",
+    "statement": "“Area parkir beraspal padat dan tertata rapi di gerbang utama, dirancang aman untuk seluruh jenis kendaraan keluarga hingga bus rombongan.”",
+    "meta": [
+      "50+ Mobil & Bus",
+      "Aspal Rata & Terang",
+      "Penjagaan 24 Jam"
+    ],
+    "image": "/images/facilities/parking-area.jpg"
+  },
+  {
+    "id": "meeting-hall-pendopo",
+    "index": "02",
+    "category": "RUANG PERTEMUAN & GATHERING",
+    "title": "Aula & Meeting Point",
+    "statement": "“Pendopo limasan kayu jati terbuka untuk konsolidasi korporat, gathering komunitas, dan keakraban keluarga di sejuknya alam bebas.”",
+    "meta": [
+      "Kapasitas 150–200 Tamu",
+      "Full Audio & Proyektor",
+      "Panorama Hutan Pinus"
+    ],
+    "image": "/images/facilities/meeting-hall-pendopo.jpg"
+  },
+  {
+    "id": "musholla-alam",
+    "index": "03",
+    "category": "SARANA IBADAH & SPIRITUAL",
+    "title": "Fasilitas Ibadah (Mushala)",
+    "statement": "“Ruang ibadah panggung kayu asri di tengah kanopi pinus, disempurnakan kesegaran air wudhu murni dari mata air dingin lereng Wilis.”",
+    "meta": [
+      "Kapasitas 50 Jamaah",
+      "Mata Air Murni Wilis",
+      "Mukena & Sajadah Bersih"
+    ],
+    "image": "/images/facilities/musholla-alam.jpg"
+  },
+  {
+    "id": "sanitasi-water-heater",
+    "index": "04",
+    "category": "SANITASI & KENYAMANAN TAMU",
+    "title": "Kamar Mandi & Toilet Bersih",
+    "statement": "“Standar sanitasi modern dengan pemisahan tegas pria dan wanita, dilengkapi pancuran air hangat stabil untuk kenyamanan maksimal Anda.”",
+    "meta": [
+      "12 Bilik Terpisah",
+      "Water Heater Stabil",
+      "Housekeeping 24 Jam"
+    ],
+    "image": "/images/facilities/sanitasi-water-heater.jpg"
+  },
+  {
+    "id": "pine-resto-cafe",
+    "index": "05",
+    "category": "KULINER & RIVERSIDE DINING",
+    "title": "Cafe & Restaurant (Pine Resto)",
+    "statement": "“Cita rasa hangat kuliner Nusantara dan racikan kopi lereng Wilis di atas dek kayu panggung, berpadu alunan gemericik sungai alami.”",
+    "meta": [
+      "150 Kursi Tamu",
+      "Riverside Wooden Deck",
+      "08.00 — 22.00 WIB"
+    ],
+    "image": "/images/facilities/pine-resto-cafe.jpg"
+  },
+  {
+    "id": "wifi-access",
+    "index": "06",
+    "category": "KONEKTIVITAS & HIGH-SPEED INTERNET",
+    "title": "Akses Wi-Fi Cepat",
+    "statement": "“Koneksi internet serat optik berkecepatan tinggi yang menjangkau seluruh area sentral glamping untuk kemudahan kerja remote dan konektivitas.”",
+    "meta": [
+      "Up to 100 Mbps Dedicated",
+      "Cakupan Area Glamping",
+      "Free Unlimited Access"
+    ],
+    "image": "/images/facilities/wifi-access.jpg"
+  },
+  {
+    "id": "security-24h",
+    "index": "07",
+    "category": "KEAMANAN & MONITORING 24 JAM",
+    "title": "24 Hour Securities",
+    "statement": "“Ketenangan istirahat Anda terjaga penuh berkat pos penjagaan utama dan patroli berkala personel pengamanan bersertifikasi sepanjang malam.”",
+    "meta": [
+      "Pos Gerbang Utama 24 Jam",
+      "Patroli Rutin Berkala",
+      "Tanggap Darurat Siap"
+    ],
+    "image": "/images/facilities/security-24h.jpg"
+  },
+  {
+    "id": "souvenir-merchandise",
+    "index": "08",
+    "category": "KRIYA & OLEH-OLEH KHAS LOKAL",
+    "title": "Pusat Souvenir & Merchandise",
+    "statement": "“Bawa pulang kenangan manis Jolotundo melalui cenderamata resmi, madu hutan murni, biji kopi sangrai lereng Wilis, dan kriya UMKM pilihan.”",
+    "meta": [
+      "Official Merchandise",
+      "Madu & Kopi Lereng Wilis",
+      "Kriya UMKM Terpilih"
+    ],
+    "image": "/images/facilities/souvenir-merchandise.jpg"
+  }
+]
