@@ -23,6 +23,9 @@ const {
 		<title>{title}</title>
 		<meta name="description" content={description} />
 
+		<!-- Preload Hero LCP Image for Instant First Paint on Mobile & Desktop -->
+		<link rel="preload" as="image" href="/images/hero.jpg" fetchpriority="high" />
+
 		<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono (GoUncharted Editorial Typography) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -26,9 +26,7 @@ const row2 = reviews.slice(4, 8);
       <div>
         <div class="flex items-center gap-2 text-[11px] sm:text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase mb-2.5">
           <span class="w-1.5 h-1.5 bg-[#d8c39e]"></span>
-          <span>[ 05 // ULASAN PENGUNJUNG ]</span>
-          <span>•</span>
-          <span>GOOGLE MAPS 4.9 ★ VERIFIED</span>
+          <span>ULASAN PENGUNJUNG</span>
         </div>
         <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase leading-none font-sans">
           Kata Mereka
@@ -246,61 +244,82 @@ const row2 = reviews.slice(4, 8);
 
 </section>
 
-<!-- Interactive Draggable Marquee Engine Script -->
+<!-- Interactive Draggable Marquee Engine Script (Hardware Accelerated & Zero Layout Thrashing) -->
 <script is:inline>
   function initDraggableMarquee() {
+    const section = document.getElementById('ulasan');
     const track1 = document.getElementById('marquee-track-1');
     const track2 = document.getElementById('marquee-track-2');
-    if (!track1 || !track2) return;
+    if (!section || !track1 || !track2) return;
 
-    // Helper to setup a draggable + auto-scrolling marquee track
+    // Helper to setup a draggable + auto-scrolling marquee track with CACHED dimensions
     function setupTrack(track, baseSpeed, initialOffsetRatio = 0) {
       let currentX = 0;
       let isDragging = false;
       let isHovered = false;
+      let isVisible = true;
       let startX = 0;
       let dragStartX = 0;
       let animationFrameId = null;
 
-      // Calculate unit width (the repeated sequence is repeated 3 times)
-      function getUnitWidth() {
-        return track.scrollWidth / 3;
+      // CACHED UNIT WIDTH (Never read scrollWidth inside the 60fps/120fps loop!)
+      let unitWidth = track.scrollWidth > 0 ? track.scrollWidth / 3 : 1500;
+
+      function updateDimensions() {
+        if (track.scrollWidth > 0) {
+          unitWidth = track.scrollWidth / 3;
+        }
       }
 
       // Initialize offset
-      const unit = getUnitWidth();
       if (initialOffsetRatio !== 0) {
-        currentX = -unit * initialOffsetRatio;
+        currentX = -unitWidth * initialOffsetRatio;
       }
 
       function loop() {
-        const currentUnitWidth = getUnitWidth();
+        if (!isVisible) {
+          animationFrameId = null;
+          return;
+        }
 
         if (!isDragging && !isHovered) {
           currentX += baseSpeed;
         }
 
-        // Infinite wrap logic
+        // Infinite wrap logic (Using cached unitWidth - 0ms cost)
         if (baseSpeed < 0) {
           // Moving Left
-          if (currentX <= -currentUnitWidth) {
-            currentX += currentUnitWidth;
+          if (currentX <= -unitWidth) {
+            currentX += unitWidth;
           }
           if (currentX > 0) {
-            currentX -= currentUnitWidth;
+            currentX -= unitWidth;
           }
         } else {
           // Moving Right
           if (currentX >= 0) {
-            currentX -= currentUnitWidth;
+            currentX -= unitWidth;
           }
-          if (currentX < -currentUnitWidth) {
-            currentX += currentUnitWidth;
+          if (currentX < -unitWidth) {
+            currentX += unitWidth;
           }
         }
 
-        track.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
+        track.style.transform = `translate3d(${currentX.toFixed(1)}px, 0, 0)`;
         animationFrameId = requestAnimationFrame(loop);
+      }
+
+      function startLoop() {
+        if (!animationFrameId && isVisible) {
+          animationFrameId = requestAnimationFrame(loop);
+        }
+      }
+
+      function stopLoop() {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
       }
 
       // Pointer & Mouse interactions
@@ -339,7 +358,6 @@ const row2 = reviews.slice(4, 8);
         if (!isDragging) return;
         isDragging = false;
         wrapper.style.cursor = 'grab';
-        // If cursor is still over wrapper, remains paused; otherwise resumes
         const isStillOver = wrapper.matches(':hover');
         if (!isStillOver) {
           isHovered = false;
@@ -365,10 +383,9 @@ const row2 = reviews.slice(4, 8);
       track.addEventListener('touchend', () => {
         if (!isDragging) return;
         isDragging = false;
-        // Resume auto-scroll after a pleasant brief pause
         setTimeout(() => {
           isHovered = false;
-        }, 500);
+        }, 400);
       });
 
       track.addEventListener('touchcancel', () => {
@@ -376,15 +393,50 @@ const row2 = reviews.slice(4, 8);
         isHovered = false;
       });
 
-      // Start rAF loop
-      animationFrameId = requestAnimationFrame(loop);
+      return {
+        updateDimensions,
+        setVisible: (visible) => {
+          isVisible = visible;
+          if (visible) startLoop();
+          else stopLoop();
+        }
+      };
     }
 
-    // Setup Row 1: Slides Left (-0.65px per frame)
-    setupTrack(track1, -0.65, 0);
+    // Setup Row 1 & Row 2
+    const controller1 = setupTrack(track1, -0.65, 0);
+    const controller2 = setupTrack(track2, 0.65, 0.5);
 
-    // Setup Row 2: Slides Right (+0.65px per frame), initial offset half unit
-    setupTrack(track2, 0.65, 0.5);
+    // Initial measurement after paint
+    setTimeout(() => {
+      controller1.updateDimensions();
+      controller2.updateDimensions();
+    }, 100);
+
+    // Debounced Resize Observer (Only recalibrates once resize stops)
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        controller1.updateDimensions();
+        controller2.updateDimensions();
+      }, 150);
+    }, { passive: true });
+
+    // IntersectionObserver: Pause completely when section is offscreen (Saves 100% CPU/GPU)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const isIntersecting = entry.isIntersecting;
+        controller1.setVisible(isIntersecting);
+        controller2.setVisible(isIntersecting);
+      });
+    }, {
+      root: null,
+      threshold: 0,
+      rootMargin: "200px 0px"
+    });
+
+    observer.observe(section);
   }
 
   if (document.readyState === 'loading') {

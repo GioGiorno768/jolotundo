@@ -14,11 +14,14 @@ import siteData from '../data/siteData.json';
     <img 
       src="/images/hero.jpg" 
       alt="Suasana Nyata River Camp & Hutan Pinus Jolotundo Glamping & Edupark di Tepi Sungai Alami Nganjuk" 
-      class="w-full h-full object-cover object-center brightness-[0.82] contrast-[1.05]"
+      class="w-full h-full object-cover object-center"
       loading="eager"
+      fetchpriority="high"
+      decoding="async"
     />
     
-    <!-- Cinematic Gradients for razor-sharp typography readability -->
+    <!-- Cinematic Gradients for razor-sharp typography readability (Zero CSS filter overhead) -->
+    <div class="absolute inset-0 bg-black/20"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
   </div>
@@ -91,52 +94,51 @@ import siteData from '../data/siteData.json';
   </div>
 </section>
 
-<!-- Direct Lenis-Synced Parallax Engine for 100% Sub-Pixel Smoothness -->
+<!-- Direct Lenis-Synced Parallax Engine for 100% Sub-Pixel Smoothness (Zero Blur Repaint Overhead) -->
 <script is:inline>
-  const heroSection = document.getElementById('hero-section');
-  const heroBg = document.getElementById('hero-parallax-bg');
-  const heroContent = document.getElementById('hero-content');
+  (function() {
+    const heroSection = document.getElementById('hero-section');
+    const heroBg = document.getElementById('hero-parallax-bg');
+    const heroContent = document.getElementById('hero-content');
+    if (!heroSection) return;
 
-  function renderParallax(scrollY) {
-    const heroHeight = heroSection ? heroSection.offsetHeight : 800;
+    let heroHeight = heroSection.offsetHeight || 800;
+    let isHeroVisible = true;
+    let isTicking = false;
 
-    if (scrollY <= heroHeight * 1.5) {
-      if (heroBg) {
-        heroBg.style.transform = "translate3d(0, " + (scrollY * 0.32).toFixed(2) + "px, 0) scale(" + (1.02 + scrollY * 0.0002).toFixed(4) + ")";
+    window.addEventListener('resize', () => {
+      heroHeight = heroSection.offsetHeight || 800;
+    }, { passive: true });
+
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        isHeroVisible = entries[0].isIntersecting;
+      }, { rootMargin: '200px 0px' });
+      obs.observe(heroSection);
+    }
+
+    function renderParallax() {
+      const scrollY = window.scrollY;
+      if (scrollY <= heroHeight * 1.2) {
+        if (heroBg) {
+          heroBg.style.transform = `translate3d(0, ${(scrollY * 0.28).toFixed(1)}px, 0)`;
+        }
+        if (heroContent) {
+          const progress = Math.min(1, scrollY / (heroHeight * 0.75));
+          heroContent.style.transform = `translate3d(0, ${(scrollY * 0.22).toFixed(1)}px, 0)`;
+          heroContent.style.opacity = Math.max(0, 1 - progress).toFixed(2);
+        }
       }
+      isTicking = false;
+    }
 
-      if (heroContent) {
-        const progress = Math.min(1, scrollY / (heroHeight * 0.75));
-        heroContent.style.transform = "translate3d(0, " + (scrollY * 0.25).toFixed(2) + "px, 0)";
-        heroContent.style.opacity = Math.max(0, 1 - progress * 1).toFixed(3);
-        heroContent.style.filter = "blur(" + (progress * 10).toFixed(1) + "px)";
+    function onScroll() {
+      if (!isTicking && isHeroVisible) {
+        requestAnimationFrame(renderParallax);
+        isTicking = true;
       }
     }
-  }
 
-  // Cek apakah Lenis sudah siap di window, sync langsung dengan event scroll Lenis
-  function connectParallax() {
-    // @ts-ignore
-    const lenis = window.__lenis;
-    if (lenis && typeof lenis.on === 'function') {
-      lenis.on('scroll', (e) => {
-        renderParallax(e.scroll);
-      });
-    } else {
-      window.addEventListener('scroll', () => {
-        renderParallax(window.scrollY);
-      }, { passive: true });
-    }
-  }
-
-  // Polling halus sekali di awal untuk mengaitkan ke Lenis instance
-  const interval = setInterval(() => {
-    // @ts-ignore
-    if (window.__lenis) {
-      clearInterval(interval);
-      connectParallax();
-    }
-  }, 50);
-
-  setTimeout(() => clearInterval(interval), 2000);
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
 </script>

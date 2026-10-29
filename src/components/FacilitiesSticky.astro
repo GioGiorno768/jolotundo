@@ -18,9 +18,7 @@ import siteData from '../data/siteData.json';
       <div>
         <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase mb-3">
           <span class="w-1.5 h-1.5 bg-[#141110]"></span>
-          <span>[ 04 // FASILITAS KAMI ]</span>
-          <span>•</span>
-          <span>08 SARANA TERPADU LERENG WILIS</span>
+          <span>FASILITAS KAMI</span>
         </div>
         <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#141110] uppercase leading-none font-sans">
           Fasilitas Kami
@@ -53,16 +51,17 @@ import siteData from '../data/siteData.json';
             {facilities.map((fac, idx) => (
               <div class="w-full h-full shrink-0 relative bg-black overflow-hidden">
                 
-                <!-- Inner Parallax Layer (Taller than slide: 145% height with -22.5% offset, translated along Y on scroll) -->
+                <!-- Inner Parallax Layer (Taller than slide: 135% height with -17.5% offset, translated along Y on scroll) -->
                 <div 
-                  class="facility-parallax-layer absolute inset-x-0 w-full h-[145%] -top-[22.5%] will-change-transform"
+                  class="facility-parallax-layer absolute inset-x-0 w-full h-[135%] -top-[17.5%]"
                   style="transform: translate3d(0, 0px, 0);"
                 >
                   <img 
                     src={fac.image} 
                     alt={fac.title + " - Jolotundo Glamping & Edupark"}
-                    class="w-full h-full object-cover object-center brightness-[0.92] contrast-[1.03]"
-                    loading={idx < 2 ? "eager" : "lazy"}
+                    class="w-full h-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 
@@ -238,39 +237,15 @@ import siteData from '../data/siteData.json';
       });
     }
 
-    // Scroll Handler: Computes Translate-Y Parallax immediately from section enter & syncs active card
+    // Scroll Handler: Single-pass active card detection & targeted Translate-Y Parallax
     function onScroll() {
-      const sRect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-
-      // 1. TRANSLATE-Y PARALLAX ENGINE (Active immediately when section enters viewport)
-      if (sRect.top <= windowHeight && sRect.bottom >= 0) {
-        const viewportCenter = windowHeight * 0.45;
-
-        // Compute individual Translate-Y for each card/slide so each moves smoothly relative to viewport
-        cards.forEach((card, idx) => {
-          const layer = parallaxLayers[idx];
-          if (!layer) return;
-
-          const cRect = card.getBoundingClientRect();
-          // Active range when card is around the screen
-          if (cRect.bottom >= -windowHeight * 0.5 && cRect.top <= windowHeight * 1.5) {
-            const cardCenter = cRect.top + cRect.height * 0.45;
-            const diff = cardCenter - viewportCenter;
-            
-            // Responsive factor (0.12): every 100px scroll produces ~12px of smooth parallax gliding
-            const rawY = -diff * 0.12;
-            const clampedY = Math.max(-75, Math.min(75, rawY));
-            layer.style.transform = `translate3d(0, ${clampedY.toFixed(2)}px, 0)`;
-          }
-        });
-      }
-
-      // 2. ACTIVE STORY CARD DETECTION (Focal line at ~40% of viewport height)
+      const viewportCenter = windowHeight * 0.45;
       const focalLine = windowHeight * 0.40;
       let closestIdx = activeIndex;
       let minDistance = Infinity;
 
+      // Single pass over cards (avoids double getBoundingClientRect layout reads)
       cards.forEach((card, idx) => {
         const cRect = card.getBoundingClientRect();
         const cardCenter = cRect.top + cRect.height * 0.45;
@@ -280,6 +255,16 @@ import siteData from '../data/siteData.json';
           minDistance = dist;
           closestIdx = idx;
         }
+
+        // Only compute & update parallax transform for active and adjacent slide (saves 75% GPU work)
+        if (Math.abs(idx - activeIndex) <= 1) {
+          const layer = parallaxLayers[idx];
+          if (layer && cRect.bottom >= -windowHeight * 0.5 && cRect.top <= windowHeight * 1.5) {
+            const diff = cardCenter - viewportCenter;
+            const clampedY = Math.max(-60, Math.min(60, -diff * 0.1));
+            layer.style.transform = `translate3d(0, ${clampedY.toFixed(1)}px, 0)`;
+          }
+        }
       });
 
       if (closestIdx !== activeIndex) {
@@ -287,20 +272,44 @@ import siteData from '../data/siteData.json';
       }
     }
 
-    // Listen to scroll events (Native + Lenis sync)
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    // High Performance rAF Throttled Scroll & IntersectionObserver
+    let isTicking = false;
+    let isIntersecting = false;
 
-    // @ts-ignore
-    if (window.__lenis) {
-      // @ts-ignore
-      window.__lenis.on('scroll', onScroll);
-    } else {
-      setTimeout(() => {
-        // @ts-ignore
-        if (window.__lenis) window.__lenis.on('scroll', onScroll);
-      }, 300);
+    function handleScroll() {
+      if (!isTicking && isIntersecting) {
+        requestAnimationFrame(() => {
+          onScroll();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
     }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          onScroll();
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0,
+      rootMargin: "250px 0px"
+    });
+
+    observer.observe(section);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        onScroll();
+      }, 150);
+    }, { passive: true });
 
     // Click on Inactive Card or Indicator Number to jump smoothly
     cards.forEach((card, i) => {

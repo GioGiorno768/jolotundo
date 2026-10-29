@@ -59,10 +59,10 @@ const editorialStats = [
     <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-8 border-b border-[#141110]/15 gap-4">
       <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/80 tracking-widest uppercase">
         <span class="w-2 h-2 rounded-full bg-emerald-700 animate-pulse"></span>
-        <span>[ 01 // COMPANY OVERVIEW & MANIFESTO ]</span>
+        <span>COMPANY OVERVIEW & MANIFESTO</span>
       </div>
       <div class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
-        DAN GROUP ECOSYSTEM • BAJULAN, NGANJUK (±800 MDPL)
+        DAN GROUP ECOSYSTEM
       </div>
     </div>
 
@@ -206,13 +206,13 @@ const editorialStats = [
     if (!words || words.length === 0) return;
 
     const totalWords = words.length;
+    let isTicking = false;
+    let isVisible = false;
 
     const updateWords = () => {
       const rect = heading.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
-      // Mulai menyala saat heading berada di 82% viewport (mulai masuk dari bawah)
-      // Menyala penuh 100% saat berada di 36% viewport (posisi nyaman membaca)
       const startTrigger = viewportHeight * 0.82;
       const endTrigger = viewportHeight * 0.36;
 
@@ -220,28 +220,29 @@ const editorialStats = [
       const overallProgress = Math.max(0, Math.min(1, rawProgress));
 
       words.forEach((word, idx) => {
-        // Rentang progres untuk tiap kata (staggered threshold)
         const wordStart = idx / totalWords;
         const wordEnd = (idx + 1) / totalWords;
-
-        // Kurva progress halus antar kata
         const wordProgress = Math.max(0, Math.min(1, (overallProgress - wordStart) / (wordEnd - wordStart)));
-
-        // Interpolasi: dari samar (0.18) menuju terang penuh (1.0)
         const opacity = 0.18 + wordProgress * 0.82;
-        word.style.opacity = opacity.toFixed(3);
+        word.style.opacity = opacity.toFixed(2);
       });
+      isTicking = false;
     };
 
-    // Sambungkan ke native scroll & event scroll Lenis
-    window.addEventListener('scroll', updateWords, { passive: true });
-    window.addEventListener('resize', updateWords, { passive: true });
+    const onScroll = () => {
+      if (!isTicking && isVisible) {
+        requestAnimationFrame(updateWords);
+        isTicking = true;
+      }
+    };
 
-    const globalLenis = (window as unknown as { __lenis?: { on: (event: string, cb: () => void) => void } }).__lenis;
-    if (globalLenis && typeof globalLenis.on === 'function') {
-      globalLenis.on('scroll', updateWords);
-    }
+    const obs = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible) updateWords();
+    }, { rootMargin: '150px 0px' });
+    obs.observe(heading);
 
+    window.addEventListener('scroll', onScroll, { passive: true });
     updateWords();
   }
 

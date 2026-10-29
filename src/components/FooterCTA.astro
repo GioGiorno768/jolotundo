@@ -1,0 +1,267 @@
+---
+import siteData from '../data/siteData.json';
+
+const googleMapsUrl = "https://maps.google.com/?q=Jolotundo+Glamping+and+Edupark+Bajulan+Nganjuk";
+---
+
+<!-- 
+  SECTION 07 // FINAL CTA & LUXURY EDITORIAL FOOTER (1:1 GoUncharted Architecture)
+  - Full-Canvas Wilderness Landscape Photography Background with Pure Translate-Y Parallax
+  - Parallax activates immediately when the section enters the viewport (rect.top <= windowHeight)
+  - Center: Bold Headline "Your next journey starts here", Poetic Subhead & Signature Button "[ Plan a trip | ↗ ]"
+  - Bottom: Minimalist Integrated Footer anchored over the landscape foreground
+  - 100% Clean, Breathable, Luxury Editorial Layout (Zero Rounded, No Clutter)
+-->
+<footer id="kontak" class="relative z-20 w-full min-h-[100vh] sm:min-h-[110vh] flex flex-col justify-between overflow-hidden text-white select-none bg-[#100d0c]">
+  <!-- Anchor for Navbar Lokasi link -->
+  <span id="lokasi" class="absolute top-0 left-0 pointer-events-none"></span>
+
+  <!-- Background Parallax Image Layer (Taller than container, translates along Y on scroll) -->
+  <div 
+    id="cta-parallax-image" 
+    class="absolute inset-x-0 w-full h-[140%] -top-[20%] pointer-events-none will-change-transform transform-gpu"
+    style="transform: translate3d(0, -80px, 0);"
+  >
+    <img 
+      src="/images/cta-footer-bg.jpg" 
+      alt="Jolotundo Glamping & Edupark Landscape" 
+      class="w-full h-full object-cover object-center"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Soft Contrast Gradients for Crystal-Clear Typography (Zero CSS Filter Overhead) -->
+  <div class="absolute inset-0 bg-black/35 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/40 pointer-events-none"></div>
+
+  <!-- Top Spacer to Center the CTA Vertically -->
+  <div class="w-full h-12 sm:h-20 shrink-0"></div>
+
+  <!-- ============================================================== -->
+  <!-- CENTER CTA BLOCK (1:1 with GoUncharted Reference Screenshot)   -->
+  <!-- ============================================================== -->
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center my-auto py-16 sm:py-24">
+    
+    <!-- Bold White Headline (Exact GoUncharted Style) -->
+    <h2 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight font-sans drop-shadow-lg mb-4 sm:mb-5">
+      Your next journey starts here
+    </h2>
+
+    <!-- Concise Narrative Subhead -->
+    <p class="text-sm sm:text-base lg:text-lg text-white/90 font-normal leading-relaxed max-w-2xl mx-auto drop-shadow mb-8 sm:mb-10">
+      Ceritakan kapan dan bersama siapa Anda akan berkunjung. Tim concierge kami akan merespons dengan jadwal ketersediaan nyata, rekomendasi glamping terbaik, atau opsi tanggal ideal di lereng Wilis.
+    </p>
+
+    <!-- Signature GoUncharted Button: [ Plan a trip | ↗ ] -->
+    <a
+      href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Concierge Jolotundo, saya ingin merencanakan liburan glamping.")}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group inline-flex items-center bg-white text-[#141110] font-sans text-sm sm:text-base font-semibold transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:bg-[#f4efe6] overflow-hidden cursor-pointer pe-1"
+    >
+      <span class="px-6 sm:px-8 py-3.5 sm:py-4 tracking-tight">
+        Plan a trip
+      </span>
+      <span class="w-11 sm:w-12 h-11 sm:h-12 bg-black text-white flex items-center justify-center shrink-0 group-hover:bg-[#1f1b19] transition-colors">
+        <svg 
+          class="w-4 h-4 transform transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        >
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </span>
+    </a>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- INTEGRATED BOTTOM FOOTER (1:1 with GoUncharted Screenshot)    -->
+  <!-- ============================================================== -->
+  <div class="relative z-10 w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 pb-8 sm:pb-12 pt-8 sm:pt-12">
+    
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10 lg:gap-14">
+      
+      <!-- Left Column: Brand Name, Manifesto, Socials & Copyright -->
+      <div class="flex flex-col gap-4 max-w-md">
+        <!-- Brand Name with Period: Jolotundo. -->
+        <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-white font-sans">
+          Jolotundo.
+        </h3>
+
+        <!-- Short Manifesto (Quiet, Elegant) -->
+        <p class="text-xs sm:text-sm text-white/80 font-normal leading-relaxed">
+          Destinasi ekowisata terpadu lereng Gunung Wilis, dinaungi rimbunnya hutan pinus dan aliran mata air alami. Menghadirkan harmoni alam bebas bersama Dan Group.
+        </p>
+
+        <!-- Social Links: INSTAGRAM  YOUTUBE  TIKTOK  EMAIL -->
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono-tag tracking-widest uppercase text-white/95 pt-1 font-semibold">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-4 decoration-white/40 hover:decoration-white">INSTAGRAM</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-4 decoration-white/40 hover:decoration-white">YOUTUBE</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors underline underline-offset-4 decoration-white/40 hover:decoration-white">TIKTOK</a>
+          <a href={`mailto:${siteData.brand.email}`} class="hover:text-white transition-colors underline underline-offset-4 decoration-white/40 hover:decoration-white">EMAIL</a>
+        </div>
+
+        <!-- Copyright: © 2026 Jolotundo — Nganjuk -->
+        <div class="text-xs font-mono-tag text-white/55 tracking-wider pt-1 flex items-center justify-between sm:justify-start gap-4">
+          <span>© 2026 Jolotundo — Nganjuk</span>
+          <button
+            id="footer-back-to-top"
+            type="button"
+            class="sm:hidden text-white/70 hover:text-white transition-colors uppercase text-[10px] tracking-widest underline underline-offset-4"
+          >
+            Kembali ke atas ↑
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Columns: 3-Column Navigation Stream -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 text-xs sm:text-sm">
+        
+        <!-- Column 1: Navigation -->
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-mono-tag text-white/50 tracking-wider uppercase font-medium">
+            Navigation
+          </span>
+          <ul class="flex flex-col gap-2 font-medium text-white/90">
+            <li><a href="#hero-section" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="#akomodasi" class="hover:text-white transition-colors">Akomodasi</a></li>
+            <li><a href="#wahana" class="hover:text-white transition-colors">Aktivitas</a></li>
+            <li><a href="#fasilitas" class="hover:text-white transition-colors">Fasilitas</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Destinasi & Pengalaman -->
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-mono-tag text-white/50 tracking-wider uppercase font-medium">
+            Destinasi
+          </span>
+          <ul class="flex flex-col gap-2 font-medium text-white/90">
+            <li><a href="#akomodasi" class="hover:text-white transition-colors">Korean Glamping</a></li>
+            <li><a href="#akomodasi" class="hover:text-white transition-colors">River Camp</a></li>
+            <li><a href="#wahana" class="hover:text-white transition-colors">Jeep Offroad</a></li>
+            <li><a href="#fasilitas" class="hover:text-white transition-colors">Pine Resto</a></li>
+            <li><a href="#ulasan" class="hover:text-white transition-colors">Google Reviews</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Lokasi & Kontak -->
+        <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
+          <span class="text-xs font-mono-tag text-white/50 tracking-wider uppercase font-medium">
+            Lokasi & Kontak
+          </span>
+          <ul class="flex flex-col gap-2 font-medium text-white/90">
+            <li>
+              <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-flex items-center gap-1">
+                <span>Google Maps</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href={`https://wa.me/${siteData.brand.whatsapp}`} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-flex items-center gap-1">
+                <span>WhatsApp Concierge</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+            </li>
+            <li><span class="text-white/60">Dusun Plakat, Bajulan</span></li>
+            <li><span class="text-white/60">Dan Group Partner</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- Optimized Translate-Y Parallax Engine & Back to Top Script (Zero Stuttering & rAF Throttled) -->
+<script is:inline>
+  function initFooterParallax() {
+    const footer = document.getElementById('kontak');
+    const bgImage = document.getElementById('cta-parallax-image');
+    const backToTopBtn = document.getElementById('footer-back-to-top');
+    if (!footer || !bgImage) return;
+
+    let isTicking = false;
+    let isIntersecting = false;
+
+    // 1. PURE TRANSLATE-Y PARALLAX ENGINE (Throttled via requestAnimationFrame)
+    function updateParallax() {
+      const rect = footer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Parallax starts as soon as footer enters viewport (rect.top <= windowHeight)
+      if (rect.top <= windowHeight && rect.bottom >= 0) {
+        const totalTravel = rect.height + windowHeight;
+        const enterProgress = Math.max(0, Math.min(1, (windowHeight - rect.top) / totalTravel));
+
+        // Smooth vertical Translate-Y (drifts from -80px to +80px across 160px range without zoom)
+        const parallaxY = (enterProgress * 160 - 80).toFixed(1);
+        bgImage.style.transform = `translate3d(0, ${parallaxY}px, 0)`;
+      }
+      isTicking = false;
+    }
+
+    function onScroll() {
+      if (!isTicking && isIntersecting) {
+        requestAnimationFrame(updateParallax);
+        isTicking = true;
+      }
+    }
+
+    // IntersectionObserver: Only listen to parallax when footer is in/near viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          updateParallax();
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0,
+      rootMargin: "300px 0px"
+    });
+
+    observer.observe(footer);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Debounced Resize Observer
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updateParallax();
+      }, 150);
+    }, { passive: true });
+
+    // 2. BACK TO TOP SMOOTH SCROLL (Mobile)
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        // @ts-ignore
+        const lenis = window.__lenis;
+        if (lenis) {
+          lenis.scrollTo(0, { duration: 1.5 });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFooterParallax);
+  } else {
+    initFooterParallax();
+  }
+</script>

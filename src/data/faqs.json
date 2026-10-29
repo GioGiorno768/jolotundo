@@ -1,0 +1,39 @@
+[
+  {
+    "index": "01",
+    "question": "Apakah akses jalan aman untuk semua jenis kendaraan?",
+    "answer": "Seluruh jalur dari pusat Kota Nganjuk menuju Jolotundo di Desa Bajulan telah beraspal mulus dan dapat dilalui dengan sangat aman oleh mobil keluarga, city car, hingga bus pariwisata medium. Kami juga menyediakan area parkir terpusat yang luas dengan sistem penjagaan 24 jam.",
+    "defaultOpen": true
+  },
+  {
+    "index": "02",
+    "question": "Berapa waktu check-in dan check-out untuk glamping?",
+    "answer": "Waktu check-in dimulai pukul 14.00 WIB untuk memastikan kebersihan tenda dan sanitasi telah disiapkan secara prima, sedangkan waktu check-out maksimal pukul 12.00 WIB. Bagi tamu yang tiba lebih awal, Anda dipersilakan bersantai di Pine Resto, menikmati sungai alami, atau mengunjungi mini zoo terlebih dahulu.",
+    "defaultOpen": false
+  },
+  {
+    "index": "03",
+    "question": "Fasilitas apa saja yang sudah termasuk dalam paket glamping?",
+    "answer": "Seluruh unit glamping telah dilengkapi kasur empuk berstandar hotel, selimut hangat, bantal, colokan listrik pribadi, serta akses penuh ke fasilitas kamar mandi modern dengan pemanas air (water heater) stabil 24 jam. Paket tipe tertentu juga mencakup sarapan prasmanan dan perlengkapan barbeque malam.",
+    "defaultOpen": false
+  },
+  {
+    "index": "04",
+    "question": "Apakah diperbolehkan membawa makanan atau alat barbeque sendiri?",
+    "answer": "Tamu dipersilakan membawa kudapan dan makanan ringan pribadi. Untuk barbeque dan api unggun, kami sangat menyarankan memesan paket resmi Jolotundo karena sudah mencakup bahan segar pilihan, arang ramah lingkungan, alat panggang lengkap, serta pendampingan staf demi menjaga keamanan area hutan pinus.",
+    "defaultOpen": true
+  },
+  {
+    "index": "05",
+    "question": "Bagaimana sistem reservasi, deposit, dan perubahan jadwal?",
+    "answer": "Pemesanan dilakukan langsung melalui WhatsApp Concierge resmi kami dengan deposit 50% untuk mengunci tipe tenda dan tanggal yang Anda pilih. Pelunasan dilakukan saat tiba di lokasi. Perubahan jadwal (reschedule) dapat diproses dengan konfirmasi minimal 7 hari sebelum jadwal kedatangan.",
+    "defaultOpen": true
+  },
+  {
+    "index": "06",
+    "question": "Apakah Jolotundo melayani acara gathering perusahaan atau instansi?",
+    "answer": "Tentu — lebih dari 100 instansi BUMN dan korporasi nasional telah mempercayakan gathering tahunan mereka di Jolotundo. Kami menyediakan pendopo pertemuan berkapasitas 200 orang, sound system dan proyektor lengkap, katering prasmanan Nusantara, serta instruktur outbound dan rute jeep offroad lereng Wilis.",
+    "defaultOpen": false
+  }
+]
+

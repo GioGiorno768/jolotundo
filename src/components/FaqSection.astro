@@ -1,0 +1,167 @@
+---
+import faqs from '../data/faqs.json';
+import siteData from '../data/siteData.json';
+---
+
+<!-- 
+  SECTION 06 // FAQ & QUESTIONS ANSWERED (1:1 GoUncharted Luxury Editorial Architecture)
+  - Warm Stone Background (#f4efe6)
+  - Centered Minimalist Editorial Header: "— BEFORE YOU GO" & "Questions, answered"
+  - Generous Negative Space & Breathable Typographic Proportions
+  - Zero Rounded Brutalist-Luxury Lines (Thin Crisp Borders)
+  - Smooth Multi-Open Accordion with "+" and "—" Minimalist Toggles
+-->
+<section id="faq" class="relative z-20 bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 py-28 sm:py-36 px-6 sm:px-10 lg:px-14 xl:px-20 transition-colors duration-300">
+  <div class="max-w-[1040px] mx-auto flex flex-col">
+
+    <!-- Header Block (1:1 with GoUncharted Screenshot) -->
+    <div class="text-center flex flex-col items-center mb-16 sm:mb-20">
+      
+      <!-- Kicker with em-dash: — BEFORE YOU GO -->
+      <div class="flex items-center justify-center gap-2.5 text-xs font-mono-tag text-[#141110]/60 tracking-[0.25em] uppercase mb-4">
+        <span class="w-4 h-[1px] bg-[#141110]/50 inline-block"></span>
+        <span>BEFORE YOU GO</span>
+      </div>
+
+      <!-- Main Elegant Headline -->
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#141110] font-sans leading-tight">
+        Questions, answered
+      </h2>
+
+      <!-- Reassuring Editorial Subhead -->
+      <p class="text-sm sm:text-base text-[#141110]/65 font-light mt-4 max-w-xl mx-auto leading-relaxed">
+        Masih ada keraguan? Kami menjawab setiap pesan secara langsung melalui concierge, biasanya dalam hitungan menit.
+      </p>
+
+    </div>
+
+    <!-- Accordion List (GoUncharted Editorial Stream) -->
+    <div class="w-full flex flex-col">
+      {faqs.map((faq) => (
+        <div class="faq-item border-t border-[#141110]/15 last:border-b transition-colors duration-200">
+          
+          <!-- Entire Row Clickable Trigger -->
+          <button
+            type="button"
+            class="faq-trigger w-full py-6 sm:py-8 flex items-start justify-between gap-4 sm:gap-8 text-left cursor-pointer group select-none"
+            aria-expanded={faq.defaultOpen ? "true" : "false"}
+          >
+            <!-- Left Number: 01, 02, 03... -->
+            <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/40 group-hover:text-[#141110] transition-colors shrink-0 w-8 sm:w-10 pt-1">
+              {faq.index}
+            </span>
+
+            <!-- Center Content: Question + Answer -->
+            <div class="flex-1 min-w-0 pr-2 sm:pr-4">
+              <!-- Question -->
+              <h3 class="text-xl sm:text-2xl lg:text-[26px] font-normal text-[#141110] tracking-tight leading-snug group-hover:text-black transition-colors font-sans">
+                {faq.question}
+              </h3>
+
+              <!-- Expandable Answer -->
+              <div 
+                class="faq-answer-wrapper overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={faq.defaultOpen ? "max-height: 500px; opacity: 1;" : "max-height: 0px; opacity: 0;"}
+              >
+                <p class="pt-3.5 sm:pt-4 pb-1 text-sm sm:text-[15px] text-[#141110]/75 font-normal leading-relaxed max-w-2xl">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+
+            <!-- Right Icon: Smooth Animated Plus-Minus Morph ("+" to "—") -->
+            <div class={`faq-icon-box relative w-5 h-5 flex items-center justify-center shrink-0 mt-1 text-[#141110] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              faq.defaultOpen ? "rotate-180" : "rotate-0"
+            }`}>
+              <!-- Horizontal Bar (Always visible) -->
+              <span class="absolute w-3.5 h-[1.5px] bg-[#141110] group-hover:bg-black transition-colors duration-200"></span>
+              
+              <!-- Vertical Bar (Smoothly rotates 90deg, scales to 0 and fades out when open) -->
+              <span class={`faq-v-bar absolute h-3.5 w-[1.5px] bg-[#141110] group-hover:bg-black transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                faq.defaultOpen 
+                  ? "scale-y-0 rotate-90 opacity-0" 
+                  : "scale-y-100 rotate-0 opacity-100"
+              }`}></span>
+            </div>
+
+          </button>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Subtle Direct Inquiry Note (1:1 GoUncharted Warm Hospitality) -->
+    <div class="mt-14 sm:mt-18 pt-8 border-t border-[#141110]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
+      <span>Pertanyaan khusus untuk corporate gathering atau reservasi grup besar?</span>
+      <a 
+        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Concierge Jolotundo, saya memiliki beberapa pertanyaan sebelum melakukan reservasi.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-bold text-[#141110] hover:text-[#141110]/70 transition-colors underline underline-offset-4 decoration-[#141110]/30 hover:decoration-[#141110] inline-flex items-center gap-1.5 shrink-0"
+      >
+        <span>Hubungi Concierge WhatsApp</span>
+        <span>↗</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Smooth GoUncharted Accordion Toggle Script -->
+<script is:inline>
+  function initFaqAccordion() {
+    const triggers = document.querySelectorAll('.faq-trigger');
+    if (!triggers.length) return;
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.faq-item');
+        if (!item) return;
+
+        const answerWrapper = item.querySelector('.faq-answer-wrapper');
+        const vBar = item.querySelector('.faq-v-bar');
+        const iconBox = item.querySelector('.faq-icon-box');
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+          // Collapse to "+"
+          trigger.setAttribute('aria-expanded', 'false');
+          if (answerWrapper) {
+            answerWrapper.style.maxHeight = '0px';
+            answerWrapper.style.opacity = '0';
+          }
+          if (vBar) {
+            vBar.classList.remove('scale-y-0', 'rotate-90', 'opacity-0');
+            vBar.classList.add('scale-y-100', 'rotate-0', 'opacity-100');
+          }
+          if (iconBox) {
+            iconBox.classList.remove('rotate-180');
+            iconBox.classList.add('rotate-0');
+          }
+        } else {
+          // Expand to "—"
+          trigger.setAttribute('aria-expanded', 'true');
+          if (answerWrapper) {
+            answerWrapper.style.maxHeight = answerWrapper.scrollHeight + 50 + 'px';
+            answerWrapper.style.opacity = '1';
+          }
+          if (vBar) {
+            vBar.classList.remove('scale-y-100', 'rotate-0', 'opacity-100');
+            vBar.classList.add('scale-y-0', 'rotate-90', 'opacity-0');
+          }
+          if (iconBox) {
+            iconBox.classList.remove('rotate-0');
+            iconBox.classList.add('rotate-180');
+          }
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFaqAccordion);
+  } else {
+    initFaqAccordion();
+  }
+</script>
+

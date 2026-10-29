@@ -14,10 +14,10 @@ const {
 const waUrl = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
 ---
 
-<!-- Floating WhatsApp Container (Hidden on Hero, fades in afterwards) -->
+<!-- Floating WhatsApp Container (Hidden on Hero, fades in afterwards, positioned above mobile bars) -->
 <div 
   id="wa-floating-container"
-  class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0 scale-75 translate-y-6"
+  class="fixed bottom-[7.5rem] right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-50 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0 scale-75 translate-y-6"
 >
   <!-- Magnetic Interactive Hitbox Wrapper -->
   <div id="wa-magnetic-wrapper" class="relative p-2 pointer-events-auto">
@@ -62,30 +62,23 @@ const waUrl = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURICom
 
     if (!container || !wrapper || !btn || !icon) return;
 
-    // --- 1. Scroll Visibility Trigger (Lewat Hero) ---
-    const checkScroll = () => {
-      if (!container) return;
-      const scrollY = window.scrollY || window.pageYOffset;
-      const threshold = heroSection ? (heroSection.offsetTop + heroSection.offsetHeight * 0.7) : 500;
-
-      if (scrollY > threshold) {
-        container.classList.remove('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
-        container.classList.add('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
-      } else {
-        container.classList.add('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
-        container.classList.remove('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
-      }
-    };
-
-    // Sambungkan ke event scroll native & Lenis
-    window.addEventListener('scroll', checkScroll, { passive: true });
-    
-    // Type-safe access ke instance Lenis global
-    const globalLenis = (window as unknown as { __lenis?: { on: (event: string, cb: () => void) => void } }).__lenis;
-    if (globalLenis && typeof globalLenis.on === 'function') {
-      globalLenis.on('scroll', checkScroll);
+    // --- 1. Scroll Visibility Trigger via IntersectionObserver (Zero Scroll Listener Overhead) ---
+    if (heroSection && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        const isHeroOnScreen = entries[0].isIntersecting;
+        if (!isHeroOnScreen) {
+          container.classList.remove('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
+          container.classList.add('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+        } else {
+          container.classList.add('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
+          container.classList.remove('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+        }
+      }, { threshold: 0.25 });
+      obs.observe(heroSection);
+    } else {
+      container.classList.remove('opacity-0', 'scale-75', 'translate-y-6', 'pointer-events-none');
+      container.classList.add('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
     }
-    checkScroll();
 
     // --- 2. Magnetic Fluid Cursor Pull Effect ---
     let targetX = 0;

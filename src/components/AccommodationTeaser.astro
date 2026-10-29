@@ -43,21 +43,13 @@ const staysConfig = [
       <div>
         <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase mb-3">
           <span class="w-1.5 h-1.5 bg-[#141110]"></span>
-          <span>[ 02 // SELEKSI AKOMODASI ]</span>
-          <span>•</span>
-          <span>LERENG GUNUNG WILIS</span>
+          <span>SELEKSI AKOMODASI</span>
         </div>
         <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#141110] uppercase leading-none font-sans">
           Koleksi Menginap
         </h2>
       </div>
 
-      <!-- Right Header: Subtle Status Hint -->
-      <div class="text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest flex items-center gap-2 self-start sm:self-auto">
-        <span class="inline-block w-1.5 h-1.5 bg-[#d8c39e] animate-pulse"></span>
-        <span class="hidden sm:inline">Arahkan kursor untuk pratinjau tarif & detail</span>
-        <span class="sm:hidden">Scroll untuk melihat detail akomodasi</span>
-      </div>
     </div>
 
     <!-- Asymmetrical Grid (Row 1: 7/5 | Row 2: 5/7) with Cinematic Focus Spotlight -->
@@ -74,12 +66,13 @@ const staysConfig = [
             aria-label={`Lihat detail ${stay.name}`}
           >
             
-            <!-- Background Image with Butter-Smooth Scale on Hover/Active -->
+            <!-- Background Image with Butter-Smooth Scale on Hover/Active (Zero CSS filter overhead) -->
             <img 
               src={stay.editorialImage || stay.image} 
               alt={stay.name + " - Jolotundo Glamping & Edupark"}
-              class="camp-img w-full h-full object-cover object-center transform scale-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] brightness-[0.85]"
+              class="camp-img w-full h-full object-cover object-center transform scale-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
               loading="lazy"
+              decoding="async"
             />
 
             <!-- Dark Gradient Layer (Soft on Idle, Deepens on Hover for Razor-Sharp Text Contrast) -->
@@ -181,14 +174,15 @@ const staysConfig = [
   </div>
 </section>
 
-<!-- Cinematic Spotlight Focus & Card Scale Interaction (Desktop Hover & Mobile Touch) -->
+<!-- Cinematic Spotlight Focus & Card Scale Interaction -->
 <style>
-  /* When any camp card is hovered or active, all other non-hovered & non-active cards smoothly blur, dim, and scale down */
-  #accommodation-grid:has(.camp-card:hover) .camp-card:not(:hover),
-  #accommodation-grid:has(.camp-card.is-active) .camp-card:not(.is-active) {
-    filter: blur(4px) brightness(0.7);
-    opacity: 0.42;
-    transform: scale(0.985);
+  /* Desktop spotlight: when any card is hovered, other cards smoothly blur, dim, and scale down */
+  @media (hover: hover) and (pointer: fine) {
+    #accommodation-grid:has(.camp-card:hover) .camp-card:not(:hover) {
+      filter: blur(4px) brightness(0.7);
+      opacity: 0.42;
+      transform: scale3d(0.985, 0.985, 1);
+    }
   }
 
   /* Card base transition physics */
@@ -198,41 +192,52 @@ const staysConfig = [
                 opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, filter, opacity;
     touch-action: manipulation;
   }
 
-  /* Active or hovered card grows in size, elevates in z-index, and casts deep atmospheric shadow */
-  .camp-card:hover,
+  /* Active or hovered card elevation */
+  @media (hover: hover) and (pointer: fine) {
+    .camp-card:hover {
+      transform: scale3d(1.025, 1.025, 1);
+      z-index: 25;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      border-color: rgba(216, 195, 158, 0.5);
+      filter: blur(0) brightness(1);
+      opacity: 1;
+    }
+  }
+
   .camp-card.is-active {
-    transform: scale(1.025);
-    z-index: 25;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
     border-color: rgba(216, 195, 158, 0.5);
-    filter: blur(0) brightness(1);
     opacity: 1;
   }
 
   /* Title upward translation */
   .camp-title-wrap {
-    transform: translateY(0);
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .camp-card:hover .camp-title-wrap,
   .camp-card.is-active .camp-title-wrap {
-    transform: translateY(-12px);
+    transform: translate3d(0, -10px, 0);
   }
 
-  /* Drawer base state: 0fr height, hidden, opacity 0 */
+  /* Drawer base state on Desktop: collapsible grid row */
   .camp-drawer {
     display: grid;
     grid-template-rows: 0fr;
     opacity: 0;
-    transition: grid-template-rows 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.45s ease;
-    will-change: grid-template-rows, opacity;
+    transition: grid-template-rows 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease;
+  }
+
+  /* On Mobile/Touch (<1024px): keep grid-template-rows static 1fr so scrolling NEVER triggers layout reflow! */
+  @media (max-width: 1023px) {
+    .camp-drawer {
+      grid-template-rows: 1fr;
+      transition: opacity 0.4s ease;
+    }
   }
 
   /* Drawer expansion on hover or tap */
@@ -246,26 +251,24 @@ const staysConfig = [
     overflow: hidden;
   }
 
-  /* Drawer content translation: visibly slides up from 35px below */
+  /* Drawer content translation: pure GPU translate3d + opacity */
   .camp-drawer-content {
-    transform: translateY(35px);
+    transform: translate3d(0, 24px, 0);
     opacity: 0;
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.5s ease;
-    will-change: transform, opacity;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.45s ease;
   }
 
   .camp-card:hover .camp-drawer-content,
   .camp-card.is-active .camp-drawer-content {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 
-  /* Background image scale */
+  /* Background image scale (pure GPU transform, no CSS filter) */
   .camp-card:hover .camp-img,
   .camp-card.is-active .camp-img {
-    transform: scale(1.08);
-    filter: brightness(0.72);
+    transform: scale3d(1.06, 1.06, 1);
   }
 </style>
 
