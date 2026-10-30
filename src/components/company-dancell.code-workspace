@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../../company-dancell"
+		},
+		{
+			"path": "../../../dancell-ecommerce"
+		},
+		{
+			"path": "../../../justpaste"
+		},
+		{
+			"path": "../../../dancell-info"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "dancell-info"
+	}
+}

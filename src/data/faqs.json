@@ -1,39 +1,38 @@
 [
   {
     "index": "01",
-    "question": "Apakah akses jalan aman untuk semua jenis kendaraan?",
-    "answer": "Seluruh jalur dari pusat Kota Nganjuk menuju Jolotundo di Desa Bajulan telah beraspal mulus dan dapat dilalui dengan sangat aman oleh mobil keluarga, city car, hingga bus pariwisata medium. Kami juga menyediakan area parkir terpusat yang luas dengan sistem penjagaan 24 jam.",
+    "question": "Bagaimana kondisi akses jalan menuju Jolotundo?",
+    "answer": "Seluruh jalur dari pusat Kota Nganjuk menuju Jolotundo di Desa Bajulan telah beraspal mulus dan dapat dilalui dengan sangat aman dan nyaman oleh mobil keluarga, city car, hingga bus pariwisata. Kami juga menyediakan area parkir terpusat yang luas dengan sistem penjagaan 24 jam.",
     "defaultOpen": true
   },
   {
     "index": "02",
-    "question": "Berapa waktu check-in dan check-out untuk glamping?",
-    "answer": "Waktu check-in dimulai pukul 14.00 WIB untuk memastikan kebersihan tenda dan sanitasi telah disiapkan secara prima, sedangkan waktu check-out maksimal pukul 12.00 WIB. Bagi tamu yang tiba lebih awal, Anda dipersilakan bersantai di Pine Resto, menikmati sungai alami, atau mengunjungi mini zoo terlebih dahulu.",
+    "question": "Berapa jam check-in dan check-out untuk akomodasi?",
+    "answer": "Waktu check-in dan check-out disesuaikan dengan jenis unit yang Anda pesan. Detail jadwal kedatangan akan dikonfirmasikan oleh tim concierge saat reservasi. Bagi tamu yang tiba lebih awal, Anda dipersilakan bersantai di River Breeze Cafe & Resto atau menikmati keasrian aliran sungai alami terlebih dahulu.",
     "defaultOpen": false
   },
   {
     "index": "03",
-    "question": "Fasilitas apa saja yang sudah termasuk dalam paket glamping?",
-    "answer": "Seluruh unit glamping telah dilengkapi kasur empuk berstandar hotel, selimut hangat, bantal, colokan listrik pribadi, serta akses penuh ke fasilitas kamar mandi modern dengan pemanas air (water heater) stabil 24 jam. Paket tipe tertentu juga mencakup sarapan prasmanan dan perlengkapan barbeque malam.",
+    "question": "Fasilitas apa saja yang sudah termasuk dalam pemesanan unit?",
+    "answer": "Fasilitas mencakup perlengkapan tidur lengkap yang bersih dan nyaman sesuai dengan tipe unit yang dipesan, serta fasilitas pendukung lainnya (seperti water heater, pendingin ruangan / AC, dan Smart TV pada tipe kamar tertentu seperti Superior dan Deluxe Camp).",
     "defaultOpen": false
   },
   {
     "index": "04",
-    "question": "Apakah diperbolehkan membawa makanan atau alat barbeque sendiri?",
-    "answer": "Tamu dipersilakan membawa kudapan dan makanan ringan pribadi. Untuk barbeque dan api unggun, kami sangat menyarankan memesan paket resmi Jolotundo karena sudah mencakup bahan segar pilihan, arang ramah lingkungan, alat panggang lengkap, serta pendampingan staf demi menjaga keamanan area hutan pinus.",
+    "question": "Apakah diperbolehkan membawa makanan dari luar atau alat BBQ sendiri?",
+    "answer": "Makanan dari luar diperbolehkan untuk dibawa masuk ke area mulai pukul 19.00 WIB (jam 7 malam). Pengunjung juga diperbolehkan untuk membawa alat BBQ pribadi. Selain itu, Anda dapat memesan paket sewa alat BBQ lengkap dari kami atau menikmati pilihan aneka menu F&B di River Breeze Cafe & Resto.",
     "defaultOpen": true
   },
   {
     "index": "05",
-    "question": "Bagaimana sistem reservasi, deposit, dan perubahan jadwal?",
-    "answer": "Pemesanan dilakukan langsung melalui WhatsApp Concierge resmi kami dengan deposit 50% untuk mengunci tipe tenda dan tanggal yang Anda pilih. Pelunasan dilakukan saat tiba di lokasi. Perubahan jadwal (reschedule) dapat diproses dengan konfirmasi minimal 7 hari sebelum jadwal kedatangan.",
+    "question": "Bagaimana sistem reservasi dan metode pemesanan di Jolotundo?",
+    "answer": "Reservasi dapat dilakukan secara langsung melalui WhatsApp resmi kami untuk pelayanan concierge personal. Selain itu, pemesanan juga tersedia secara praktis melalui platform mitra online resmi seperti Traveloka, Tiket.com, Booking.com, dan berbagai OTA lainnya.",
     "defaultOpen": true
   },
   {
     "index": "06",
-    "question": "Apakah Jolotundo melayani acara gathering perusahaan atau instansi?",
-    "answer": "Tentu — lebih dari 100 instansi BUMN dan korporasi nasional telah mempercayakan gathering tahunan mereka di Jolotundo. Kami menyediakan pendopo pertemuan berkapasitas 200 orang, sound system dan proyektor lengkap, katering prasmanan Nusantara, serta instruktur outbound dan rute jeep offroad lereng Wilis.",
+    "question": "Berapa harga tiket masuk (HTM) ke kawasan Jolotundo?",
+    "answer": "Free HTM (Gratis Tiket Masuk). Anda tidak dipungut biaya tiket masuk untuk berkunjung dan menikmati keindahan alam Jolotundo. Pengunjung hanya membayar untuk pemesanan unit akomodasi/glamping, aktivitas wahana tertentu, atau pemesanan kuliner di River Breeze Cafe & Resto.",
     "defaultOpen": false
   }
 ]
-

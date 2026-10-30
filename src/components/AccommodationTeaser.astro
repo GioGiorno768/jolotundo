@@ -120,26 +120,74 @@ const staysConfig = [
                       ))}
                     </div>
 
-                    <!-- Tarif & Direct "Lihat Detail" Action (Sharp Buttons) -->
-                    <div class="pt-3.5 pb-1 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <span class="text-[10px] font-mono-tag text-white/50 block tracking-wider uppercase mb-0.5">TARIF MENGINAP</span>
-                        <div class="flex items-baseline gap-2 font-mono-tag leading-none">
-                          <span class="text-base sm:text-xl font-bold text-[#d8c39e] leading-none">{stay.priceWeekday}</span>
-                          <span class="text-[10px] text-white/40 leading-none">/ malam</span>
+                    <!-- OTA Booking Channels (Traveloka, Tiket.com, Booking.com) -->
+                    <div class="pt-3.5 pb-1 border-t border-white/15 flex flex-col gap-2.5">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                          <span class="w-1.5 h-1.5 bg-[#d8c39e] inline-block"></span>
+                          <span class="text-[10px] font-mono-tag text-[#d8c39e] tracking-wider uppercase font-semibold">
+                            TARIF & PESAN SEKARANG:
+                          </span>
                         </div>
+                        <a
+                          href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu ketersediaan dan detail informasi untuk *${stay.name}*.`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-[9.5px] font-mono-tag text-white/60 hover:text-[#d8c39e] transition-colors uppercase tracking-wider inline-flex items-center gap-1"
+                        >
+                          <span>Tanya via WA</span>
+                          <span>↗</span>
+                        </a>
                       </div>
 
-                      <!-- Sharp Button Lihat Detail -->
-                      <a
-                        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu ketersediaan dan detail informasi untuk *${stay.name}*.`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] shrink-0"
-                      >
-                        <span>Lihat Detail</span>
-                        <span>↗</span>
-                      </a>
+                      <!-- 3 OTA Partner Buttons: Traveloka, Tiket.com, Booking.com -->
+                      <div class="grid grid-cols-3 gap-2">
+                        <!-- Traveloka Button -->
+                        <a
+                          href="https://www.traveloka.com/id-id/hotel/indonesia/jolotundo-glamping-and-edupark-9000005692371"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="group/ota flex items-center justify-center gap-1.5 sm:gap-2 py-2 px-1.5 sm:px-2 bg-black/60 hover:bg-[#0194f3] border border-white/20 hover:border-[#0194f3] transition-all duration-200 text-white shadow-sm"
+                          title={`Pesan ${stay.name} di Traveloka`}
+                        >
+                          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover/ota:scale-110" viewBox="0 0 24 24" fill="none">
+                            <path d="M2.5 13.5C4 10.8 7.2 7.5 11.5 7.5C13.8 7.5 16.5 8.5 18.2 6.8C19.3 5.7 19.8 3.8 19.2 1.2C22 5.2 22.2 10.2 18.8 13.8C16.5 16.2 13.2 16.8 10.5 16.8C7.5 16.8 4.8 15.5 2.5 13.5Z" fill="#0194f3" class="group-hover/ota:fill-white transition-colors"/>
+                            <path d="M11.5 7.5C8.5 7.5 6 9.5 4 11.5C6 13 8.5 13.8 11 13.8C14.2 13.8 16.8 12.5 18.5 10.5C17 8.5 14.2 7.5 11.5 7.5Z" fill="#23b7ff" class="group-hover/ota:fill-white/80 transition-colors"/>
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-mono-tag font-bold tracking-tight text-white uppercase truncate">Traveloka</span>
+                        </a>
+
+                        <!-- Tiket.com Button -->
+                        <a
+                          href="https://www.tiket.com/id-id/homes/indonesia/jolotundo-glamping-and-edupark-706001718677856476"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="group/ota flex items-center justify-center gap-1.5 sm:gap-2 py-2 px-1.5 sm:px-2 bg-black/60 hover:bg-[#0064d2] border border-white/20 hover:border-[#0064d2] transition-all duration-200 text-white shadow-sm"
+                          title={`Pesan ${stay.name} di Tiket.com`}
+                        >
+                          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover/ota:scale-110" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10.5" fill="#0064d2" class="group-hover/ota:fill-white transition-colors"/>
+                            <circle cx="12" cy="12" r="4.8" fill="#fedd00"/>
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-mono-tag font-bold tracking-tight text-white uppercase truncate">Tiket.com</span>
+                        </a>
+
+                        <!-- Booking.com Button -->
+                        <a
+                          href="https://www.booking.com/hotel/id/jolotundo-glamping-and-edupark.html"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="group/ota flex items-center justify-center gap-1.5 sm:gap-2 py-2 px-1.5 sm:px-2 bg-black/60 hover:bg-[#003580] border border-white/20 hover:border-[#003580] transition-all duration-200 text-white shadow-sm"
+                          title={`Pesan ${stay.name} di Booking.com`}
+                        >
+                          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform group-hover/ota:scale-110" viewBox="0 0 24 24" fill="none">
+                            <rect width="24" height="24" fill="#003580" class="group-hover/ota:fill-white transition-colors"/>
+                            <path d="M7 5.5H12.8C15 5.5 16.5 6.6 16.5 8.4C16.5 9.6 15.8 10.5 14.8 11C16.2 11.5 17 12.6 17 14.2C17 16.5 15.2 17.5 12.8 17.5H7V5.5ZM10.2 9.8H12.5C13.2 9.8 13.8 9.3 13.8 8.6C13.8 7.9 13.2 7.5 12.5 7.5H10.2V9.8ZM10.2 15.5H12.8C13.6 15.5 14.2 14.9 14.2 14.1C14.2 13.3 13.6 12.8 12.8 12.8H10.2V15.5Z" fill="white" class="group-hover/ota:fill-[#003580] transition-colors"/>
+                            <circle cx="18.5" cy="16.2" r="1.6" fill="#009fe3"/>
+                          </svg>
+                          <span class="text-[10px] sm:text-xs font-mono-tag font-bold tracking-tight text-white uppercase truncate">Booking</span>
+                        </a>
+                      </div>
                     </div>
 
                   </div>
@@ -153,21 +201,21 @@ const staysConfig = [
       })}
     </div>
 
-    <!-- Centered "Lihat Detail" Action Under Content (Sharp, Zero Rounded) -->
+    <!-- Centered Action Under Content (Sharp, Zero Rounded) -->
     <div class="pt-6 sm:pt-10 flex flex-col items-center justify-center gap-3 text-center">
       <a 
-        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin tahu rincian katalog lengkap seluruh tipe akomodasi, ketersediaan, dan reservasi.")}`}
+        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin tahu rincian katalog lengkap seluruh tipe akomodasi, ketersediaan, dan reservasi grup/gathering.")}`}
         target="_blank"
         rel="noopener noreferrer"
         class="group inline-flex items-center gap-3 px-8 py-4 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 border border-[#141110] shadow-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] cursor-pointer"
       >
-        <span>Lihat Detail</span>
+        <span>Konsultasi & Reservasi Khusus</span>
         <span class="w-5 h-5 flex items-center justify-center bg-white/15 group-hover:bg-white text-white group-hover:text-black transition-all duration-300 text-xs">
           ↗
         </span>
       </a>
       <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest">
-        KONSULTASI & KATALOG LENGKAP 7 KATEGORI AKOMODASI
+        LAYANAN CONCIERGE RESMI UNTUK GATHERING, KELUARGA & 7 KATEGORI GLAMPING
       </span>
     </div>
 
@@ -215,7 +263,8 @@ const staysConfig = [
   /* Title upward translation */
   .camp-title-wrap {
     transform: translate3d(0, 0, 0);
-    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
   }
 
   .camp-card:hover .camp-title-wrap,
@@ -223,24 +272,17 @@ const staysConfig = [
     transform: translate3d(0, -10px, 0);
   }
 
-  /* Drawer base state on Desktop: collapsible grid row */
+  /* Drawer base state (Both Desktop & Mobile: collapsible 0fr -> 1fr slide up) */
   .camp-drawer {
     display: grid;
     grid-template-rows: 0fr;
     opacity: 0;
-    transition: grid-template-rows 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.4s ease;
+    transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.45s ease;
+    will-change: grid-template-rows, opacity;
   }
 
-  /* On Mobile/Touch (<1024px): keep grid-template-rows static 1fr so scrolling NEVER triggers layout reflow! */
-  @media (max-width: 1023px) {
-    .camp-drawer {
-      grid-template-rows: 1fr;
-      transition: opacity 0.4s ease;
-    }
-  }
-
-  /* Drawer expansion on hover or tap */
+  /* Drawer expansion on hover or tap/active */
   .camp-card:hover .camp-drawer,
   .camp-card.is-active .camp-drawer {
     grid-template-rows: 1fr;
@@ -251,12 +293,13 @@ const staysConfig = [
     overflow: hidden;
   }
 
-  /* Drawer content translation: pure GPU translate3d + opacity */
+  /* Drawer content translation: pure GPU translate3d + opacity slide up */
   .camp-drawer-content {
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 28px, 0);
     opacity: 0;
-    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.45s ease;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease;
+    will-change: transform, opacity;
   }
 
   .camp-card:hover .camp-drawer-content,
@@ -297,8 +340,8 @@ const staysConfig = [
         });
       }, {
         root: null,
-        rootMargin: '-15% 0px -20% 0px',
-        threshold: 0.25
+        rootMargin: '-8% 0px -12% 0px',
+        threshold: 0.18
       });
 
       cards.forEach((card) => observer.observe(card));

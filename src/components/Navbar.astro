@@ -4,29 +4,38 @@ import siteData from '../data/siteData.json';
 // Exact GoUncharted Menu Row Architecture
 const menuRows = [
   { title: "Home", tag: "START HERE", href: "#hero-section" },
-  { title: "Akomodasi & Glamping", tag: "7 TIPE TENDA", href: "#akomodasi" },
+  { title: "Akomodasi & Glamping", tag: "7 KATEGORI", href: "#akomodasi" },
   { title: "Wahana & Rekreasi", tag: "ADVENTURE", href: "#wahana" },
   { title: "Corporate Gathering", tag: "B2B & BUMN", href: "#b2b" },
   { title: "Fasilitas & Resto", tag: "AMENITIES", href: "#fasilitas" },
-  { title: "Ulasan Google Maps", tag: "4.9 ★ RATING", href: "#ulasan" },
+  { title: "Ulasan Google Maps", tag: "★ 4.9 RATING", href: "#ulasan" },
   { title: "Pertanyaan Umum", tag: "FAQ", href: "#faq" },
   { title: "Tentang Kami", tag: "DANGROUP", href: "#tentang" },
   { title: "Lokasi & Rute", tag: "BAJULAN", href: "#lokasi" }
 ];
 ---
 
-<header class="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+<!-- Fullscreen Backdrop Overlay (Closes dropdown on outside tap / click / swipe on both desktop & mobile) -->
+<div 
+  id="nav-backdrop"
+  class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] opacity-0 pointer-events-none transition-opacity duration-300"
+  aria-hidden="true"
+></div>
+
+<header class="fixed top-3 sm:top-5 left-0 right-0 z-[60] flex justify-center px-3 sm:px-4 pointer-events-none">
   <!-- 
     The GoUncharted Expanding Pill Capsule:
-    - Collapsed: Sleek pill (height ~52px)
+    - Collapsed: Sleek pill (height ~50px)
     - Expanded: Morphs & expands downward seamlessly into the full editorial menu card!
+    - Mobile-Optimized: Fits 100% of mobile screens without overflowing or awkward line breaks
   -->
   <div 
     id="nav-pill-container"
-    class="pointer-events-auto w-full max-w-[564px] bg-[#141110]/90 backdrop-blur-2xl border border-white/20 shadow-[0_16px_50px_rgba(0,0,0,0.75)] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    data-lenis-prevent
+    class="pointer-events-auto w-full max-w-[564px] bg-[#141110]/95 sm:bg-[#141110]/90 backdrop-blur-xl sm:backdrop-blur-2xl border border-white/20 shadow-[0_16px_50px_rgba(0,0,0,0.75)] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] max-h-[calc(100vh-1.5rem)] max-h-[calc(100dvh-1.5rem)] flex flex-col"
   >
     <!-- TOP ROW (Always visible: Menu Toggle | Brand | CTA) -->
-    <div class="flex items-center justify-between px-6 py-3.5 h-[54px] select-none">
+    <div id="nav-top-row" class="shrink-0 flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3.5 h-[50px] sm:h-[54px] select-none border-b border-transparent transition-colors duration-300">
       
       <!-- Left: Menu / Close Trigger -->
       <button 
@@ -41,10 +50,10 @@ const menuRows = [
 
       <!-- Center: Brand Logo -->
       <a href="/" class="flex flex-col items-center group">
-        <span class="text-base font-bold tracking-tight text-white uppercase leading-none group-hover:text-emerald-300 transition-colors font-sans">
+        <span class="text-sm sm:text-base font-bold tracking-tight text-white uppercase leading-none group-hover:text-emerald-300 transition-colors font-sans">
           {siteData.brand.name}
         </span>
-        <span class="text-[8px] tracking-[0.25em] text-[#d8c39e] uppercase font-mono-tag mt-0.5">
+        <span class="text-[7.5px] sm:text-[8px] tracking-[0.25em] text-[#d8c39e] uppercase font-mono-tag mt-0.5">
           {siteData.brand.group}
         </span>
       </a>
@@ -54,34 +63,40 @@ const menuRows = [
         href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20reservasi."}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-xs font-mono-tag font-semibold tracking-wider text-[#d8c39e] hover:text-white transition-colors"
+        class="text-[11px] sm:text-xs font-mono-tag font-semibold tracking-wider text-[#d8c39e] hover:text-white transition-colors"
       >
         Plan a trip ↗
       </a>
     </div>
 
-    <!-- EXPANDING BODY (GoUncharted Accordion Body with Menu Rows) -->
+    <!-- EXPANDING BODY (GoUncharted Accordion Body with Scroll Protection) -->
     <div 
       id="nav-expanded-body" 
-      class="grid grid-rows-[0fr] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0"
+      data-lenis-prevent
+      class="grid grid-rows-[0fr] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0 overflow-hidden"
     >
-      <div class="overflow-hidden">
+      <div 
+        id="nav-scroll-content"
+        data-lenis-prevent
+        class="overflow-y-auto overscroll-contain flex flex-col min-h-0 max-h-[calc(100vh-5rem)] max-h-[calc(100dvh-5rem)]"
+        style="-webkit-overflow-scrolling: touch; touch-action: pan-y;"
+      >
         
-        <!-- Menu Rows Stack (Border top on each row, Large Title + Monospace Tag on Right) -->
-        <nav class="flex flex-col px-6 pt-2 pb-4">
+        <!-- Menu Rows Stack (Compact, elegant, zero line-wrapping) -->
+        <nav class="flex flex-col px-4 sm:px-6 pt-1 sm:pt-2 pb-2 sm:pb-3 divide-y divide-white/10">
           {menuRows.map((row) => (
             <a
               href={row.href}
-              class="menu-row-link group flex items-center justify-between py-4 border-t border-white/10 hover:border-[#d8c39e]/40 transition-colors"
+              class="menu-row-link group flex items-center justify-between py-2.5 sm:py-3.5 hover:border-[#d8c39e]/40 transition-colors"
             >
               <!-- Left: Big Editorial Title -->
-              <span class="text-lg sm:text-xl font-medium tracking-tight text-white/90 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-200">
+              <span class="text-[14.5px] sm:text-lg lg:text-xl font-medium tracking-tight text-white/90 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 truncate pr-2 sm:pr-3">
                 {row.title}
               </span>
 
               <!-- Right: Monospace Metadata Tag -->
-              <div class="flex items-center gap-2">
-                <span class="text-[10px] font-mono-tag text-[#d8c39e]/80 tracking-widest uppercase">
+              <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <span class="text-[9px] sm:text-[10px] font-mono-tag text-[#d8c39e]/80 tracking-widest uppercase">
                   {row.tag}
                 </span>
                 <span class="text-xs text-white/30 group-hover:text-[#d8c39e] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
@@ -93,23 +108,24 @@ const menuRows = [
         </nav>
 
         <!-- Bottom CTA Area (GoUncharted Menu CTA) -->
-        <div class="px-6 pb-6 pt-2 border-t border-white/10 flex flex-col gap-3">
+        <div class="px-4 sm:px-6 pb-4 sm:pb-5 pt-2.5 border-t border-white/10 flex flex-col gap-2 shrink-0 mt-auto bg-[#141110]/40">
           <a
+            id="nav-wa-cta-btn"
             href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20konsultasi%20paket%20glamping%20dan%20outbound."}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full py-3 bg-[#d8c39e] hover:bg-[#ebdcc4] text-[#141110] font-semibold text-xs tracking-wider uppercase font-mono-tag text-center transition-all duration-200 shadow-md hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+            class="w-full py-2.5 sm:py-3 bg-[#d8c39e] hover:bg-[#ebdcc4] text-[#141110] font-semibold text-xs tracking-wider uppercase font-mono-tag text-center transition-all duration-200 shadow-md hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
           >
             <span>Reservasi via WhatsApp</span>
             <span>↗</span>
           </a>
 
-          <div class="flex items-center justify-between text-[10px] font-mono-tag text-white/50 px-1">
-            <div class="flex items-center gap-2">
+          <div class="flex items-center justify-between text-[9px] sm:text-[10px] font-mono-tag text-white/50 px-0.5">
+            <div class="flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               <span>Bajulan, Loceret, Nganjuk</span>
             </div>
-            <span class="text-emerald-300">SEN–KAM 09.00–20.00 | JUM–MIN 09.00–22.00</span>
+            <span class="text-emerald-300 hidden min-[360px]:inline">SEN–MIN BUKA 24 JAM</span>
           </div>
         </div>
 
@@ -122,40 +138,108 @@ const menuRows = [
 <!-- GoUncharted Morphing & Expanding Pill Logic -->
 <script is:inline>
   const navContainer = document.getElementById('nav-pill-container');
+  const navTopRow = document.getElementById('nav-top-row');
   const toggleBtn = document.getElementById('menu-toggle-btn');
   const labelText = document.getElementById('menu-label-text');
   const labelIcon = document.getElementById('menu-label-icon');
   const expandedBody = document.getElementById('nav-expanded-body');
+  const scrollContent = document.getElementById('nav-scroll-content');
+  const navBackdrop = document.getElementById('nav-backdrop');
   const links = document.querySelectorAll('.menu-row-link');
+  const waFloating = document.getElementById('wa-floating-container');
+  const waCtaBtn = document.getElementById('nav-wa-cta-btn');
 
   let isMenuOpen = false;
+  let openScrollY = 0;
 
   function setMenuState(open) {
+    if (isMenuOpen === open) return;
     isMenuOpen = open;
-    toggleBtn.setAttribute('aria-expanded', String(open));
+    toggleBtn?.setAttribute('aria-expanded', String(open));
 
     if (open) {
-      // Expand the container down
-      expandedBody.classList.remove('grid-rows-[0fr]', 'opacity-0');
-      expandedBody.classList.add('grid-rows-[1fr]', 'opacity-100');
-      labelText.innerText = 'CLOSE';
-      labelIcon.innerText = '✕';
-      labelIcon.classList.add('text-[#d8c39e]', 'rotate-90');
+      openScrollY = window.scrollY;
+
+      // 1. Expand menu accordion
+      expandedBody?.classList.remove('grid-rows-[0fr]', 'opacity-0');
+      expandedBody?.classList.add('grid-rows-[1fr]', 'opacity-100');
+      navTopRow?.classList.add('border-white/10');
+      if (labelText) labelText.innerText = 'CLOSE';
+      if (labelIcon) {
+        labelIcon.innerText = '✕';
+        labelIcon.classList.add('text-[#d8c39e]', 'rotate-90');
+      }
+
+      // 2. Show Backdrop
+      if (navBackdrop) {
+        navBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+        navBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+      }
+
+      // 3. Hide floating WhatsApp button while menu is open so no clash
+      if (waFloating) {
+        waFloating.style.opacity = '0';
+        waFloating.style.visibility = 'hidden';
+        waFloating.style.pointerEvents = 'none';
+      }
     } else {
-      // Collapse back into a sleek pill
-      expandedBody.classList.remove('grid-rows-[1fr]', 'opacity-100');
-      expandedBody.classList.add('grid-rows-[0fr]', 'opacity-0');
-      labelText.innerText = 'MENU';
-      labelIcon.innerText = '↓';
-      labelIcon.classList.remove('text-[#d8c39e]', 'rotate-90');
+      // 1. Collapse menu accordion
+      expandedBody?.classList.remove('grid-rows-[1fr]', 'opacity-100');
+      expandedBody?.classList.add('grid-rows-[0fr]', 'opacity-0');
+      navTopRow?.classList.remove('border-white/10');
+      if (labelText) labelText.innerText = 'MENU';
+      if (labelIcon) {
+        labelIcon.innerText = '↓';
+        labelIcon.classList.remove('text-[#d8c39e]', 'rotate-90');
+      }
+
+      // 2. Hide Backdrop
+      if (navBackdrop) {
+        navBackdrop.classList.remove('opacity-100', 'pointer-events-auto');
+        navBackdrop.classList.add('opacity-0', 'pointer-events-none');
+      }
+
+      // 3. Restore floating WhatsApp button
+      if (waFloating) {
+        waFloating.style.opacity = '';
+        waFloating.style.visibility = '';
+        waFloating.style.pointerEvents = '';
+      }
     }
   }
 
   // Toggle on click
-  toggleBtn.addEventListener('click', (e) => {
+  toggleBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
     setMenuState(!isMenuOpen);
   });
+
+  // Close when tapping/clicking backdrop
+  if (navBackdrop) {
+    navBackdrop.addEventListener('click', () => setMenuState(false));
+    navBackdrop.addEventListener('pointerdown', () => setMenuState(false));
+  }
+
+  // Auto-close menu when page scrolls (so user can scroll the page freely at any time!)
+  window.addEventListener('scroll', () => {
+    if (isMenuOpen && Math.abs(window.scrollY - openScrollY) > 35) {
+      setMenuState(false);
+    }
+  }, { passive: true });
+
+  // Wheel isolation inside scrollContent only
+  if (scrollContent) {
+    scrollContent.addEventListener('wheel', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+  }
+
+  // Close menu when clicking WhatsApp CTA
+  if (waCtaBtn) {
+    waCtaBtn.addEventListener('click', () => {
+      setMenuState(false);
+    });
+  }
 
   // Smooth scroll with Lenis on link click (handles multi-page vs same-page anchors)
   links.forEach(link => {
@@ -192,9 +276,9 @@ const menuRows = [
     });
   });
 
-  // Close when clicking outside
+  // Close when clicking outside the navbar container
   document.addEventListener('click', (e) => {
-    if (isMenuOpen && !navContainer.contains(e.target)) {
+    if (isMenuOpen && navContainer && !navContainer.contains(e.target)) {
       setMenuState(false);
     }
   });

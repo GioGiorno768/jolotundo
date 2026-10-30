@@ -4,7 +4,7 @@ import siteData from '../data/siteData.json';
 
 <section 
   id="hero-section" 
-  class="relative h-[100svh] min-h-[720px] w-full overflow-hidden flex flex-col justify-between bg-[#0b130e] px-6 sm:px-10 lg:px-14 xl:px-20 pb-8 pt-24"
+  class="relative h-[100svh] min-h-[580px] sm:min-h-[660px] lg:min-h-[720px] w-full overflow-hidden flex flex-col justify-between bg-[#0b130e] px-6 sm:px-10 lg:px-14 xl:px-20 pb-8 pt-24"
 >
   <!-- Parallax Background Image Layer (Sinks slowly on scroll) -->
   <div 
@@ -32,7 +32,7 @@ import siteData from '../data/siteData.json';
   <!-- Bottom Main Editorial Section -->
   <div 
     id="hero-content" 
-    class="relative z-10 w-full max-w-[1680px] mx-auto flex flex-col justify-end will-change-transform pb-2"
+    class="relative z-10 w-full max-w-[1680px] mx-auto flex flex-col justify-end md:will-change-transform pb-2"
   >
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-end">
       
@@ -59,7 +59,7 @@ import siteData from '../data/siteData.json';
           </a>
           <a
             href="#akomodasi"
-            class="px-5 py-3 bg-black/40 hover:bg-black/60 text-white border border-white/20 font-medium text-xs md:text-sm tracking-wide backdrop-blur-md transition-all duration-200"
+            class="px-5 py-3 bg-black/60 hover:bg-black/80 text-white border border-white/20 font-medium text-xs md:text-sm tracking-wide transition-all duration-200"
           >
             Lihat Tenda ↓
           </a>
@@ -106,27 +106,46 @@ import siteData from '../data/siteData.json';
     let isHeroVisible = true;
     let isTicking = false;
 
+    const checkMobile = () => window.innerWidth < 768;
+    let isMobile = checkMobile();
+
     window.addEventListener('resize', () => {
       heroHeight = heroSection.offsetHeight || 800;
+      const prevMobile = isMobile;
+      isMobile = checkMobile();
+      if (isMobile && !prevMobile && heroContent) {
+        heroContent.style.transform = '';
+        heroContent.style.opacity = '';
+      }
     }, { passive: true });
 
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver((entries) => {
         isHeroVisible = entries[0].isIntersecting;
-      }, { rootMargin: '200px 0px' });
+      }, { rootMargin: '100px 0px' });
       obs.observe(heroSection);
     }
 
     function renderParallax() {
       const scrollY = window.scrollY;
-      if (scrollY <= heroHeight * 1.2) {
-        if (heroBg) {
-          heroBg.style.transform = `translate3d(0, ${(scrollY * 0.28).toFixed(1)}px, 0)`;
-        }
-        if (heroContent) {
-          const progress = Math.min(1, scrollY / (heroHeight * 0.75));
-          heroContent.style.transform = `translate3d(0, ${(scrollY * 0.22).toFixed(1)}px, 0)`;
-          heroContent.style.opacity = Math.max(0, 1 - progress).toFixed(2);
+      if (scrollY <= heroHeight * 1.25) {
+        if (isMobile) {
+          // MOBILE OPTIMIZATION:
+          // Only animate heroBg with pure GPU compositor transform (translate3d)
+          // NEVER mutate heroContent opacity or transform on mobile to prevent continuous layer re-rasterization
+          if (heroBg) {
+            heroBg.style.transform = `translate3d(0, ${(scrollY * 0.18).toFixed(1)}px, 0)`;
+          }
+        } else {
+          // DESKTOP: Full dual-layer luxury sinking parallax
+          if (heroBg) {
+            heroBg.style.transform = `translate3d(0, ${(scrollY * 0.35).toFixed(1)}px, 0)`;
+          }
+          if (heroContent) {
+            const progress = Math.min(1, scrollY / (heroHeight * 0.75));
+            heroContent.style.transform = `translate3d(0, ${(scrollY * 0.22).toFixed(1)}px, 0)`;
+            heroContent.style.opacity = Math.max(0, 1 - progress).toFixed(2);
+          }
         }
       }
       isTicking = false;
@@ -140,5 +159,16 @@ import siteData from '../data/siteData.json';
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Sync with Lenis smooth scroll
+    if (window.__lenis) {
+      window.__lenis.on('scroll', onScroll);
+    } else {
+      window.addEventListener('load', () => {
+        if (window.__lenis) window.__lenis.on('scroll', onScroll);
+      });
+    }
+
+    renderParallax();
   })();
 </script>

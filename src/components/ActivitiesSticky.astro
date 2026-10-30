@@ -77,70 +77,53 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
   <!-- ========================================================================= -->
   <div 
     id="activities-carousel" 
-    class="relative w-full overflow-hidden bg-[#0b130e] text-[#f4efe6] select-none h-[600px] sm:h-[660px] lg:h-[700px] xl:h-[740px]"
+    class="relative w-full overflow-hidden bg-[#0b130e] text-[#f4efe6] select-none h-[600px] sm:h-[660px] lg:h-[700px] xl:h-[740px] cursor-grab active:cursor-grabbing"
   >
-    <!-- TOP FLOATING CONTROLS (Index Badge + 6 Segmented Progress Bars + Prev/Next Arrows) -->
-    <div class="absolute top-5 left-5 right-5 sm:top-7 sm:left-10 sm:right-10 z-30 flex items-center justify-between pointer-events-auto">
+    <!-- ========================================================================= -->
+    <!-- CAROUSEL BACKGROUND PARALLAX STACK (Hardware-Accelerated Translate-Y)      -->
+    <!-- ========================================================================= -->
+    <div 
+      id="carousel-parallax-stack" 
+      class="absolute inset-x-0 w-full h-[126%] -top-[13%] pointer-events-none will-change-transform z-0 overflow-hidden"
+      style="transform: translate3d(0, 0px, 0);"
+    >
+      {activities.map((act, idx) => (
+        <div 
+          class={`carousel-bg-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            idx === 0 ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
+          data-bg-index={idx}
+        >
+          <img 
+            src={act.image} 
+            alt={act.name + " - Wana Wisata Jolotundo Glamping & Edupark"} 
+            class="w-full h-full object-cover object-center"
+            loading={idx === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        </div>
+      ))}
       
-      <!-- Left: Slide Index Badge & Activity Name -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <span id="carousel-badge-index" class="px-2.5 py-1 bg-[#d8c39e] text-black font-mono-tag text-[11px] sm:text-xs font-bold tracking-widest uppercase transition-all duration-300">
-          01 / {String(activities.length).padStart(2, '0')}
-        </span>
-        <span id="carousel-badge-name" class="text-xs sm:text-sm font-mono-tag tracking-[0.18em] text-[#d8c39e] uppercase font-bold drop-shadow transition-opacity duration-300">
-          {activities[0].name}
-        </span>
-      </div>
-
-      <!-- Right: Segmented Progress Bars & Arrows -->
-      <div class="flex items-center gap-2.5 sm:gap-4">
-        <!-- 6 Segmented Progress Bars (Clickable to Jump Directly!) -->
-        <div class="flex items-center gap-1 sm:gap-1.5 w-24 sm:w-40 h-1">
-          {activities.map((_, i) => (
-            <button 
-              type="button" 
-              class="carousel-segment-btn relative flex-1 h-[2px] sm:h-[2.5px] bg-white/25 overflow-hidden hover:h-[3.5px] transition-all cursor-pointer focus:outline-none"
-              data-target-index={i}
-              title={`Ke aktivitas ${i + 1}`}
-              aria-label={`Ke aktivitas ${i + 1}`}
-            >
-              <div 
-                class="carousel-progress-fill h-full bg-[#d8c39e]" 
-                style={i === 0 ? "width: 0%;" : "width: 0%;"}
-              ></div>
-            </button>
-          ))}
-        </div>
-
-        <!-- Prev & Next Arrows -->
-        <div class="flex items-center gap-1">
-          <button 
-            id="carousel-prev-btn" 
-            type="button" 
-            aria-label="Aktivitas Sebelumnya"
-            class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer hover:border-white/50 active:scale-95"
-          >
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button 
-            id="carousel-next-btn" 
-            type="button" 
-            aria-label="Aktivitas Selanjutnya"
-            class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer hover:border-white/50 active:scale-95"
-          >
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-      </div>
-
+      <!-- Atmospheric Ambient Dark Tint on Background Photos -->
+      <div class="absolute inset-0 bg-black/40 pointer-events-none z-20"></div>
     </div>
 
-    <!-- CAROUSEL SLIDES STACK -->
-    <div id="carousel-slides-container" class="relative w-full h-full">
+    <!-- ========================================================================= -->
+    <!-- FIXED CINEMATIC SCRIMS: Anchored to Carousel Viewport                     -->
+    <!-- ========================================================================= -->
+    <div class="absolute inset-0 pointer-events-none z-[5]">
+      <!-- Bottom Dark Gradient: Deep, cinematic dark gradient reaching high above title for razor-sharp readability -->
+      <div class="absolute inset-x-0 bottom-0 h-80 sm:h-96 lg:h-[440px] bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+      
+      <!-- Top Scrim: Subtle contrast protection for top area -->
+      <div class="absolute inset-x-0 top-0 h-28 sm:h-36 bg-gradient-to-b from-black/55 via-black/20 to-transparent"></div>
+
+      <!-- Left Vignette: Deep soft gradient directly behind headline for maximum text legibility -->
+      <div class="absolute inset-y-0 left-0 w-2/3 max-w-2xl bg-gradient-to-r from-black/60 via-black/25 to-transparent"></div>
+    </div>
+
+    <!-- CAROUSEL FOREGROUND SLIDES STACK -->
+    <div id="carousel-slides-container" class="relative w-full h-full z-10">
       {activities.map((act, idx) => (
         <article 
           class={`activity-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -148,29 +131,51 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
           }`}
           data-slide-index={idx}
         >
-          <!-- Background Image -->
-          <div class="absolute inset-0 w-full h-full overflow-hidden">
-            <img 
-              src={act.image} 
-              alt={act.name + " - Wana Wisata Jolotundo Glamping & Edupark"} 
-              class="w-full h-full object-cover object-center transform scale-100 transition-transform duration-1000 ease-out"
-              loading={idx === 0 ? "eager" : "lazy"}
-              decoding="async"
-            />
-            
-            <!-- Atmospheric Dark Overlays (Transparent GoUncharted Contrast Model) -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-black/45 via-transparent to-transparent pointer-events-none"></div>
-          </div>
-
           <!-- Slide Content Layer Docked at Bottom -->
           <div class="relative z-20 w-full h-full flex flex-col justify-end">
             
-            <!-- Headline: Light, Crisp, Large (Exact 1:1 Match to GoUncharted "When the granite turns red") -->
-            <div class="px-5 sm:px-10 lg:px-14 xl:px-16 pb-3 sm:pb-6 max-w-4xl">
-              <h3 class="text-2xl sm:text-4xl lg:text-[3rem] xl:text-[3.3rem] font-light tracking-tight text-white uppercase leading-[1.04] font-sans drop-shadow-md">
-                {act.headline}
-              </h3>
+            <!-- Headline, Badge & Progress Pagination Row -->
+            <div class="px-5 sm:px-10 lg:px-14 xl:px-16 pb-3.5 sm:pb-6 w-full">
+              <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3 sm:gap-4 lg:gap-8">
+                
+                <!-- Left: Activity Badge Directly Above Title + Headline -->
+                <div class="flex flex-col max-w-4xl">
+                  
+                  <!-- Activity Badge (Directly Above Title) -->
+                  <div class="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-2.5">
+                    <span class="px-2.5 py-1 bg-[#d8c39e] text-black font-mono-tag text-[10px] sm:text-xs font-bold tracking-widest uppercase shadow-md">
+                      {act.index} / {String(activities.length).padStart(2, '0')}
+                    </span>
+                    <span class="text-xs sm:text-sm font-mono-tag tracking-[0.18em] text-[#d8c39e] uppercase font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                      {act.name}
+                    </span>
+                  </div>
+
+                  <!-- Headline Title (Ultra-Crisp Contrast & Deep Shadow) -->
+                  <h3 class="text-2xl sm:text-4xl lg:text-[2.85rem] xl:text-[3.25rem] font-light tracking-tight text-white leading-[1.08] font-sans drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] [text-shadow:0_2px_10px_rgba(0,0,0,0.9)]">
+                    {act.headline}
+                  </h3>
+                </div>
+
+                <!-- Right (Desktop End) / Below Title (Mobile): Segmented Progress Pagination -->
+                <div class="flex items-center gap-1.5 w-32 sm:w-40 lg:w-48 h-2 lg:mb-2 pointer-events-auto shrink-0">
+                  {activities.map((_, i) => (
+                    <button 
+                      type="button" 
+                      class="carousel-segment-btn relative flex-1 h-[2.5px] sm:h-[3px] bg-white/25 overflow-hidden hover:h-[4px] transition-all cursor-pointer focus:outline-none"
+                      data-target-index={i}
+                      title={`Ke aktivitas ${i + 1}`}
+                      aria-label={`Ke aktivitas ${i + 1}`}
+                    >
+                      <div 
+                        class="carousel-progress-fill h-full bg-[#d8c39e]" 
+                        style={idx === 0 && i === 0 ? "width: 0%;" : "width: 0%;"}
+                      ></div>
+                    </button>
+                  ))}
+                </div>
+
+              </div>
             </div>
 
             <!-- ============================================================== -->
@@ -180,40 +185,40 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
               
               <!-- Column 1: MEDAN JALUR -->
               <div class="col-span-2 p-4 xl:p-5 flex flex-col justify-between">
-                <span class="text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-1">
+                <span class="text-[10px] font-mono-tag text-white/60 tracking-widest uppercase block mb-1 drop-shadow">
                   {act.metrics[0].label}
                 </span>
-                <div class="text-[13px] xl:text-sm font-normal text-white/95 leading-snug truncate">
+                <div class="text-[13px] xl:text-sm font-normal text-white leading-snug truncate drop-shadow">
                   {act.metrics[0].value}
                 </div>
               </div>
 
               <!-- Column 2: DURASI TRIP -->
               <div class="col-span-2 p-4 xl:p-5 flex flex-col justify-between">
-                <span class="text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-1">
+                <span class="text-[10px] font-mono-tag text-white/60 tracking-widest uppercase block mb-1 drop-shadow">
                   {act.metrics[1].label}
                 </span>
-                <div class="text-[13px] xl:text-sm font-normal text-white/95 leading-snug truncate">
+                <div class="text-[13px] xl:text-sm font-normal text-white leading-snug truncate drop-shadow">
                   {act.metrics[1].value}
                 </div>
               </div>
 
               <!-- Column 3: KAPASITAS -->
               <div class="col-span-2 p-4 xl:p-5 flex flex-col justify-between">
-                <span class="text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-1">
+                <span class="text-[10px] font-mono-tag text-white/60 tracking-widest uppercase block mb-1 drop-shadow">
                   {act.metrics[2].label}
                 </span>
-                <div class="text-[13px] xl:text-sm font-normal text-white/95 leading-snug truncate">
+                <div class="text-[13px] xl:text-sm font-normal text-white leading-snug truncate drop-shadow">
                   {act.metrics[2].value}
                 </div>
               </div>
 
               <!-- Column 4: LEVEL TANTANGAN -->
               <div class="col-span-2 p-4 xl:p-5 flex flex-col justify-between">
-                <span class="text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-1">
+                <span class="text-[10px] font-mono-tag text-white/60 tracking-widest uppercase block mb-1 drop-shadow">
                   {act.metrics[3].label}
                 </span>
-                <div class="text-[13px] xl:text-sm font-normal text-white/95 leading-snug truncate">
+                <div class="text-[13px] xl:text-sm font-normal text-white leading-snug truncate drop-shadow">
                   {act.metrics[3].value}
                 </div>
               </div>
@@ -221,10 +226,10 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
               <!-- Column 5: DETAIL WAHANA (matching WHY THIS WEEK in GoUncharted) + CTA -->
               <div class="col-span-4 p-4 xl:p-5 flex items-center justify-between gap-4">
                 <div class="flex flex-col justify-center min-w-0 pr-2">
-                  <span class="text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-1">
+                  <span class="text-[10px] font-mono-tag text-white/60 tracking-widest uppercase block mb-1 drop-shadow">
                     DETAIL WAHANA
                   </span>
-                  <p class="text-xs text-white/85 font-light leading-relaxed line-clamp-2">
+                  <p class="text-xs text-white/90 font-light leading-relaxed line-clamp-2 drop-shadow">
                     {act.tagline}
                   </p>
                 </div>
@@ -233,7 +238,7 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
                   href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin reservasi & tahu detail aktivitas *${act.name}*.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="shrink-0 px-4 py-2.5 bg-white hover:bg-[#d8c39e] text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-white inline-flex items-center gap-1.5 shadow-md active:scale-95"
+                  class="shrink-0 px-4 py-2.5 bg-white hover:bg-[#d8c39e] text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-white inline-flex items-center gap-1.5 shadow-lg active:scale-95"
                 >
                   <span>Detail</span>
                   <span>↗</span>
@@ -249,54 +254,54 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
               
               <!-- Row 1 -->
               <div class="px-5 py-2 flex flex-col">
-                <span class="text-[8.5px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5 leading-none">
+                <span class="text-[8.5px] font-mono-tag text-white/60 tracking-widest uppercase block mb-0.5 leading-none drop-shadow">
                   {act.metrics[0].label}
                 </span>
-                <span class="text-[11.5px] font-normal text-white/95 leading-tight">
+                <span class="text-[12px] font-normal text-white leading-tight drop-shadow">
                   {act.metrics[0].value}
                 </span>
               </div>
 
               <!-- Row 2 -->
               <div class="px-5 py-2 flex flex-col">
-                <span class="text-[8.5px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5 leading-none">
+                <span class="text-[8.5px] font-mono-tag text-white/60 tracking-widest uppercase block mb-0.5 leading-none drop-shadow">
                   {act.metrics[1].label}
                 </span>
-                <span class="text-[11.5px] font-normal text-white/95 leading-tight">
+                <span class="text-[12px] font-normal text-white leading-tight drop-shadow">
                   {act.metrics[1].value}
                 </span>
               </div>
 
               <!-- Row 3 -->
               <div class="px-5 py-2 flex flex-col">
-                <span class="text-[8.5px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5 leading-none">
+                <span class="text-[8.5px] font-mono-tag text-white/60 tracking-widest uppercase block mb-0.5 leading-none drop-shadow">
                   {act.metrics[2].label}
                 </span>
-                <span class="text-[11.5px] font-normal text-white/95 leading-tight">
+                <span class="text-[12px] font-normal text-white leading-tight drop-shadow">
                   {act.metrics[2].value}
                 </span>
               </div>
 
-              <!-- Row 4: DETAIL WAHANA (matching WHY THIS WEEK in GoUncharted Screenshot 2) -->
+              <!-- Row 4: DETAIL WAHANA (matching WHY THIS WEEK in GoUncharted Screenshot) -->
               <div class="px-5 py-2 flex flex-col">
-                <span class="text-[8.5px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5 leading-none">
+                <span class="text-[8.5px] font-mono-tag text-white/60 tracking-widest uppercase block mb-0.5 leading-none drop-shadow">
                   DETAIL WAHANA
                 </span>
-                <p class="text-[11px] text-white/85 font-light leading-snug line-clamp-2">
+                <p class="text-[11px] text-white/90 font-light leading-snug line-clamp-2 drop-shadow">
                   {act.tagline}
                 </p>
               </div>
 
               <!-- Row 5: Action Link -->
               <div class="px-5 py-2.5 flex items-center justify-between">
-                <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-wider font-semibold">
+                <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-wider font-semibold drop-shadow">
                   {act.name}
                 </span>
                 <a
                   href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu informasi & reservasi untuk aktivitas *${act.name}*.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="px-3.5 py-1.5 bg-[#f4efe6] hover:bg-white text-black font-mono-tag text-[10.5px] font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1 active:scale-95"
+                  class="px-3.5 py-1.5 bg-[#f4efe6] hover:bg-white text-black font-mono-tag text-[10.5px] font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1 shadow-md active:scale-95"
                 >
                   <span>Reservasi</span>
                   <span>↗</span>
@@ -367,18 +372,13 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
     updateWords();
   }
 
-  // 2. GoUncharted Infinite Auto-Slide Carousel Engine
+  // 2. GoUncharted Infinite Auto-Slide Carousel Engine (Grab/Drag & Touch-Enabled)
   function initActivitiesCarousel() {
     const carousel = document.getElementById('activities-carousel');
     if (!carousel) return;
 
     const slides = carousel.querySelectorAll('.activity-slide');
-    const segmentButtons = carousel.querySelectorAll('.carousel-segment-btn');
-    const progressFills = carousel.querySelectorAll('.carousel-progress-fill');
-    const badgeIndex = document.getElementById('carousel-badge-index');
-    const badgeName = document.getElementById('carousel-badge-name');
-    const prevBtn = document.getElementById('carousel-prev-btn');
-    const nextBtn = document.getElementById('carousel-next-btn');
+    const bgSlides = carousel.querySelectorAll('#carousel-parallax-stack .carousel-bg-slide');
 
     const totalSlides = slides.length;
     if (totalSlides === 0) return;
@@ -392,9 +392,8 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
     // Switch to active slide with butter-smooth crossfade
     function goToSlide(targetIdx) {
       currentIndex = (targetIdx + totalSlides) % totalSlides;
-      const act = activitiesData[currentIndex];
 
-      // 1. Crossfade slides
+      // 1. Crossfade foreground text slides
       slides.forEach((slide, i) => {
         if (i === currentIndex) {
           slide.classList.remove('opacity-0', 'z-0', 'pointer-events-none');
@@ -405,35 +404,41 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
         }
       });
 
-      // 2. Update Badge & Name
-      if (badgeIndex) {
-        badgeIndex.innerText = `${act.index} / ${String(totalSlides).padStart(2, '0')}`;
-      }
-      if (badgeName) {
-        badgeName.innerText = act.name;
-      }
-
-      // 3. Update & Animate 6 Segment Progress Bars
-      progressFills.forEach((fill, i) => {
-        if (i < currentIndex) {
-          fill.style.transition = 'none';
-          fill.style.width = '100%';
-        } else if (i === currentIndex) {
-          fill.style.transition = 'none';
-          fill.style.width = '0%';
-          // Trigger smooth filling over SLIDE_DURATION
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              if (!isHovered && isIntersecting) {
-                fill.style.transition = `width ${SLIDE_DURATION}ms linear`;
-                fill.style.width = '100%';
-              }
-            });
-          });
+      // 2. Crossfade background parallax photos
+      bgSlides.forEach((bgSlide, i) => {
+        if (i === currentIndex) {
+          bgSlide.classList.remove('opacity-0', 'z-0');
+          bgSlide.classList.add('opacity-100', 'z-10');
         } else {
-          fill.style.transition = 'none';
-          fill.style.width = '0%';
+          bgSlide.classList.remove('opacity-100', 'z-10');
+          bgSlide.classList.add('opacity-0', 'z-0');
         }
+      });
+
+      // 3. Update & Animate 6 Segment Progress Bars across all slides simultaneously
+      slides.forEach((slide) => {
+        const fills = slide.querySelectorAll('.carousel-progress-fill');
+        fills.forEach((fill, i) => {
+          if (i < currentIndex) {
+            fill.style.transition = 'none';
+            fill.style.width = '100%';
+          } else if (i === currentIndex) {
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+            // Trigger smooth filling over SLIDE_DURATION
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                if (!isHovered && isIntersecting) {
+                  fill.style.transition = `width ${SLIDE_DURATION}ms linear`;
+                  fill.style.width = '100%';
+                }
+              });
+            });
+          } else {
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+          }
+        });
       });
 
       // 4. Schedule next auto slide
@@ -445,28 +450,15 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
       }
     }
 
-    // Prev / Next button listeners
-    if (prevBtn) {
-      prevBtn.addEventListener('click', (e) => {
+    // Segment direct jump listeners via event delegation
+    carousel.addEventListener('click', (e) => {
+      const segBtn = e.target.closest('.carousel-segment-btn');
+      if (segBtn) {
         e.preventDefault();
-        goToSlide(currentIndex - 1);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        goToSlide(currentIndex + 1);
-      });
-    }
-
-    // Segment direct jump listeners
-    segmentButtons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = parseInt(btn.getAttribute('data-target-index') || '0', 10);
+        e.stopPropagation();
+        const target = parseInt(segBtn.getAttribute('data-target-index') || '0', 10);
         goToSlide(target);
-      });
+      }
     });
 
     // Pause on Hover (Desktop)
@@ -474,12 +466,15 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
       isHovered = true;
       clearTimeout(autoSlideTimer);
       // Freeze active progress fill
-      const activeFill = progressFills[currentIndex];
-      if (activeFill) {
-        const computedWidth = window.getComputedStyle(activeFill).width;
-        activeFill.style.transition = 'none';
-        activeFill.style.width = computedWidth;
-      }
+      slides.forEach((slide) => {
+        const fills = slide.querySelectorAll('.carousel-progress-fill');
+        const activeFill = fills[currentIndex];
+        if (activeFill) {
+          const computedWidth = window.getComputedStyle(activeFill).width;
+          activeFill.style.transition = 'none';
+          activeFill.style.width = computedWidth;
+        }
+      });
     });
 
     carousel.addEventListener('mouseleave', () => {
@@ -487,22 +482,77 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
       goToSlide(currentIndex); // resume slide
     });
 
-    // Swipe Support on Mobile Touch
-    let touchStartX = 0;
-    let touchEndX = 0;
+    // -------------------------------------------------------------------------
+    // Grab / Drag (Mouse Desktop) & Slide / Swipe (Touch Mobile) Engine
+    // -------------------------------------------------------------------------
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let hasDragged = false;
 
+    // Mouse Drag (Desktop)
+    carousel.addEventListener('mousedown', (e) => {
+      // Don't intercept clicks on links or buttons
+      if (e.target.closest('a') || e.target.closest('button')) return;
+
+      isDragging = true;
+      hasDragged = false;
+      startX = e.clientX;
+      currentX = e.clientX;
+      isHovered = true;
+      clearTimeout(autoSlideTimer);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX;
+      if (Math.abs(currentX - startX) > 8) {
+        hasDragged = true;
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      isHovered = false;
+
+      const diff = currentX - startX;
+      if (hasDragged && Math.abs(diff) > 40) {
+        if (diff < 0) {
+          goToSlide(currentIndex + 1); // Dragged Left -> Next
+        } else {
+          goToSlide(currentIndex - 1); // Dragged Right -> Prev
+        }
+      } else {
+        goToSlide(currentIndex);
+      }
+    });
+
+    // Touch Swipe (Mobile)
     carousel.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
+      startX = e.changedTouches[0].clientX;
+      startY = e.changedTouches[0].clientY;
+      currentX = startX;
+      currentY = startY;
       isHovered = true;
       clearTimeout(autoSlideTimer);
     }, { passive: true });
 
-    carousel.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
+    carousel.addEventListener('touchmove', (e) => {
+      currentX = e.changedTouches[0].clientX;
+      currentY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', () => {
       isHovered = false;
-      const diff = touchEndX - touchStartX;
-      if (Math.abs(diff) > 40) {
-        if (diff < 0) {
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+
+      // Only trigger horizontal slide if gesture is predominantly horizontal
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+        if (diffX < 0) {
           goToSlide(currentIndex + 1); // Swiped Left -> Next
         } else {
           goToSlide(currentIndex - 1); // Swiped Right -> Prev
@@ -519,10 +569,13 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
         goToSlide(currentIndex);
       } else {
         clearTimeout(autoSlideTimer);
-        const activeFill = progressFills[currentIndex];
-        if (activeFill) {
-          activeFill.style.transition = 'none';
-        }
+        slides.forEach((slide) => {
+          const fills = slide.querySelectorAll('.carousel-progress-fill');
+          const activeFill = fills[currentIndex];
+          if (activeFill) {
+            activeFill.style.transition = 'none';
+          }
+        });
       }
     }, { rootMargin: '100px 0px' });
 
@@ -532,10 +585,77 @@ const introPart2 = "dan merayakan kebebasan sejati di pelukan Gunung Wilis.".spl
     goToSlide(0);
   }
 
+  // 3. Smooth Sub-Pixel Translate-Y Parallax Engine for Carousel Background Photos
+  function initActivitiesParallax() {
+    const carousel = document.getElementById('activities-carousel');
+    const parallaxStack = document.getElementById('carousel-parallax-stack');
+    if (!carousel || !parallaxStack) return;
+
+    let isVisible = false;
+    let isTicking = false;
+
+    // Responsive travel range: 65px on desktop, 40px on mobile
+    const getTravelDistance = () => (window.innerWidth < 1024 ? 40 : 65);
+
+    const updateParallax = () => {
+      const rect = carousel.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Visible in viewport when rect.top <= windowHeight and rect.bottom >= 0
+      if (rect.top <= windowHeight && rect.bottom >= 0) {
+        const totalTravel = rect.height + windowHeight;
+        const enterProgress = (windowHeight - rect.top) / totalTravel;
+        const progress = Math.max(0, Math.min(1, enterProgress));
+
+        const maxDist = getTravelDistance();
+        // progress 0 (entering) -> -maxDist, progress 1 (leaving) -> +maxDist
+        const parallaxY = ((progress - 0.5) * 2 * maxDist).toFixed(1);
+
+        parallaxStack.style.transform = `translate3d(0, ${parallaxY}px, 0)`;
+      }
+      isTicking = false;
+    };
+
+    const onScroll = () => {
+      if (!isTicking && isVisible) {
+        requestAnimationFrame(updateParallax);
+        isTicking = true;
+      }
+    };
+
+    // Gated by IntersectionObserver so zero CPU/GPU overhead when offscreen
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible) updateParallax();
+      }, { rootMargin: '120px 0px' });
+      obs.observe(carousel);
+    } else {
+      isVisible = true;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      if (isVisible) updateParallax();
+    }, { passive: true });
+
+    // Seamless sync with Lenis smooth scroll
+    if (window.__lenis) {
+      window.__lenis.on('scroll', onScroll);
+    } else {
+      window.addEventListener('load', () => {
+        if (window.__lenis) window.__lenis.on('scroll', onScroll);
+      });
+    }
+
+    updateParallax();
+  }
+
   // Initialize modules
   function initAll() {
     initActivitiesReveal();
     initActivitiesCarousel();
+    initActivitiesParallax();
   }
 
   if (document.readyState === 'loading') {
