@@ -1,0 +1,332 @@
+---
+import siteData from '../data/siteData.json';
+
+// Data Resmi Rental Camping Gear (Peralatan) Jolotundo Glamping & Edupark
+const rentalGears = [
+  {
+    index: "01",
+    name: "Kursi Lipat (1 Kursi)",
+    detail: "Kursi camping lipat ergonomis, ringan dan nyaman untuk santai di luar tenda.",
+    price: "Rp 15.000",
+    badge: null,
+    waItem: "Kursi Lipat (1 Kursi) - Rp 15.000"
+  },
+  {
+    index: "02",
+    name: "Kursi Lipat (2 Kursi)",
+    detail: "Sepasang kursi camping lipat untuk menikmati sejuknya alam berdua.",
+    price: "Rp 25.000",
+    badge: null,
+    waItem: "Kursi Lipat (2 Kursi) - Rp 25.000"
+  },
+  {
+    index: "03",
+    name: "Bean Bag",
+    detail: "Bantal duduk santai outdoor empuk untuk rebahan di atas rumput atau dek panggung kayu.",
+    price: "Rp 20.000",
+    badge: null,
+    waItem: "Bean Bag - Rp 20.000"
+  },
+  {
+    index: "04",
+    name: "Meja Lipat (1 Meja)",
+    detail: "Meja piknik portabel aluminium kokoh untuk meletakkan kopi, camilan, atau perlengkapan santai.",
+    price: "Rp 25.000",
+    badge: null,
+    waItem: "Meja Lipat (1 Meja) - Rp 25.000"
+  },
+  {
+    index: "05",
+    name: "Set Santai (2 Kursi + 1 Meja Lipat)",
+    detail: "Paket lengkap sepasang kursi lipat dan 1 meja santai. Paling praktis dan hemat.",
+    price: "Rp 30.000",
+    badge: "BEST VALUE",
+    waItem: "Set Santai (2 Kursi + 1 Meja Lipat) - Rp 30.000"
+  },
+  {
+    index: "06",
+    name: "BBQ Set (Kompor, Grill, Sumpit, Piring, Capitan, Gas)",
+    detail: "Set komplit siap memanggang: kompor gas portabel, grill pan anti-lengket, gas kaleng, capitan, piring & sumpit.",
+    price: "Rp 75.000",
+    badge: "KOMPLIT SIAP GRILL",
+    waItem: "BBQ Set Lengkap - Rp 75.000"
+  },
+  {
+    index: "07",
+    name: "Cooking Set (Wajan, Panci, Teko Air)",
+    detail: "Peralatan memasak outdoor nestle higienis: wajan, panci serbaguna, dan teko pemanas air.",
+    price: "Rp 25.000",
+    badge: "ALAT MASAK",
+    waItem: "Cooking Set (Wajan, Panci, Teko Air) - Rp 25.000"
+  }
+];
+
+const defaultWaText = "Halo Admin Jolotundo, saya ingin menyewa peralatan camping (Rental Camping Gear) untuk keperluan menginap.";
+---
+
+<!-- 
+  SECTION: RENTAL CAMPING GEAR (PERALATAN)
+  - Design Philosophy: Minimalist Luxury & Brutalist Clean Elegance
+  - Typography: Editorial Sans + Monospace Tag System (Identik GoUncharted)
+  - Responsive: 2-Column Split on Desktop, Stacked on Mobile
+  - Zero Rounded Corners: Sharp, Pure Architectural Lines
+-->
+<section id="rental-gear" class="relative z-20 bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 py-16 sm:py-24 px-6 sm:px-10 lg:px-14 xl:px-20 transition-colors duration-300">
+  <div class="max-w-[1680px] mx-auto flex flex-col gap-10 sm:gap-14">
+
+    <!-- Section Header (Editorial Monospace Tag + Bold Title) -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#141110]/15">
+      <div>
+        <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase mb-3">
+          <span class="w-1.5 h-1.5 bg-[#141110]"></span>
+          <span>PERLENGKAPAN CAMPING // RENTAL GEAR</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#141110] uppercase leading-none font-sans">
+          Rental Camping Gear
+        </h2>
+      </div>
+
+      <div class="text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest flex items-center gap-2 self-start sm:self-auto">
+        <span class="inline-block w-1.5 h-1.5 bg-emerald-700 animate-pulse"></span>
+        <span>BERSIH • HIGIENIS • DIANTAR KE TENDA</span>
+      </div>
+    </div>
+
+    <!-- Main Content: Split Layout (Left Editorial Showcase, Right Inventory Price List) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start">
+
+      <!-- LEFT COLUMN: Gear Visual & Concierge Guarantees (5 Cols) -->
+      <div class="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-28">
+        
+        <!-- Gear Showcase Photo Frame with Pure Hardware-Accelerated Parallax Engine -->
+        <div class="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group">
+          
+          <!-- Inner Parallax Layer (Taller than container: 140% height with -20% offset, translates along Y on scroll) -->
+          <div 
+            id="rental-gear-parallax" 
+            class="absolute inset-x-0 w-full h-[140%] -top-[20%] will-change-transform"
+            style="transform: translate3d(0, 0px, 0);"
+          >
+            <img 
+              src="/images/grill/bbq-gear-rental.jpg" 
+              alt="Rental Camping Gear - Peralatan Jolotundo" 
+              class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <!-- Soft Contrast Gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none z-10"></div>
+
+          <!-- Top-Left Monospace Tag -->
+          <div class="absolute top-4 left-4 z-20 pointer-events-none">
+            <span class="text-[10px] font-mono-tag tracking-[0.2em] text-[#d8c39e] uppercase px-3 py-1.5 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
+              EQUIPMENT // INVENTORY
+            </span>
+          </div>
+
+          <!-- Bottom Caption Overlay -->
+          <div class="absolute bottom-4 left-5 right-5 z-20 pointer-events-none">
+            <span class="text-xs sm:text-sm font-mono-tag tracking-wider text-white uppercase block font-semibold drop-shadow">
+              Peralatan Berkemah & Memasak
+            </span>
+            <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-widest block mt-0.5">
+              Siap Pakai Tanpa Repot Bawa dari Rumah
+            </span>
+          </div>
+        </div>
+
+        <!-- 3 Key Value Points -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 py-2 border-y border-[#141110]/15">
+          <div class="flex items-start gap-3 py-1.5">
+            <span class="text-xs font-mono-tag text-[#141110] font-bold shrink-0">[ 01 ]</span>
+            <div>
+              <h4 class="text-xs font-bold font-sans uppercase tracking-tight text-[#141110]">Siap Pakai & Higienis</h4>
+              <p class="text-[11px] text-[#141110]/70 font-mono-tag leading-relaxed mt-0.5">Setiap peralatan telah dicuci bersih dan diperiksa kondisinya sebelum diserahkan.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 py-1.5 border-t sm:border-t-0 lg:border-t border-[#141110]/10">
+            <span class="text-xs font-mono-tag text-[#141110] font-bold shrink-0">[ 02 ]</span>
+            <div>
+              <h4 class="text-xs font-bold font-sans uppercase tracking-tight text-[#141110]">Diantar Langsung ke Tenda</h4>
+              <p class="text-[11px] text-[#141110]/70 font-mono-tag leading-relaxed mt-0.5">Tim ground crew mengantarkan pesanan perlengkapan ke lokasi bermalam Anda.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 py-1.5 border-t sm:border-t-0 lg:border-t border-[#141110]/10">
+            <span class="text-xs font-mono-tag text-[#141110] font-bold shrink-0">[ 03 ]</span>
+            <div>
+              <h4 class="text-xs font-bold font-sans uppercase tracking-tight text-[#141110]">Bebas Ribet Merapikan</h4>
+              <p class="text-[11px] text-[#141110]/70 font-mono-tag leading-relaxed mt-0.5">Saat selesai atau check-out, staf kami yang akan mengambil dan merapikannya kembali.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct WhatsApp Concierge CTA Button -->
+        <div class="flex flex-col gap-2 pt-1">
+          <a 
+            href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(defaultWaText)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-between px-6 sm:px-8 py-3.5 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-[0_10px_25px_rgba(20,17,16,0.3)] w-full group"
+          >
+            <span>Hubungi Concierge Sewa Alat</span>
+            <span class="transform group-hover:translate-x-1 transition-transform">↗</span>
+          </a>
+          <span class="text-[10px] font-mono-tag text-[#141110]/50 tracking-wider text-center">
+            [ KONFIRMASI KETERSEDIAAN DI LOKASI VIA WHATSAPP ]
+          </span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Elegant Minimalist Inventory Price Table (7 Cols) -->
+      <div class="lg:col-span-7 flex flex-col">
+        
+        <!-- Table Header (GoUncharted Editorial Style) -->
+        <div class="flex items-center justify-between pb-3 border-b-2 border-[#141110] text-xs font-mono-tag tracking-wider text-[#141110] uppercase font-bold">
+          <div class="flex items-center gap-3">
+            <span>NO</span>
+            <span>//</span>
+            <span>JENIS PERLENGKAPAN</span>
+          </div>
+          <div class="text-right">
+            <span>TARIF SEWA</span>
+          </div>
+        </div>
+
+        <!-- Inventory Rows -->
+        <div class="flex flex-col divide-y divide-[#141110]/15">
+          {rentalGears.map((item) => (
+            <div class="group py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-6 hover:bg-[#141110]/[0.03] px-2 sm:px-3 transition-colors duration-200">
+              
+              <!-- Left side: Number + Title + Details -->
+              <div class="flex items-start gap-3 sm:gap-4 flex-1">
+                <span class="text-xs font-mono-tag font-bold text-[#141110]/40 group-hover:text-[#141110] transition-colors mt-0.5 shrink-0">
+                  {item.index}
+                </span>
+
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="text-base sm:text-lg font-bold font-sans text-[#141110] tracking-tight group-hover:text-black">
+                      {item.name}
+                    </h3>
+                    {item.badge && (
+                      <span class="text-[9px] font-mono-tag font-bold uppercase tracking-widest px-2 py-0.5 bg-[#141110] text-[#f4efe6] border border-[#141110]">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p class="text-xs text-[#141110]/65 leading-relaxed font-sans max-w-xl">
+                    {item.detail}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right side: Price + Quick WhatsApp Link -->
+              <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 pl-7 sm:pl-0 shrink-0">
+                <span class="text-base sm:text-lg font-bold font-mono-tag text-[#141110] tracking-tight">
+                  {item.price}
+                </span>
+                
+                <a 
+                  href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin menyewa: *${item.waItem}*. Apakah unit tersedia?`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-[11px] font-mono-tag text-[#141110]/60 hover:text-[#141110] underline underline-offset-4 font-semibold uppercase tracking-wider transition-colors"
+                  aria-label={`Sewa ${item.name}`}
+                >
+                  <span>Sewa</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
+            </div>
+          ))}
+        </div>
+
+        <!-- Table Footer / Terms Note -->
+        <div class="mt-6 pt-4 border-t border-[#141110]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] font-mono-tag text-[#141110]/60">
+          <span>* Tarif sewa terhitung per malam / per sesi pemakaian.</span>
+          <span class="uppercase font-semibold text-[#141110]/75">[ TERSEDIA 7 ITEM PERALATAN ]</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- PARALLAX TRANSLATE-Y CONTROLLER SCRIPT (GPU-Accelerated Smooth Parallax) -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initRentalGearParallax() {
+    const section = document.getElementById('rental-gear');
+    const parallaxLayer = document.getElementById('rental-gear-parallax');
+    if (!section || !parallaxLayer) return;
+
+    let isTicking = false;
+    let isIntersecting = false;
+
+    function updateParallax() {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Calculate when section enters or moves through viewport
+      if (rect.bottom >= -100 && rect.top <= windowHeight + 100) {
+        const sectionCenter = rect.top + rect.height * 0.45;
+        const viewportCenter = windowHeight * 0.5;
+        const diff = sectionCenter - viewportCenter;
+        
+        // Translate-Y smooth calculation: gentle counter-movement (-70px to +70px)
+        const clampedY = Math.max(-70, Math.min(70, -diff * 0.12));
+        parallaxLayer.style.transform = `translate3d(0, ${clampedY.toFixed(1)}px, 0)`;
+      }
+    }
+
+    function handleScroll() {
+      if (!isTicking && isIntersecting) {
+        requestAnimationFrame(() => {
+          updateParallax();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          updateParallax();
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0,
+      rootMargin: "250px 0px"
+    });
+
+    observer.observe(section);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateParallax, 100);
+    }, { passive: true });
+
+    // Initial calculation on load
+    updateParallax();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRentalGearParallax);
+  } else {
+    initRentalGearParallax();
+  }
+</script>
+

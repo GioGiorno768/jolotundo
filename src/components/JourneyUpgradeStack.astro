@@ -1,0 +1,319 @@
+---
+import siteData from '../data/siteData.json';
+
+// Data Resmi 4 Paket Upgrade Journey Camp Jolotundo (Mobile-Refined & 100% Lengkap)
+const upgradePackages = [
+  {
+    index: "01",
+    code: "PAKET A",
+    badge: "STARTER ADVENTURE",
+    title: "Kenyamanan tidur esensial & petualangan wahana ATV.",
+    price: "Rp 150.000",
+    bedding: "Sprei, 2 Bantal, 1 Selimut",
+    seating: "2 Kursi Lipat / Bean Bag",
+    culinary: "— (Tanpa Paket Grill)",
+    activity: "Wahana ATV untuk 2 Orang",
+    image: "/images/upgrade/paket-a-atv-comfort.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Paket Upgrade Journey Camp - PAKET A* (Rp 150.000):\n• Sprei, 2 Bantal, 1 Selimut\n• 2 Kursi Lipat / Bean Bag\n• Wahana ATV untuk 2 Orang"
+  },
+  {
+    index: "02",
+    code: "PAKET B",
+    badge: "BEST SELLER KULINER",
+    title: "Tidur hangat & santapan pesta barbeque outdoor komplit.",
+    price: "Rp 275.000",
+    bedding: "Sprei, 2 Bantal, 1 Selimut",
+    seating: "2 Kursi Lipat / Bean Bag",
+    culinary: "Paket Grill + Alat BBQ Lengkap",
+    activity: "— (Fokus Santai & BBQ)",
+    image: "/images/upgrade/paket-b-bbq-comfort.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Paket Upgrade Journey Camp - PAKET B* (Rp 275.000):\n• Sprei, 2 Bantal, 1 Selimut\n• 2 Kursi Lipat / Bean Bag\n• Paket Grill\n• Alat BBQ Lengkap"
+  },
+  {
+    index: "03",
+    code: "PAKET C",
+    badge: "FLEKSIBEL FAVORIT",
+    title: "Pesta BBQ lezat & pilihan api unggun atau wahana ATV.",
+    price: "Rp 375.000",
+    bedding: "Sprei, 2 Bantal, 1 Selimut",
+    seating: "2 Kursi Lipat / Bean Bag",
+    culinary: "Paket Grill + Alat BBQ Lengkap",
+    activity: "Pilihan: Api Unggun ATAU ATV",
+    image: "/images/upgrade/paket-c-campfire-choice.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Paket Upgrade Journey Camp - PAKET C* (Rp 375.000):\n• Sprei, 2 Bantal, 1 Selimut\n• 2 Kursi Lipat / Bean Bag\n• Paket Grill\n• Alat BBQ Lengkap\n• Pilihan: Api Unggun ATAU ATV 2 Orang"
+  },
+  {
+    index: "04",
+    code: "PAKET D",
+    badge: "ALL-INCLUSIVE ROYAL",
+    title: "Paket upgrade berkemah termewah tanpa kompromi.",
+    price: "Rp 450.000",
+    bedding: "Sprei, 2 Bantal, 1 Selimut",
+    seating: "2 Kursi Lipat / Bean Bag",
+    culinary: "Paket Grill + Api Unggun Privat",
+    activity: "Api Unggun + ATV / Berkuda",
+    image: "/images/upgrade/paket-d-ultimate-adventure.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Paket Upgrade Journey Camp - PAKET D* (Rp 450.000):\n• Sprei, 2 Bantal, 1 Selimut\n• 2 Kursi Lipat / Bean Bag\n• Paket Grill\n• Alat BBQ Lengkap\n• Api Unggun\n• Wahana ATV / Berkuda"
+  }
+];
+---
+
+<!-- 
+  =============================================================================
+  SECTION: PAKET UPGRADE JOURNEY CAMP (1:1 GoUncharted Clean Editorial Card)
+  - Mobile Optimized: Button sits cleanly to the right of title (no awkward stacking)
+  - Zero Awkward Wrapping: Concise kicker, compact tags & clean quantity formatting
+  - FAB WhatsApp Clearance: Safe right-side breathing room to prevent overlap
+  =============================================================================
+-->
+<section id="paket-upgrade" class="relative z-20 bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 py-14 sm:py-20 px-4 sm:px-8 lg:px-14 xl:px-20 transition-colors duration-300">
+  <div class="max-w-[1600px] mx-auto flex flex-col gap-8 sm:gap-12">
+
+    <!-- Section Header (Clean Editorial Monospace Tag + Title) -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-[#141110]/15">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase mb-2">
+          <span class="w-1.5 h-1.5 bg-[#141110]"></span>
+          <span>UPGRADE JOURNEY CAMP // LEVEL-UP</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#141110] uppercase leading-none font-sans">
+          Paket Upgrade Journey Camp
+        </h2>
+        <p class="text-xs sm:text-sm text-[#141110]/75 font-sans mt-2 max-w-2xl leading-relaxed">
+          Tingkatkan kenyamanan tenda reguler Anda dengan paket upgrade perlengkapan tidur, hiburan, dan aktivitas outdoor:
+        </p>
+      </div>
+
+      <div class="text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest flex items-center gap-2 self-start sm:self-auto shrink-0">
+        <span class="inline-block w-1.5 h-1.5 bg-amber-600 animate-pulse"></span>
+        <span>04 PAKET • GULIR UNTUK MELIHAT</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- STACKING CARDS DECK CONTAINER                                             -->
+    <!-- ========================================================================= -->
+    <div id="upgrade-stack-container" class="relative w-full flex flex-col pb-8">
+      {upgradePackages.map((pkg, idx) => (
+        <div 
+          id={`upgrade-card-wrapper-${idx}`}
+          class="upgrade-card-wrapper w-full sticky will-change-transform"
+          style={`top: calc(6.5rem + ${idx * 2}rem); z-index: ${10 + idx * 5}; margin-bottom: ${idx === upgradePackages.length - 1 ? '1.5rem' : '28vh'};`}
+          data-index={idx}
+        >
+          <!-- 1:1 GoUncharted Physical Card Frame (Full-Bleed, Minimalist, Ultra-Clean Mobile) -->
+          <article 
+            id={`upgrade-card-${idx}`}
+            class="upgrade-card relative w-full min-h-[350px] sm:min-h-[400px] lg:h-[460px] bg-[#141110] text-[#f4efe6] border border-white/15 overflow-hidden shadow-[0_-15px_40px_rgba(0,0,0,0.5)] transition-all duration-300 ease-out origin-top flex flex-col justify-between p-4 sm:p-7 lg:p-9 select-none group"
+          >
+            
+            <!-- Full-Bleed Background Image (With Smooth Zoom on Hover) -->
+            <img 
+              src={pkg.image} 
+              alt={`${pkg.code} - ${pkg.title}`}
+              class="absolute inset-0 w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <!-- Soft Contrast Vignette Gradient (Identical to GoUncharted: Clear upper image, razor-sharp bottom text) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 pointer-events-none"></div>
+
+            <!-- TOP BAR: 100% Single-Line Clean Kicker (No Awkward Line Wrapping) -->
+            <div class="relative z-10 flex items-center justify-between gap-2 select-none">
+              <div class="flex items-center gap-1.5 sm:gap-2 text-xs font-mono-tag tracking-wider text-white/90 uppercase whitespace-nowrap">
+                <span class="text-[#d8c39e] font-bold">—</span>
+                <span class="font-bold tracking-widest">{pkg.code}</span>
+                <span class="text-white/30 hidden xs:inline">•</span>
+                <span class="text-[10px] text-[#d8c39e] font-medium hidden sm:inline tracking-wider">{pkg.badge}</span>
+              </div>
+
+              <!-- Top Right Price Pill -->
+              <div class="flex items-center shrink-0">
+                <span class="text-xs sm:text-sm font-mono-tag font-bold text-[#d8c39e] tracking-tight bg-black/75 backdrop-blur-md px-2.5 sm:px-3 py-1 border border-white/15 whitespace-nowrap">
+                  {pkg.price}
+                </span>
+              </div>
+            </div>
+
+            <!-- BOTTOM CONTENT: Title + Right Button + Hairline Divider + 4 Complete Specs -->
+            <div class="relative z-10 flex flex-col gap-3 sm:gap-4 mt-auto">
+              
+              <!-- Title & Right Button Row (Directly Side-by-Side: No Giant Stacked White Block) -->
+              <div class="flex items-center justify-between gap-2.5 sm:gap-4">
+                <div class="flex-1 pr-1 sm:pr-4">
+                  <h3 class="text-sm sm:text-2xl lg:text-[26px] font-normal tracking-tight text-white font-sans leading-snug drop-shadow-md">
+                    {pkg.title}
+                  </h3>
+                </div>
+
+                <!-- Quick WhatsApp Concierge Button (Positioned at right of title, clean & compact) -->
+                <a 
+                  href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(pkg.waText)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0 whitespace-nowrap"
+                >
+                  <span>Pesan {pkg.code}</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
+              <!-- Thin Hairline Divider Line (1:1 with GoUncharted) -->
+              <div class="w-full border-t border-white/20"></div>
+
+              <!-- 4-Column Metadata Grid (With WhatsApp FAB Clearance pr-14 on mobile) -->
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 pr-12 sm:pr-0">
+                <div>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5">
+                    <span class="sm:hidden">TIDUR</span>
+                    <span class="hidden sm:inline">PERLENGKAPAN TIDUR</span>
+                  </span>
+                  <span class="text-[11px] sm:text-[13px] font-medium text-white font-sans block leading-tight">
+                    {pkg.bedding}
+                  </span>
+                </div>
+
+                <div>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5">
+                    <span class="sm:hidden">SANTAI</span>
+                    <span class="hidden sm:inline">AREA SANTAI</span>
+                  </span>
+                  <span class="text-[11px] sm:text-[13px] font-medium text-white font-sans block leading-tight">
+                    {pkg.seating}
+                  </span>
+                </div>
+
+                <div>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5">
+                    <span class="sm:hidden">KULINER</span>
+                    <span class="hidden sm:inline">KULINER & BBQ</span>
+                  </span>
+                  <span class="text-[11px] sm:text-[13px] font-medium text-white font-sans block leading-tight">
+                    {pkg.culinary}
+                  </span>
+                </div>
+
+                <div>
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-white/50 tracking-widest uppercase block mb-0.5">
+                    <span class="sm:hidden">AKTIVITAS</span>
+                    <span class="hidden sm:inline">AKTIVITAS & WAHANA</span>
+                  </span>
+                  <span class="text-[11px] sm:text-[13px] font-medium text-white font-sans block leading-tight">
+                    {pkg.activity}
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- STACKING SCRIPT: DEPTH ILLUSION & CLICK TO EXPAND                         -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initUpgradeStack() {
+    const section = document.getElementById('paket-upgrade');
+    const wrappers = document.querySelectorAll('.upgrade-card-wrapper');
+    if (!section || !wrappers.length) return;
+
+    // Handle smooth clicking on card headers
+    wrappers.forEach((wrapper, idx) => {
+      wrapper.addEventListener('click', (e) => {
+        const isLink = e.target.closest('a');
+        if (isLink) return;
+
+        // @ts-ignore
+        const lenis = window.__lenis;
+        const targetTop = wrapper.offsetTop - (idx * 32) - 80;
+        
+        if (lenis) {
+          lenis.scrollTo(wrapper, { offset: -(idx * 32) - 80, duration: 0.8 });
+        } else {
+          window.scrollTo({
+            top: targetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Tactile depth scroll handler: subtle scale down on buried cards
+    function onScrollStack() {
+      wrappers.forEach((wrapper, idx) => {
+        if (idx === wrappers.length - 1) return; // Don't scale last card
+
+        const nextWrapper = wrappers[idx + 1];
+        if (!nextWrapper) return;
+
+        const nextRect = nextWrapper.getBoundingClientRect();
+        const wrapperRect = wrapper.getBoundingClientRect();
+        
+        const cardInner = wrapper.querySelector('.upgrade-card');
+        if (!cardInner) return;
+
+        // When next card approaches or overlaps, scale down slightly & dim
+        if (nextRect.top <= wrapperRect.bottom) {
+          const overlap = wrapperRect.bottom - nextRect.top;
+          const maxOverlap = wrapperRect.height;
+          const progress = Math.max(0, Math.min(1, overlap / (maxOverlap * 0.75)));
+
+          const scale = 1 - progress * 0.035; // 1.0 -> 0.965
+          const brightness = 1 - progress * 0.22; // 1.0 -> 0.78
+          
+          cardInner.style.transform = `scale(${scale.toFixed(4)})`;
+          cardInner.style.filter = `brightness(${brightness.toFixed(3)})`;
+        } else {
+          cardInner.style.transform = 'scale(1)';
+          cardInner.style.filter = 'brightness(1)';
+        }
+      });
+    }
+
+    let isTicking = false;
+    let isIntersecting = false;
+
+    function handleScroll() {
+      if (!isTicking && isIntersecting) {
+        requestAnimationFrame(() => {
+          onScrollStack();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          onScrollStack();
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0,
+      rootMargin: "200px 0px"
+    });
+
+    observer.observe(section);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial run
+    onScrollStack();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initUpgradeStack);
+  } else {
+    initUpgradeStack();
+  }
+</script>

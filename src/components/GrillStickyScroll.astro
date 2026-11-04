@@ -1,0 +1,412 @@
+---
+import siteData from '../data/siteData.json';
+
+// Data Resmi 4 Paket Barbeque Grill & Rental Gear (GoUncharted Sticky Split-Scroll Architecture)
+const grillPackages = [
+  {
+    index: "01",
+    num: "01",
+    category: "Family & Group Feast",
+    title: "Paket Grill Big Size",
+    badge: "PALING FAVORIT",
+    price: "Rp 200.000",
+    statement: "Porsi komplit pesta barbeque outdoor untuk keluarga dan rombongan di depan kabin atau tenda, menyatu dengan kehangatan api dan sejuknya kanopi pinus Gunung Wilis.",
+    specs: [
+      { label: "KAPASITAS", value: "4 s/d 6 Orang" },
+      { label: "ISIAN DAGING", value: "Beef Slice + Sosis + Dumpling" },
+      { label: "PELENGKAP", value: "Selada, Bombay, Margarin & Saus" }
+    ],
+    image: "/images/grill/paket-grill-big.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Paket Grill Big Size* (Rp 200.000) untuk melengkapi liburan menginap saya."
+  },
+  {
+    index: "02",
+    num: "02",
+    category: "Couple & Small Family",
+    title: "Paket Grill Small Size",
+    badge: "BEST SELLER PASANGAN",
+    price: "Rp 130.000",
+    statement: "Menu barbeque intim yang sempurna untuk pasangan atau keluarga kecil, menyatu dengan syahdunya malam pegunungan dan alunan gemericik air sungai alami.",
+    specs: [
+      { label: "KAPASITAS", value: "2 s/d 3 Orang" },
+      { label: "ISIAN DAGING", value: "Daging Sapi Segar + Sosis Pilihan" },
+      { label: "PELENGKAP", value: "Sayuran Segar, Margarin & Saus BBQ" }
+    ],
+    image: "/images/grill/paket-grill-small.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Paket Grill Small Size* (Rp 130.000) untuk melengkapi liburan menginap saya."
+  },
+  {
+    index: "03",
+    num: "03",
+    category: "Extra Meat Lovers",
+    title: "Add-On Beef Slice 500g",
+    badge: "100% FRESH BEEF",
+    price: "Rp 99.000",
+    statement: "Tambahan irisan daging sapi segar berkualitas premium 500 gram dengan marbling lembut, siap dipanggang sepuasnya tanpa khawatir kehabisan santapan.",
+    specs: [
+      { label: "BERAT PORSI", value: "500 Gram Bersih" },
+      { label: "JENIS DAGING", value: "Marbled Beef Sukiyaki Cut" },
+      { label: "BUMBU", value: "Marinasi Gurih Manis + Wijen" }
+    ],
+    image: "/images/grill/addon-beef-slice.jpg",
+    waText: "Halo Admin Jolotundo, saya ingin memesan *Add-On Beef Slice 500g* (Rp 99.000) untuk melengkapi liburan menginap saya."
+  }
+];
+---
+
+<!-- 
+  PAKET BARBEQUE GRILL (GoUncharted Sticky Split-Scroll Architecture)
+  - Left Column: Sticky 4:5 Photo Frame with Pure Translate-Y Reel (slides vertically on scroll)
+  - Right Column: Ultra-Clean, Elegant Editorial Typography Stream
+  - Natural page scrolling: Zero horizontal scroll traps, 100% smooth vertical navigation
+  - Zero Rounded: Strictly sharp brutalist-luxury lines, zero border-radius
+-->
+<section id="paket-grill" class="relative z-20 bg-[#f5f1ea] text-[#141110] border-t border-[#141110]/15 py-16 sm:py-24 px-6 sm:px-10 lg:px-14 xl:px-20 transition-colors duration-300">
+  <div class="max-w-[1680px] mx-auto flex flex-col gap-10 sm:gap-14">
+
+    <!-- Section Header (Editorial Monospace + Bold Sans) -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#141110]/15">
+      <div>
+        <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase mb-3">
+          <span class="w-1.5 h-1.5 bg-[#141110]"></span>
+          <span>KULINER & OUTDOOR BBQ</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#141110] uppercase leading-none font-sans">
+          Paket Barbeque Grill
+        </h2>
+      </div>
+
+      <!-- Right Header Status Indicator -->
+      <div class="text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest flex items-center gap-2 self-start sm:self-auto">
+        <span class="inline-block w-1.5 h-1.5 bg-emerald-700 animate-pulse"></span>
+        <span class="hidden sm:inline">Gulir ke bawah untuk menjelajahi seluruh paket</span>
+        <span class="sm:hidden">Scroll untuk eksplorasi paket</span>
+      </div>
+    </div>
+
+    <!-- Main Split-Scroll Container: Left Sticky Photo Frame, Right Scrolling Stories -->
+    <div id="grill-split-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start relative">
+      
+      <!-- LEFT COLUMN: Sticky Vertical Photo Frame (GoUncharted 1:1 Architecture) -->
+      <div class="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-28 sm:lg:top-32 w-full flex flex-col gap-4 select-none">
+        
+        <!-- Main Photo Frame Container with Vertical Reel & Translate-Y Parallax Engine -->
+        <div class="relative w-full aspect-[4/5] sm:h-[520px] lg:h-[580px] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl">
+          
+          <!-- Sliding Image Reel (Translates -Y by 100% per active index) -->
+          <div 
+            id="grill-image-reel" 
+            class="w-full h-full flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+            style="transform: translateY(0%);"
+          >
+            {grillPackages.map((pkg, idx) => (
+              <div class="w-full h-full shrink-0 relative bg-black overflow-hidden">
+                
+                <!-- Inner Parallax Layer -->
+                <div 
+                  class="grill-parallax-layer absolute inset-x-0 w-full h-[135%] -top-[17.5%]"
+                  style="transform: translate3d(0, 0px, 0);"
+                >
+                  <img 
+                    src={pkg.image} 
+                    alt={`${pkg.title} - Jolotundo Barbeque`}
+                    class="w-full h-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                
+                <!-- Soft Contrast Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 pointer-events-none"></div>
+
+                <!-- Floating Badge in Top-Left of Photo -->
+                <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                  <span class="text-[10px] font-mono-tag tracking-[0.2em] text-[#d8c39e] uppercase px-3 py-1.5 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
+                    INDEX // {pkg.index}
+                  </span>
+                </div>
+
+                <!-- Floating Caption in Bottom-Left of Photo -->
+                <div class="absolute bottom-5 left-5 right-5 z-10 pointer-events-none">
+                  <span class="text-xs sm:text-sm font-mono-tag tracking-wider text-white/95 uppercase block font-semibold drop-shadow">
+                    {pkg.title}
+                  </span>
+                  <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-widest block mt-0.5">
+                    {pkg.price} • {pkg.category}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        <!-- Bottom Sub-bar (1:1 with GoUncharted: "PAKET 01 02 03") -->
+        <div class="flex items-center justify-between text-xs font-mono-tag text-[#141110]/70 pt-2 px-1 border-t border-[#141110]/15">
+          <span class="tracking-widest uppercase text-[11px] font-semibold text-[#141110]/80">
+            [ MENU // 03 PILIHAN ]
+          </span>
+
+          <!-- Numbers Index Tracker (Clickable to jump directly to that package!) -->
+          <div id="grill-nav-indicators" class="flex items-center gap-2 sm:gap-2.5">
+            {grillPackages.map((pkg, idx) => (
+              <button 
+                type="button"
+                data-target-index={idx}
+                class={`grill-indicator-btn font-mono-tag text-xs tracking-wider transition-all duration-300 cursor-pointer ${
+                  idx === 0 
+                    ? "font-bold text-[#141110] border-b-2 border-[#141110] pb-0.5" 
+                    : "text-[#141110]/35 hover:text-[#141110]"
+                }`}
+                aria-label={`Lihat paket ${pkg.index} - ${pkg.title}`}
+              >
+                {pkg.index}
+              </button>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Scrolling Package Story Cards (GoUncharted Ultra-Clean Typographic Stream) -->
+      <div id="grill-stories-stream" class="lg:col-span-7 xl:col-span-7 flex flex-col">
+        {grillPackages.map((pkg, idx) => (
+          <article 
+            id={`grill-card-${idx}`}
+            class={`grill-story-card min-h-[40vh] sm:min-h-[46vh] py-10 sm:py-14 flex flex-col justify-center border-b border-[#141110]/15 last:border-b-0 transition-opacity duration-500 ease-out ${
+              idx === 0 ? "opacity-100" : "opacity-25 hover:opacity-60 cursor-pointer"
+            }`}
+            data-index={idx}
+          >
+            <!-- Border Left Accent + Story Content (1:1 with GoUncharted Line & Statement) -->
+            <div class={`grill-quote-wrapper border-l-2 pl-6 sm:pl-8 py-2 transition-all duration-500 ${
+              idx === 0 ? "border-[#141110]" : "border-transparent"
+            }`}>
+              
+              <!-- Category & Price Badge Row -->
+              <div class="flex flex-wrap items-center gap-3 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-3">
+                <span class="font-bold text-[#141110]">{pkg.index}</span>
+                <span>//</span>
+                <span>{pkg.category}</span>
+                <span class="text-[#141110]/30">•</span>
+                <span class="text-[#141110] font-bold bg-[#141110]/10 px-2 py-0.5 border border-[#141110]/20">
+                  {pkg.price}
+                </span>
+              </div>
+
+              <!-- Main Editorial Title -->
+              <h3 class="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#141110] uppercase tracking-tight font-sans mb-3.5 leading-tight">
+                {pkg.title}
+              </h3>
+
+              <!-- Big Poetic Statement (GoUncharted Typographic Hallmark) -->
+              <blockquote class="text-lg sm:text-xl lg:text-[22px] font-light text-[#141110] leading-snug tracking-tight mb-6 italic max-w-2xl">
+                "{pkg.statement}"
+              </blockquote>
+
+              <!-- 3-Column Key Metadata Specs -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 py-4 border-y border-[#141110]/15 mb-6">
+                {pkg.specs.map((sp) => (
+                  <div>
+                    <span class="text-sm sm:text-base font-semibold text-[#141110] block tracking-tight">
+                      {sp.value}
+                    </span>
+                    <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mt-0.5">
+                      {sp.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <!-- Action Link: Direct Concierge Reservation -->
+              <div class="flex items-center gap-4">
+                <a 
+                  href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(pkg.waText)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-3 px-6 sm:px-8 py-3 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-[0_10px_25px_rgba(20,17,16,0.3)] shrink-0"
+                >
+                  <span>Pesan Paket BBQ</span>
+                  <span>↗</span>
+                </a>
+                <span class="hidden sm:inline-block text-xs font-mono-tag text-[#141110]/50 tracking-wider">
+                  [ DIANTAR LANGSUNG KE TENDA ]
+                </span>
+              </div>
+
+            </div>
+          </article>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================================= -->
+<!-- STICKY IMAGE REEL & SCROLL TRIGGER CONTROLLER SCRIPT                      -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initGrillStickySplit() {
+    const section = document.getElementById('paket-grill');
+    const reel = document.getElementById('grill-image-reel');
+    const cards = document.querySelectorAll('.grill-story-card');
+    const indicatorBtns = document.querySelectorAll('.grill-indicator-btn');
+    const parallaxLayers = document.querySelectorAll('.grill-parallax-layer');
+    if (!section || !reel || !cards.length) return;
+
+    let activeIndex = 0;
+
+    // Switch active package slide & card highlights
+    function setActiveIndex(idx) {
+      if (idx === activeIndex) return;
+      activeIndex = idx;
+
+      // 1. Slide Image Reel vertically (-idx * 100%)
+      reel.style.transform = `translateY(-${idx * 100}%)`;
+
+      // 2. Update Story Cards Opacity & Active Left Line
+      cards.forEach((card, i) => {
+        const quoteWrapper = card.querySelector('.grill-quote-wrapper');
+        if (i === idx) {
+          card.classList.remove('opacity-25', 'cursor-pointer');
+          card.classList.add('opacity-100');
+          if (quoteWrapper) {
+            quoteWrapper.classList.remove('border-transparent');
+            quoteWrapper.classList.add('border-[#141110]');
+          }
+        } else {
+          card.classList.remove('opacity-100');
+          card.classList.add('opacity-25', 'cursor-pointer');
+          if (quoteWrapper) {
+            quoteWrapper.classList.remove('border-[#141110]');
+            quoteWrapper.classList.add('border-transparent');
+          }
+        }
+      });
+
+      // 3. Update Indicator Numbers (01 through 03)
+      indicatorBtns.forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = "grill-indicator-btn font-mono-tag text-xs tracking-wider transition-all duration-300 cursor-pointer font-bold text-[#141110] border-b-2 border-[#141110] pb-0.5";
+        } else {
+          btn.className = "grill-indicator-btn font-mono-tag text-xs tracking-wider transition-all duration-300 cursor-pointer text-[#141110]/35 hover:text-[#141110]";
+        }
+      });
+    }
+
+    // Scroll Handler: Single-pass active card detection & targeted Translate-Y Parallax
+    function onScroll() {
+      const windowHeight = window.innerHeight;
+      const viewportCenter = windowHeight * 0.45;
+      const focalLine = windowHeight * 0.40;
+      let closestIdx = activeIndex;
+      let minDistance = Infinity;
+
+      cards.forEach((card, idx) => {
+        const cRect = card.getBoundingClientRect();
+        const cardCenter = cRect.top + cRect.height * 0.45;
+        const dist = Math.abs(cardCenter - focalLine);
+
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestIdx = idx;
+        }
+
+        // Parallax transform for active and adjacent slide
+        if (Math.abs(idx - activeIndex) <= 1) {
+          const layer = parallaxLayers[idx];
+          if (layer && cRect.bottom >= -windowHeight * 0.5 && cRect.top <= windowHeight * 1.5) {
+            const diff = cardCenter - viewportCenter;
+            const clampedY = Math.max(-60, Math.min(60, -diff * 0.1));
+            layer.style.transform = `translate3d(0, ${clampedY.toFixed(1)}px, 0)`;
+          }
+        }
+      });
+
+      if (closestIdx !== activeIndex) {
+        setActiveIndex(closestIdx);
+      }
+    }
+
+    let isTicking = false;
+    let isIntersecting = false;
+
+    function handleScroll() {
+      if (!isTicking && isIntersecting) {
+        requestAnimationFrame(() => {
+          onScroll();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          onScroll();
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0,
+      rootMargin: "250px 0px"
+    });
+
+    observer.observe(section);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        onScroll();
+      }, 150);
+    }, { passive: true });
+
+    // Click on Inactive Card or Indicator Number to jump smoothly
+    cards.forEach((card, i) => {
+      card.addEventListener('click', (e) => {
+        if (i !== activeIndex) {
+          const isLink = e.target.closest('a');
+          if (!isLink) {
+            scrollToCard(i);
+          }
+        }
+      });
+    });
+
+    indicatorBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        const targetIdx = parseInt(btn.getAttribute('data-target-index') || '0', 10);
+        scrollToCard(targetIdx);
+      });
+    });
+
+    function scrollToCard(idx) {
+      const targetCard = cards[idx];
+      if (!targetCard) return;
+
+      // @ts-ignore
+      const lenis = window.__lenis;
+      if (lenis) {
+        lenis.scrollTo(targetCard, { offset: -140, duration: 1 });
+      } else {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Run initial scroll check
+    onScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGrillStickySplit);
+  } else {
+    initGrillStickySplit();
+  }
+</script>

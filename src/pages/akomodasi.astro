@@ -1,0 +1,577 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import FooterCTA from '../components/FooterCTA.astro';
+import JourneyUpgradeStack from '../components/JourneyUpgradeStack.astro';
+import GrillStickyScroll from '../components/GrillStickyScroll.astro';
+import RentalGearSection from '../components/RentalGearSection.astro';
+import siteData from '../data/siteData.json';
+
+// Data Lengkap 7 Akomodasi Jolotundo (Varied Dynamic Editorial Grid Architecture)
+const accommodations = [
+  {
+    index: "01",
+    id: "deluxe-camp",
+    name: "Deluxe Camp",
+    category: "cabin",
+    tier: "Premium Hospitality",
+    setting: "Riverside & Pine Canopy",
+    capacity: "2 Orang",
+    tagline: "Kabin kayu jati berpendingin udara di tepi sungai berbatu, memadukan kenyamanan hotel dengan alunan gemericik air alami.",
+    pills: ["Tepi Sungai", "±800 MDPL", "Kabin AC", "Maks 2 Tamu"],
+    image: "/images/accommodations/deluxe-camp-new.jpg",
+    editorialImage: "/images/accommodations/deluxe-camp-new.jpg",
+    gridClass: "grid-col-7 camp-card-hero"
+  },
+  {
+    index: "02",
+    id: "superior-camp",
+    name: "Superior Camp",
+    category: "cabin",
+    tier: "Premium Hospitality",
+    setting: "Terraced Pine Hill",
+    capacity: "2 Orang",
+    tagline: "Kabin berpendingin udara modern dengan fasilitas lengkap, Smart TV, tea maker kit, dan water heater untuk kenyamanan prima.",
+    pills: ["Terraced Hill", "Kabin AC", "Smart TV", "Maks 2 Tamu"],
+    image: "/images/accommodations/superior-camp-new.jpg",
+    editorialImage: "/images/accommodations/superior-camp-new.jpg",
+    gridClass: "grid-col-5 camp-card-hero"
+  },
+  {
+    index: "03",
+    id: "korean-glamping",
+    name: "Korean Glamping",
+    category: "forest",
+    tier: "Experiential Glamping",
+    setting: "Pine Lawn Garden",
+    capacity: "3 s/d 6 Orang",
+    tagline: "Glamping bergaya Korea yang memadukan keindahan alam dengan suasana hangat, kompor set lengkap, dan pesta BBQ di bawah kabut pinus.",
+    pills: ["Taman Pinus", "BBQ Picnic", "Aesthetic Tent", "3–6 Tamu"],
+    image: "/images/accommodations/korean-glamping-editorial.jpg",
+    editorialImage: "/images/accommodations/korean-glamping-editorial.jpg",
+    gridClass: "grid-col-5 camp-card-hero"
+  },
+  {
+    index: "04",
+    id: "river-camp",
+    name: "River Camp",
+    category: "river",
+    tier: "Experiential Glamping",
+    setting: "Direct Riverside Deck",
+    capacity: "2 Orang",
+    tagline: "Terapi alam terbaik dengan alunan simfoni gemericik air sungai alami tepat di depan teras panggung kayu Anda sepanjang malam.",
+    pills: ["Dek Sungai", "Gemericik Air", "Double Bed", "Maks 2 Tamu"],
+    image: "/images/accommodations/river-camp-editorial.jpg",
+    editorialImage: "/images/accommodations/river-camp-editorial.jpg",
+    gridClass: "grid-col-7 camp-card-hero"
+  },
+  {
+    index: "05",
+    id: "pinus-camp-plus",
+    name: "Pinus Camp Plus",
+    category: "river",
+    tier: "Experiential Glamping",
+    setting: "Pine & Small Creek",
+    capacity: "2 Orang",
+    tagline: "Tenda panggung kayu di tengah sejuknya ribuan pohon pinus dengan aliran sungai kecil persis di depan tenda (Tenda 40–51).",
+    pills: ["Hutan Pinus", "Sungai Kecil", "Dek Panggung", "Maks 2 Tamu"],
+    image: "/images/accommodations/pinus-camp-plus-new.jpg",
+    editorialImage: "/images/accommodations/pinus-camp-plus-new.jpg",
+    gridClass: "grid-col-half"
+  },
+  {
+    index: "06",
+    id: "pinus-camp",
+    name: "Pinus Camp",
+    category: "forest",
+    tier: "Rustic & Nature",
+    setting: "Deep Pine Canopy",
+    capacity: "2 Orang",
+    tagline: "Keteduhan autentik hutan pinus yang menjulang tinggi, menghadirkan privasi istirahat yang sangat tenang, sejuk, dan asri.",
+    pills: ["Kanopi Pinus", "Dek Kayu", "Udara Sejuk", "Maks 2 Tamu"],
+    image: "/images/accommodations/pinus-camp-editorial.jpg",
+    editorialImage: "/images/accommodations/pinus-camp-editorial.jpg",
+    gridClass: "grid-col-half"
+  },
+  {
+    index: "07",
+    id: "camping-ground",
+    name: "Camping Ground",
+    category: "ground",
+    tier: "Rustic & Nature",
+    setting: "Wilderness Pinus Ground",
+    capacity: "4 s/d 6 Orang",
+    tagline: "Area berkemah luas di bawah langit bertabur bintang untuk petualang sejati yang mendambakan esensi berkemah murni di alam bebas.",
+    pills: ["Tenda Dome", "Matras Tidur", "Api Unggun", "4–6 Tamu"],
+    image: "/images/accommodations/camping-ground-new.jpg",
+    editorialImage: "/images/accommodations/camping-ground-new.jpg",
+    gridClass: "grid-col-full camp-card-panorama"
+  }
+];
+
+// Kategori Filter (1:1 Mirip Style GoUncharted "All Mountains Coast Desert...")
+const categories = [
+  { id: "all", label: "Semua" },
+  { id: "cabin", label: "Kabin AC" },
+  { id: "river", label: "Glamping Sungai" },
+  { id: "forest", label: "Hutan Pinus" },
+  { id: "ground", label: "Camping Ground" }
+];
+---
+
+<Layout 
+  title="Koleksi Akomodasi & Glamping — Jolotundo Glamping & Edupark"
+  description="Koleksi lengkap 7 tipe penginapan di Jolotundo Glamping & Edupark, Bajulan, Nganjuk. Dari Deluxe Camp AC, River Camp, Korean Glamping hingga Camping Ground alami."
+>
+  <!-- Floating Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone / Light Editorial Background (Identik GoUncharted) -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- HEADER SECTION: 1:1 GOUNCHARTED MINIMALIST EDITORIAL (CENTERED)           -->
+    <!-- ========================================================================= -->
+    <header class="catalog-header px-6 sm:px-10 lg:px-14 xl:px-20 text-center flex flex-col items-center">
+      
+      <!-- Top Small Spaced Kicker: EXPLORE BY CATEGORY -->
+      <span class="text-[11px] sm:text-xs font-mono-tag text-[#141110]/60 tracking-[0.25em] uppercase mb-4 sm:mb-5 block">
+        EXPLORE BY CATEGORY
+      </span>
+
+      <!-- Category Filter Typography Line (All Mountains Coast Desert... Style) -->
+      <nav class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 gap-y-3.5 max-w-4xl mx-auto py-2">
+        {categories.map((cat, idx) => (
+          <button
+            type="button"
+            data-category={cat.id}
+            class={`category-filter-btn text-lg sm:text-2xl lg:text-[26px] font-normal tracking-tight font-sans transition-all duration-200 cursor-pointer ${
+              idx === 0 
+                ? 'text-[#141110] font-bold border-b border-[#141110]' 
+                : 'text-[#141110]/45 hover:text-[#141110] border-b border-transparent'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </nav>
+
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- SUB-BAR / METADATA DIVIDER: "LIST / INSPIRATION" (1:1 GoUncharted)        -->
+    <!-- ========================================================================= -->
+    <div class="px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto">
+      <div class="flex items-center justify-between py-3.5 border-b border-[#141110]/15 text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-[#141110]">LIST</span>
+          <span class="text-[#141110]/40">/</span>
+          <span>7 TIPE AKOMODASI</span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-[#141110]/50 text-[11px]">
+          <span>[ LERENG GUNUNG WILIS • ±800 MDPL ]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- CARDS GRID: CLEAN EDITORIAL RHYTHM (7:5 -> 5:7 -> 6:6 -> 12 FULL WIDTH)  -->
+    <!-- ========================================================================= -->
+    <section class="catalog-section px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto">
+      <div id="accommodation-catalog-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+        {accommodations.map((stay) => (
+          <article 
+            data-category={stay.category}
+            class={`camp-card group relative overflow-hidden bg-[#141110] border border-[#141110]/20 select-none cursor-pointer w-full ${stay.gridClass}`}
+            tabindex="0"
+            role="button"
+            aria-label={`Lihat detail ${stay.name}`}
+          >
+            
+            <!-- Background Image with Butter-Smooth Scale on Hover/Active (Always Adapts to Card via absolute inset-0) -->
+            <img 
+              src={stay.editorialImage || stay.image} 
+              alt={stay.name + " - Jolotundo Glamping & Edupark"}
+              class="camp-img absolute inset-0 w-full h-full object-cover object-center transform scale-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <!-- Dark Gradient Layer (Soft on Idle, Deepens on Hover for Razor-Sharp Text Contrast) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity duration-500 pointer-events-none"></div>
+
+            <!-- Top Sharp Meta Badges (Index & Setting) -->
+            <div class="absolute top-5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
+              <span class="text-[11px] font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10 font-bold">
+                {stay.index}
+              </span>
+              <span class="text-[10px] font-mono-tag tracking-wider text-white/80 uppercase px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10">
+                {stay.setting}
+              </span>
+            </div>
+
+            <!-- In-Image Content Overlay (Docked at Bottom with generous padding to prevent text clipping) -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10 flex flex-col justify-end z-10 pointer-events-none">
+              
+              <!-- Glamping Name (Visible Idle -> Translates Upwards on Hover/Active) -->
+              <div class="camp-title-wrap">
+                <span class="text-[11px] font-mono-tag text-[#d8c39e] uppercase tracking-widest block mb-1 font-semibold">
+                  {stay.tier}
+                </span>
+                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white uppercase leading-none font-sans drop-shadow-md">
+                  {stay.name}
+                </h3>
+              </div>
+
+              <!-- Collapsible Reveal Drawer (Hidden on Idle -> Expands & Fades In on Hover/Active) -->
+              <div class="camp-drawer">
+                <div class="camp-drawer-inner">
+                  <div class="camp-drawer-content pt-3.5 pb-2 flex flex-col gap-3.5 pointer-events-auto">
+                    
+                    <!-- Keterangan / Editorial Tagline -->
+                    <p class="text-xs sm:text-sm text-white/85 font-light leading-relaxed max-w-xl">
+                      {stay.tagline}
+                    </p>
+
+                    <!-- Feature Pills (Sharp rectangular pills) -->
+                    <div class="flex flex-wrap gap-2">
+                      {stay.pills.map((pill) => (
+                        <span class="text-[10px] font-mono-tag text-white/90 bg-white/10 backdrop-blur-sm px-2.5 py-1 border border-white/15">
+                          {pill}
+                        </span>
+                      ))}
+                    </div>
+
+                    <!-- Direct Action: Button Lihat Detail (Tanpa Pricelist) -->
+                    <div class="pt-3.5 pb-1 border-t border-white/15 flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#d8c39e] inline-block"></span>
+                        <span class="text-[10px] sm:text-[11px] font-mono-tag text-white/70 uppercase tracking-wider">
+                          Ketersediaan & Fasilitas
+                        </span>
+                      </div>
+
+                      <!-- Sharp Button Lihat Detail (Direct Concierge Inquiry) -->
+                      <a
+                        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu ketersediaan dan detail informasi untuk *${stay.name}*.`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
+                      >
+                        <span>Lihat Detail</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section: Paket Upgrade Journey Camp (Sticky Stacking Deck) -->
+    <JourneyUpgradeStack />
+
+    <!-- Section: Paket Barbeque Grill (Vertical Sticky Split-Scroll) -->
+    <GrillStickyScroll />
+
+    <!-- Section: Rental Camping Gear & Peralatan -->
+    <RentalGearSection />
+
+  </main>
+
+  <!-- Luxury Editorial Footer -->
+  <FooterCTA />
+</Layout>
+
+<!-- ========================================================================= -->
+<!-- STYLES: CINEMATIC SPOTLIGHT + HOMEPAGE CARD INTERACTION                   -->
+<!-- ========================================================================= -->
+<style>
+  /* Catalog Header Spacing: 100% Guaranteed Native CSS Spacing below Fixed Navbar */
+  .catalog-header {
+    padding-top: 180px;
+    padding-bottom: 56px;
+  }
+  @media (min-width: 640px) {
+    .catalog-header {
+      padding-top: 220px;
+      padding-bottom: 64px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .catalog-header {
+      padding-top: 250px;
+      padding-bottom: 72px;
+    }
+  }
+
+  /* Catalog Section Spacing */
+  .catalog-section {
+    padding-top: 32px;
+    padding-bottom: 96px;
+  }
+  @media (min-width: 640px) {
+    .catalog-section {
+      padding-top: 48px;
+      padding-bottom: 128px;
+    }
+  }
+
+  /* Grid Column Architecture: 1 Column on Mobile & Tablet (< 1024px, e.g. iPad Mini 768px), Multi-Column on Desktop (>= 1024px) */
+  .grid-col-half,
+  .grid-col-full,
+  .grid-col-7,
+  .grid-col-5 {
+    grid-column: span 1 / span 1;
+  }
+
+  @media (min-width: 1024px) {
+    .grid-col-half {
+      grid-column: span 6 / span 6;
+    }
+    .grid-col-full {
+      grid-column: span 12 / span 12;
+    }
+    .grid-col-7 {
+      grid-column: span 7 / span 7;
+    }
+    .grid-col-5 {
+      grid-column: span 5 / span 5;
+    }
+  }
+
+  /* Iron-clad card dimensions: guaranteed explicit height across all breakpoints */
+  .camp-card {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 480px;
+    height: 480px;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    touch-action: manipulation;
+  }
+
+  @media (min-width: 640px) {
+    .camp-card {
+      min-height: 540px;
+      height: 540px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .camp-card {
+      min-height: 600px;
+      height: 600px;
+    }
+    .camp-card.camp-card-hero {
+      min-height: 620px;
+      height: 620px;
+    }
+    .camp-card.camp-card-panorama {
+      min-height: 560px;
+      height: 560px;
+    }
+  }
+
+  /* Image: Absolute lock to all 4 edges, object-fit cover ensures it ALWAYS fills the card without distortion */
+  .camp-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Desktop spotlight: when any card is hovered, other cards smoothly blur, dim, and scale down */
+  @media (hover: hover) and (pointer: fine) {
+    #accommodation-catalog-grid:has(.camp-card:hover) .camp-card:not(:hover) {
+      filter: blur(3px) brightness(0.75);
+      opacity: 0.42;
+      transform: scale3d(0.985, 0.985, 1);
+    }
+  }
+
+  /* Active or hovered card elevation */
+  @media (hover: hover) and (pointer: fine) {
+    .camp-card:hover {
+      transform: scale3d(1.025, 1.025, 1);
+      z-index: 20;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+      border-color: rgba(216, 195, 158, 0.6);
+      filter: blur(0) brightness(1);
+      opacity: 1;
+    }
+  }
+
+  .camp-card.is-active {
+    border-color: rgba(216, 195, 158, 0.6);
+    opacity: 1;
+  }
+
+  /* Title upward translation */
+  .camp-title-wrap {
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .camp-card:hover .camp-title-wrap,
+  .camp-card.is-active .camp-title-wrap {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  /* Drawer base state (Both Desktop & Mobile: collapsible 0fr -> 1fr slide up) */
+  .camp-drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.45s ease;
+    will-change: grid-template-rows, opacity;
+  }
+
+  /* Drawer expansion on hover or tap/active */
+  .camp-card:hover .camp-drawer,
+  .camp-card.is-active .camp-drawer {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .camp-drawer-inner {
+    overflow: hidden;
+  }
+
+  /* Drawer content translation: pure GPU translate3d + opacity slide up */
+  .camp-drawer-content {
+    transform: translate3d(0, 24px, 0);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease;
+    will-change: transform, opacity;
+  }
+
+  .camp-card:hover .camp-drawer-content,
+  .camp-card.is-active .camp-drawer-content {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  /* Background image scale */
+  .camp-card:hover .camp-img,
+  .camp-card.is-active .camp-img {
+    transform: scale3d(1.06, 1.06, 1);
+  }
+</style>
+
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: INSTANT CATEGORY FILTER & MOBILE TOUCH AUTO-REVEAL            -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initAccommodationCatalog() {
+    const grid = document.getElementById('accommodation-catalog-grid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.camp-card'));
+    const filterBtns = Array.from(document.querySelectorAll('.category-filter-btn'));
+
+    // --- 1. INSTANT CLIENT-SIDE CATEGORY FILTER ---
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const selectedCat = btn.getAttribute('data-category');
+
+        // Update active filter button state
+        filterBtns.forEach((b) => {
+          b.classList.remove('font-bold', 'text-[#141110]', 'border-[#141110]');
+          b.classList.add('text-[#141110]/45', 'border-transparent');
+        });
+        btn.classList.add('font-bold', 'text-[#141110]', 'border-[#141110]');
+        btn.classList.remove('text-[#141110]/45', 'border-transparent');
+
+        // Filter cards smoothly
+        cards.forEach((card) => {
+          const cardCat = card.getAttribute('data-category');
+          if (selectedCat === 'all' || cardCat === selectedCat) {
+            card.style.display = '';
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            });
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+              if (card.style.opacity === '0') {
+                card.style.display = 'none';
+              }
+            }, 250);
+          }
+        });
+      });
+    });
+
+    // --- 2. MOBILE ON-SCREEN AUTO REVEAL (IntersectionObserver) ---
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches || ('ontouchstart' in window);
+
+    if (isMobile && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const card = entry.target;
+          if (entry.isIntersecting) {
+            card.classList.add('is-active');
+          } else {
+            card.classList.remove('is-active');
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '-8% 0px -12% 0px',
+        threshold: 0.18
+      });
+
+      cards.forEach((card) => observer.observe(card));
+    }
+
+    // --- 3. TAP / CLICK OVERRIDE ON MOBILE ---
+    cards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target && target.closest && (target.closest('a') || target.closest('button'))) {
+          return;
+        }
+
+        const isCurrentlyActive = card.classList.contains('is-active');
+        if (isCurrentlyActive) {
+          card.classList.remove('is-active');
+        } else {
+          cards.forEach((c) => c.classList.remove('is-active'));
+          card.classList.add('is-active');
+        }
+      });
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target && target.closest && !target.closest('#accommodation-catalog-grid')) {
+        cards.forEach((c) => c.classList.remove('is-active'));
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAccommodationCatalog);
+  } else {
+    initAccommodationCatalog();
+  }
+</script>

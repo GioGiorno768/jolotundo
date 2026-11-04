@@ -3,15 +3,15 @@ import siteData from '../data/siteData.json';
 
 // Exact GoUncharted Menu Row Architecture
 const menuRows = [
-  { title: "Home", tag: "START HERE", href: "#hero-section" },
-  { title: "Akomodasi & Glamping", tag: "7 KATEGORI", href: "#akomodasi" },
-  { title: "Wahana & Rekreasi", tag: "ADVENTURE", href: "#wahana" },
-  { title: "Corporate Gathering", tag: "B2B & BUMN", href: "#b2b" },
-  { title: "Fasilitas & Resto", tag: "AMENITIES", href: "#fasilitas" },
-  { title: "Ulasan Google Maps", tag: "★ 4.9 RATING", href: "#ulasan" },
-  { title: "Pertanyaan Umum", tag: "FAQ", href: "#faq" },
-  { title: "Tentang Kami", tag: "DANGROUP", href: "#tentang" },
-  { title: "Lokasi & Rute", tag: "BAJULAN", href: "#lokasi" }
+  { title: "Home", tag: "START HERE", href: "/" },
+  { title: "Akomodasi & Glamping", tag: "7 KATEGORI", href: "/akomodasi" },
+  { title: "Wahana & Rekreasi", tag: "ADVENTURE", href: "/#wahana" },
+  { title: "Corporate Gathering", tag: "B2B & BUMN", href: "/#b2b" },
+  { title: "Fasilitas & Resto", tag: "AMENITIES", href: "/#fasilitas" },
+  { title: "Ulasan Google Maps", tag: "★ 4.9 RATING", href: "/#ulasan" },
+  { title: "Pertanyaan Umum", tag: "FAQ", href: "/#faq" },
+  { title: "Tentang Kami", tag: "DANGROUP", href: "/#tentang" },
+  { title: "Lokasi & Rute", tag: "BAJULAN", href: "/#lokasi" }
 ];
 ---
 
@@ -252,20 +252,23 @@ const menuRows = [
       const isHome = window.location.pathname === '/' || window.location.pathname === '';
 
       if (targetHref.startsWith('#') || targetHref.startsWith('/#')) {
-        e.preventDefault();
-        const hash = targetHref.replace('/', '');
-        // @ts-ignore
-        const lenis = window.__lenis;
-        if (lenis) {
-          if (hash === '#hero-section' || hash === '#') {
-            lenis.scrollTo(0, { duration: 1.6 });
+        if (isHome) {
+          e.preventDefault();
+          const hash = targetHref.replace('/', '');
+          // @ts-ignore
+          const lenis = window.__lenis;
+          if (lenis) {
+            if (hash === '#hero-section' || hash === '#' || hash === '') {
+              lenis.scrollTo(0, { duration: 1.6 });
+            } else {
+              lenis.scrollTo(hash, { offset: -30, duration: 1.6 });
+            }
           } else {
-            lenis.scrollTo(hash, { offset: -30, duration: 1.6 });
+            const el = document.querySelector(hash);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
           }
-        } else {
-          const el = document.querySelector(hash);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
+        // If not home, let browser navigate to /#section normally
       } else if (isHome && targetHref === '/') {
         e.preventDefault();
         // @ts-ignore
