@@ -1,0 +1,466 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import FooterCTA from '../../components/FooterCTA.astro';
+import CampPreviewGallery from '../../components/CampPreviewGallery.astro';
+import accommodations from '../../data/accommodations.json';
+import siteData from '../../data/siteData.json';
+
+export async function getStaticPaths() {
+  return accommodations.map((camp, idx) => {
+    const prevCamp = idx > 0 ? accommodations[idx - 1] : accommodations[accommodations.length - 1];
+    const nextCamp = idx < accommodations.length - 1 ? accommodations[idx + 1] : accommodations[0];
+    return {
+      params: { id: camp.id },
+      props: { camp, prevCamp, nextCamp }
+    };
+  });
+}
+
+const { camp, prevCamp, nextCamp } = Astro.props;
+
+// Determine best background image for the hero
+const heroImage = camp.editorialImage || camp.image;
+const pills = camp.pills || [camp.setting, camp.elevation || "±800 MDPL", camp.tier, `Kapasitas ${camp.capacity}`];
+---
+
+<Layout 
+  title={`${camp.name} — Jolotundo Glamping & Edupark`}
+  description={`${camp.name} di Jolotundo Glamping & Edupark. ${camp.headline || camp.tagline}. Kapasitas ${camp.capacity}, ${camp.setting}.`}
+>
+  <!-- Floating Expanding Capsule Navbar -->
+  <Navbar />
+
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- 1. GOUNCHARTED 1:1 CINEMATIC HERO (EDGE-TO-EDGE WITH PARALLAX TRANSLATE-Y)-->
+    <!-- ========================================================================= -->
+    <section 
+      id="camp-hero" 
+      class="relative w-full h-screen min-h-[640px] max-h-[1100px] overflow-hidden bg-[#141110] text-[#f4efe6] flex flex-col justify-between select-none"
+    >
+      
+      <!-- Hardware-Accelerated Parallax Image Layer (Taller than viewport for smooth Translate-Y) -->
+      <div 
+        id="hero-parallax-layer" 
+        class="absolute inset-x-0 w-full h-[135%] -top-[17.5%] will-change-transform pointer-events-none"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src={heroImage} 
+          alt={`${camp.name} - Jolotundo Glamping`}
+          class="w-full h-full object-cover object-center"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Contrast Gradients (1:1 with GoUncharted: Soft upper vignette, clear deep lower gradient) -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none z-0"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none z-0"></div>
+
+      <!-- Top Spacer for Navbar -->
+      <div class="relative z-10 w-full pt-28 sm:pt-36"></div>
+
+      <!-- CENTER DISPLAY TYPOGRAPHY (1:1 GoUncharted DENMARK / FAROE ISLANDS Style) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto my-auto w-full">
+        
+        <!-- Small Centered Eyebrow Kicker (DENMARK style) -->
+        <span class="text-xs sm:text-sm md:text-base font-mono-tag tracking-[0.3em] sm:tracking-[0.4em] text-[#d8c39e] uppercase mb-4 sm:mb-6 drop-shadow-md">
+          {camp.setting || "BAJULAN // ±800 MDPL"}
+        </span>
+
+        <!-- Giant Bold Display Headline (FAROE ISLANDS style) -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-extrabold uppercase tracking-tight text-white leading-none font-sans drop-shadow-2xl">
+          {camp.name}
+        </h1>
+
+        <!-- Short Sub-tagline -->
+        <p class="text-xs sm:text-base font-sans text-white/80 max-w-xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light hidden sm:block">
+          {camp.tagline}
+        </p>
+      </div>
+
+      <!-- BOTTOM METADATA & CTA ROW (1:1 GoUncharted Hairline Divider + Specs + Action Button) -->
+      <div class="relative z-10 w-full">
+        
+        <!-- Thin Hairline Divider Line (Exact GoUncharted divider) -->
+        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
+          <div class="w-full border-t border-white/20"></div>
+        </div>
+
+        <!-- Metadata Columns + CTA Button -->
+        <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          
+          <!-- Left Specs Group (SEASON, KAPASITAS, INDEX, ELEVASI) -->
+          <div class="flex flex-wrap items-center gap-6 sm:gap-10 text-xs sm:text-sm font-mono-tag">
+            
+            <div class="flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">SEASON</span>
+              <span class="text-white font-bold tracking-wider">ALL YEAR</span>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">KAPASITAS</span>
+              <span class="text-white font-bold tracking-wider">{camp.capacity}</span>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">INDEX</span>
+              <span class="text-[#d8c39e] font-bold tracking-wider">{camp.index} // 07</span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">ELEVASI</span>
+              <span class="text-white font-bold tracking-wider">{camp.elevation || "±800 MDPL"}</span>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">TIER</span>
+              <span class="text-[#d8c39e] font-bold tracking-wider">{camp.tier}</span>
+            </div>
+
+          </div>
+
+          <!-- Right Action Button: Check Availability (Direct WhatsApp Concierge) -->
+          <div class="flex items-center gap-3">
+            <a 
+              href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin cek ketersediaan dan booking untuk *${camp.name}*.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-between sm:justify-center gap-3 px-6 sm:px-8 py-3.5 bg-black/80 hover:bg-black text-[#f4efe6] backdrop-blur-md border border-white/25 font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:border-white shadow-2xl w-full sm:w-auto"
+            >
+              <span>Check Availability</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 2. EDITORIAL OVERVIEW & ARCHITECTURAL SPECS (Split Layout)                -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-24 px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto border-b border-[#141110]/15">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 xl:gap-20 items-start">
+        
+        <!-- Left Column: Big Narrative Statement & Description (7 Cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-6 sm:gap-8">
+          
+          <div class="flex items-center gap-2 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 bg-[#141110]"></span>
+            <span>OVERVIEW // {camp.tier}</span>
+          </div>
+
+          <!-- Large Poetic Statement -->
+          <blockquote class="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#141110] leading-snug tracking-tight font-sans">
+            "{camp.editorialTagline || camp.headline || camp.tagline}"
+          </blockquote>
+
+          <p class="text-sm sm:text-base text-[#141110]/80 font-sans leading-relaxed font-light">
+            Dikelilingi oleh ribuan pohon pinus purba di lereng Gunung Wilis pada ketinggian {camp.elevation || "±800 MDPL"}, {camp.name} dirancang untuk memberikan ketenangan batin yang mendalam. Udara sejuk pegunungan, semilir angin pinus, serta alunan aliran air alami menciptakan suasana menginap yang eksklusif dan autentik.
+          </p>
+
+          <!-- 4 Key Specifications Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 py-6 border-y border-[#141110]/15">
+            <div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
+                KAPASITAS
+              </span>
+              <span class="text-sm sm:text-base font-bold font-sans text-[#141110] block">
+                {camp.capacity}
+              </span>
+            </div>
+
+            <div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
+                SETTING ALAM
+              </span>
+              <span class="text-sm sm:text-base font-bold font-sans text-[#141110] block">
+                {camp.setting}
+              </span>
+            </div>
+
+            <div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
+                WAKTU CHECK-IN
+              </span>
+              <span class="text-sm sm:text-base font-bold font-sans text-[#141110] block">
+                {camp.checkIn || "14.00 WIB"}
+              </span>
+            </div>
+
+            <div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
+                WAKTU CHECK-OUT
+              </span>
+              <span class="text-sm sm:text-base font-bold font-sans text-[#141110] block">
+                {camp.checkOut || "12.00 WIB"}
+              </span>
+            </div>
+          </div>
+
+          <!-- Tag Pills -->
+          <div class="flex flex-wrap gap-2">
+            {pills.map((pill) => (
+              <span class="text-xs font-mono-tag px-3 py-1 bg-[#141110]/5 border border-[#141110]/15 text-[#141110] uppercase tracking-wider">
+                {pill}
+              </span>
+            ))}
+          </div>
+
+        </div>
+
+        <!-- Right Column: Pricing & Concierge Booking Card (5 Cols) -->
+        <div class="lg:col-span-5 bg-[#141110] text-[#f4efe6] p-6 sm:p-8 lg:p-10 border border-[#141110] shadow-2xl flex flex-col justify-between gap-6 lg:top-28">
+          
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-white/15 text-xs font-mono-tag">
+              <span class="text-[#d8c39e] tracking-widest uppercase font-bold">[ TARIF MENGINAP ]</span>
+              <span class="text-white/60 uppercase">RESMI JOLOTUNDO</span>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="flex flex-col gap-4 py-6 border-b border-white/15">
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-xs font-mono-tag text-white/50 uppercase block">WEEKDAY (SEN–KAM)</span>
+                  <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-white tracking-tight">
+                    {camp.priceWeekday}
+                  </span>
+                </div>
+                <span class="text-[11px] font-mono-tag text-white/40 uppercase">/ Malam</span>
+              </div>
+
+              <div class="flex items-baseline justify-between pt-2">
+                <div>
+                  <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block font-semibold">WEEKEND (JUM–MIN)</span>
+                  <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-[#d8c39e] tracking-tight">
+                    {camp.priceWeekend}
+                  </span>
+                </div>
+                <span class="text-[11px] font-mono-tag text-white/40 uppercase">/ Malam</span>
+              </div>
+            </div>
+
+            <!-- Perks Summary -->
+            <ul class="flex flex-col gap-2 py-4 text-xs font-mono-tag text-white/75">
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>Termasuk tiket masuk wisata & parkir kendaraan</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>Termasuk sarapan pagi (breakfast)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>Akses 24 jam ke fasilitas umum & resto</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Direct Booking WhatsApp Action -->
+          <div class="flex flex-col gap-2">
+            <a 
+              href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin reservasi *${camp.name}* (${camp.priceWeekday} / ${camp.priceWeekend}). Mohon info ketersediaan tanggal.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full py-4 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider text-center transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_10px_25px_rgba(244,239,230,0.25)] flex items-center justify-center gap-2"
+            >
+              <span>Booking via WhatsApp Concierge</span>
+              <span>↗</span>
+            </a>
+            <span class="text-[10px] font-mono-tag text-white/40 text-center tracking-wider block">
+              [ RESPON CEPAT VIA CONCIERGE RESMI ]
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 3. STICKY HORIZONTAL SCROLL PREVIEW GALLERY (1:1 GoUncharted Slider)      -->
+    <!-- ========================================================================= -->
+    <CampPreviewGallery camp={camp} />
+
+    <!-- ========================================================================= -->
+    <!-- 4. FASILITAS & AMENITIES (1:1 GOUNCHARTED "WHAT'S ON THE GROUND" STYLE)   -->
+    <!-- ========================================================================= -->
+    <section id="fasilitas" class="py-20 sm:py-28 px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto border-b border-[#141110]/15">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-start">
+        
+        <!-- Left Column: 1:1 GoUncharted Kicker + Headline + Narrative (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-5 sm:gap-6 lg:top-28">
+          
+          <!-- Top Kicker (1:1 with "— WHAT'S ON THE GROUND") -->
+          <div class="flex items-center gap-2 text-xs font-mono-tag text-[#141110]/70 tracking-[0.2em] uppercase">
+            <span class="text-[#141110] font-bold">—</span>
+            <span>WHAT'S ON THE GROUND</span>
+          </div>
+
+          <!-- Main Headline (1:1 with "Everything on the ground.") -->
+          <h2 class="text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tight text-[#141110] font-sans leading-[1.08]">
+            Everything on the ground.
+          </h2>
+
+          <!-- Narrative Statement (1:1 with GoUncharted Subtext) -->
+          <p class="text-base sm:text-lg text-[#141110]/75 font-sans leading-relaxed font-light max-w-md">
+            Satu tarif mencakup seluruh kenyamanan bermalam Anda — kasur empuk, fasilitas higienis, sarapan pagi, hingga ketenangan alam bebas Jolotundo tanpa biaya tersembunyi.
+          </p>
+
+          <!-- Quick WhatsApp Inquiry Link -->
+          <div class="pt-2">
+            <a 
+              href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin menanyakan rincian fasilitas untuk *${camp.name}*.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-xs font-mono-tag text-[#141110] font-semibold uppercase tracking-wider underline underline-offset-4 hover:text-emerald-800 transition-colors"
+            >
+              <span>Konsultasi Fasilitas Tambahan</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Column: 1:1 GoUncharted "Included" List with "+" Bullets (7 Cols) -->
+        <div class="lg:col-span-7 flex flex-col">
+          
+          <!-- Table Header Row: "Included" on left, Item Count on right -->
+          <div class="flex items-baseline justify-between pb-4 border-b-2 border-[#141110] select-none">
+            <h3 class="text-xl sm:text-2xl font-bold font-sans text-[#141110] tracking-tight">
+              Included
+            </h3>
+            <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/60 uppercase tracking-widest font-semibold">
+              0{camp.facilities.length}
+            </span>
+          </div>
+
+          <!-- List of Included Facilities (Exact GoUncharted Row Rhythm) -->
+          <div class="flex flex-col divide-y divide-[#141110]/15">
+            {camp.facilities.map((fac) => (
+              <div class="group py-4 sm:py-5 flex items-start gap-4 transition-colors duration-200 hover:bg-[#141110]/[0.02] px-1 sm:px-2">
+                <!-- Sleek "+" Bullet (1:1 GoUncharted) -->
+                <span class="text-base sm:text-lg font-light text-[#141110]/50 group-hover:text-[#141110] shrink-0 select-none mt-0.5 transition-colors font-mono">
+                  +
+                </span>
+                <!-- Facility Text -->
+                <span class="text-base sm:text-lg font-normal text-[#141110] font-sans leading-relaxed tracking-tight group-hover:text-black">
+                  {fac}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Bottom Note -->
+          <div class="pt-6 mt-2 flex items-center justify-between text-[11px] font-mono-tag text-[#141110]/50 border-t border-[#141110]/10">
+            <span>* SELURUH FASILITAS SUDAH TERMASUK DALAM TARIF RESERVASI</span>
+            <span class="hidden sm:inline">[ RESMI JOLOTUNDO ]</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. NAVIGATION: PREV & NEXT CAMP (GoUncharted Editorial Pagination)        -->
+    <!-- ========================================================================= -->
+    <nav class="py-12 sm:py-16 px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+        
+        <!-- Prev Camp -->
+        <a 
+          href={`/akomodasi/${prevCamp.id}`}
+          class="group p-6 sm:p-8 bg-[#141110] text-[#f4efe6] border border-[#141110] flex flex-col justify-between min-h-[140px] hover:border-white/40 transition-colors"
+        >
+          <div class="flex items-center gap-2 text-xs font-mono-tag text-white/50 uppercase tracking-widest">
+            <span>←</span>
+            <span>TIPE SEBELUMNYA</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block">{prevCamp.tier}</span>
+            <span class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-white group-hover:text-emerald-300 transition-colors">
+              {prevCamp.name}
+            </span>
+          </div>
+        </a>
+
+        <!-- Next Camp -->
+        <a 
+          href={`/akomodasi/${nextCamp.id}`}
+          class="group p-6 sm:p-8 bg-[#141110] text-[#f4efe6] border border-[#141110] flex flex-col justify-between min-h-[140px] hover:border-white/40 transition-colors text-right items-end"
+        >
+          <div class="flex items-center gap-2 text-xs font-mono-tag text-white/50 uppercase tracking-widest">
+            <span>TIPE BERIKUTNYA</span>
+            <span>→</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block">{nextCamp.tier}</span>
+            <span class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-white group-hover:text-emerald-300 transition-colors">
+              {nextCamp.name}
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </nav>
+
+  </main>
+
+  <!-- Site Footer -->
+  <FooterCTA />
+</Layout>
+
+<!-- ========================================================================= -->
+<!-- PARALLAX TRANSLATE-Y CONTROLLER SCRIPT (GPU-Accelerated Smooth Parallax) -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initCampHeroParallax() {
+    const heroSection = document.getElementById('camp-hero');
+    const parallaxLayer = document.getElementById('hero-parallax-layer');
+    if (!heroSection || !parallaxLayer) return;
+
+    let isTicking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+
+      // Only calculate while hero is within view
+      if (scrollY <= heroHeight + 50) {
+        // Natural parallax formula: translates downwards at 32% speed of scroll
+        const translateY = scrollY * 0.32;
+        parallaxLayer.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+      }
+    }
+
+    function handleScroll() {
+      if (!isTicking) {
+        requestAnimationFrame(() => {
+          updateParallax();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Initial check
+    updateParallax();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCampHeroParallax);
+  } else {
+    initCampHeroParallax();
+  }
+</script>

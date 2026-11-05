@@ -1,0 +1,274 @@
+[
+  {
+    "id": "wedding",
+    "index": "01",
+    "name": "Outdoor Forest Wedding",
+    "category": "Pernikahan Alam Terbuka",
+    "setting": "Pine Canopy Lawn",
+    "elevation": "±800 MDPL",
+    "tagline": "Momen sakral mengikat janji suci di bawah kanopi pinus alami dengan hawa sejuk pegunungan dan bonus menginap eksklusif.",
+    "heroImage": "/images/facilities/wedding-forest.jpg",
+    "priceStarting": "Rp 5.000.000",
+    "priceUnit": "Paket Lengkap Venue",
+    "contactType": "personal",
+    "contactPhone": "0822 2950 0998",
+    "contactWa": "6282229500998",
+    "kicker": "THE SACRED MATRIMONY",
+    "headline": "Janji suci berpadu keheningan alam lereng Wilis.",
+    "narrative": "Rayakan awal perjalanan baru dalam keintiman sejati. Suasana asri hutan pinus Jolotundo menghadirkan ketenangan sakral tanpa kebisingan kota, lengkap dengan akomodasi menginap eksklusif untuk mempelai dan keluarga.",
+    "specs": [
+      {
+        "label": "TARIF PAKET",
+        "value": "Rp 5.000.000",
+        "desc": "Tarif sewa venue all-inclusive sudah mencakup lapangan, sound, genset, dan akomodasi menginap."
+      },
+      {
+        "label": "BONUS MENGINAP",
+        "value": "Free Korean Glamping",
+        "desc": "1 unit Korean Glamping eksklusif untuk pengantin atau keluarga inti selama acara.",
+        "badge": "★ SPECIAL INCLUSION"
+      },
+      {
+        "label": "AREA VENUE",
+        "value": "Lapangan Rumput Pinus Asri",
+        "desc": "Area terbuka luas berlatar pohon pinus alami dengan udara segar 800 MDPL."
+      },
+      {
+        "label": "SARANA DAYA",
+        "value": "Sound System + Genset",
+        "desc": "Dukungan pengeras suara lapangan dan genset listrik mandiri berdaya stabil."
+      },
+      {
+        "label": "HOTLINE RESERVASI",
+        "value": "0822 2950 0998",
+        "desc": "Jalur resmi reservasi personal, konsultasi tanggal & survei lokasi."
+      }
+    ],
+    "stackSection": {
+      "kicker": "THE OFFERINGS",
+      "headline": "Crafted around\nthe ceremony.",
+      "subKicker": "LIMA SARANA & INKLUSI LENGKAP.",
+      "narrative": "Semua elemen penting pernikahan alam terbuka telah disiapkan secara terpadu demi kelancaran hari paling sakral dalam hidup Anda.",
+      "items": [
+        {
+          "index": "01",
+          "title": "Free Korean Glamping (Include Menginap)",
+          "tag": "★ SPECIAL INCLUSION",
+          "desc": "Akomodasi menginap nyaman di unit Korean Glamping eksklusif untuk tempat rias, istirahat pengantin, atau keluarga inti tercinta.",
+          "pills": ["Free Menginap 1 Malam", "Private En-Suite", "Kasur & Bedding Lengkap"]
+        },
+        {
+          "index": "02",
+          "title": "Sewa Area Lapangan Terbuka Asri",
+          "tag": "VENUE OUTDOOR",
+          "desc": "Hamparan rumput hijau alami yang tertata rapi diapit pohon-pohon pinus menjulang tinggi dengan semilir hawa sejuk pegunungan.",
+          "pills": ["Kapasitas Intimate", "Natural Pine Backdrop", "Akses Jalur Rombongan"]
+        },
+        {
+          "index": "03",
+          "title": "Sound System Lapangan + Genset Mandiri",
+          "tag": "AUDIO & KELISTRIKAN",
+          "desc": "Perangkat audio pengeras suara outdoor bertenaga jernih untuk prosesi ikrar dan resepsi, didukung suplai genset mandiri berdaya stabil.",
+          "pills": ["Outdoor Mic System", "Genset Listrik Mandiri", "Teknisi Standby"]
+        },
+        {
+          "index": "04",
+          "title": "Jasa Dokumentasi Foto & Liputan (Add-on)",
+          "tag": "DOKUMENTASI // RP 300.000",
+          "desc": "Liputan dokumentasi foto profesional selama kegiatan pernikahan mengabadikan setiap momen haru dan kebahagiaan.",
+          "pills": ["Fotografer Berpengalaman", "All Edited Photos", "Google Drive Akses"]
+        },
+        {
+          "index": "05",
+          "title": "Live Music Pertunjukan (Add-on)",
+          "tag": "HIBURAN // RP 800.000",
+          "desc": "Pertunjukan alunan musik live akustik yang syahdu dan romantis mengiringi para tamu saat ramah tamah dan santap bersama.",
+          "pills": ["Live Acoustic Session", "Sound Equipment Include", "Song List Request"]
+        }
+      ]
+    },
+    "guidelines": [
+      "Reservasi tanggal dianjurkan minimal 2-4 minggu sebelum hari pelaksanaan.",
+      "Survei lokasi dan konsultasi teknis tata ruang dapat dikoordinasikan melalui kontak reservasi personal.",
+      "Kapasitas tamu dapat disesuaikan dengan konsep intimate seating maupun standing party outdoor."
+    ]
+  },
+  {
+    "id": "aula-hall",
+    "index": "02",
+    "name": "Sewa Aula / Glasshouse Hall",
+    "category": "Gedung Pertemuan & Rapat",
+    "setting": "Glass Pavilion & Pines",
+    "elevation": "±800 MDPL",
+    "tagline": "Gedung serbaguna berdinding kaca elegan ber-AC dengan pemandangan 360° hutan pinus untuk rapat kerja, seminar, dan gathering.",
+    "heroImage": "/images/facilities/glass-hall-venue.jpg",
+    "priceStarting": "Rp 300.000",
+    "priceUnit": "Per Jam (Min. 3 Jam)",
+    "contactType": "corporate",
+    "contactPhone": "0822 4982 9998",
+    "contactWa": "6282249829998",
+    "kicker": "SPACE FOR IDEAS",
+    "headline": "Gagasan besar lahir di tempat yang tenang dan jernih.",
+    "narrative": "Gedung pertemuan serbaguna berdinding kaca modern yang memadukan hawa sejuk pegunungan dan kenyamanan ruangan full AC. Dirancang khusus untuk rapat kerja dinas, seminar, workshop, hingga ramah tamah komunitas.",
+    "specs": [
+      {
+        "label": "TARIF SEWA",
+        "value": "Rp 300.000 / Jam",
+        "desc": "Minimal durasi sewa 3 jam per sesi acara."
+      },
+      {
+        "label": "KAPASITAS RUANG",
+        "value": "60 – 120 Peserta",
+        "desc": "Dukungan 3 pilihan konfigurasi tata letak: Banquet, Theater, atau Lesehan Karpet."
+      },
+      {
+        "label": "KLIMATISASI",
+        "value": "Ruangan Tertutup Full AC",
+        "desc": "Kesejukan terkontrol di dalam ruangan kaca panoramik dengan view hutan pinus."
+      },
+      {
+        "label": "AUDIO VISUAL",
+        "value": "Screen LCD + Proyektor High-Res",
+        "desc": "Layar presentasi jernih dan sound system ruangan lengkap siap pakai."
+      },
+      {
+        "label": "HOTLINE RESERVASI",
+        "value": "0822 4982 9998",
+        "desc": "Jalur resmi korporat, BUMN, instansi pemerintah & komunitas besar."
+      }
+    ],
+    "stackSection": {
+      "kicker": "THE CONFIGURATION",
+      "headline": "Three ways to\nshape the room.",
+      "subKicker": "TIGA PILIHAN SETUP & DAYA TAMPUNG.",
+      "narrative": "Setiap tata letak disiapkan dan ditata secara presisi oleh tim teknis kami sebelum rombongan tiba, menjamin kelancaran jalannya acara.",
+      "items": [
+        {
+          "index": "01",
+          "title": "Setting Round Table + Kursi (Banquet)",
+          "tag": "KAPASITAS 60 ORANG",
+          "desc": "Format meja bundar elegan yang dirancang untuk jamuan makan resmi, workshop interaktif tim kecil, gala dinner, dan diskusi mendalam.",
+          "pills": ["60 Peserta Duduk", "Meja Bundar + Taplak Bersih", "Ruang Gerak Leluasa"]
+        },
+        {
+          "index": "02",
+          "title": "Setting Kursi Saja (Theater / Seminar)",
+          "tag": "KAPASITAS 100 ORANG",
+          "desc": "Format barisan kursi menghadap layar presentasi utama. Paling ideal untuk seminar umum, rapat kerja dinas kedinasan, sosialisasi, dan presentasi BUMN.",
+          "pills": ["100 Peserta Duduk", "Fokus Penuh ke Layar", "Screen & Projector Ready"]
+        },
+        {
+          "index": "03",
+          "title": "Setting Karpet Bersih (Lesehan Ramah Tamah)",
+          "tag": "KAPASITAS 120 ORANG",
+          "desc": "Format lesehan beralas karpet tebal yang higienis dan nyaman. Menghadirkan atmosfer hangat tanpa sekat untuk temu keluarga besar, arisan akbar, dan doa bersama.",
+          "pills": ["120 Peserta Lesehan", "Karpet Tebal & Bersih", "Suasana Hangat & Akrab"]
+        }
+      ]
+    },
+    "guidelines": [
+      "Minimal durasi penyewaan adalah 3 jam per sesi pemakaian.",
+      "Tata letak ruangan disiapkan tim operasional Jolotundo sebelum rombongan tiba.",
+      "Tersedia layanan coffee break dan konsumsi catering dari Pine Resto (dapat dikoordinasikan)."
+    ]
+  },
+  {
+    "id": "gathering-outbound",
+    "index": "03",
+    "name": "Gathering & Outbound Meadow",
+    "category": "Rekreasi Komunitas & Outbound",
+    "setting": "Pinus Meadow Lawn",
+    "elevation": "±800 MDPL",
+    "tagline": "Sarana kegiatan kebersamaan dan dinamika kelompok di lapangan rumput asri dengan dukungan trainer profesional dan live music.",
+    "heroImage": "/images/activities/outbound-gathering.jpg",
+    "priceStarting": "Rp 100.000",
+    "priceUnit": "Sewa Lapangan / Jam (Min. 3 Jam)",
+    "contactType": "corporate",
+    "contactPhone": "0822 4982 9998",
+    "contactWa": "6282249829998",
+    "kicker": "BUILDING COHESION",
+    "headline": "Ciptakan kebersamaan, bangun kekompakan tim.",
+    "narrative": "Area rumput terbuka luas berlatar pohon pinus dan kabut alami lereng Wilis. Sangat ideal untuk gathering keluarga besar, reuni akbar, jambore komunitas, hingga program outbound team building korporat.",
+    "specs": [
+      {
+        "label": "SEWA LAPANGAN",
+        "value": "Rp 100.000 / Jam",
+        "desc": "Minimal sewa 3 jam per sesi kegiatan di lapangan rumput pinus."
+      },
+      {
+        "label": "TRAINER OUTBOUND",
+        "value": "Rp 450.000",
+        "desc": "Didampingi 2 Trainer profesional, sudah include seluruh properti fun games."
+      },
+      {
+        "label": "SOUND LAPANGAN",
+        "value": "Rp 300.000",
+        "desc": "Pengeras suara lapangan outdoor bertenaga kuat untuk instruksi games."
+      },
+      {
+        "label": "DOKUMENTASI",
+        "value": "Rp 300.000",
+        "desc": "Dokumentasi foto dan liputan kegiatan rombongan."
+      },
+      {
+        "label": "LIVE MUSIC",
+        "value": "Rp 800.000",
+        "desc": "Hiburan pertunjukan musik live pendukung suasana gathering."
+      }
+    ],
+    "stackSection": {
+      "kicker": "THE SERVICES & RATES",
+      "headline": "Every piece of gear,\ncounted honestly.",
+      "subKicker": "PRICE LIST KEBUTUHAN GATHERING & OUTBOUND.",
+      "narrative": "Transparansi tarif per jam dan per sesi. Pilih sarana a la carte yang dibutuhkan rombongan tanpa beban paket bundling tersembunyi.",
+      "items": [
+        {
+          "index": "01",
+          "title": "Sewa Lapangan Rumput Pinus",
+          "tag": "TARIF: RP 100.000 / JAM",
+          "desc": "Sewa area lapangan rumput asri di alam terbuka lereng Wilis. Leluasa untuk pergerakan kelompok hingga ratusan peserta di bawah naungan pohon pinus.",
+          "pills": ["Min. 3 Jam Sewa", "Green Meadow Lawn", "Udara Sejuk 800 MDPL"]
+        },
+        {
+          "index": "02",
+          "title": "Sewa Aula / Glasshouse Hall",
+          "tag": "TARIF: RP 300.000 / JAM",
+          "desc": "Gedung serbaguna berdinding kaca elegan ber-AC penuh dengan screen display dan proyektor resolusi tinggi untuk sesi pertemuan indoor.",
+          "pills": ["Min. 3 Jam Sewa", "Full AC Ruangan", "Panoramic Glass View"]
+        },
+        {
+          "index": "03",
+          "title": "Sewa Sound System Lapangan",
+          "tag": "TARIF: RP 300.000 / SESI",
+          "desc": "Perangkat pengeras suara outdoor bertenaga kuat lengkap dengan mic nirkabel untuk mendukung instruksi instruktur, games, dan musik acara.",
+          "pills": ["High-Wattage Speaker", "Wireless Microphones", "Genset Support"]
+        },
+        {
+          "index": "04",
+          "title": "Trainer Outbound Profesional",
+          "tag": "TARIF: RP 450.000 / SESI",
+          "desc": "Didampingi langsung oleh 2 Trainer profesional berpengalaman, sudah mencakup seluruh properti fun games kekompakan, ice breaking, dan evaluasi sinergi.",
+          "pills": ["2 Trainer Dedikasi", "All Property Games Include", "Ice Breaking & Fun Games"]
+        },
+        {
+          "index": "05",
+          "title": "Jasa Dokumentasi Liputan",
+          "tag": "TARIF: RP 300.000 / SESI",
+          "desc": "Dokumentasi foto profesional selama kegiatan berlangsung, mencakup candid momen keceriaan kelompok dan foto bersama seluruh rombongan.",
+          "pills": ["Fotografer Dedikasi", "Liputan Sepanjang Acara", "Full Resolution Drive Link"]
+        },
+        {
+          "index": "06",
+          "title": "Live Music Pertunjukan",
+          "tag": "TARIF: RP 800.000 / SESI",
+          "desc": "Pertunjukan hiburan musik live akustik/band penyemarak suasana kumpul untuk memeriahkan sesi istirahat dan makan siang rombongan.",
+          "pills": ["Live Acoustic / Band Session", "Sound Equipment Support", "Song List Request"]
+        }
+      ]
+    },
+    "guidelines": [
+      "Penyewaan sarana lapangan dapat dikombinasikan dengan sewa aula kaca bila membutuhkan sesi indoor dan outdoor.",
+      "Untuk rombongan di atas 100 peserta, disarankan konfirmasi H-7 untuk penataan blok area kegiatan."
+    ]
+  }
+]

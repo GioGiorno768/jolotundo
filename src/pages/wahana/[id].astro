@@ -1,0 +1,400 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import FooterCTA from '../../components/FooterCTA.astro';
+import WahanaPreviewGallery from '../../components/WahanaPreviewGallery.astro';
+import wahanaDetails from '../../data/wahanaDetails.json';
+import siteData from '../../data/siteData.json';
+
+export async function getStaticPaths() {
+  return wahanaDetails.map((activity, idx) => {
+    const prevActivity = idx > 0 ? wahanaDetails[idx - 1] : wahanaDetails[wahanaDetails.length - 1];
+    const nextActivity = idx < wahanaDetails.length - 1 ? wahanaDetails[idx + 1] : wahanaDetails[0];
+    return {
+      params: { id: activity.id },
+      props: { activity, prevActivity, nextActivity }
+    };
+  });
+}
+
+const { activity, prevActivity, nextActivity } = Astro.props;
+
+// WhatsApp Booking Concierge
+const waPhone = activity.contactType === "corporate" 
+  ? "6282249829998" 
+  : (siteData.brand.whatsapp || "6282249828998");
+
+const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Halo Admin Jolotundo Edupark, saya ingin reservasi slot dan info ketersediaan untuk wahana *${activity.name}*.`)}`;
+---
+
+<Layout 
+  title={`${activity.name} — Jolotundo Glamping & Edupark`}
+  description={`${activity.name} di Jolotundo Glamping & Edupark, Bajulan, Nganjuk. ${activity.tagline}. Mulai ${activity.priceStarting}.`}
+>
+  <!-- Floating Expanding Capsule Navbar -->
+  <Navbar />
+
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- 1. GOUNCHARTED 1:1 CINEMATIC HERO (EDGE-TO-EDGE WITH PARALLAX TRANSLATE-Y)-->
+    <!-- ========================================================================= -->
+    <section 
+      id="wahana-hero" 
+      class="relative w-full h-screen min-h-[640px] max-h-[1100px] overflow-hidden bg-[#141110] text-[#f4efe6] flex flex-col justify-between select-none"
+    >
+      
+      <!-- Hardware-Accelerated Parallax Image Layer -->
+      <div 
+        id="hero-parallax-layer" 
+        class="absolute inset-x-0 w-full h-[135%] -top-[17.5%] will-change-transform pointer-events-none"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src={activity.heroImage || activity.image} 
+          alt={`${activity.name} - Jolotundo Edupark`}
+          class="w-full h-full object-cover object-center"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Contrast Gradients (Soft upper vignette, clear deep lower gradient) -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none z-0"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none z-0"></div>
+
+      <!-- Top Spacer for Navbar -->
+      <div class="relative z-10 w-full pt-28 sm:pt-36"></div>
+
+      <!-- CENTER DISPLAY TYPOGRAPHY (1:1 GoUncharted Style) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto my-auto w-full">
+        
+        <!-- Small Centered Eyebrow Kicker -->
+        <span class="text-xs sm:text-sm md:text-base font-mono-tag tracking-[0.3em] sm:tracking-[0.4em] text-[#d8c39e] uppercase mb-4 sm:mb-6 drop-shadow-md">
+          {activity.setting} // {activity.elevation || "±800 MDPL"}
+        </span>
+
+        <!-- Giant Bold Display Headline -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-extrabold uppercase tracking-tight text-white leading-none font-sans drop-shadow-2xl">
+          {activity.name}
+        </h1>
+
+        <!-- Short Sub-tagline -->
+        <p class="text-xs sm:text-base font-sans text-white/80 max-w-xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light hidden sm:block">
+          {activity.tagline}
+        </p>
+      </div>
+
+      <!-- BOTTOM METADATA & CTA ROW (1:1 GoUncharted Hairline Divider + Specs + Action Button) -->
+      <div class="relative z-10 w-full">
+        
+        <!-- Thin Hairline Divider Line -->
+        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
+          <div class="w-full border-t border-white/20"></div>
+        </div>
+
+        <!-- Metadata Columns + CTA Button -->
+        <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          
+          <!-- Left Specs Group -->
+          <div class="flex flex-wrap items-center gap-6 sm:gap-10 text-xs sm:text-sm font-mono-tag">
+            
+            <div class="flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">SEKTOR</span>
+              <span class="text-[#d8c39e] font-bold tracking-wider">{activity.index} // 05</span>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">LEVEL</span>
+              <span class="text-white font-bold tracking-wider">{activity.tier}</span>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">MULAI DARI</span>
+              <span class="text-emerald-400 font-bold tracking-wider">{activity.priceStarting}</span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-2.5">
+              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">ELEVASI</span>
+              <span class="text-white font-bold tracking-wider">{activity.elevation || "±800 MDPL"}</span>
+            </div>
+
+          </div>
+
+          <!-- Right Action Button: Check Availability -->
+          <div class="flex items-center gap-3">
+            <a 
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-between sm:justify-center gap-3 px-6 sm:px-8 py-3.5 bg-black/80 hover:bg-black text-[#f4efe6] backdrop-blur-md border border-white/25 font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:border-white shadow-2xl w-full sm:w-auto"
+            >
+              <span>Check Availability</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 2. STICKY HORIZONTAL SCROLL PREVIEW GALLERY (SEBELUM KETERANGAN RINCIAN)   -->
+    <!-- ========================================================================= -->
+    <WahanaPreviewGallery activity={activity} />
+
+    <!-- ========================================================================= -->
+    <!-- 3. THE PACKAGES & SPECS (1:1 GOUNCHARTED TWO-COLUMN EDITORIAL LAYOUT)     -->
+    <!-- ========================================================================= -->
+    <section class="py-20 sm:py-28 px-6 sm:px-10 lg:px-16 xl:px-24 max-w-[1500px] mx-auto border-t border-[#141110]/15">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        
+        <!-- Left Column: Kicker + Large Title + Narrative (1:1 The granite turns red for four hours in March.) -->
+        <div class="lg:col-span-5 space-y-5 lg:sticky lg:top-28">
+          
+          <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/60 tracking-[0.25em] uppercase block">
+            — {activity.packageSection?.kicker || "THE PACKAGES"}
+          </span>
+
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-normal tracking-tight text-[#141110] font-sans leading-[1.12]">
+            {activity.packageSection?.headline || activity.headline}
+          </h2>
+
+          <p class="text-base sm:text-lg text-[#141110]/65 font-light leading-relaxed max-w-md font-sans">
+            {activity.packageSection?.narrative || activity.tagline}
+          </p>
+
+        </div>
+
+        <!-- Right Column: Hairline Structured Rows (NIGHTS, GROUP, WINDOW, PACE, FITNESS, FROM...) -->
+        <div class="lg:col-span-7">
+          
+          <div class="border-t border-[#141110] divide-y divide-[#141110]/15">
+            
+            {activity.packageSection?.rows.map((row) => (
+              <div class="py-6 sm:py-7 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 items-start group">
+                
+                <!-- Left Sub-col: Small Monospaced Label -->
+                <div class="sm:col-span-4">
+                  <span class="text-[11px] font-mono-tag tracking-widest text-[#141110]/60 uppercase block pt-0.5">
+                    {row.label}
+                  </span>
+                </div>
+
+                <!-- Right Sub-col: Title/Value + Subtitle Description -->
+                <div class="sm:col-span-8 space-y-1.5">
+                  <div class="flex flex-wrap items-baseline gap-2.5">
+                    <h3 class="text-xl sm:text-2xl font-bold font-sans text-[#141110] tracking-tight leading-snug">
+                      {row.value}
+                    </h3>
+                    {row.originalPrice && (
+                      <span class="text-xs font-mono-tag line-through text-[#141110]/40">
+                        {row.originalPrice}
+                      </span>
+                    )}
+                    {row.badge && (
+                      <span class="px-2 py-0.5 bg-amber-500 text-black text-[9px] font-mono-tag font-bold uppercase tracking-wider">
+                        {row.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <p class="text-xs sm:text-sm text-[#141110]/70 font-light leading-relaxed font-sans">
+                    {row.desc}
+                  </p>
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. INCLUDED ON THE GROUND (1:1 GOUNCHARTED "WHAT'S ON THE GROUND")         -->
+    <!-- ========================================================================= -->
+    <section class="py-20 sm:py-28 px-6 sm:px-10 lg:px-16 xl:px-24 max-w-[1500px] mx-auto border-t border-[#141110]/15">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-16 items-start">
+        
+        <!-- Left Statement Header -->
+        <div class="lg:col-span-5 space-y-4">
+          <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/60 tracking-[0.25em] uppercase block">
+            — WHAT'S ON THE GROUND
+          </span>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight uppercase leading-tight text-[#141110] font-sans">
+            Everything on <br class="hidden sm:inline" />
+            the ground.
+          </h2>
+          <p class="text-sm sm:text-base text-[#141110]/75 font-light leading-relaxed max-w-md">
+            Satu tarif transparan mencakup seluruh kebutuhan operasional, alat keselamatan resmi, dan panduan profesional tanpa ada biaya tersembunyi.
+          </p>
+
+          <!-- Direct Booking Card -->
+          <div class="p-6 bg-[#eae4d8] border border-[#141110]/15 mt-8 space-y-4">
+            <span class="text-[10px] font-mono-tag text-[#141110]/60 uppercase tracking-widest block">
+              OFFICIAL CONCIERGE HOTLINE
+            </span>
+            <div class="text-xl font-bold font-mono-tag text-[#141110]">
+              {waPhone === "6282249829998" ? "0822 4982 9998" : "0822 2950 0998"}
+            </div>
+            <p class="text-xs text-[#141110]/70 font-light">
+              Tanyakan ketersediaan tanggal dan jam sesi langsung dengan admin resmi.
+            </p>
+            <a 
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 w-full py-3 bg-[#141110] hover:bg-black text-[#f4efe6] text-xs font-mono-tag font-bold uppercase tracking-wider transition-colors"
+            >
+              <span>Booking via WhatsApp</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Inclusions List (GoUncharted + Sign List) -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center justify-between pb-3 border-b border-[#141110]/15 mb-2">
+            <span class="text-sm font-bold uppercase tracking-wider font-mono-tag text-[#141110]">Included</span>
+            <span class="text-xs font-mono-tag text-[#141110]/50">0{activity.inclusions.length}</span>
+          </div>
+
+          <div class="divide-y divide-[#141110]/15">
+            {activity.inclusions.map((item) => (
+              <div class="py-5 flex items-start gap-4">
+                <span class="text-emerald-800 font-mono text-lg font-bold select-none shrink-0 mt-0.5">+</span>
+                <div>
+                  <h4 class="text-base sm:text-lg font-bold uppercase text-[#141110] font-sans">
+                    {item.title}
+                  </h4>
+                  <p class="text-xs sm:text-sm text-[#141110]/70 font-light mt-1 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Rules / Guidelines Note -->
+          {activity.rules && activity.rules.length > 0 && (
+            <div class="mt-8 p-5 bg-[#f4efe6] border border-[#141110]/15 text-xs text-[#141110]/75 space-y-1.5">
+              <span class="font-bold uppercase tracking-wider font-mono-tag block text-[#141110] mb-2">
+                ⓘ Ketentuan & Anjuran Penting:
+              </span>
+              {activity.rules.map((rule: string) => (
+                <div class="flex items-start gap-2">
+                  <span class="text-[#141110]/40">•</span>
+                  <span>{rule}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 6. PREVIOUS / NEXT ACTIVITY NAVIGATION (1:1 GOUNCHARTED)                   -->
+    <!-- ========================================================================= -->
+    <nav class="border-t border-[#141110]/15 bg-[#141110] text-[#f4efe6] px-6 sm:px-10 lg:px-16 py-10 sm:py-14 select-none">
+      <div class="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        
+        <!-- Prev Link -->
+        <a 
+          href={`/wahana/${prevActivity.id}`}
+          class="group flex flex-col gap-2 p-4 sm:p-6 border border-white/10 hover:border-white/30 transition-all duration-300 bg-white/[0.02] hover:bg-white/[0.05]"
+        >
+          <div class="flex items-center gap-2 text-xs font-mono-tag text-white/50 uppercase tracking-widest">
+            <span>←</span>
+            <span>WAHANA SEBELUMNYA</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block">{prevActivity.tier}</span>
+            <span class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-white group-hover:text-emerald-300 transition-colors">
+              {prevActivity.name}
+            </span>
+          </div>
+        </a>
+
+        <!-- Next Link -->
+        <a 
+          href={`/wahana/${nextActivity.id}`}
+          class="group flex flex-col gap-2 p-4 sm:p-6 border border-white/10 hover:border-white/30 transition-all duration-300 bg-white/[0.02] hover:bg-white/[0.05] text-left md:text-right"
+        >
+          <div class="flex items-center md:justify-end gap-2 text-xs font-mono-tag text-white/50 uppercase tracking-widest">
+            <span>WAHANA BERIKUTNYA</span>
+            <span>→</span>
+          </div>
+          <div>
+            <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block">{nextActivity.tier}</span>
+            <span class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-white group-hover:text-emerald-300 transition-colors">
+              {nextActivity.name}
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </nav>
+
+  </main>
+
+  <!-- Global Footer -->
+  <FooterCTA />
+</Layout>
+
+<!-- ========================================================================= -->
+<!-- PARALLAX TRANSLATE-Y CONTROLLER SCRIPT (GPU-Accelerated Smooth Parallax) -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initWahanaDetailHeroParallax() {
+    const heroSection = document.getElementById('wahana-hero');
+    const parallaxLayer = document.getElementById('hero-parallax-layer');
+    if (!heroSection || !parallaxLayer) return;
+
+    let isTicking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+
+      // Only calculate while hero is within view
+      if (scrollY <= heroHeight + 50) {
+        // Natural parallax formula: translates downwards at 32% speed of scroll
+        const translateY = scrollY * 0.32;
+        parallaxLayer.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+      }
+    }
+
+    function handleScroll() {
+      if (!isTicking) {
+        requestAnimationFrame(() => {
+          updateParallax();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateParallax();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWahanaDetailHeroParallax);
+  } else {
+    initWahanaDetailHeroParallax();
+  }
+</script>
+

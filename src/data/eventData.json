@@ -1,0 +1,89 @@
+{
+  "header": {
+    "tag": "VENUES & GATHERINGS // GUNUNG WILIS ±800 MDPL",
+    "title": "SACRED VOWS &\nBOLD IDEAS.",
+    "location": "BAJULAN // KEDIRI",
+    "elevation": "±800 MDPL",
+    "support": "PERHUTANI // PEMKAB"
+  },
+  "sectors": [
+    {
+      "id": "wedding-outdoor",
+      "sectorNo": "NO. 01",
+      "slug": "wedding",
+      "title": "Outdoor Forest Wedding",
+      "category": "Pernikahan Alam Terbuka",
+      "tagline": "Momen sakral mengikat janji suci di bawah kanopi pinus alami dengan hawa sejuk pegunungan.",
+      "boxKicker": "THE SACRED MATRIMONY",
+      "boxHeading": "Paket Pernikahan Alam Bebas",
+      "boxDescription": "Konsep pernikahan intimate di tengah hutan pinus lereng Wilis yang hening dan asri, dilengkapi fasilitas penginapan eksklusif untuk mempelai.",
+      "price": "Rp 5.000.000",
+      "pricePeriod": "Paket Lengkap Venue",
+      "highlights": [
+        "★ Free Korean Glamping (Termasuk Menginap)",
+        "Sewa Area Lapangan Terbuka Asri",
+        "Sound System Lapangan + Genset Daya Listrik",
+        "Suasana Hutan Pinus Nuansa Alam Eksklusif"
+      ],
+      "image": "/images/facilities/wedding-forest.jpg",
+      "detailHref": "/event/wedding",
+      "reverse": false
+    },
+    {
+      "id": "glass-hall-mice",
+      "sectorNo": "NO. 02",
+      "slug": "aula-hall",
+      "title": "Glasshouse Hall & MICE",
+      "category": "Gedung Pertemuan & Rapat",
+      "tagline": "Gedung serbaguna berdinding kaca elegan ber-AC dengan pemandangan 360° panorama hutan pinus.",
+      "boxKicker": "SPACE FOR IDEAS",
+      "boxHeading": "Sewa Aula Kaca Jolotundo",
+      "boxDescription": "Ruang serbaguna tertutup full AC dengan proyektor resolusi tinggi dan tata ruang fleksibel untuk seminar, rapat kerja dinas, hingga ramah tamah.",
+      "price": "Rp 300.000",
+      "pricePeriod": "Per Jam (Min. 3 Jam)",
+      "highlights": [
+        "Kapasitas 60 – 120 Tamu (Banquet / Theater / Lesehan)",
+        "Ruangan Tertutup Full AC Nyaman",
+        "Screen LCD Display + Proyektor Resolusi Tinggi",
+        "Meja, Kursi, Karpet Bersih & Sound System Lengkap"
+      ],
+      "image": "/images/facilities/glass-hall-venue.jpg",
+      "detailHref": "/event/aula-hall",
+      "reverse": true
+    },
+    {
+      "id": "gathering-outbound",
+      "sectorNo": "NO. 03",
+      "slug": "gathering-outbound",
+      "title": "Gathering & Outbound Meadow",
+      "category": "Rekreasi Komunitas & Korporat",
+      "tagline": "Hamparan rumput hijau alami berlatar kabut Wilis untuk membangun sinergi dan kekompakan tim.",
+      "boxKicker": "SYNERGY & TEAM BUILDING",
+      "boxHeading": "Sarana Gathering & Outbound",
+      "boxDescription": "Fasilitas lapangan terbuka luas dengan opsi add-on trainer profesional, sound lapangan, dokumentasi liputan, hingga hiburan live music.",
+      "price": "Rp 100.000",
+      "pricePeriod": "Sewa Lapangan / Jam (Min. 3 Jam)",
+      "highlights": [
+        "Sewa Lapangan Rumput Pinus Asri",
+        "2 Trainer Outbound Profesional + Game Properties (Rp 450k)",
+        "Sound System Lapangan Pendukung (Rp 300k)",
+        "Jasa Dokumentasi (300k) & Live Music (800k) Tersedia"
+      ],
+      "image": "/images/activities/outbound-gathering.jpg",
+      "detailHref": "/event/gathering-outbound",
+      "reverse": false
+    }
+  ],
+  "contact": {
+    "personal": {
+      "label": "Reservasi Personal & Family",
+      "phone": "0822 2950 0998",
+      "scope": "Wedding Outdoor, Prewedding, Arisan Keluarga, Privat"
+    },
+    "corporate": {
+      "label": "Reservasi Corporate & Government",
+      "phone": "0822 4982 9998",
+      "scope": "Instansi Kedinasan, BUMN, Komunitas, Rapat Kerja, Rombongan Besar"
+    }
+  }
+}

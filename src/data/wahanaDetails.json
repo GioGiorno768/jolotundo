@@ -1,0 +1,371 @@
+[
+  {
+    "id": "atv-adventure",
+    "index": "01",
+    "name": "ATV Adventure",
+    "tier": "Offroad & Adrenaline",
+    "setting": "River & Pine Trail",
+    "elevation": "±800 MDPL",
+    "tagline": "Sensasi memacu adrenalin quad bike melintasi bebatuan sungai alami dan jalur tanah basah hutan pinus lereng Wilis.",
+    "headline": "Tantang Jalurnya, Rasakan Serunya..!!!",
+    "image": "/images/activities/atv-adventure.jpg",
+    "heroImage": "/images/activities/atv-adventure.jpg",
+    "category": "adventure",
+    "contactType": "personal",
+    "priceStarting": "Rp 50.000",
+    "specs": [
+      { "label": "MEDAN", "value": "Sungai & Pinus" },
+      { "label": "DURASI", "value": "20 — 60 Menit" },
+      { "label": "TIPE RIDE", "value": "Single & Tandem" },
+      { "label": "SAFETY", "value": "Helm & Guide" }
+    ],
+    "gallery": [
+      { "src": "/images/activities/atv-adventure.jpg", "caption": "Lintasan Sungai Berbatu", "subtitle": "Sensasi Cipratan Air Alami Lereng Wilis" },
+      { "src": "/images/upgrade/paket-a-atv-comfort.jpg", "caption": "Jalur Kanopi Pinus", "subtitle": "Track Tanah Basah Berkelok di Hutan" },
+      { "src": "/images/activities/wahana-hero.jpg", "caption": "Suasana Senja Wilis", "subtitle": "Kabut Dingin & Panorama Lembah ±800 MDPL" },
+      { "src": "/images/activities/jeep-offroad.jpg", "caption": "Tantangan Offroad Alami", "subtitle": "Tanjakan Terjal & Rute Bebatuan" },
+      { "src": "/images/upgrade/paket-d-ultimate-adventure.jpg", "caption": "Eksplorasi Tak Terlupakan", "subtitle": "Petualangan Bersama Teman & Keluarga" }
+    ],
+    "packageSection": {
+      "kicker": "THE PACKAGES",
+      "headline": "Menembus belantara tanah dan arus sungai.",
+      "narrative": "Tiga tingkatan rute offroad quad bike yang dirancang untuk seluruh tingkat kemahiran, dari pemula santai hingga penakluk rute liar.",
+      "rows": [
+        {
+          "label": "SHORT TRACK",
+          "value": "Rp 50.000 — Rp 60.000 / org",
+          "desc": "Jalur pendek santai melintasi rute dasar hutan pinus. Weekday Rp 50.000, Weekend Rp 60.000, atau Paket Bundling 2 Orang Rp 100.000 (Tandem Ride)."
+        },
+        {
+          "label": "SEMI LONG",
+          "value": "Rp 100.000 / orang",
+          "desc": "Durasi 30–40 menit menantang handicap batuan kali alami, gundukan tanah basah, dan tanjakan landai di bawah naungan pohon pinus rapat."
+        },
+        {
+          "label": "LONG TRACK",
+          "value": "Rp 150.000 / ride",
+          "originalPrice": "Rp 250.000",
+          "badge": "PROMO SPESIAL",
+          "desc": "Minimal 5 unit ATV. Rute petualangan belantara purba terpanjang, sudah termasuk Guide profesional, helm safety, dan free dokumentasi foto."
+        },
+        {
+          "label": "JADWAL SESI",
+          "value": "Pagi 10.00 · Siang 13.00 · Sore 15.00 WIB",
+          "desc": "Tiga jadwal keberangkatan resmi setiap hari untuk menjaga keselamatan dan kelancaran konvoi di jalur."
+        },
+        {
+          "label": "SAFETY GEAR",
+          "value": "Helm Bersertifikasi & Guide",
+          "desc": "Wajib mengenakan helm keselamatan standar offroad dan selalu mematuhi instruksi pemandu lapangan sepanjang perjalanan."
+        }
+      ]
+    },
+    "inclusions": [
+      { "title": "Unit Quad Bike ATV Prima", "desc": "Mesin terawat dengan torsi bertenaga untuk segala kondisi medan." },
+      { "title": "Helm Standar Keselamatan", "desc": "Pelindung kepala bersertifikasi untuk keamanan berkendara." },
+      { "title": "Guide Pendamping Profesional", "desc": "Pemandu berpengalaman yang mengawal jalur sepanjang perjalanan." },
+      { "title": "Free Dokumentasi Petualangan", "desc": "Pengambilan foto aksi seru selama melibas jalur (khusus Long Track)." },
+      { "title": "Briefing Safety Komprehensif", "desc": "Instruksi berkendara aman sebelum memulai mesin." }
+    ],
+    "rules": [
+      "Wajib mematuhi instruksi pemandu lapangan setiap saat demi keselamatan bersama.",
+      "Paket Long Track memerlukan pemesanan minimal 5 unit ATV per jadwal keberangkatan.",
+      "Disediakan helm pengaman wajib sebelum keberangkatan."
+    ]
+  },
+  {
+    "id": "jeep-offroad",
+    "index": "02",
+    "name": "Fun Offroad Jeep 4x4",
+    "tier": "4x4 Mountain Overland",
+    "setting": "Ngleyangan & Wilis",
+    "elevation": "±800 MDPL",
+    "tagline": "Ekspedisi overland menembus tanjakan ekstrem, rute Air Terjun Ngleyangan hingga jalur luar Bandara Dhoho Kediri.",
+    "headline": "Taklukkan Tanjakan Terjal Lereng Gunung Wilis",
+    "image": "/images/activities/jeep-offroad.jpg",
+    "heroImage": "/images/activities/jeep-offroad.jpg",
+    "category": "adventure",
+    "contactType": "personal",
+    "priceStarting": "Rp 250.000",
+    "specs": [
+      { "label": "MEDAN", "value": "Batu & Air Terjun" },
+      { "label": "DURASI", "value": "1 — 3 Jam Tour" },
+      { "label": "KAPASITAS", "value": "4 — 6 Pax / Jeep" },
+      { "label": "SAFETY", "value": "Driver Pro & Rollbar" }
+    ],
+    "gallery": [
+      { "src": "/images/activities/jeep-offroad.jpg", "caption": "Jeep 4x4 Mountain Trail", "subtitle": "Tanjakan Terjal dan Bebatuan Cadas" },
+      { "src": "/images/activities/wahana-hero.jpg", "caption": "Panorama Pegunungan Wilis", "subtitle": "Hawa Sejuk & Hutan Pinus Asri" },
+      { "src": "/images/activities/atv-adventure.jpg", "caption": "Menembus Sungai Alami", "subtitle": "Sensasi Petualangan Air dan Tanah" },
+      { "src": "/images/accommodations/river-camp-editorial.jpg", "caption": "Kesejukan Lembah Bajulan", "subtitle": "Kawasan Hijau Alami Tanpa Polusi" },
+      { "src": "/images/accommodations/deluxe-camp-new.jpg", "caption": "Pangkalan Wisata Jolotundo", "subtitle": "Titik Kumpul & Rest Area Nyaman" }
+    ],
+    "packageSection": {
+      "kicker": "THE PACKAGES",
+      "headline": "Ekspedisi overland menembus tanjakan ekstrem.",
+      "narrative": "Menaklukkan handicap cadas pegunungan hingga perjalanan lintas panorama legendaris Air Terjun Ngleyangan dan Bandara Dhoho.",
+      "rows": [
+        {
+          "label": "STANDAR TRACK",
+          "value": "Rp 250.000 / ride",
+          "desc": "Pengalaman memacu adrenalin melintasi rute handicap alami tanah berlumpur, tanjakan terjal, dan lintasan bebatuan cadas lereng Wilis."
+        },
+        {
+          "label": "FUN OVERLAND",
+          "value": "Rp 600.000 / mobil jeep",
+          "desc": "Paket jelajah 1 mobil rombongan: Jolotundo → Air Terjun Ngleyangan → Jalur Luar Bandara Dhoho Kediri → kembali ke Jolotundo."
+        },
+        {
+          "label": "KAPASITAS",
+          "value": "4 s/d 6 Penumpang / Armada",
+          "desc": "Unit mobil jeep 4WD terawat dengan rollbar pengaman penuh dan dikemudikan oleh driver ahli medan pegunungan."
+        },
+        {
+          "label": "FREE INKLUSI",
+          "value": "Snack Box & Welcome Drink",
+          "desc": "Camilan dan minuman penyegar gratis disediakan untuk seluruh rombongan selama ekspedisi jelajah."
+        },
+        {
+          "label": "RESERVASI",
+          "value": "Pemesanan Minimal H-1",
+          "desc": "Dianjurkan melakukan konfirmasi minimal 1 hari sebelumnya untuk penyiapan armada dan penjadwalan driver."
+        }
+      ]
+    },
+    "inclusions": [
+      { "title": "1 Unit Mobil Jeep 4x4 Terawat", "desc": "Armada 4WD tangguh dengan roll-bar pelindung keselamatan penuh." },
+      { "title": "Driver Berpengalaman & Bersertifikat", "desc": "Pengemudi ahli medan ekstrem lereng Wilis yang ramah dan sigap." },
+      { "title": "Free Snack Box & Welcome Drink", "desc": "Camilan dan minuman penyegar selama ekspedisi (khusus Paket Fun Offroad)." },
+      { "title": "Kunjungan Spot Air Terjun & View Bandara", "desc": "Pemberhentian foto di lanskap indah Air Terjun Ngleyangan & Bandara Dhoho." },
+      { "title": "Bahan Bakar & Tiket Lintasan", "desc": "Biaya operasional perjalanan sudah tercakup penuh tanpa biaya tersembunyi." }
+    ],
+    "rules": [
+      "Kapasitas per armada jeep disesuaikan dengan standar keamanan (4–6 penumpang).",
+      "Pemesanan paket Fun Offroad dianjurkan minimal 1 hari sebelumnya.",
+      "Peserta dihimbau membawa jaket penahan angin karena udara ketinggian yang dingin."
+    ]
+  },
+  {
+    "id": "wisata-berkuda",
+    "index": "03",
+    "name": "Wisata Berkuda",
+    "tier": "Equestrian & Forest Trail",
+    "setting": "Pine Arena & Trails",
+    "elevation": "±800 MDPL",
+    "tagline": "Ketenangan ritmis menunggang kuda terlatih mengitari arena pinus asri dan semilir kabut dingin pegunungan.",
+    "headline": "Menyusuri Keheningan Kanopi Pinus di Atas Pelana",
+    "image": "/images/activities/horse-riding.jpg",
+    "heroImage": "/images/activities/horse-riding.jpg",
+    "category": "equestrian",
+    "contactType": "personal",
+    "priceStarting": "Rp 25.000",
+    "specs": [
+      { "label": "MEDAN", "value": "Arena & Trail Pinus" },
+      { "label": "DURASI", "value": "Sesi & 30 Menit" },
+      { "label": "USIA", "value": "Anak & Dewasa" },
+      { "label": "SAFETY", "value": "Pawang & Helm" }
+    ],
+    "gallery": [
+      { "src": "/images/activities/horse-riding.jpg", "caption": "Kuda Jinak & Terlatih", "subtitle": "Aman untuk Pemula Maupun Anak-Anak" },
+      { "src": "/images/upgrade/paket-d-ultimate-adventure.jpg", "caption": "Menunggang di Tengah Hutan Pinus", "subtitle": "Ketenangan Alami di Bawah Naungan Pohon" },
+      { "src": "/images/activities/wahana-hero.jpg", "caption": "Lanskap Pegunungan Indah", "subtitle": "Udara Dingin & Bersih Bebas Polusi" },
+      { "src": "/images/accommodations/pinus-camp-plus-new.jpg", "caption": "Arena Wisata Terbuka", "subtitle": "Area Asri Bersama Keluarga" },
+      { "src": "/images/facilities/amfiteater-bonfire.jpg", "caption": "Kawasan Nyaman Jolotundo", "subtitle": "Fasilitas Wisata Terintegrasi Lengkap" }
+    ],
+    "packageSection": {
+      "kicker": "THE PACKAGES",
+      "headline": "Ketenangan ritmis di bawah naungan kanopi pinus.",
+      "narrative": "Koleksi kuda terlatih yang jinak dan ramah, dipandu pawang berpengalaman untuk pengalaman berkuda yang aman dan berkesan.",
+      "rows": [
+        {
+          "label": "ARENA 2X",
+          "value": "Rp 25.000 / tiket",
+          "desc": "Mengitari arena berkuda sebanyak 2 putaran santai dengan bimbingan dan pengawalan pawang terlatih di samping Anda."
+        },
+        {
+          "label": "ARENA 4X",
+          "value": "Rp 50.000 / tiket",
+          "desc": "Mengitari arena berkuda sebanyak 4 putaran, sangat ideal untuk anak-anak, remaja, dan pemula yang ingin belajar ritme berkuda."
+        },
+        {
+          "label": "DOKUMENTASI",
+          "value": "Rp 50.000 / 10 foto",
+          "desc": "Layanan dokumentasi foto profesional beresolusi tinggi mengabadikan momen elegan Anda saat menunggang kuda di arena."
+        },
+        {
+          "label": "TRAIL KELILING",
+          "value": "Rp 175.000 / sesi",
+          "desc": "Menjelajahi kawasan area pinus dan pemandangan asri Jolotundo di atas kuda dengan pengawalan pemandu khusus."
+        },
+        {
+          "label": "EKSKLUSIF",
+          "value": "Rp 300.000 / 30 menit",
+          "originalPrice": "Rp 400.000",
+          "badge": "PROMO SPESIAL",
+          "desc": "1 sesi berkuda privat khusus 1 orang peserta selama 30 menit didampingi Guide pro, sudah termasuk fasilitas sewa sepatu & helm safety."
+        }
+      ]
+    },
+    "inclusions": [
+      { "title": "Kuda Sehat & Berperilaku Tenang", "desc": "Koleksi kuda terlatih yang rutin diperiksa kesehatan dan perilakunya." },
+      { "title": "Pawang Berpengalaman", "desc": "Petugas kawakan yang memandu tali kendali di setiap langkah." },
+      { "title": "Sewa Sepatu Berkuda Standar", "desc": "Fasilitas sewa alas kaki keselamatan (khusus Sesi Eksklusif)." },
+      { "title": "Helm Berkuda Bersertifikasi", "desc": "Pelindung kepala standar equestrian untuk keamanan total." }
+    ],
+    "rules": [
+      "Berat badan maksimal pengendara mengikuti anjuran pemandu demi kenyamanan kuda.",
+      "Anak-anak di bawah 7 tahun wajib didampingi oleh pawang.",
+      "Dilarang memberi makanan sembarangan kepada kuda tanpa izin petugas."
+    ]
+  },
+  {
+    "id": "forest-spa",
+    "index": "04",
+    "name": "Pine Forest Spa",
+    "tier": "Wellness & Deep Healing",
+    "setting": "Pine Canopy & River",
+    "elevation": "±800 MDPL",
+    "tagline": "Sensasi pemulihan raga menyeluruh dengan sentuhan aromaterapi rempah alami dan alunan gemericik air sungai pegunungan.",
+    "headline": "Lepaskan Penat di Tengah Alam Lereng Wilis",
+    "image": "/images/activities/forest-spa.jpg",
+    "heroImage": "/images/activities/forest-spa.jpg",
+    "category": "wellness",
+    "contactType": "personal",
+    "priceStarting": "Rp 60.000",
+    "specs": [
+      { "label": "ATMOSFER", "value": "Hutan & Sungai" },
+      { "label": "DURASI", "value": "30 — 90 Menit" },
+      { "label": "AKSES", "value": "Umum & Deluxe" },
+      { "label": "MINYAK", "value": "Rempah Alami" }
+    ],
+    "gallery": [
+      { "src": "/images/activities/forest-spa.jpg", "caption": "Pine Forest Spa & Massage", "subtitle": "Relaksasi Tenang di Bawah Kanopi Pinus" },
+      { "src": "/images/accommodations/deluxe-camp-new.jpg", "caption": "Private In-Cabin Spa", "subtitle": "Layanan Khusus Tamu Deluxe Camp" },
+      { "src": "/images/accommodations/river-camp-editorial.jpg", "caption": "Alunan Gemericik Air Sungai", "subtitle": "Terapi Suara Alami yang Menenangkan Raga" },
+      { "src": "/images/activities/wahana-hero.jpg", "caption": "Udara Bersih Lereng Wilis", "subtitle": "Nafas Segar Bebas Polusi Kota" },
+      { "src": "/images/facilities/pine-resto-cafe.jpg", "caption": "Teh Herbal Hangat", "subtitle": "Penyegar Tubuh Setelah Perawatan" }
+    ],
+    "packageSection": {
+      "kicker": "THE PACKAGES",
+      "headline": "Pemulihan raga di keheningan hutan pinus.",
+      "narrative": "Perpaduan minyak aromaterapi rempah alami dan alunan gemericik air sungai pegunungan untuk relaksasi mendalam.",
+      "rows": [
+        {
+          "label": "REFLEKSI 30M",
+          "value": "Rp 60.000 / 30 menit",
+          "desc": "Fokus penekanan titik saraf refleksi pada kaki atau tangan untuk melancarkan peredaran darah dan meredakan letih (Terbuka untuk umum)."
+        },
+        {
+          "label": "REFLEKSI 60M",
+          "value": "Rp 120.000 / 60 menit",
+          "desc": "Terapi pemijatan menyeluruh untuk area kaki dan kedua tangan secara seimbang dengan teknik pemijatan rileks (Terbuka untuk umum)."
+        },
+        {
+          "label": "BODY MASSAGE",
+          "value": "Rp 120.000 / 60 menit",
+          "badge": "KHUSUS DELUXE CAMP",
+          "desc": "Pijatan seluruh tubuh dengan minyak rempah hangat khas pegunungan yang dilakukan privat langsung di dalam kamar kabin Deluxe Camp."
+        },
+        {
+          "label": "MASSAGE + LULUR",
+          "value": "Rp 170.000 / 90 menit",
+          "badge": "KHUSUS DELUXE CAMP",
+          "desc": "Ritual kecantikan & relaksasi komplit memadukan lulur rempah eksfoliasi pengangkat sel kulit mati dengan pijatan raga mendalam 90 menit."
+        },
+        {
+          "label": "AROMATERAPI",
+          "value": "Minyak Rempah Herbal Wilis",
+          "desc": "Formula minyak aromaterapi alami perpaduan pinus dan serai yang menenangkan saraf, menghangatkan tubuh, dan melegakan pernapasan."
+        }
+      ]
+    },
+    "inclusions": [
+      { "title": "Terapis Berpengalaman & Bersertifikat", "desc": "Tenaga terapis handal yang menguasai titik akupresur dan pijat relaksasi." },
+      { "title": "Minyak Aromaterapi Herbal Wilis", "desc": "Minyak pijat beraroma pinus dan serai alami yang menenangkan saraf." },
+      { "title": "Handuk Bersih & Higienis", "desc": "Penyediaan handuk bersih dan linen steril standar perhotelan." },
+      { "title": "Lulur Scrub Rempah Alami", "desc": "Formula scrub tradisional untuk kelembutan dan kecerahan kulit." }
+    ],
+    "rules": [
+      "Layanan Body Massage dan Lulur khusus tersedia untuk tamu menginap di Deluxe Camp.",
+      "Dianjurkan melakukan reservasi minimal 2 jam sebelumnya agar terapis siap tepat waktu.",
+      "Beritahukan kepada terapis jika Anda memiliki kondisi kesehatan khusus atau sensitivitas kulit."
+    ]
+  },
+  {
+    "id": "outbound-gathering",
+    "index": "05",
+    "name": "Outbound & Gathering",
+    "tier": "Corporate & Community B2B",
+    "setting": "Pinus Green Lawn",
+    "elevation": "±800 MDPL",
+    "tagline": "Program dinamika kelompok terintegrasi untuk korporasi, BUMN, dinas kedinasan, dan komunitas dengan 9 fasilitas all-inclusive.",
+    "headline": "Membangun Kekompakan & Sinergi di Bawah Naungan Alam",
+    "image": "/images/activities/outbound-gathering.jpg",
+    "heroImage": "/images/activities/outbound-gathering.jpg",
+    "category": "outbound",
+    "contactType": "corporate",
+    "priceStarting": "Rp 25.000",
+    "specs": [
+      { "label": "VENUE", "value": "Lapangan Pinus" },
+      { "label": "DURASI", "value": "3 Jam Program" },
+      { "label": "PESERTA", "value": "50 — 150+ Pax" },
+      { "label": "FASILITAS", "value": "9 Include Komplit" }
+    ],
+    "gallery": [
+      { "src": "/images/activities/outbound-gathering.jpg", "caption": "Keseruan Ice Breaking", "subtitle": "Membangun Tawa, Kekompakan dan Keakraban Tim" },
+      { "src": "/images/facilities/amfiteater-bonfire.jpg", "caption": "Amfiteater Api Unggun", "subtitle": "Sesi Evaluasi dan Refleksi Malam Hari" },
+      { "src": "/images/facilities/meeting-hall-pendopo.jpg", "caption": "Pendopo & Hall Serbaguna", "subtitle": "Area Indoor Nyaman untuk Acara Formal" },
+      { "src": "/images/activities/wahana-hero.jpg", "caption": "Lapangan Hijau Luas", "subtitle": "Udara Segar Gunung Wilis Menambah Energi" },
+      { "src": "/images/facilities/pine-resto-cafe.jpg", "caption": "Layanan Katering Prasmanan", "subtitle": "Sajian Kuliner Lezat Khas Pegunungan" }
+    ],
+    "packageSection": {
+      "kicker": "THE PACKAGES",
+      "headline": "Membangun sinergi di lapangan hijau terbuka.",
+      "narrative": "Program dinamika kelompok terintegrasi yang dirancang untuk memperkuat komunikasi, kepemimpinan, dan kekompakan tim.",
+      "rows": [
+        {
+          "label": "PAKET MINI",
+          "value": "Rp 30.000 / orang",
+          "desc": "Minimal 50–75 peserta. Pilihan tepat untuk gathering divisi kantor, komunitas hobi, reuni alumni keluarga besar, dan outing sekolah."
+        },
+        {
+          "label": "PAKET RAME",
+          "value": "Rp 25.000 / orang",
+          "badge": "BEST VALUE B2B",
+          "desc": "Minimal 76–150+ peserta. Investasi kegiatan terbaik untuk instansi kedinasan pemerintah, BUMN, asosiasi profesi, dan korporasi besar."
+        },
+        {
+          "label": "DURASI PROGRAM",
+          "value": "3 Jam Program Terstruktur",
+          "desc": "Rundown seimbang mencakup ice breaking pemecah suasana, fun team building games, dinamika sinergi kepemimpinan, dan evaluasi tim."
+        },
+        {
+          "label": "FASILITAS INCLUDE",
+          "value": "9 Fasilitas Lengkap Komplit",
+          "desc": "Trainer bersertifikat, property games interaktif, sound system lapangan, dokumentasi foto, area rumput pinus, P3K, banner custom, dan air mineral."
+        },
+        {
+          "label": "LAYANAN B2B",
+          "value": "Proposal & Invoice Resmi Kantor",
+          "desc": "Dapat menerbitkan surat penawaran, proposal kegiatan, dan kwitansi resmi untuk kebutuhan pertanggungjawaban administrasi kantor."
+        }
+      ]
+    },
+    "inclusions": [
+      { "title": "Trainer / Fasilitator Profesional", "desc": "Instruktur berpengalaman yang memandu dinamika kelompok dengan energik." },
+      { "title": "Property & Games Interaktif Lengkap", "desc": "Seluruh perlengkapan permainan simulasi kepemimpinan dan kekompakan." },
+      { "title": "Layanan Dokumentasi Kegiatan", "desc": "Pengambilan foto resolusi tinggi sepanjang rangkaian acara berlangsung." },
+      { "title": "Sound System Audio Lapangan", "desc": "Pengeras suara profesional lengkap dengan mic nirkabel dan komando musik." },
+      { "title": "Area Lapangan Hijau Eksklusif", "desc": "Venue rumput asri terawat di bawah keteduhan ribuan pohon pinus." },
+      { "title": "Peralatan Pertolongan Pertama (P3K)", "desc": "Kesiagaan medis darurat dan obat-obatan standar selama kegiatan." },
+      { "title": "Banner Acara Kustom Rombongan", "desc": "Spanduk kegiatan bertuliskan nama instansi dan tema acara Anda." },
+      { "title": "Durasi Program Terstruktur 3 Jam", "desc": "Rundown seimbang: ice breaking, fun team games, sinergi, dan evaluasi." },
+      { "title": "Free Air Mineral Seluruh Peserta", "desc": "Penyediaan hidrasi air mineral selama acara berlangsung tanpa batas." }
+    ],
+    "rules": [
+      "Pemesanan paket outbound corporate minimal 7 hari sebelum pelaksanaan kegiatan.",
+      "Dapat dikombinasikan dengan paket makan prasmanan resto dan akomodasi glamping.",
+      "Invoice resmi dan proposal penawaran B2B dapat diterbitkan untuk administrasi kantor."
+    ]
+  }
+]

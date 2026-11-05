@@ -1,0 +1,579 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import FooterCTA from '../components/FooterCTA.astro';
+
+// Kategori Filter (1:1 Mirip Style GoUncharted di Akomodasi)
+const categories = [
+  { id: "all", label: "Semua Wahana" },
+  { id: "adventure", label: "ATV & Offroad" },
+  { id: "equestrian", label: "Wisata Berkuda" },
+  { id: "wellness", label: "Pine Forest Spa" },
+  { id: "outbound", label: "Outbound B2B" }
+];
+
+// Koleksi 5 Sektor Aktivitas & Wahana Jolotundo (Editorial Grid Architecture 1:1 Akomodasi)
+const activities = [
+  {
+    index: "01",
+    id: "atv-adventure",
+    name: "ATV Adventure",
+    category: "adventure",
+    tier: "Offroad & Adrenaline",
+    setting: "River & Pine Trail",
+    capacity: "Single & Tandem",
+    tagline: "Sensasi memacu adrenalin di atas quad bike melintasi bebatuan sungai alami dan jalur tanah basah hutan pinus lereng Wilis.",
+    pills: ["Short & Long Track", "Mulai Rp 50.000", "Helm & Guide", "3 Sesi Harian"],
+    image: "/images/activities/atv-adventure.jpg",
+    gridClass: "grid-col-7 camp-card-hero"
+  },
+  {
+    index: "02",
+    id: "jeep-offroad",
+    name: "Fun Offroad Jeep 4x4",
+    category: "adventure",
+    tier: "4x4 Mountain Overland",
+    setting: "Ngleyangan & Wilis",
+    capacity: "Rombongan / Jeep",
+    tagline: "Ekspedisi overland menembus tanjakan ekstrem, rute Air Terjun Ngleyangan hingga jalur luar Bandara Dhoho Kediri.",
+    pills: ["Rp 600.000 / Mobil Jeep", "Free Snack & Drink", "Air Terjun Ngleyangan", "Driver Berpengalaman"],
+    image: "/images/activities/jeep-offroad.jpg",
+    gridClass: "grid-col-5 camp-card-hero"
+  },
+  {
+    index: "03",
+    id: "wisata-berkuda",
+    name: "Wisata Berkuda",
+    category: "equestrian",
+    tier: "Equestrian & Forest Trail",
+    setting: "Pine Arena & Trails",
+    capacity: "Anak & Dewasa",
+    tagline: "Ketenangan ritmis menunggang kuda terlatih mengitari arena pinus asri dan semilir kabut dingin pegunungan.",
+    pills: ["Mulai Rp 25.000", "Horse Riding Eksklusif", "Dokumentasi Foto", "Sewa Sepatu & Helm"],
+    image: "/images/activities/horse-riding.jpg",
+    gridClass: "grid-col-5 camp-card-hero"
+  },
+  {
+    index: "04",
+    id: "forest-spa",
+    name: "Pine Forest Spa",
+    category: "wellness",
+    tier: "Wellness & Deep Healing",
+    setting: "Pine Canopy & River",
+    capacity: "Umum & Deluxe Camp",
+    tagline: "Sensasi pemulihan raga menyeluruh dengan sentuhan aromaterapi rempah alami dan alunan gemericik air sungai pegunungan.",
+    pills: ["Refleksi Kaki & Tangan", "Mulai Rp 60.000", "Body Massage Tradisional", "Lulur Herbal"],
+    image: "/images/activities/forest-spa.jpg",
+    gridClass: "grid-col-7 camp-card-hero"
+  },
+  {
+    index: "05",
+    id: "outbound-gathering",
+    name: "Outbound & Gathering",
+    category: "outbound",
+    tier: "Corporate & Community B2B",
+    setting: "Pinus Green Lawn",
+    capacity: "50 s/d 150+ Peserta",
+    tagline: "Program dinamika kelompok terintegrasi untuk korporasi, BUMN, dinas kedinasan, dan komunitas dengan 9 fasilitas all-inclusive.",
+    pills: ["Mulai Rp 25.000 / Org", "9 Fasilitas Include", "Trainer & Sound System", "Spanduk & P3K"],
+    image: "/images/activities/outbound-gathering.jpg",
+    gridClass: "grid-col-full camp-card-panorama"
+  }
+];
+---
+
+<Layout 
+  title="Wahana, Petualangan & Rekreasi — Jolotundo Glamping & Edupark"
+  description="Katalog resmi wahana petualangan ATV, Jeep Offroad 4x4, wisata berkuda, pine forest spa, dan paket outbound gathering korporat di lereng Gunung Wilis Nganjuk."
+>
+  <!-- Floating Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Background (GoUncharted Luxury Editorial) -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white pb-20">
+
+    <!-- ========================================================================= -->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED "BUILT ON FORTY-TWO PLACES")-->
+    <!-- ========================================================================= -->
+    <header 
+      id="wahana-hero" 
+      class="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+    >
+      <!-- Parallax Translate-Y Background Layer -->
+      <div 
+        id="wahana-hero-parallax-layer"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src="/images/activities/wahana-hero.jpg" 
+          alt="Wana Wisata & Rekreasi Jolotundo Glamping & Edupark" 
+          class="w-full h-full object-cover object-center"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <!-- Atmospheric Vignettes / Dual Scrim for Editorial Typography Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/85 pointer-events-none"></div>
+      </div>
+
+      <!-- Top Spacer to clear floating pill navbar -->
+      <div class="relative z-10 w-full pt-28 sm:pt-36"></div>
+
+      <!-- Center Display Typography (1:1 GoUncharted with Eyebrow and Giant Title) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto my-auto w-full">
+        
+        <!-- Small Centered Eyebrow Kicker: [ FIELD GUIDE & RECREATION // GUNUNG WILIS ±800 MDPL ] -->
+        <span class="text-xs sm:text-sm font-mono-tag tracking-[0.25em] sm:tracking-[0.35em] text-[#d8c39e] uppercase mb-5 sm:mb-7 drop-shadow-md">
+          [ FIELD GUIDE & RECREATION // GUNUNG WILIS ±800 MDPL ]
+        </span>
+
+        <!-- Giant Bold Display Headline (Untamed trails, restorative calm.) -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-extrabold uppercase tracking-tight text-white leading-[0.98] font-sans drop-shadow-2xl">
+          Untamed trails,<br />
+          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">restorative</span> calm.
+        </h1>
+      </div>
+
+      <!-- Bottom Metadata Bar (1:1 GoUncharted: Hairline Divider + Specs Columns) -->
+      <div class="relative z-10 w-full">
+        <!-- Thin Hairline Divider -->
+        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
+          <div class="w-full border-t border-white/20"></div>
+        </div>
+
+        <!-- Metadata Columns (Identik GoUncharted Bottom Bar: LISBON BASED, FORTY-TWO PLACES...) -->
+        <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono-tag text-white/70 uppercase tracking-wider">
+          <div class="flex flex-wrap items-center gap-6 sm:gap-10">
+            <div class="flex items-center gap-2">
+              <span class="text-white/40">LOCATION</span>
+              <span class="text-white font-bold">BAJULAN // WILIS</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-white/40">ELEVASI</span>
+              <span class="text-white font-bold">±800 MDPL</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-white/40">SEKTOR</span>
+              <span class="text-[#d8c39e] font-bold">05 KLUSTER WAHANA</span>
+            </div>
+            <div class="hidden md:flex items-center gap-2">
+              <span class="text-white/40">OFFICIAL SUPPORT</span>
+              <span class="text-white/90">PERHUTANI • PEMKAB</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 text-white/60 text-[11px] font-mono-tag">
+            <span>SCROLL TO EXPLORE</span>
+            <span class="animate-bounce">↓</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- 2. EDITORIAL CATEGORY FILTER (1:1 GoUncharted Akomodasi Style)             -->
+    <!-- ========================================================================= -->
+    <header class="catalog-filter-bar px-6 sm:px-10 lg:px-14 xl:px-20 text-center flex flex-col items-center pt-16 sm:pt-20 pb-8">
+      
+      <!-- Top Small Spaced Kicker: EXPLORE BY CATEGORY -->
+      <span class="text-[11px] sm:text-xs font-mono-tag text-[#141110]/60 tracking-[0.25em] uppercase mb-4 sm:mb-5 block">
+        EXPLORE BY ACTIVITY
+      </span>
+
+      <!-- Category Filter Typography Line (All Mountains Coast Desert... Style) -->
+      <nav class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 gap-y-3.5 max-w-4xl mx-auto py-2">
+        {categories.map((cat, idx) => (
+          <button
+            type="button"
+            data-category={cat.id}
+            class={`category-filter-btn text-lg sm:text-2xl lg:text-[24px] font-normal tracking-tight font-sans transition-all duration-200 cursor-pointer ${
+              idx === 0 
+                ? 'text-[#141110] font-bold border-b border-[#141110]' 
+                : 'text-[#141110]/45 hover:text-[#141110] border-b border-transparent'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </nav>
+
+    </header>
+
+    <!-- Sub-Bar / Metadata Divider: "KATALOG / 05 WAHANA & REKREASI" -->
+    <div class="px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto mb-8 sm:mb-10">
+      <div class="flex items-center justify-between py-3.5 border-b border-[#141110]/15 text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-[#141110]">KATALOG</span>
+          <span class="text-[#141110]/40">/</span>
+          <span>05 WAHANA & REKREASI</span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-[#141110]/50 text-[11px]">
+          <span>[ LERENG GUNUNG WILIS • ±800 MDPL ]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 3. CARDS GRID: 1:1 DENGAN MENU CAMPING & GLAMPING (AKOMODASI)             -->
+    <!-- ========================================================================= -->
+    <section class="catalog-section px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto mb-24 sm:mb-32">
+      <div id="activity-catalog-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+        {activities.map((act) => (
+          <article 
+            data-category={act.category}
+            class={`camp-card group relative overflow-hidden bg-[#141110] border border-[#141110]/20 select-none cursor-pointer w-full ${act.gridClass}`}
+            tabindex="0"
+            role="button"
+            aria-label={`Lihat detail ${act.name}`}
+            onclick={`window.location.href = '/wahana/${act.id}';`}
+          >
+            
+            <!-- Background Image with Butter-Smooth Scale on Hover/Active -->
+            <img 
+              src={act.image} 
+              alt={act.name + " - Jolotundo Glamping & Edupark"}
+              class="camp-img absolute inset-0 w-full h-full object-cover object-center transform scale-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <!-- Dark Gradient Layer (Soft on Idle, Deepens on Hover for Razor-Sharp Text Contrast) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity duration-500 pointer-events-none"></div>
+
+            <!-- Top Sharp Meta Badges (Index & Setting) -->
+            <div class="absolute top-5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
+              <span class="text-[11px] font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10 font-bold">
+                {act.index}
+              </span>
+              <span class="text-[10px] font-mono-tag tracking-wider text-white/80 uppercase px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10">
+                {act.setting}
+              </span>
+            </div>
+
+            <!-- In-Image Content Overlay (Docked at Bottom) -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10 flex flex-col justify-end z-10 pointer-events-none">
+              
+              <!-- Activity Name (Visible Idle -> Translates Upwards on Hover/Active) -->
+              <div class="camp-title-wrap">
+                <span class="text-[11px] font-mono-tag text-[#d8c39e] uppercase tracking-widest block mb-1 font-semibold">
+                  {act.tier}
+                </span>
+                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white uppercase leading-none font-sans drop-shadow-md">
+                  {act.name}
+                </h3>
+              </div>
+
+              <!-- Collapsible Reveal Drawer (Hidden on Idle -> Expands & Fades In on Hover/Active) -->
+              <div class="camp-drawer">
+                <div class="camp-drawer-inner">
+                  <div class="camp-drawer-content pt-3.5 pb-2 flex flex-col gap-3.5 pointer-events-auto">
+                    
+                    <!-- Keterangan / Editorial Tagline -->
+                    <p class="text-xs sm:text-sm text-white/85 font-light leading-relaxed max-w-xl">
+                      {act.tagline}
+                    </p>
+
+                    <!-- Feature Pills (Sharp rectangular pills) -->
+                    <div class="flex flex-wrap gap-2">
+                      {act.pills.map((pill) => (
+                        <span class="text-[10px] font-mono-tag text-white/90 bg-white/10 backdrop-blur-sm px-2.5 py-1 border border-white/15">
+                          {pill}
+                        </span>
+                      ))}
+                    </div>
+
+                    <!-- Direct Action: Button Lihat Detail (Persis Menu Page Akomodasi) -->
+                    <div class="pt-3.5 pb-1 border-t border-white/15 flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-[#d8c39e] inline-block"></span>
+                        <span class="text-[10px] sm:text-[11px] font-mono-tag text-white/70 uppercase tracking-wider">
+                          Rincian Tarif & Ketentuan
+                        </span>
+                      </div>
+
+                      <!-- Sharp Button Lihat Detail (Direct Link to Wahana Detail Page) -->
+                      <a
+                        href={`/wahana/${act.id}`}
+                        class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
+                        onclick="event.stopPropagation();"
+                      >
+                        <span>Lihat Detail</span>
+                        <span>↗</span>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </article>
+        ))}
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <FooterCTA />
+</Layout>
+
+<!-- ========================================================================= -->
+<!-- STYLES: 1:1 GOUNCHARTED CARD GRID & SPOTLIGHT (IDENTIK DENGAN AKOMODASI) -->
+<!-- ========================================================================= -->
+<style>
+  /* Grid Column Architecture: 1 Column on Mobile, Multi-Column on Desktop (>= 1024px) */
+  .grid-col-half,
+  .grid-col-full,
+  .grid-col-7,
+  .grid-col-5 {
+    grid-column: span 1 / span 1;
+  }
+
+  @media (min-width: 1024px) {
+    .grid-col-half {
+      grid-column: span 6 / span 6;
+    }
+    .grid-col-full {
+      grid-column: span 12 / span 12;
+    }
+    .grid-col-7 {
+      grid-column: span 7 / span 7;
+    }
+    .grid-col-5 {
+      grid-column: span 5 / span 5;
+    }
+  }
+
+  /* Iron-clad card dimensions: identical to camping & glamping */
+  .camp-card {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 480px;
+    height: 480px;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    touch-action: manipulation;
+  }
+
+  @media (min-width: 640px) {
+    .camp-card {
+      min-height: 540px;
+      height: 540px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .camp-card {
+      min-height: 600px;
+      height: 600px;
+    }
+    .camp-card.camp-card-hero {
+      min-height: 620px;
+      height: 620px;
+    }
+    .camp-card.camp-card-panorama {
+      min-height: 560px;
+      height: 560px;
+    }
+  }
+
+  /* Image Lock */
+  .camp-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Desktop spotlight: when any card is hovered, other cards smoothly blur, dim, and scale down */
+  @media (hover: hover) and (pointer: fine) {
+    #activity-catalog-grid:has(.camp-card:hover) .camp-card:not(:hover) {
+      filter: blur(3px) brightness(0.75);
+      opacity: 0.42;
+      transform: scale3d(0.985, 0.985, 1);
+    }
+  }
+
+  /* Active or hovered card elevation */
+  @media (hover: hover) and (pointer: fine) {
+    .camp-card:hover {
+      transform: scale3d(1.025, 1.025, 1);
+      z-index: 20;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+      border-color: rgba(216, 195, 158, 0.6);
+      filter: blur(0) brightness(1);
+      opacity: 1;
+    }
+  }
+
+  .camp-card.is-active {
+    border-color: rgba(216, 195, 158, 0.6);
+    opacity: 1;
+  }
+
+  /* Title upward translation */
+  .camp-title-wrap {
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .camp-card:hover .camp-title-wrap,
+  .camp-card.is-active .camp-title-wrap {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  /* Drawer base state (collapsible 0fr -> 1fr slide up) */
+  .camp-drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.45s ease;
+    will-change: grid-template-rows, opacity;
+  }
+
+  .camp-card:hover .camp-drawer,
+  .camp-card.is-active .camp-drawer {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .camp-drawer-inner {
+    overflow: hidden;
+  }
+
+  .camp-drawer-content {
+    transform: translate3d(0, 24px, 0);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease;
+    will-change: transform, opacity;
+  }
+
+  .camp-card:hover .camp-drawer-content,
+  .camp-card.is-active .camp-drawer-content {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  .camp-card:hover .camp-img,
+  .camp-card.is-active .camp-img {
+    transform: scale3d(1.06, 1.06, 1);
+  }
+</style>
+
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: HERO PARALLAX, CATEGORY FILTER, MOBILE TOUCH & SMOOTH SCROLL -->
+<!-- ========================================================================= -->
+<script is:inline>
+  // 1. FULLSCREEN HERO PURE TRANSLATE-Y PARALLAX ENGINE (Hardware-Accelerated via rAF)
+  function initWahanaHeroParallax() {
+    const heroSection = document.getElementById('wahana-hero');
+    const parallaxLayer = document.getElementById('wahana-hero-parallax-layer');
+    if (!heroSection || !parallaxLayer) return;
+
+    let isTicking = false;
+
+    function updateHeroParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+
+      if (scrollY <= heroHeight + 50) {
+        const translateY = scrollY * 0.32;
+        parallaxLayer.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+      }
+    }
+
+    function handleScroll() {
+      if (!isTicking) {
+        requestAnimationFrame(() => {
+          updateHeroParallax();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateHeroParallax();
+  }
+
+  // 2. ACTIVITY CATALOG FILTER & MOBILE TOUCH AUTO-REVEAL
+  function initActivityCatalog() {
+    const grid = document.getElementById('activity-catalog-grid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.camp-card'));
+    const filterBtns = Array.from(document.querySelectorAll('.category-filter-btn'));
+
+    // Category Filter Buttons
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const selectedCat = btn.getAttribute('data-category');
+
+        filterBtns.forEach((b) => {
+          b.classList.remove('font-bold', 'text-[#141110]', 'border-[#141110]');
+          b.classList.add('text-[#141110]/45', 'border-transparent');
+        });
+        btn.classList.add('font-bold', 'text-[#141110]', 'border-[#141110]');
+        btn.classList.remove('text-[#141110]/45', 'border-transparent');
+
+        cards.forEach((card) => {
+          const cardCat = card.getAttribute('data-category');
+          if (selectedCat === 'all' || cardCat === selectedCat) {
+            card.style.display = '';
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            });
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+              if (card.style.opacity === '0') {
+                card.style.display = 'none';
+              }
+            }, 250);
+          }
+        });
+      });
+    });
+
+    // Mobile touch toggle
+    cards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        if (window.innerWidth < 1024) {
+          const target = e.target;
+          if (target.tagName.toLowerCase() === 'a' || target.closest('a')) {
+            return;
+          }
+          const isCurrentlyActive = card.classList.contains('is-active');
+          cards.forEach((c) => c.classList.remove('is-active'));
+          if (!isCurrentlyActive) {
+            card.classList.add('is-active');
+          }
+        }
+      });
+    });
+  }
+
+  function initAll() {
+    initWahanaHeroParallax();
+    initActivityCatalog();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+</script>

@@ -1,0 +1,237 @@
+---
+import eventData from '../data/eventData.json';
+
+const { sectors } = eventData;
+---
+
+<section id="event-sectors" class="relative w-full bg-[#f4efe6] text-[#141110] py-20 sm:py-28 lg:py-32">
+  <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
+
+    <!-- Section Editorial Header (GoUncharted Standard: Subtle Kicker + Editorial Statement) -->
+    <div class="max-w-3xl mb-14 sm:mb-20">
+      <span class="text-xs font-mono-tag tracking-[0.28em] text-[#141110]/50 uppercase block mb-3.5">
+        — THE THREE SPACES
+      </span>
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#141110] font-sans leading-[1.08] mb-4">
+        Three distinct settings, <br class="hidden sm:inline" />
+        <span class="font-medium">crafted for every scale.</span>
+      </h2>
+      <p class="text-sm sm:text-base text-[#141110]/70 font-sans leading-relaxed max-w-2xl">
+        Dari prosesi sakral di bawah naungan hutan pinus, ruang sidang kaca berhawa sejuk untuk gagasan strategis, hingga padang rumput terbuka pemacu sinergi tim.
+      </p>
+    </div>
+
+    <!-- The Alternating 3-Sector Zig-Zag Grid (1:1 GoUncharted Faroe Islands x Full Atlas Pattern) -->
+    <div class="space-y-12 sm:space-y-16 lg:space-y-20">
+      {sectors.map((sector, index) => {
+        const isReversed = sector.reverse;
+
+        return (
+          <article 
+            id={sector.id}
+            class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch"
+          >
+            <!-- 1. WIDE IMAGE CARD (Lebar ~67% / 8 Kolom) WITH SMOOTH PARALLAX TRANSLATE-Y -->
+            <div 
+              class={`lg:col-span-8 order-1 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}
+            >
+              <div class="sector-image-card group relative w-full h-full min-h-[380px] sm:min-h-[460px] lg:min-h-[520px] bg-[#141110] overflow-hidden border border-[#141110]/15 flex flex-col justify-between p-6 sm:p-9 lg:p-11 select-none">
+                
+                <!-- Parallax Translate-Y Background Layer with Ample Headroom (-top-[20%] h-[140%]) -->
+                <div 
+                  class="sector-parallax-layer absolute inset-x-0 w-full h-[140%] -top-[20%] pointer-events-none will-change-transform z-0"
+                  style="transform: translate3d(0, 0px, 0);"
+                >
+                  <!-- Background Image with Butter-Smooth Scale on Hover -->
+                  <img 
+                    src={sector.image} 
+                    alt={sector.title}
+                    class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+
+                  <!-- Atmospheric Contrast Scrim -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30 pointer-events-none"></div>
+                </div>
+
+                <!-- Top Monospaced Tag (Identik: NEXT DESTINATION - NO. 02) -->
+                <div class="relative z-10 flex items-center justify-between">
+                  <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] sm:tracking-[0.3em] text-white/80 uppercase drop-shadow-sm">
+                    VENUE SECTOR — {sector.sectorNo}
+                  </span>
+                  <span class="text-[10px] sm:text-xs font-mono-tag tracking-wider text-[#d8c39e] uppercase bg-black/40 backdrop-blur-md px-3 py-1 border border-white/15 drop-shadow-sm">
+                    {sector.category}
+                  </span>
+                </div>
+
+                <!-- Bottom Big Typography Overlay (Identik: FAROE ISLANDS + Tagline) -->
+                <div class="relative z-10 max-w-2xl space-y-2 sm:space-y-3">
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-white font-sans leading-none drop-shadow-md">
+                    {sector.title}
+                  </h3>
+                  <p class="text-xs sm:text-sm lg:text-[15px] text-white/85 font-sans font-light leading-relaxed drop-shadow-sm">
+                    {sector.tagline}
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 2. COMPANION EDITORIAL BOX (Lebar ~33% / 4 Kolom - Identik: The Full Atlas) -->
+            <div 
+              class={`lg:col-span-4 order-2 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}
+            >
+              <div class="w-full h-full bg-transparent border border-[#141110]/20 p-6 sm:p-9 lg:p-10 flex flex-col justify-between transition-colors hover:border-[#141110]/40">
+                
+                <!-- Box Header Content -->
+                <div class="space-y-4 sm:space-y-5">
+                  
+                  <!-- Top Monospaced Kicker (Identik: OR WANDER) -->
+                  <div class="flex items-center justify-between border-b border-[#141110]/15 pb-3">
+                    <span class="text-[10px] sm:text-[11px] font-mono-tag tracking-[0.24em] text-[#141110]/55 uppercase">
+                      {sector.boxKicker}
+                    </span>
+                    <span class="text-[10px] sm:text-[11px] font-mono-tag text-[#141110]/40 uppercase">
+                      {sector.sectorNo}
+                    </span>
+                  </div>
+
+                  <!-- Editorial Heading & Description (Identik: The full atlas.) -->
+                  <div>
+                    <h4 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#141110] leading-snug mb-2.5 font-sans">
+                      {sector.boxHeading}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-[#141110]/75 font-sans leading-relaxed">
+                      {sector.boxDescription}
+                    </p>
+                  </div>
+
+                  <!-- Key Inclusions / Hairline Bullet List -->
+                  <div class="space-y-2.5 pt-3 border-t border-[#141110]/15">
+                    <span class="text-[10px] font-mono-tag tracking-wider text-[#141110]/50 uppercase block">
+                      HIGHLIGHTS & INKLUSI
+                    </span>
+                    <ul class="space-y-2">
+                      {sector.highlights.map((item) => (
+                        <li class="flex items-start gap-2.5 text-xs text-[#141110]/85 font-sans leading-snug">
+                          <span class="text-[#141110]/40 font-mono-tag mt-0.5 select-none">+</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                </div>
+
+                <!-- Box Footer: Rate Display & Action Link (Button Hitam GoUncharted) -->
+                <div class="pt-6 sm:pt-8 border-t border-[#141110]/15 mt-6 sm:mt-8 space-y-4">
+                  
+                  <!-- Rate Row -->
+                  <div class="flex items-baseline justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-mono-tag tracking-wider text-[#141110]/50 uppercase">
+                      TARIF RESMI
+                    </span>
+                    <div class="text-right">
+                      <div class="text-xl sm:text-2xl font-bold font-sans text-[#141110] tracking-tight">
+                        {sector.price}
+                      </div>
+                      <div class="text-[10px] font-mono-tag text-[#141110]/55 uppercase tracking-wide">
+                        {sector.pricePeriod}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Black Solid Button (Persis Style Standar GoUncharted) -->
+                  <a 
+                    href={sector.detailHref}
+                    class="group flex items-center justify-between w-full px-5 py-3.5 sm:py-4 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-[0_4px_20px_rgba(0,0,0,0.25)] select-none cursor-pointer"
+                  >
+                    <span>LIHAT DETAIL LENGKAP</span>
+                    <span class="text-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                      ↗
+                    </span>
+                  </a>
+
+                </div>
+
+              </div>
+            </div>
+
+          </article>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .font-mono-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+</style>
+
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: SMOOTH SUB-PIXEL TRANSLATE-Y CARD PARALLAX ENGINE             -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initSectorCardParallax() {
+    const cards = Array.from(document.querySelectorAll('.sector-image-card'));
+    if (!cards.length) return;
+
+    // Responsive travel range: 88px desktop, 48px mobile (Punchy & noticeable)
+    const getTravelDistance = () => (window.innerWidth < 1024 ? 48 : 88);
+
+    const updateAll = () => {
+      const windowHeight = window.innerHeight;
+      const maxDist = getTravelDistance();
+
+      cards.forEach((card) => {
+        const layer = card.querySelector('.sector-parallax-layer');
+        if (!layer) return;
+
+        const rect = card.getBoundingClientRect();
+
+        // Check if card is currently intersecting the viewport area
+        if (rect.top <= windowHeight && rect.bottom >= 0) {
+          const totalTravel = rect.height + windowHeight;
+          const enterProgress = (windowHeight - rect.top) / totalTravel;
+          const progress = Math.max(0, Math.min(1, enterProgress));
+
+          // Sub-pixel translate-Y: smooth entry from -maxDist to +maxDist
+          const translateY = ((progress - 0.5) * 2 * maxDist).toFixed(1);
+          layer.style.transform = `translate3d(0, ${translateY}px, 0)`;
+        }
+      });
+    };
+
+    let isTicking = false;
+    const onScroll = () => {
+      if (!isTicking) {
+        requestAnimationFrame(() => {
+          updateAll();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    };
+
+    // Smooth active scroll listener
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // Sync with smooth scroll (Lenis) if active on parent window
+    if (window.__lenis) {
+      window.__lenis.on('scroll', onScroll);
+    }
+
+    // Initial positioning
+    updateAll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSectorCardParallax);
+  } else {
+    initSectorCardParallax();
+  }
+</script>

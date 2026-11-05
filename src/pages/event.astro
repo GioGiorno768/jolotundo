@@ -1,0 +1,180 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import EventSectorGrid from '../components/EventSectorGrid.astro';
+import FooterCTA from '../components/FooterCTA.astro';
+
+// Event & Gathering Metadata Specs (1:1 GoUncharted Bottom Ribbon Data)
+const venueSpecs = {
+  location: "KEDIRI, EAST JAVA",
+  elevation: "ELEVATION ±800M",
+  partnerSupport: "PERHUTANI // PEMKAB",
+  categories: [
+    { label: "OUTDOOR WEDDINGS", detail: "FOREST LAWN" },
+    { label: "GLASS HALL MICE", detail: "FULL AC & 4K DISPLAY" },
+    { label: "OUTBOUND RECREATION", detail: "PINUS MEADOW" }
+  ],
+  hotlines: {
+    personal: "0822 2950 0998",
+    corporate: "0822 4982 9998"
+  }
+};
+---
+
+<Layout 
+  title="Event, Wedding & Gathering — Jolotundo Glamping & Culture"
+  description="Layanan venue pernikahan alam terbuka, sewa aula kaca ber-AC, dan paket outbound gathering korporat di ketinggian 800 MDPL Gunung Wilis."
+>
+  <!-- Floating Expanding Pill Navbar (GoUncharted Standard) -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Background -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED "BUILT ON FORTY-TWO PLACES")   -->
+    <!-- ========================================================================= -->
+    <header 
+      id="event-hero" 
+      class="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+    >
+      <!-- Parallax Translate-Y Background Layer -->
+      <div 
+        id="event-hero-parallax-layer"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src="/images/facilities/event-hero.jpg" 
+          alt="Jolotundo Event, Glasshouse Hall & Outdoor Wedding Venue" 
+          class="w-full h-full object-cover object-center scale-105"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <!-- Atmospheric Vignettes / Dual Scrim for Editorial Typography Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 pointer-events-none"></div>
+      </div>
+
+      <!-- Top Spacer to clear floating pill navbar -->
+      <div class="relative z-10 w-full pt-28 sm:pt-36"></div>
+
+      <!-- Center Display Typography (1:1 GoUncharted: Centered Bracketed Tag + Giant Bold Uppercase) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto my-auto w-full">
+        
+        <!-- Small Centered Bracketed Eyebrow Kicker -->
+        <span class="text-xs sm:text-sm font-mono-tag tracking-[0.28em] sm:tracking-[0.38em] text-[#d8c39e] uppercase mb-5 sm:mb-7 drop-shadow-md">
+          [ VENUES & GATHERINGS // GUNUNG WILIS ±800 MDPL ]
+        </span>
+
+        <!-- Giant Bold Display Headline (1:1 GoUncharted "BUILT ON FORTY-TWO PLACES.") -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-extrabold uppercase tracking-tight text-white leading-[0.95] font-sans drop-shadow-2xl">
+          SACRED VOWS &<br />
+          BOLD IDEAS.
+        </h1>
+      </div>
+
+      <!-- Bottom Metadata Bar (1:1 GoUncharted: Hairline Divider + Full-Width Metadata Columns) -->
+      <div class="relative z-10 w-full">
+        <!-- Thin Hairline Divider -->
+        <div class="w-full border-t border-white/20"></div>
+
+        <!-- Metadata Columns (Identik GoUncharted Bottom Bar: LISBON BASED | FORTY-TWO PLACES | NINETEEN COUNTRIES...) -->
+        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-4 sm:py-5 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono-tag text-white/70 uppercase tracking-wider">
+          
+          <!-- Left Column Group: Venue Sectors -->
+          <div class="flex flex-wrap items-center divide-x divide-white/20">
+            <div class="pr-5 sm:pr-8 py-1 flex items-center gap-2">
+              <span class="text-white/40">01</span>
+              <span class="text-white font-semibold">OUTDOOR WEDDINGS</span>
+            </div>
+            <div class="px-5 sm:px-8 py-1 flex items-center gap-2">
+              <span class="text-white/40">02</span>
+              <span class="text-white font-semibold">GLASS HALL MICE</span>
+            </div>
+            <div class="px-5 sm:px-8 py-1 flex items-center gap-2">
+              <span class="text-white/40">03</span>
+              <span class="text-[#d8c39e] font-semibold">OUTBOUND RECREATION</span>
+            </div>
+          </div>
+
+          <!-- Right Column Group: Geographic & Elevation Specs -->
+          <div class="flex flex-wrap items-center divide-x divide-white/20 md:justify-end">
+            <div class="pr-5 sm:pr-8 py-1 flex items-center gap-2">
+              <span class="text-white/40">REGION</span>
+              <span class="text-white font-semibold">BAJULAN // KEDIRI</span>
+            </div>
+            <div class="px-5 sm:px-8 py-1 flex items-center gap-2">
+              <span class="text-white/40">ELEVASI</span>
+              <span class="text-white font-semibold">±800 MDPL</span>
+            </div>
+            <a href="#event-sectors" class="pl-5 sm:pl-8 py-1 hidden lg:flex items-center gap-2 text-white/60 hover:text-white transition-colors cursor-pointer">
+              <span>EXPLORE BELOW</span>
+              <span class="text-white font-bold animate-bounce">↓</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- 2. THE THREE EVENT SECTORS (1:1 GOUNCHARTED ASYMMETRIC ZIG-ZAG GRID)     -->
+    <!-- ========================================================================= -->
+    <EventSectorGrid />
+
+    <!-- ========================================================================= -->
+    <!-- 3. FOOTER CONCIERGE CTA                                                   -->
+    <!-- ========================================================================= -->
+    <FooterCTA />
+
+  </main>
+</Layout>
+
+<style>
+  /* Monospaced tag font helper */
+  .font-mono-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+</style>
+
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: HERO PARALLAX TRANSLATE-Y ENGINE                              -->
+<!-- ========================================================================= -->
+<script is:inline>
+  function initEventHeroParallax() {
+    const heroSection = document.getElementById('event-hero');
+    const parallaxLayer = document.getElementById('event-hero-parallax-layer');
+    if (!heroSection || !parallaxLayer) return;
+
+    let isTicking = false;
+
+    function updateHeroParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+
+      if (scrollY <= heroHeight + 50) {
+        const translateY = scrollY * 0.32;
+        parallaxLayer.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+      }
+    }
+
+    function handleScroll() {
+      if (!isTicking) {
+        requestAnimationFrame(() => {
+          updateHeroParallax();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateHeroParallax();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEventHeroParallax);
+  } else {
+    initEventHeroParallax();
+  }
+</script>
