@@ -16,6 +16,33 @@
     "kicker": "THE SACRED MATRIMONY",
     "headline": "Janji suci berpadu keheningan alam lereng Wilis.",
     "narrative": "Rayakan awal perjalanan baru dalam keintiman sejati. Suasana asri hutan pinus Jolotundo menghadirkan ketenangan sakral tanpa kebisingan kota, lengkap dengan akomodasi menginap eksklusif untuk mempelai dan keluarga.",
+    "gallery": [
+      {
+        "src": "/images/facilities/wedding-forest.jpg",
+        "caption": "Altar & Lorong Janji Suci",
+        "subtitle": "Rustic Driftwood & Pine Canopy"
+      },
+      {
+        "src": "/images/accommodations/korean-glamping.jpg",
+        "caption": "Free Korean Glamping Menginap",
+        "subtitle": "Akomodasi Pengantin / Keluarga"
+      },
+      {
+        "src": "/images/facilities/amfiteater-bonfire.jpg",
+        "caption": "Pine Amphitheater & Evening Vows",
+        "subtitle": "Resepsi Alam Terbuka Temaram"
+      },
+      {
+        "src": "/images/facilities/pine-resto-cafe.jpg",
+        "caption": "Pine Cafe & Catering Support",
+        "subtitle": "Layanan Jamuan & Refreshment"
+      },
+      {
+        "src": "/images/facilities/musholla-alam.jpg",
+        "caption": "Musholla & Kesejukan Alam",
+        "subtitle": "Fasilitas Ibadah Asri Lereng Wilis"
+      }
+    ],
     "specs": [
       {
         "label": "TARIF PAKET",
@@ -110,6 +137,33 @@
     "kicker": "SPACE FOR IDEAS",
     "headline": "Gagasan besar lahir di tempat yang tenang dan jernih.",
     "narrative": "Gedung pertemuan serbaguna berdinding kaca modern yang memadukan hawa sejuk pegunungan dan kenyamanan ruangan full AC. Dirancang khusus untuk rapat kerja dinas, seminar, workshop, hingga ramah tamah komunitas.",
+    "gallery": [
+      {
+        "src": "/images/facilities/glass-hall-venue.jpg",
+        "caption": "Glasshouse Pavilion Panoramik",
+        "subtitle": "Dinding Kaca 360° Pemandangan Pinus"
+      },
+      {
+        "src": "/images/facilities/meeting-hall-pendopo.jpg",
+        "caption": "Ruang Pertemuan Full AC",
+        "subtitle": "Kenyamanan Sejuk Tanpa Polusi"
+      },
+      {
+        "src": "/images/facilities/event-hero.jpg",
+        "caption": "Pencahayaan Megah Saat Senja",
+        "subtitle": "Suasana Temaram Hangat & Khidmat"
+      },
+      {
+        "src": "/images/facilities/wifi-access.jpg",
+        "caption": "Konektivitas Audio Visual",
+        "subtitle": "High-Speed Internet & Presentasi 4K"
+      },
+      {
+        "src": "/images/facilities/parking-area.jpg",
+        "caption": "Aksesibilitas & Area Parkir Luas",
+        "subtitle": "Kapasitas Rombongan Bus & Puluhan Mobil"
+      }
+    ],
     "specs": [
       {
         "label": "TARIF SEWA",
@@ -189,6 +243,33 @@
     "kicker": "BUILDING COHESION",
     "headline": "Ciptakan kebersamaan, bangun kekompakan tim.",
     "narrative": "Area rumput terbuka luas berlatar pohon pinus dan kabut alami lereng Wilis. Sangat ideal untuk gathering keluarga besar, reuni akbar, jambore komunitas, hingga program outbound team building korporat.",
+    "gallery": [
+      {
+        "src": "/images/activities/outbound-gathering.jpg",
+        "caption": "Hamparan Lapangan Rumput Pinus",
+        "subtitle": "Area Terbuka Sinergi & Dinamika Tim"
+      },
+      {
+        "src": "/images/facilities/amfiteater-bonfire.jpg",
+        "caption": "Malam Keakraban Api Unggun",
+        "subtitle": "Sesi Refleksi & Bonfire Gathering"
+      },
+      {
+        "src": "/images/activities/atv-adventure.jpg",
+        "caption": "Fun Adventure ATV Add-on",
+        "subtitle": "Aktivitas Seru Melintasi Sungai & Hutan"
+      },
+      {
+        "src": "/images/facilities/pine-resto-cafe.jpg",
+        "caption": "Catering & Pine Cafe Resto",
+        "subtitle": "Santap Siang & Coffee Break Rombongan"
+      },
+      {
+        "src": "/images/activities/jeep-offroad.jpg",
+        "caption": "Ekspedisi Fun Offroad 4x4",
+        "subtitle": "Jelajah Jalur Ngleyangan & Lereng Wilis"
+      }
+    ],
     "specs": [
       {
         "label": "SEWA LAPANGAN",

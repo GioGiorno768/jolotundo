@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import FooterCTA from '../../components/FooterCTA.astro';
+import EventPreviewGallery from '../../components/EventPreviewGallery.astro';
 import eventDetails from '../../data/eventDetails.json';
 
 export async function getStaticPaths() {
@@ -212,7 +213,12 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(waMessage)}`;
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 3. STICKY DESCRIPTION STACK (DUAL STICKY: HEADER + STACKING CARDS DECK)   -->
+    <!-- 3. STICKY HORIZONTAL SCROLL PREVIEW GALLERY (1:1 GOUNCHARTED PREVIEW)     -->
+    <!-- ========================================================================= -->
+    <EventPreviewGallery venue={venue} />
+
+    <!-- ========================================================================= -->
+    <!-- 4. STICKY DESCRIPTION STACK (DUAL STICKY: HEADER + STACKING CARDS DECK)   -->
     <!-- ========================================================================= -->
     <section class="py-20 sm:py-28 px-6 sm:px-10 lg:px-14 xl:px-20 max-w-[1680px] mx-auto border-t border-[#141110]/15 relative">
       
