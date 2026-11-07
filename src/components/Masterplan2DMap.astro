@@ -1,0 +1,2012 @@
+---
+// Masterplan2DMap.astro — High-Precision 1:1 Vector SVG Masterplan of Jolotundo Glamping & Edupark
+// Every road vertex, river curve, creek bend, grass parcel, and all 100 tent coordinates (01–100)
+// have been measured directly from the 1200x1650 coordinate grid overlaid on the official Denah Lokasi.
+
+interface TentPlot {
+  num: string;
+  x: number;
+  y: number;
+  zone: string;
+  desc: string;
+}
+
+function linePlots(
+  nums: number[],
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  zone: string,
+  descTemplate: string
+): TentPlot[] {
+  const count = nums.length;
+  return nums.map((n, idx) => {
+    const t = count === 1 ? 0 : idx / (count - 1);
+    const numStr = n < 10 ? `0${n}` : `${n}`;
+    return {
+      num: numStr,
+      x: Math.round(x1 + (x2 - x1) * t),
+      y: Math.round(y1 + (y2 - y1) * t),
+      zone,
+      desc: descTemplate.replace('{NUM}', numStr)
+    };
+  });
+}
+
+function customPlots(
+  coords: Array<{ n: number; x: number; y: number }>,
+  zone: string,
+  descTemplate: string
+): TentPlot[] {
+  return coords.map(({ n, x, y }) => {
+    const numStr = n < 10 ? `0${n}` : `${n}`;
+    return {
+      num: numStr,
+      x,
+      y,
+      zone,
+      desc: descTemplate.replace('{NUM}', numStr)
+    };
+  });
+}
+
+// All 100 West-Bank Tent Plots (01 to 100) measured from the 1200x1650 grid overlay
+const westTentPlots: TentPlot[] = [
+  // 01–15: Upper West Riverside (North to South along main river)
+  ...linePlots(
+    [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+    525, 326, 536, 774,
+    "Riverside Camp Utara (01–15)",
+    "Kavling tenda #{NUM} tepat di tepi barat Sungai Bajulan dengan suara gemericik air alami, dekat Jembatan Utama & Kamar Mandi Utara."
+  ),
+
+  // 44–36: Upper Middle Island Column (Below Kamar Mandi Utara; creek crosses between 39 and 38)
+  ...customPlots(
+    [
+      { n: 44, x: 426, y: 408 },
+      { n: 43, x: 426, y: 448 },
+      { n: 42, x: 427, y: 492 },
+      { n: 41, x: 428, y: 536 },
+      { n: 40, x: 428, y: 576 },
+      { n: 39, x: 430, y: 616 },
+      { n: 38, x: 431, y: 656 },
+      { n: 37, x: 432, y: 696 },
+      { n: 36, x: 434, y: 738 }
+    ],
+    "Pinus Camp Tengah Utara (36–44)",
+    "Kavling tenda #{NUM} di pulau tengah Sektor Utara, diapit jalur jalan internal dan aliran anak sungai barat serta tepat di bawah Kamar Mandi Utara."
+  ),
+
+  // 45–51: Upper Outer West Column (45 is above the loop road, 46–51 below it)
+  ...customPlots(
+    [
+      { n: 45, x: 308, y: 68 },
+      { n: 46, x: 308, y: 122 },
+      { n: 47, x: 308, y: 162 },
+      { n: 48, x: 309, y: 202 },
+      { n: 49, x: 310, y: 242 },
+      { n: 50, x: 310, y: 280 },
+      { n: 51, x: 311, y: 316 }
+    ],
+    "Hillside Camp Barat Laut (45–51)",
+    "Kavling tenda #{NUM} di punggung bukit pinus paling utara yang tenang dan sejuk dengan naungan pohon pinus rimbun."
+  ),
+
+  // 52–63: Mid Outer West Column (North to South below y=336 crossroad)
+  ...linePlots(
+    [52,53,54,55,56,57,58,59,60,61,62,63],
+    315, 372, 328, 725,
+    "Pinus Camp Barat (52–63)",
+    "Kavling tenda #{NUM} di koridor barat hutan pinus, dekat dengan simpang Kamar Mandi Utara dan formasi batuan alam besar."
+  ),
+
+  // 64, 65 & 35, 34: Central Block A (Just south of Jalur Evakuasi)
+  ...customPlots(
+    [
+      { n: 64, x: 390, y: 882 },
+      { n: 65, x: 394, y: 945 },
+      { n: 35, x: 440, y: 882 },
+      { n: 34, x: 445, y: 945 }
+    ],
+    "Central Camp Blok A (34–35 & 64–65)",
+    "Kavling tenda #{NUM} di klaster tengah Blok A tepat di selatan Jalur Evakuasi, dilengkapi area api unggun dan dekat Kamar Mandi Tengah."
+  ),
+
+  // 66, 67 & 33, 32: Central Block B (Second courtyard block)
+  ...customPlots(
+    [
+      { n: 66, x: 394, y: 1012 },
+      { n: 67, x: 396, y: 1064 },
+      { n: 33, x: 450, y: 1008 },
+      { n: 32, x: 450, y: 1058 }
+    ],
+    "Central Camp Blok B (32–33 & 66–67)",
+    "Kavling tenda #{NUM} di pelataran api unggun tengah Blok B, ideal untuk camping keluarga maupun grup kecil dekat Area Komunal."
+  ),
+
+  // 16–19: Mid Riverside Strip (Just south of bridge)
+  ...customPlots(
+    [
+      { n: 16, x: 522, y: 902 },
+      { n: 17, x: 526, y: 942 },
+      { n: 18, x: 532, y: 982 },
+      { n: 19, x: 538, y: 1022 }
+    ],
+    "Riverside Camp Tengah (16–19)",
+    "Kavling tenda #{NUM} di tepi sungai tepat di selatan jembatan utama, berhadapan langsung dengan Pelataran & Bar Cafe di seberang sungai."
+  ),
+
+  // 20–27: Lower Riverside Strip (Following river curve south)
+  ...customPlots(
+    [
+      { n: 20, x: 554, y: 1088 },
+      { n: 21, x: 548, y: 1122 },
+      { n: 22, x: 550, y: 1156 },
+      { n: 23, x: 556, y: 1188 },
+      { n: 24, x: 564, y: 1216 },
+      { n: 25, x: 574, y: 1244 },
+      { n: 26, x: 584, y: 1272 },
+      { n: 27, x: 594, y: 1298 }
+    ],
+    "Riverside Camp Selatan (20–27)",
+    "Kavling tenda #{NUM} di lekukan tepi Sungai Bajulan bagian selatan, menghadap langsung ke dek River Breeze Lounge."
+  ),
+
+  // 31–28: Inner Column West of 24–27 (Below rock cluster)
+  ...customPlots(
+    [
+      { n: 31, x: 490, y: 1226 },
+      { n: 30, x: 494, y: 1256 },
+      { n: 29, x: 502, y: 1286 },
+      { n: 28, x: 516, y: 1320 }
+    ],
+    "Pinus Camp Tenggara (28–31)",
+    "Kavling tenda #{NUM} di baris kedua tepi sungai selatan dengan keteduhan pohon pinus dan akses dekat ke jalur jalan internal."
+  ),
+
+  // 68–72: Elongated Central-South Island Column
+  ...customPlots(
+    [
+      { n: 68, x: 398, y: 1152 },
+      { n: 69, x: 404, y: 1190 },
+      { n: 70, x: 412, y: 1228 },
+      { n: 71, x: 420, y: 1266 },
+      { n: 72, x: 432, y: 1304 }
+    ],
+    "Pinus Camp Selatan (68–72)",
+    "Kavling tenda #{NUM} di koridor pulau tengah-selatan yang dikelilingi jalan akses dan dekat dengan Kamar Mandi Selatan."
+  ),
+
+  // 88–84: Inner Southwest Column (Left of 68–72 road, sharing parcel with 92–89)
+  ...customPlots(
+    [
+      { n: 88, x: 350, y: 1168 },
+      { n: 87, x: 356, y: 1200 },
+      { n: 86, x: 362, y: 1235 },
+      { n: 85, x: 368, y: 1268 },
+      { n: 84, x: 375, y: 1302 }
+    ],
+    "Pinus Camp Barat Daya (84–88)",
+    "Kavling tenda #{NUM} di zona taman pinus barat daya, tepat di atas fasilitas Kamar Mandi Selatan."
+  ),
+
+  // 92–89: Mid Southwest Column (Sharing green parcel with 88–84)
+  ...customPlots(
+    [
+      { n: 92, x: 292, y: 1210 },
+      { n: 91, x: 290, y: 1250 },
+      { n: 90, x: 290, y: 1290 },
+      { n: 89, x: 290, y: 1332 }
+    ],
+    "Pinus Camp Barat Daya (89–92)",
+    "Kavling tenda #{NUM} di sektor barat daya yang dikelilingi pohon pinus, selangkah dari fasilitas Kamar Mandi Selatan."
+  ),
+
+  // 94–93: Trapezoid Block below Area Komunal
+  ...customPlots(
+    [
+      { n: 94, x: 314, y: 1022 },
+      { n: 93, x: 314, y: 1068 }
+    ],
+    "Komunal Camp Blok C (93–94)",
+    "Kavling tenda #{NUM} tepat di sisi selatan lapangan Area Komunal, sangat praktis untuk kegiatan kumpul komunitas."
+  ),
+
+  // 95–100: Outer Southwest Edge (Below Area Komunal)
+  ...customPlots(
+    [
+      { n: 95,  x: 242, y: 998 },
+      { n: 96,  x: 238, y: 1034 },
+      { n: 97,  x: 234, y: 1070 },
+      { n: 98,  x: 229, y: 1106 },
+      { n: 99,  x: 225, y: 1142 },
+      { n: 100, x: 220, y: 1178 }
+    ],
+    "Forest Edge Camp Barat Daya (95–100)",
+    "Kavling tenda #{NUM} di tepi hutan barat daya tepat di bawah Area Komunal, menawarkan panorama pepohonan hijau yang teduh."
+  ),
+
+  // 83–82: West of Southern Diagonal Road (Below Kamar Mandi Selatan)
+  ...customPlots(
+    [
+      { n: 83, x: 395, y: 1372 },
+      { n: 82, x: 408, y: 1408 }
+    ],
+    "Valley Camp Selatan (82–83)",
+    "Kavling tenda #{NUM} tepat di sebelah selatan Kamar Mandi Selatan dengan suasana lereng hutan yang asri."
+  ),
+
+  // 73–81: East of Southern Diagonal Road
+  ...customPlots(
+    [
+      { n: 73, x: 445, y: 1350 },
+      { n: 74, x: 458, y: 1378 },
+      { n: 75, x: 468, y: 1408 },
+      { n: 76, x: 484, y: 1436 },
+      { n: 77, x: 498, y: 1464 },
+      { n: 78, x: 514, y: 1490 },
+      { n: 79, x: 530, y: 1516 },
+      { n: 80, x: 550, y: 1542 },
+      { n: 81, x: 576, y: 1564 }
+    ],
+    "Valley Camp Ujung Selatan (73–81)",
+    "Kavling tenda #{NUM} di sepanjang koridor lembah selatan yang tenang dan privat, dekat aliran hilir sungai dan Kamar Mandi Selatan."
+  )
+];
+
+// Korean Glamping Tents (Tenda 1 to 13 along East Bank with Wayang Names)
+const koreanTents = [
+  { id: "kg-13", num: 13, label: "TENDA 13", wayang: "Puntadewa", y: 332, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-12", num: 12, label: "TENDA 12", wayang: "Werkudara", y: 354, cap: "Kapasitas 3 Orang (Cokelat)" },
+  { id: "kg-11", num: 11, label: "TENDA 11", wayang: "Janaka",    y: 376, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-10", num: 10, label: "TENDA 10", wayang: "Nakula",    y: 398, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-9",  num: 9,  label: "TENDA 9",  wayang: "Sadewa",    y: 420, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-8",  num: 8,  label: "TENDA 8",  wayang: "Pancawala", y: 442, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-7",  num: 7,  label: "TENDA 7",  wayang: "Gathotkaca",y: 464, cap: "Kapasitas 3 Orang (Cokelat)" },
+  { id: "kg-6",  num: 6,  label: "TENDA 6",  wayang: "Antareja",  y: 486, cap: "Kapasitas 3 Orang (Cokelat)" },
+  { id: "kg-5",  num: 5,  label: "TENDA 5",  wayang: "Antasena",  y: 544, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-4",  num: 4,  label: "TENDA 4",  wayang: "Abimanyu",  y: 567, cap: "Kapasitas 6 Orang (Hijau)" },
+  { id: "kg-3",  num: 3,  label: "TENDA 3",  wayang: "Wisanggeni",y: 590, cap: "Kapasitas 3 Orang (Cokelat)" },
+  { id: "kg-2",  num: 2,  label: "TENDA 2",  wayang: "Pramusinta",y: 613, cap: "Kapasitas 3 Orang (Cokelat)" },
+  { id: "kg-1",  num: 1,  label: "TENDA 1",  wayang: "Parikesit", y: 636, cap: "Kapasitas 3 Orang (Cokelat)" }
+];
+
+// 10 Riverside Wooden Cabins (DELUXE 1 to DELUXE 10 along South-East Riverbank)
+const riversideCabins = Array.from({ length: 10 }, (_, i) => ({
+  id: `cabin-${i + 1}`,
+  num: i + 1,
+  numStr: i + 1 < 10 ? `0${i + 1}` : `${i + 1}`,
+  label: `DELUXE ${i + 1}`,
+  x: Math.round(760 + i * 12),
+  y: Math.round(1304 + i * 32)
+}));
+
+// Camping Ground 1–100 rows (20 rows of 5 numbers, 96..100 at top down to 1..5 at bottom)
+const cgRows = Array.from({ length: 20 }, (_, rowIdx) => {
+  const base = (19 - rowIdx) * 5;
+  return {
+    y: 66 + rowIdx * 11,
+    nums: [base + 1, base + 2, base + 3, base + 4, base + 5]
+  };
+});
+
+// Conifer Pine Trees (exact grid positions from denah-lokasi.jpg)
+const pineTrees = [
+  // Right of 46–51
+  { x: 356, y: 135 }, { x: 358, y: 175 }, { x: 360, y: 225 }, { x: 362, y: 270 }, { x: 362, y: 312 },
+  // Right of 52–63
+  { x: 362, y: 412 }, { x: 364, y: 495 }, { x: 366, y: 545 }, { x: 368, y: 615 },
+  { x: 370, y: 665 }, { x: 372, y: 715 },
+  // Right of 39–36 (between creek and road)
+  { x: 468, y: 610 }, { x: 470, y: 655 }, { x: 452, y: 792 },
+  // Along Indian Camp & Korean Glamping riverbank
+  { x: 622, y: 205 }, { x: 625, y: 255 }, { x: 628, y: 310 }, { x: 630, y: 375 },
+  { x: 632, y: 435 }, { x: 634, y: 495 }, { x: 636, y: 555 }, { x: 638, y: 615 },
+  // Inside Block A (64-65 / 35-34)
+  { x: 415, y: 892 }, { x: 428, y: 882 }, { x: 418, y: 942 },
+  // Inside Block B (66-67 / 33-32)
+  { x: 422, y: 1052 },
+  // Below tent 100 (Southwest outer strip)
+  { x: 215, y: 1212 }, { x: 208, y: 1245 }, { x: 200, y: 1278 }, { x: 192, y: 1312 }, { x: 185, y: 1345 },
+  // Shared parcel between 92–89 and 88–84
+  { x: 315, y: 1135 }, { x: 335, y: 1125 }, { x: 278, y: 1168 },
+  { x: 325, y: 1195 }, { x: 326, y: 1235 }, { x: 328, y: 1275 }, { x: 330, y: 1310 },
+  // Above 31 (triangle parcel between 68–72 and 20–27)
+  { x: 462, y: 1118 }, { x: 482, y: 1105 }, { x: 498, y: 1122 },
+  { x: 468, y: 1148 }, { x: 488, y: 1145 }, { x: 505, y: 1152 },
+  // Pelataran left edge (along river)
+  { x: 668, y: 862 }, { x: 670, y: 898 }, { x: 672, y: 934 },
+  // Parking Mobil left border (row of pines along road)
+  { x: 892, y: 862 }, { x: 894, y: 896 }, { x: 896, y: 930 }, { x: 898, y: 964 },
+  { x: 900, y: 998 }, { x: 902, y: 1032 }, { x: 904, y: 1066 }, { x: 906, y: 1100 }, { x: 908, y: 1134 },
+  // Bottom valley trees near river
+  { x: 562, y: 1352 }, { x: 625, y: 1380 }
+];
+
+// Lush Deciduous Woodland Clumps (exact grid positions from denah-lokasi.jpg)
+const forestClumps = [
+  // West hillside outer woodland (top to bottom)
+  { x: 175, y: 180, s: 1.05 }, { x: 220, y: 195, s: 0.9 },
+  { x: 165, y: 265, s: 1.0 },  { x: 215, y: 288, s: 0.95 },
+  { x: 185, y: 315, s: 0.95 }, { x: 225, y: 385, s: 0.9 },
+  { x: 175, y: 425, s: 1.0 },  { x: 218, y: 485, s: 0.95 },
+  { x: 172, y: 505, s: 1.0 },  { x: 222, y: 575, s: 0.95 },
+  { x: 165, y: 585, s: 1.0 },  { x: 215, y: 655, s: 0.95 },
+  { x: 178, y: 675, s: 1.0 },  { x: 185, y: 745, s: 1.05 },
+  // West of Area Komunal
+  { x: 175, y: 905, s: 1.0 },  { x: 215, y: 945, s: 0.95 },
+  { x: 158, y: 958, s: 1.0 },
+  // Upper middle island (inside creek loop above tent 44)
+  { x: 432, y: 82, s: 0.95 },  { x: 405, y: 195, s: 0.9 },
+  // North of Jolotundo Stable Kuda
+  { x: 775, y: 265, s: 1.05 }, { x: 835, y: 272, s: 1.0 },
+  // East of Stable Kuda & Outbound
+  { x: 945, y: 525, s: 0.95 }, { x: 985, y: 535, s: 0.9 },
+  { x: 948, y: 585, s: 0.95 }, { x: 988, y: 595, s: 0.9 },
+  { x: 952, y: 645, s: 0.95 }, { x: 992, y: 675, s: 0.9 },
+  // South of Parkir Mobil
+  { x: 958, y: 1185, s: 1.0 }, { x: 1005, y: 1205, s: 0.95 },
+  { x: 965, y: 1245, s: 1.0 }, { x: 1030, y: 1265, s: 0.95 },
+  { x: 985, y: 1325, s: 1.0 }, { x: 1035, y: 1335, s: 0.95 },
+  // Strip between Cabin Road and South-East Stream
+  { x: 882, y: 1345, s: 0.65 }, { x: 892, y: 1395, s: 0.65 }, { x: 902, y: 1435, s: 0.6 },
+  // Bottom valley around 73–81 & 83–82
+  { x: 295, y: 1385, s: 0.85 }, { x: 345, y: 1445, s: 0.9 },
+  { x: 418, y: 1565, s: 0.85 }, { x: 545, y: 1412, s: 0.95 },
+  { x: 580, y: 1465, s: 1.0 }
+];
+---
+
+<section id="masterplan-2d-section" class="relative w-full bg-[#f4efe6] text-[#141110] pt-8 sm:pt-12 pb-20">
+  <div class="max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-14 xl:px-20">
+
+    <!-- ========================================================================= -->
+    <!-- 1. INTERACTIVE TOOLBAR: FILTER ZONA, PENCARIAN NOMOR TENDA & KONTROL ZOOM -->
+    <!-- ========================================================================= -->
+    <div class="border border-[#141110]/20 bg-transparent p-4 sm:p-6 mb-6 flex flex-col gap-4">
+      
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#141110]/15 pb-4">
+        
+        <!-- Filter Category Pills -->
+        <div class="flex flex-wrap items-center gap-2" id="map-filter-group">
+          <button type="button" data-filter="all" class="map-filter-btn active px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-[#141110] text-[#f4efe6] border border-[#141110] font-bold cursor-pointer transition-all">
+            Semua Zona
+          </button>
+          <button type="button" data-filter="camping" class="map-filter-btn px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-transparent text-[#141110] border border-[#141110]/25 hover:border-[#141110] cursor-pointer transition-all">
+            Tenda Camp (01–100)
+          </button>
+          <button type="button" data-filter="glamping" class="map-filter-btn px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-transparent text-[#141110] border border-[#141110]/25 hover:border-[#141110] cursor-pointer transition-all">
+            Korean Glamping &amp; Cabin
+          </button>
+          <button type="button" data-filter="wahana" class="map-filter-btn px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-transparent text-[#141110] border border-[#141110]/25 hover:border-[#141110] cursor-pointer transition-all">
+            Stable Kuda &amp; Outbound
+          </button>
+          <button type="button" data-filter="kuliner" class="map-filter-btn px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-transparent text-[#141110] border border-[#141110]/25 hover:border-[#141110] cursor-pointer transition-all">
+            River Breeze &amp; Cafe
+          </button>
+          <button type="button" data-filter="fasilitas" class="map-filter-btn px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-transparent text-[#141110] border border-[#141110]/25 hover:border-[#141110] cursor-pointer transition-all">
+            Aula, Mushola &amp; Parkir
+          </button>
+        </div>
+
+        <!-- Search Tent Number / Facility -->
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="relative flex-1 sm:w-64">
+            <input 
+              id="map-search-input"
+              type="text" 
+              placeholder="Ketik No. Tenda (01-100) / Area..." 
+              class="w-full px-3.5 py-2 text-xs font-mono-tag bg-[#f4efe6] border border-[#141110]/30 text-[#141110] placeholder:text-[#141110]/45 focus:outline-none focus:border-[#141110]"
+            />
+          </div>
+          <button 
+            id="map-search-btn"
+            type="button"
+            class="px-4 py-2 bg-[#141110] text-[#f4efe6] text-xs font-mono-tag font-bold uppercase tracking-wider hover:bg-black cursor-pointer shrink-0"
+          >
+            Cari ↗
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sub-bar: Interactive Instructions & Zoom Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-4 text-xs font-mono-tag">
+        <div class="flex items-center gap-3">
+          <span class="inline-block w-2 h-2 bg-emerald-700"></span>
+          <span class="text-[#141110]/70 uppercase tracking-wider">
+            100% INTERACTIVE SVG MASTERPLAN — KLIK TENDA / ZONA UNTUK DESKRIPSI POPUP • DRAG UNTUK GESER AREA
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-[#141110]/60 uppercase mr-1 hidden sm:inline">ZOOM PETA:</span>
+          <button id="zoom-out-btn" type="button" class="w-8 h-8 border border-[#141110]/30 bg-transparent hover:bg-[#141110] hover:text-[#f4efe6] font-bold cursor-pointer flex items-center justify-center" title="Perkecil">−</button>
+          <span id="zoom-level-indicator" class="px-3 h-8 border border-[#141110]/20 flex items-center justify-center font-bold text-[#141110] min-w-[60px]">100%</span>
+          <button id="zoom-in-btn" type="button" class="w-8 h-8 border border-[#141110]/30 bg-transparent hover:bg-[#141110] hover:text-[#f4efe6] font-bold cursor-pointer flex items-center justify-center" title="Perbesar">+</button>
+          <button id="zoom-reset-btn" type="button" class="px-3 h-8 border border-[#141110]/30 bg-transparent hover:bg-[#141110] hover:text-[#f4efe6] uppercase cursor-pointer">Reset</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 2. MAIN SPLIT WORKSPACE: 2D SVG MAP VIEWPORT (LEFT) + INSPECTOR (RIGHT)   -->
+    <!-- ========================================================================= -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- MAP VIEWPORT CANVAS (8 COLS ON DESKTOP) -->
+      <div class="lg:col-span-8 relative border border-[#141110]/30 bg-[#f3efc6] overflow-hidden shadow-md">
+        
+        <!-- Top-Left Floating Status Pill inside Map -->
+        <div class="absolute top-3 left-3 z-20 pointer-events-none bg-[#141110]/90 text-[#f4efe6] px-3 py-1.5 text-[10px] font-mono-tag uppercase tracking-widest">
+          <span>KLIK ITEM UNTUK POPUP INFO • SCROLL / TOMBOL +/- UNTUK ZOOM</span>
+        </div>
+
+        <!-- Bottom-Right Floating On-Canvas Zoom Controls -->
+        <div class="absolute bottom-4 right-4 z-20 flex items-center gap-1 bg-[#141110] text-[#f4efe6] p-1 border border-white/15 shadow-lg">
+          <button id="canvas-zoom-out" type="button" class="w-8 h-8 hover:bg-white/15 font-mono-tag text-sm font-bold flex items-center justify-center cursor-pointer" title="Zoom Out">−</button>
+          <button id="canvas-zoom-reset" type="button" class="px-2.5 h-8 hover:bg-white/15 font-mono-tag text-[10px] uppercase tracking-wider flex items-center justify-center cursor-pointer" title="Reset Zoom">1:1</button>
+          <button id="canvas-zoom-in" type="button" class="w-8 h-8 hover:bg-white/15 font-mono-tag text-sm font-bold flex items-center justify-center cursor-pointer" title="Zoom In">+</button>
+        </div>
+
+        <!-- Interactive Clamped ViewBox Pan/Zoom Container (Exact 1200:1650 Aspect Ratio so ZERO Outer Void ever appears) -->
+        <div 
+          id="map-pan-zoom-viewport" 
+          class="w-full relative overflow-hidden cursor-grab active:cursor-grabbing select-none"
+          style="aspect-ratio: 1200 / 1650; max-height: 1120px; background-color: #f3efc6;"
+        >
+          <!-- ================================================================= -->
+          <!-- IN-MAP FLOATING CALLOUT TOOLTIP WITH POINTER ARROW                -->
+          <!-- Appears directly above the clicked tent or zone!                  -->
+          <!-- ================================================================= -->
+          <div 
+            id="map-floating-callout"
+            class="hidden absolute z-30 w-[260px] sm:w-[295px] bg-[#141110] text-[#f4efe6] border border-[#d8c39e]/40 p-3.5 sm:p-4 shadow-[0_16px_40px_rgba(0,0,0,0.45)] pointer-events-auto"
+            style="left: 50%; top: 50%; transform: translate(-50%, calc(-100% - 18px));"
+          >
+            <!-- Top Row: Badge + Close Button -->
+            <div class="flex items-center justify-between gap-2 pb-2 mb-2 border-b border-white/15">
+              <span id="callout-badge" class="text-[9px] font-mono-tag font-bold uppercase tracking-widest px-2 py-0.5 bg-[#d8c39e] text-[#141110]">
+                KAVLING TENDA
+              </span>
+              <button 
+                id="callout-close-btn" 
+                type="button" 
+                class="text-white/60 hover:text-white text-xs font-mono-tag px-1.5 py-0.5 cursor-pointer"
+                aria-label="Tutup popup"
+              >
+                ✕
+              </button>
+            </div>
+
+            <!-- Title & Sub -->
+            <div class="space-y-1">
+              <span id="callout-sub" class="block text-[9.5px] font-mono-tag text-[#d8c39e] uppercase tracking-wider">
+                SEKTOR BARAT
+              </span>
+              <h4 id="callout-title" class="text-sm sm:text-base font-bold text-white leading-snug">
+                Kavling Tenda No. 01
+              </h4>
+              <p id="callout-desc" class="text-[11.5px] text-white/80 leading-relaxed pt-0.5">
+                Deskripsi singkat titik lokasi yang dipilih.
+              </p>
+            </div>
+
+            <!-- Action Link inside Callout -->
+            <div class="pt-3 mt-2.5 border-t border-white/15 flex items-center justify-between">
+              <a 
+                id="callout-link" 
+                href="/akomodasi" 
+                class="inline-flex items-center gap-1.5 text-[10px] font-mono-tag font-bold uppercase tracking-wider text-[#d8c39e] hover:text-white transition-colors"
+              >
+                <span id="callout-link-text">Lihat Detail &amp; Reservasi</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            <!-- Downward Pointer Triangle Arrow pointing directly at the selected item -->
+            <div 
+              class="w-3.5 h-3.5 bg-[#141110] border-r border-b border-[#d8c39e]/40 rotate-45 absolute left-1/2 -bottom-[8px] -translate-x-1/2 pointer-events-none"
+            ></div>
+          </div>
+
+          <!-- ================================================================= -->
+          <!-- 100% PURE VECTOR SVG MASTERPLAN (viewBox="0 0 1200 1650")         -->
+          <!-- ================================================================= -->
+          <svg 
+            id="interactive-svg-map"
+            viewBox="0 0 1200 1650" 
+            preserveAspectRatio="xMidYMid slice"
+            class="w-full h-full block"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <!-- Grass pattern tint -->
+              <linearGradient id="lawn-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#87bc43" />
+                <stop offset="100%" stop-color="#699e2c" />
+              </linearGradient>
+
+              <!-- River water gradient -->
+              <linearGradient id="river-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#489396" />
+                <stop offset="50%" stop-color="#3e8487" />
+                <stop offset="100%" stop-color="#36777a" />
+              </linearGradient>
+
+              <!-- Reusable Orange 3D-Style Tent Symbol -->
+              <g id="tent-icon">
+                <ellipse cx="1" cy="7.5" rx="13" ry="3.5" fill="#3a4f17" opacity="0.25" />
+                <polygon points="-11,7 0,-5 11,7" fill="#f39221" stroke="#4a280b" stroke-width="1.2" stroke-linejoin="round" />
+                <polygon points="0,-5 11,7 16,4 5,-7" fill="#d47612" stroke="#4a280b" stroke-width="1" stroke-linejoin="round" />
+                <polygon points="-4.5,7 0,-0.5 4.5,7" fill="#3b220c" />
+              </g>
+
+              <!-- Reusable Conifer Pine Tree Symbol -->
+              <g id="pine-tree">
+                <ellipse cx="0" cy="11" rx="7.5" ry="2.8" fill="#000000" opacity="0.14" />
+                <rect x="-1.5" y="4" width="3" height="7" fill="#6b4423" />
+                <polygon points="0,-14 -8,-2 8,-2" fill="#529434" />
+                <polygon points="0,-9 -10,2 10,2" fill="#417d27" />
+                <polygon points="0,-4 -11,7 11,7" fill="#31631b" />
+              </g>
+
+              <!-- Reusable Lush Deciduous Woodland Clump -->
+              <g id="forest-clump">
+                <ellipse cx="0" cy="14" rx="28" ry="8" fill="#6d8c3a" opacity="0.35" />
+                <rect x="-16" y="2" width="3.5" height="10" fill="#6b4423" />
+                <circle cx="-14" cy="-3" r="10" fill="#5c9632" />
+                <circle cx="-17" cy="-5" r="7" fill="#7ec244" />
+                <rect x="11" y="3" width="3.5" height="9" fill="#6b4423" />
+                <circle cx="13" cy="-2" r="9.5" fill="#4f8529" />
+                <circle cx="10" cy="-4" r="6.5" fill="#73b83b" />
+                <rect x="-2" y="-1" width="4" height="13" fill="#5c3818" />
+                <circle cx="0" cy="-9" r="12.5" fill="#487a24" />
+                <circle cx="-3" cy="-11" r="9" fill="#6db337" />
+                <circle cx="4" cy="-7" r="7" fill="#88cc4e" />
+              </g>
+
+              <!-- Reusable River & Valley Rock Cluster -->
+              <g id="rock-cluster">
+                <polygon points="-15,6 -9,-6 4,-9 15,2 11,8 -6,9" fill="#8b8d90" stroke="#555658" stroke-width="1" />
+                <polygon points="-5,-6 4,-9 12,0 2,4" fill="#b1b3b6" />
+                <polygon points="-18,8 -10,0 -2,7" fill="#6d6e71" />
+              </g>
+
+              <!-- Reusable Sun Lounger Icon -->
+              <g id="sun-lounger">
+                <path d="M-12,6 L6,6 L12,-4 M-8,6 L-10,10 M4,6 L6,10" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="8" cy="-4" r="2.5" fill="#ffffff" />
+              </g>
+
+              <!-- Reusable Wooden Cabin Icon (3D Chalet with DELUXE Roof Plate) -->
+              <g id="wooden-cabin">
+                <ellipse cx="0" cy="12" rx="18" ry="5" fill="#3a4f17" opacity="0.25" />
+                <rect x="-13" y="-4" width="26" height="15" fill="#8c5327" stroke="#3e220c" stroke-width="1.3" />
+                <polygon points="-16,-4 0,-15 16,-4" fill="#5e3214" stroke="#3e220c" stroke-width="1.3" />
+                <rect x="-5" y="1" width="5.5" height="10" fill="#d9a15b" />
+                <rect x="3" y="-1" width="6" height="5" fill="#fce592" />
+                <circle cx="-15" cy="7" r="4" fill="#529434" />
+                <circle cx="15" cy="7" r="4" fill="#6db337" />
+              </g>
+
+              <!-- Octagonal Wooden Gazebo Roof -->
+              <g id="gazebo-icon">
+                <polygon points="-10,-4 -4,-10 4,-10 10,-4 10,4 4,10 -4,10 -10,4" fill="#a88468" stroke="#4a3520" stroke-width="1.2" />
+                <polygon points="-10,-4 0,0 4,-10 -4,-10" fill="#c49e80" />
+                <circle cx="0" cy="0" r="2" fill="#4a3520" />
+              </g>
+
+              <!-- Campfire Icon -->
+              <g id="campfire-icon">
+                <line x1="-7" y1="4" x2="7" y2="-2" stroke="#6b4423" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="-7" y1="-2" x2="7" y2="4" stroke="#5c3818" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M0,-10 C4,-4 5,1 0,3 C-5,1 -4,-4 0,-10 Z" fill="#e65100" />
+                <path d="M0,-7 C2,-3 2.5,0 0,2 C-2.5,0 -2,-3 0,-7 Z" fill="#ffca28" />
+              </g>
+            </defs>
+
+            <!-- 0. EXTENDED CREAM CANVAS BACKGROUND -->
+            <rect x="-600" y="-600" width="2400" height="2850" fill="#f3efc6" />
+
+            <!-- =============================================================== -->
+            <!-- 1. EXACT GREEN GRASS PARCELS (Measured from Grid Overlay)       -->
+            <!-- =============================================================== -->
+            <!-- Upper West Outer Parcel (45 and 46–51) -->
+            <polygon points="274,64 366,68 366,94 274,92" fill="#b4d46b" />
+            <polygon points="274,100 370,104 378,330 280,330" fill="#b4d46b" />
+            <!-- Upper Middle Creek Loop Green Patches -->
+            <polygon points="396,52 458,48 485,112 390,108" fill="#c5de87" />
+            <polygon points="388,145 462,150 472,265 396,265" fill="#c5de87" />
+            <!-- Mid West Parcel (52–63) with pointed bottom at T-junction (282,758 -> 318,804 -> 394,760) -->
+            <polygon points="280,342 386,342 388,756 318,798 286,756" fill="#b4d46b" />
+            <!-- Mid North Island Parcel (44–36) — ends at y=776 at the woodland tree clump (cream canvas below around Kamar Mandi & Warung Ketan!) -->
+            <polygon points="398,342 478,342 484,735 478,776 400,776" fill="#b4d46b" />
+            <!-- Upper Riverside Strip (01–15) — ends just below tent 15 at y=806 -->
+            <polygon points="494,300 546,300 556,804 490,804 496,735" fill="#b4d46b" />
+
+            <!-- South of Jalur Evakuasi Parcels: -->
+            <!-- Area Komunal (starts at x=272 at top y=858 so trees on left sit on cream canvas, then steps out to x=218 at y=975 for Tents 95–100!) -->
+            <polygon points="272,858 342,858 346,988 272,992 236,1365 155,1358 192,1180 218,975 270,975" fill="#a8cf5c" />
+            <!-- Block A (64, 65, 35, 34) -->
+            <polygon points="358,852 468,846 482,976 360,982" fill="#b4d46b" />
+            <!-- Block B (66, 67, 33, 32) -->
+            <polygon points="360,992 484,988 488,1048 414,1102 362,1078" fill="#b4d46b" />
+            <!-- Mid Riverside (16–19) — starts at y=882 below the bridge rock cluster -->
+            <polygon points="490,882 562,880 578,1050 498,1046" fill="#b4d46b" />
+            <!-- Trapezoid Block C (94, 93) -->
+            <polygon points="282,998 350,994 352,1078 266,1135" fill="#b4d46b" />
+            <!-- Shared Large Southwest Parcel (92–89 AND 88–84 + Kamar Mandi Selatan) -->
+            <polygon points="264,1148 356,1088 410,1112 372,1135 398,1318 246,1362" fill="#b4d46b" />
+            <!-- Elongated Island (68–72) -->
+            <polygon points="382,1136 418,1112 462,1305 408,1316" fill="#b4d46b" />
+            <!-- Southeast Triangle & 31–28 Parcel -->
+            <polygon points="426,1106 492,1058 512,1058 502,1135 562,1308 472,1305" fill="#b4d46b" />
+            <!-- Lower Riverside Strip (20–27) -->
+            <polygon points="522,1058 582,1062 638,1315 572,1312 514,1135" fill="#b4d46b" />
+            <!-- Bottom Valley Lawn (83–82 on left of road, 73–81 on right of road) -->
+            <polygon points="258,1375 398,1328 552,1585 445,1580 355,1505 295,1445" fill="#bad676" />
+            <polygon points="412,1324 635,1312 745,1565 568,1585" fill="#b4d46b" />
+
+            <!-- =============================================================== -->
+            <!-- 2. RIVERS & STREAMS (Exact Grid Paths)                          -->
+            <!-- =============================================================== -->
+            <!-- West Tributary Stream (Loops right of 44–40, crosses between 39 & 38, flows down to boulders) -->
+            <path 
+              d="M462,38 C412,42 382,68 378,118 C374,168 386,255 402,318 C416,368 462,362 468,425 C472,485 470,565 445,602 C418,638 385,638 362,695 C345,738 320,762 292,788" 
+              fill="none" 
+              stroke="#489396" 
+              stroke-width="10.5" 
+              stroke-linecap="round"
+            />
+
+            <!-- South-East Stream (Branches from main river at y=1265 below River Breeze and flows to y=1612) -->
+            <path 
+              d="M695,1265 C745,1268 795,1268 845,1272 C895,1278 922,1315 935,1375 C950,1445 965,1530 980,1612" 
+              fill="none" 
+              stroke="#489396" 
+              stroke-width="11.5" 
+              stroke-linecap="round"
+            />
+
+            <!-- MAIN RIVER: SUNGAI BAJULAN -->
+            <path 
+              id="zone-river"
+              data-zone-category="wahana"
+              data-zone-title="Sungai Alami Bajulan"
+              data-zone-sub="ALIRAN SUNGAI PEGUNUNGAN WILIS"
+              data-zone-desc="Aliran sungai pegunungan jernih yang membelah kawasan Jolotundo menjadi Sektor Barat (Tenda 01–100) dan Sektor Timur (Korean Glamping, Wahana, Aula & Cafe)."
+              data-zone-link="/akomodasi/river-camp"
+              data-anchor-x="585"
+              data-anchor-y="620"
+              class="map-interactive-zone cursor-pointer hover:opacity-95 transition-opacity"
+              d="M435,0 L502,0 C542,75 575,145 590,200 C600,260 602,310 602,350 L610,600 L622,835 L638,1000 C648,1080 656,1145 668,1200 C682,1255 698,1305 716,1350 C755,1440 795,1528 832,1612 L758,1612 C720,1525 682,1438 650,1350 C630,1300 614,1250 602,1200 C590,1140 585,1075 582,1000 L568,835 L558,600 L550,350 C546,295 542,245 536,200 C520,135 482,70 435,0 Z" 
+              fill="url(#river-grad)" 
+            />
+
+            <!-- River & Valley Rocks (Exact Grid Positions) -->
+            <use href="#rock-cluster" transform="translate(432, 222) scale(1.35)" />
+            <use href="#rock-cluster" transform="translate(495, 178) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(576, 418) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(585, 582) scale(0.95)" />
+            <use href="#rock-cluster" transform="translate(590, 702) scale(1.0)" />
+            <use href="#rock-cluster" transform="translate(592, 785) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(514, 864) scale(0.9)" />
+            <use href="#rock-cluster" transform="translate(606, 945) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(612, 1018) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(675, 1002) scale(1.1)" />
+            <use href="#rock-cluster" transform="translate(642, 1218) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(692, 1365) scale(1.1)" />
+            <!-- West Bank Valley Rocks -->
+            <use href="#rock-cluster" transform="translate(358, 372) scale(0.85)" />
+            <use href="#rock-cluster" transform="translate(362, 468) scale(0.85)" />
+            <use href="#rock-cluster" transform="translate(364, 595) scale(0.85)" />
+            <use href="#rock-cluster" transform="translate(366, 752) scale(0.85)" />
+            <use href="#rock-cluster" transform="translate(292, 1175) scale(0.95)" />
+            <use href="#rock-cluster" transform="translate(328, 1308) scale(0.85)" />
+            <use href="#rock-cluster" transform="translate(472, 1185) scale(1.25)" />
+            <use href="#rock-cluster" transform="translate(218, 1360) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(308, 1435) scale(1.3)" />
+            <use href="#rock-cluster" transform="translate(372, 1488) scale(1.35)" />
+            <use href="#rock-cluster" transform="translate(425, 1545) scale(1.25)" />
+            <use href="#rock-cluster" transform="translate(548, 1362) scale(1.0)" />
+            <use href="#rock-cluster" transform="translate(592, 1405) scale(1.05)" />
+            <use href="#rock-cluster" transform="translate(648, 1525) scale(1.4)" />
+            <!-- East Bank Rocks near Parking Mobil & Stream -->
+            <use href="#rock-cluster" transform="translate(902, 1125) scale(1.0)" />
+            <use href="#rock-cluster" transform="translate(908, 1272) scale(1.05)" />
+
+            <!-- =============================================================== -->
+            <!-- 3. EXACT ROAD NETWORK (Measured Vertex-by-Vertex from Grid)     -->
+            <!-- =============================================================== -->
+            <g stroke="#6c6d70" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <!-- NORTH WEST & CENTER WEST ROADS (1:1 with closeup media_1794024986104_5957691f.jpg) -->
+              <!-- Left outer vertical road (left of 45..63) -> bends at (282,756) diagonally to (348,846) at Jalur Evakuasi -> continues down to (356,1082) -->
+              <path d="M268,65 L282,756 L348,846 L356,1082" stroke-width="11.5" />
+              <!-- Upper loop road (branches between 45 and 46, loops over creek, goes down between 44–36 and 01–15, bends slightly left at y=735 to (474,838), then down to (494,1052)) -->
+              <path d="M270,95 L385,102 C445,106 476,145 482,215 L490,735 L474,838 L494,1052" stroke-width="11" />
+              <!-- Horizontal crossroad between 51 and 52 -->
+              <path d="M276,336 L488,336" stroke-width="11" />
+              <!-- Vertical road between 52–63 and 44–36 -> turns diagonally down-left at (394,758) to T-junction at (316,804) (NO road under tent 36!) -->
+              <path d="M392,336 L394,758 L316,804" stroke-width="11" />
+
+              <!-- SOUTH WEST ROADS -->
+              <!-- Horizontal Road between Block A (64-65/35-34) and Block B (66-67/33-32) — starts at x=278 (NOT under Area Komunal!) -->
+              <path d="M278,995 L354,988 L488,982" stroke-width="11" />
+              <!-- Long Left Road (Between 95–100 on left and 94-93 / 92-89 on right) -->
+              <path d="M278,995 L242,1365" stroke-width="11.5" />
+              <!-- Diagonal Road below 94-93 -->
+              <path d="M356,1082 L262,1142" stroke-width="11" />
+              <!-- V-Junction below Block B (66-67 / 33-32) -->
+              <path d="M356,1082 L414,1108 L494,1052" stroke-width="11" />
+              <!-- Left Road of 68–72 Island (Separates 88–84 from 68–72; NO road between 92-89 and 88-84!) -->
+              <path d="M414,1108 L376,1135 L404,1322" stroke-width="11" />
+              <!-- Right Road of 68–72 Island (Separates 68–72 from 31–28) -->
+              <path d="M424,1102 L468,1310 L404,1322" stroke-width="11" />
+              <!-- Road above 20 & between 31–28 and 20–27 (bends left around 20-21 with dead-end hook at bottom) -->
+              <path d="M494,1052 L582,1058" stroke-width="10.5" />
+              <path d="M518,1055 L508,1135 L568,1312 L556,1315" stroke-width="10.5" />
+              <!-- Bottom Crossroad (Below 89, Kamar Mandi Selatan, 84, 72) -->
+              <path d="M238,1372 L404,1322" stroke-width="11.5" />
+              <!-- Southernmost Diagonal Road (Between 83–82 on left and 73–81 on right!) -->
+              <path d="M404,1322 L558,1585 L572,1585" stroke-width="11" />
+
+              <!-- EAST BANK ROADS (1:1 with closeup media_1794024986104_5957691f.jpg) -->
+              <!-- Narrow strip between Indian Camp and Camping Ground / Korean Glamping -->
+              <path d="M645,30 L646,650" stroke-width="7" />
+              <!-- Main Central East Road: vertical down to y=762, angles left alongside Aula to (708,822), then curves gently through Pelataran to Bar Cafe -->
+              <path d="M720,168 L720,762 L708,822" stroke-width="11.5" />
+              <path d="M706,830 Q698,885 705,955" stroke-width="11.5" />
+              <!-- Horizontal Road between TOILET (above) and AULA / RESEPSIONIS / MUSHOLA (below) -->
+              <path d="M720,762 L868,762" stroke-width="11.5" />
+              <!-- Outer East Road: vertical down to y=762, angles slightly right alongside Mushola to (876,812), then continues down wrapping around Indoor Cafe & 10 Cabins -->
+              <path d="M868,295 L868,762 L876,812" stroke-width="11.5" />
+              <path d="M866,822 L868,1000 L908,1235 L830,1298 L928,1585" stroke-width="11" />
+              <!-- Subtle stone-block paving texture on Pelataran East Road -->
+              <path d="M864,826 L866,996" stroke="#a7a9ac" stroke-width="4" stroke-dasharray="10 4" />
+              <!-- Branch connecting Pelataran, Bar Cafe & Indoor Cafe -->
+              <path d="M868,1000 L725,1008 L698,975" stroke-width="10" />
+            </g>
+
+            <!-- Woodland Tree Clump directly below Tent 36 & Rock/Tree below Tent 15 (1:1 with closeup) -->
+            <use href="#forest-clump" transform="translate(432, 774) scale(0.95)" />
+            <use href="#rock-cluster" transform="translate(518, 808) scale(0.95)" />
+            <use href="#rock-cluster" transform="translate(362, 765) scale(0.95)" />
+
+            <!-- Multi-Faceted 4-Boulder Formation + 3 Pebbles (West of Jalur Evakuasi, 1:1 with closeup) -->
+            <g transform="translate(262, 792)">
+              <!-- Top-Right Tall Peak Boulder -->
+              <polygon points="-24,-10 -8,-48 16,-48 34,-8 6,8" fill="#8c8e91" stroke="#58595b" stroke-width="1.2" />
+              <polygon points="-8,-48 16,-48 18,-10 -12,-10" fill="#a7a9ac" />
+              <!-- Center-Right Faceted Boulder -->
+              <polygon points="-6,4 16,-24 44,-16 54,18 14,24" fill="#77787b" stroke="#58595b" stroke-width="1.2" />
+              <polygon points="16,-24 38,-14 26,12 4,8" fill="#939598" />
+              <!-- Far-Left Faceted Boulder -->
+              <polygon points="-68,28 -54,-14 -24,-16 -8,18 -38,34" fill="#77787b" stroke="#58595b" stroke-width="1.2" />
+              <polygon points="-54,-14 -24,-16 -22,12 -48,18" fill="#9d9fa2" />
+              <!-- Bottom-Left Small Boulder -->
+              <polygon points="-40,36 -26,14 2,18 6,38 -24,42" fill="#808285" stroke="#58595b" stroke-width="1.2" />
+              <!-- Bottom-Right Horizontal Boulder -->
+              <polygon points="10,22 52,18 68,28 66,44 12,44" fill="#808285" stroke="#58595b" stroke-width="1.2" />
+              <polygon points="14,22 52,18 56,30 16,32" fill="#a7a9ac" />
+              <!-- 3 Small Pebbles below -->
+              <polygon points="-8,46 0,42 6,47 -2,50" fill="#6d6e71" />
+              <polygon points="10,48 18,45 22,50 12,52" fill="#6d6e71" />
+              <polygon points="28,46 34,44 38,48 30,50" fill="#808285" />
+            </g>
+
+            <!-- Campfires & Rock inside Block A & Block B -->
+            <use href="#rock-cluster" transform="translate(418, 918) scale(0.75)" />
+            <use href="#campfire-icon" transform="translate(392, 915)" />
+            <use href="#campfire-icon" transform="translate(424, 1038)" />
+
+            <!-- Warung Ketan Badge (Just east of Kamar Mandi Tengah above Jalur Evakuasi, 1:1 with closeup) -->
+            <g 
+              class="map-interactive-zone cursor-pointer"
+              data-zone-category="kuliner"
+              data-zone-title="Warung Ketan Tradisional"
+              data-zone-sub="KULINER HANGAT POROS JEMBATAN BARAT"
+              data-zone-desc="Kedai ketan hangat dan kudapan malam di simpang utama Jalur Evakuasi Barat, tepat di sebelah Kamar Mandi Tengah."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="446"
+              data-anchor-y="810"
+              transform="translate(446, 810)"
+            >
+              <rect x="-18" y="-14" width="36" height="32" rx="6" fill="#b4d472" stroke="#8ab346" stroke-width="1" />
+              <circle cx="0" cy="-3" r="7.5" fill="#7b1fa2" stroke="#ffffff" stroke-width="1" />
+              <circle cx="0" cy="-3" r="3.5" fill="#ff9800" />
+              <text x="0" y="9.5" fill="#231f20" font-size="4.5" font-weight="900" text-anchor="middle" font-family="sans-serif">WARUNG</text>
+              <text x="0" y="14.5" fill="#231f20" font-size="4.5" font-weight="900" text-anchor="middle" font-family="sans-serif">KETAN</text>
+            </g>
+
+            <!-- =============================================================== -->
+            <!-- 4. CENTRAL BRIDGE & MAGENTA JALUR EVAKUASI AXIS                 -->
+            <!-- =============================================================== -->
+            <g 
+              class="map-interactive-zone cursor-pointer"
+              data-zone-category="fasilitas"
+              data-zone-title="Jalur Evakuasi & Jembatan Utama"
+              data-zone-sub="POROS AKSES UTAMA BARAT — TIMUR"
+              data-zone-desc="Jalur utama dari Pintu Masuk Timur melintasi Jembatan Sungai Bajulan menuju Sektor Perkemahan Barat dan Area Komunal."
+              data-zone-link="/lokasi"
+              data-anchor-x="592"
+              data-anchor-y="832"
+            >
+              <!-- West Magenta Jalur Evakuasi -->
+              <path d="M342,846 L526,836" stroke="#b53882" stroke-width="16" stroke-linecap="butt" />
+              <text x="434" y="844" fill="#ffffff" font-size="9.2" font-weight="800" text-anchor="middle" font-family="sans-serif" letter-spacing="0.06em">
+                🏃 JALUR EVAKUASI
+              </text>
+
+              <!-- East Magenta Jalur Evakuasi -->
+              <path d="M660,828 L995,808" stroke="#b53882" stroke-width="16" stroke-linecap="butt" />
+              <text x="775" y="824" fill="#ffffff" font-size="9.2" font-weight="800" text-anchor="middle" font-family="sans-serif" letter-spacing="0.06em">
+                🏃 JALUR EVAKUASI
+              </text>
+
+              <!-- Grey Concrete Bridge Abutments (Left & Right of Brown Bridge Deck) -->
+              <polygon points="524,826 546,825 546,845 524,846" fill="#a7a9ac" />
+              <polygon points="642,819 662,818 662,838 642,839" fill="#a7a9ac" />
+
+              <!-- Central River Bridge (Jembatan Utama with Flared Railing Ends) -->
+              <g transform="translate(594, 832) rotate(-3)">
+                <rect x="-48" y="-16" width="96" height="32" fill="#8a6f5a" stroke="#3d2c1e" stroke-width="2" />
+                <path d="M-56,-21 L-46,-16 L46,-16 L56,-21" fill="none" stroke="#231f20" stroke-width="3" stroke-linecap="round" />
+                <path d="M-56,21 L-46,16 L46,16 L56,21" fill="none" stroke="#231f20" stroke-width="3" stroke-linecap="round" />
+              </g>
+
+              <!-- PINTU MASUK Label -->
+              <text x="938" y="834" fill="#231f20" font-size="13" font-weight="900" text-anchor="middle" font-family="sans-serif">
+                PINTU MASUK
+              </text>
+            </g>
+
+            <!-- =============================================================== -->
+            <!-- 5. EAST BANK ZONES (NORTH TO SOUTH)                             -->
+            <!-- =============================================================== -->
+
+            <!-- 5A. INDIAN CAMP -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="glamping"
+              data-zone-title="Indian Camp (Teepee Tent)"
+              data-zone-sub="SEKTOR UTARA SUNGAI // KAPASITAS 3A, 3B, 6A, 6B"
+              data-zone-desc="Area tenda tematik bergaya Indian Teepee (Kapasitas 3 & 6 orang) di tepi hulu sungai yang tenang, bersebelahan langsung dengan Camping Ground Timur."
+              data-zone-link="/akomodasi"
+              data-anchor-x="612"
+              data-anchor-y="115"
+            >
+              <polygon points="572,30 638,30 642,188 598,188" fill="#d9dee8" stroke="#99a3b5" stroke-width="1.5" />
+              <text x="615" y="112" fill="#3b4252" font-size="10.5" font-weight="800" text-anchor="middle" transform="rotate(-90, 615, 112)" font-family="sans-serif" letter-spacing="0.08em">
+                INDIAN CAMP
+              </text>
+            </g>
+
+            <!-- 5B. CAMPING GROUND (1 TO 100 GRID) -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="camping"
+              data-zone-title="Camping Ground Timur (Grid 1–100)"
+              data-zone-sub="ZONA CAMPING REGULER UTARA"
+              data-zone-desc="Hamparan lapangan Camping Ground bernomor kavling 1 hingga 100 (20 baris x 5 kolom) di Sektor Timur, dilengkapi fasilitas Kamar Mandi di sisi selatannya."
+              data-zone-link="/akomodasi/camping-ground"
+              data-anchor-x="682"
+              data-anchor-y="145"
+            >
+              <rect x="652" y="28" width="60" height="260" fill="#d5e392" stroke="#7d9c3a" stroke-width="1.5" />
+              <rect x="652" y="28" width="60" height="22" fill="#9ec54b" />
+              <text x="682" y="38" fill="#1f3309" font-size="6.8" font-weight="900" text-anchor="middle" font-family="sans-serif">CAMPING</text>
+              <text x="682" y="46" fill="#1f3309" font-size="6.8" font-weight="900" text-anchor="middle" font-family="sans-serif">GROUND</text>
+              {cgRows.map((row) => (
+                <text x="682" y={row.y} fill="#231f20" font-size="6.2" font-weight="700" text-anchor="middle" font-family="monospace" letter-spacing="0.5">
+                  {row.nums.join(' ')}
+                </text>
+              ))}
+            </g>
+
+            <!-- Kamar Mandi (Above Korean Glamping) -->
+            <g 
+              class="map-interactive-zone cursor-pointer"
+              data-zone-category="fasilitas"
+              data-zone-title="Kamar Mandi Utara (Korean Glamping)"
+              data-zone-sub="FASILITAS SANITASI & TOILET"
+              data-zone-desc="Fasilitas kamar mandi dan toilet bersih yang melayani area Camping Ground Timur dan Korean Glamping Blok Atas (Tenda 6–13)."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="682"
+              data-anchor-y="302"
+            >
+              <rect x="652" y="292" width="60" height="22" rx="3" fill="#4fa3c7" />
+              <text x="682" y="302" fill="#ffffff" font-size="6.5" font-weight="800" text-anchor="middle" font-family="sans-serif">🚻 KAMAR</text>
+              <text x="682" y="310" fill="#ffffff" font-size="6.5" font-weight="800" text-anchor="middle" font-family="sans-serif">MANDI</text>
+            </g>
+
+            <!-- 5C. KOREAN GLAMPING CONTAINER & INDIVIDUAL TENTS (TENDA 1 TO 13) -->
+            <g>
+              <rect x="652" y="317" width="17" height="184" fill="#f7e8a4" stroke="#cbb865" stroke-width="1" />
+              <rect x="669" y="317" width="43" height="184" fill="#c5db7f" stroke="#8ca843" stroke-width="1" />
+              <text x="663" y="409" fill="#5e3a18" font-size="9" font-weight="800" text-anchor="middle" transform="rotate(-90, 663, 409)" font-family="sans-serif" letter-spacing="0.08em">
+                KOREAN GLAMPING
+              </text>
+
+              <g 
+                class="map-interactive-zone cursor-pointer"
+                data-zone-category="fasilitas"
+                data-zone-title="Kamar Mandi Tengah (Korean Glamping)"
+                data-zone-sub="SANITASI KOREAN GLAMPING"
+                data-zone-desc="Fasilitas kamar mandi di antara Korean Glamping Blok Atas (Tenda 6–13) dan Blok Bawah (Tenda 1–5)."
+                data-zone-link="/#fasilitas"
+                data-anchor-x="682"
+                data-anchor-y="515"
+              >
+                <rect x="652" y="504" width="60" height="22" rx="3" fill="#4fa3c7" />
+                <text x="682" y="514" fill="#ffffff" font-size="6.5" font-weight="800" text-anchor="middle" font-family="sans-serif">🚻 KAMAR</text>
+                <text x="682" y="522" fill="#ffffff" font-size="6.5" font-weight="800" text-anchor="middle" font-family="sans-serif">MANDI</text>
+              </g>
+
+              <rect x="652" y="529" width="17" height="120" fill="#f7e8a4" stroke="#cbb865" stroke-width="1" />
+              <rect x="669" y="529" width="43" height="120" fill="#c5db7f" stroke="#8ca843" stroke-width="1" />
+              <text x="663" y="589" fill="#5e3a18" font-size="8.5" font-weight="800" text-anchor="middle" transform="rotate(-90, 663, 589)" font-family="sans-serif" letter-spacing="0.06em">
+                KOREAN GLAMPING
+              </text>
+
+              {koreanTents.map((kt) => (
+                <g 
+                  id={`korean-tent-${kt.num}`}
+                  class="map-interactive-zone cursor-pointer group"
+                  data-zone-category="glamping"
+                  data-zone-title={`Korean Glamping — ${kt.label} (${kt.wayang})`}
+                  data-zone-sub={`SEKTOR TIMUR TEPI SUNGAI // ${kt.cap.toUpperCase()}`}
+                  data-zone-desc={`Unit Korean Glamping ${kt.label} (Tipe ${kt.wayang}, ${kt.cap}) tepat di tepi timur Sungai Bajulan. Berada di depan area Jolotundo Stable Kuda & Outbound.`}
+                  data-zone-link="/akomodasi/korean-glamping"
+                  data-anchor-x="690"
+                  data-anchor-y={kt.y}
+                  transform={`translate(690, ${kt.y})`}
+                >
+                  <rect x="-21" y="-11" width="42" height="20" fill="transparent" class="group-hover:fill-black/10" />
+                  <path d="M-5,-2 L0,-8 L5,-2" stroke="#231f20" stroke-width="1.8" fill="none" />
+                  <text x="0" y="5" fill="#1b2e08" font-size="6.2" font-weight="900" text-anchor="middle" font-family="sans-serif">
+                    {kt.label}
+                  </text>
+                  <line x1="-19" y1="8.5" x2="19" y2="8.5" stroke="#ffffff" stroke-width="0.9" opacity="0.75" />
+                </g>
+              ))}
+            </g>
+
+            <!-- 5D. RIVER LOUNGE -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="kuliner"
+              data-zone-title="River Lounge Deck"
+              data-zone-sub="AREA SANTAI TEPI SUNGAI UTARA"
+              data-zone-desc="Dek tepi sungai dengan deretan kursi santai (sun-lounger) menghadap jeram Sungai Bajulan, tepat di antara Korean Glamping dan Jembatan Utama."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="674"
+              data-anchor-y="725"
+            >
+              <polygon points="632,658 712,658 712,804 635,804" fill="#7c7e82" stroke="#58595b" stroke-width="1.5" />
+              <text x="672" y="676" fill="#ffffff" font-size="9.5" font-weight="900" text-anchor="middle" font-family="sans-serif">RIVER</text>
+              <text x="672" y="688" fill="#ffffff" font-size="9.5" font-weight="900" text-anchor="middle" font-family="sans-serif">LOUNGE</text>
+              <use href="#sun-lounger" transform="translate(672, 712)" />
+              <use href="#sun-lounger" transform="translate(672, 746)" />
+              <use href="#sun-lounger" transform="translate(672, 780)" />
+              <circle cx="696" cy="708" r="4.5" fill="#82b53e" />
+              <circle cx="648" cy="768" r="4.5" fill="#82b53e" />
+            </g>
+
+            <!-- 5E. JOLOTUNDO STABLE KUDA -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-92 transition-opacity"
+              data-zone-category="wahana"
+              data-zone-title="Jolotundo Stable Kuda (Wisata Berkuda)"
+              data-zone-sub="EQUESTRIAN & FOREST TRAIL // MULAI RP 25.000"
+              data-zone-desc="Kandang dan arena berkuda terlatih Jolotundo. Pengunjung dapat merasakan pengalaman berkuda menyusuri hutan pinus didampingi instruktur profesional."
+              data-zone-link="/wahana/wisata-berkuda"
+              data-anchor-x="797"
+              data-anchor-y="410"
+            >
+              <rect x="734" y="318" width="124" height="190" rx="10" fill="url(#lawn-grad)" stroke="#5b8c23" stroke-width="2" />
+              <g transform="translate(796, 386)">
+                <rect x="-24" y="-22" width="48" height="42" rx="4" fill="none" stroke="#ffffff" stroke-width="3.5" />
+                <path d="M-18,-10 L0,-20 L18,-10" fill="none" stroke="#ffffff" stroke-width="2.5" />
+                <path d="M-8,8 L-6,-2 L2,-5 L8,-10 L11,-6 L6,0 L8,10 M-6,3 L-12,10" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              </g>
+              <text x="796" y="426" fill="#ffffff" font-size="11.5" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.04em">JOLOTUNDO</text>
+              <text x="796" y="440" fill="#ffffff" font-size="11.5" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.04em">STABLE</text>
+              <text x="796" y="454" fill="#ffffff" font-size="11.5" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.04em">KUDA</text>
+            </g>
+
+            <!-- 5F. AREA OUTBOUND -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-92 transition-opacity"
+              data-zone-category="wahana"
+              data-zone-title="Lapangan Area Outbound & Gathering"
+              data-zone-sub="PINUS MEADOW LAWN // SEWA RP 100.000 / JAM"
+              data-zone-desc="Lapangan rumput terbuka di jantung Sektor Timur untuk fun games outbound, team building korporat, gathering komunitas, hingga Outdoor Forest Wedding."
+              data-zone-link="/event/gathering-outbound"
+              data-anchor-x="796"
+              data-anchor-y="585"
+            >
+              <rect x="734" y="518" width="124" height="145" rx="10" fill="url(#lawn-grad)" stroke="#5b8c23" stroke-width="2" />
+              <text x="796" y="584" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.05em">AREA</text>
+              <text x="796" y="602" fill="#ffffff" font-size="13" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.05em">OUTBOUND</text>
+            </g>
+
+            <!-- 5G. GAZEBO, DAPUR, TOILET (Sitting cleanly above the y=762 horizontal road) -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="kuliner"
+              data-zone-title="Gazebo & Dapur Utama"
+              data-zone-sub="PUSAT KONSUMSI & ISTIRAHAT OUTBOUND"
+              data-zone-desc="Area gazebo kayu tempat bersantai di tepi lapangan outbound serta Dapur Utama penyedia hidangan prasmanan dan katering event."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="796"
+              data-anchor-y="698"
+            >
+              <rect x="734" y="668" width="124" height="24" rx="6" fill="#82b53e" />
+              <use href="#gazebo-icon" transform="translate(756, 680) scale(0.8)" />
+              <use href="#gazebo-icon" transform="translate(836, 680) scale(0.8)" />
+              <text x="796" y="684" fill="#ffffff" font-size="8.2" font-weight="800" text-anchor="middle" font-family="sans-serif" letter-spacing="0.06em">GAZEBO</text>
+
+              <rect x="734" y="697" width="124" height="25" rx="6" fill="#2d5f6e" />
+              <g transform="translate(756, 710)">
+                <rect x="-8" y="-4" width="16" height="9" fill="#f5e1c8" stroke="#4a3520" stroke-width="0.9" />
+                <polygon points="-10,-4 0,-11 10,-4" fill="#d93829" stroke="#4a3520" stroke-width="0.9" />
+              </g>
+              <text x="808" y="714" fill="#ffffff" font-size="11.5" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.06em">DAPUR</text>
+            </g>
+
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="fasilitas"
+              data-zone-title="Toilet Umum Utama"
+              data-zone-sub="SANITASI AREA OUTBOUND & AULA"
+              data-zone-desc="Deretan kamar kecil dan toilet bersih berkapasitas besar di dekat lapangan outbound, dapur utama, dan gedung aula."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="796"
+              data-anchor-y="740"
+            >
+              <rect x="734" y="727" width="124" height="25" rx="6" fill="#4fa3c7" />
+              <text x="796" y="744" fill="#ffffff" font-size="11.5" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.05em">🚻 TOILET</text>
+            </g>
+
+            <!-- 5H. AULA, RESEPSIONIS, MUSHOLA (3 Separate Rounded Green Pads below y=762 road, 1:1 with closeup!) -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-92 transition-opacity"
+              data-zone-category="fasilitas"
+              data-zone-title="Aula Kaca, Resepsionis & Mushola"
+              data-zone-sub="PUSAT LAYANAN TAMU & MICE (RP 300.000 / JAM)"
+              data-zone-desc="Tiga bangunan utama tepat di koridor Pintu Masuk: Gedung Aula Serbaguna Full AC, Lobby Resepsionis Check-In, dan Mushola."
+              data-zone-link="/event/aula-hall"
+              data-anchor-x="796"
+              data-anchor-y="792"
+            >
+              <!-- Pad 1: AULA -->
+              <rect x="724" y="771" width="43" height="41" rx="6" fill="#b4d472" stroke="#8ab346" stroke-width="1" />
+              <g transform="translate(745.5, 788)">
+                <rect x="-11" y="-5" width="22" height="12" fill="#e6c28b" stroke="#231f20" stroke-width="1.2" />
+                <polygon points="-13,-5 0,-12 13,-5" fill="#a67c52" stroke="#231f20" stroke-width="1.2" />
+                <line x1="-5" y1="-5" x2="-5" y2="7" stroke="#231f20" stroke-width="1" />
+                <line x1="5" y1="-5" x2="5" y2="7" stroke="#231f20" stroke-width="1" />
+                <text x="0" y="17" fill="#5e3a18" font-size="5.5" font-weight="900" text-anchor="middle" font-family="sans-serif">AULA</text>
+              </g>
+
+              <!-- Pad 2: RESEPSIONIS -->
+              <rect x="772.5" y="771" width="43" height="41" rx="6" fill="#b4d472" stroke="#8ab346" stroke-width="1" />
+              <g transform="translate(794, 788)">
+                <circle cx="0" cy="-7" r="4" fill="#d99b66" stroke="#231f20" stroke-width="1.1" />
+                <rect x="-10" y="-1" width="20" height="8" fill="#c48a47" stroke="#231f20" stroke-width="1.1" />
+                <text x="0" y="17" fill="#5e3a18" font-size="5.2" font-weight="900" text-anchor="middle" font-family="sans-serif">RESEPSIONIS</text>
+              </g>
+
+              <!-- Pad 3: MUSHOLA -->
+              <rect x="821" y="771" width="43" height="41" rx="6" fill="#b4d472" stroke="#8ab346" stroke-width="1" />
+              <g transform="translate(842.5, 788)">
+                <rect x="-11" y="-3" width="22" height="10" fill="#ffffff" stroke="#231f20" stroke-width="1.1" />
+                <path d="M-9,-3 Q0,-14 9,-3 Z" fill="#4fa3c7" stroke="#231f20" stroke-width="1.1" />
+                <text x="0" y="17" fill="#5e3a18" font-size="5.5" font-weight="900" text-anchor="middle" font-family="sans-serif">MUSHOLA</text>
+              </g>
+            </g>
+
+            <!-- 5I. PARKIR MOTOR & PARKIR MOBIL -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="fasilitas"
+              data-zone-title="Area Parkir Motor (Utara Pintu Masuk)"
+              data-zone-sub="PARKIR RODA DUA KEAMANAN 24 JAM"
+              data-zone-desc="Kantong parkir khusus sepeda motor tepat di sebelah utara Pintu Masuk Timur dan dekat Resepsionis."
+              data-zone-link="/lokasi"
+              data-anchor-x="950"
+              data-anchor-y="750"
+            >
+              <rect x="886" y="706" width="128" height="88" rx="18" fill="#d1d3d4" stroke="#a7a9ac" stroke-width="1.5" />
+              <text x="950" y="746" fill="#231f20" font-size="14" font-weight="900" text-anchor="middle" font-family="sans-serif">PARKIR</text>
+              <text x="950" y="764" fill="#231f20" font-size="14" font-weight="900" text-anchor="middle" font-family="sans-serif">MOTOR</text>
+            </g>
+
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-90 transition-opacity"
+              data-zone-category="fasilitas"
+              data-zone-title="Area Parkir Mobil & Rombongan"
+              data-zone-sub="PARKIR KENDARAAN RODA EMPAT & HIACE"
+              data-zone-desc="Zona parkir mobil berkapasitas besar di sebelah selatan Pintu Masuk Timur, terhubung langsung dengan Pelataran dan Indoor Cafe."
+              data-zone-link="/lokasi"
+              data-anchor-x="958"
+              data-anchor-y="965"
+            >
+              <path d="M902,844 L1022,844 L1022,1135 Q1022,1152 1002,1152 L922,1142 Z" fill="#d1d3d4" stroke="#a7a9ac" stroke-width="1.5" />
+              <text x="962" y="968" fill="#231f20" font-size="15" font-weight="900" text-anchor="middle" font-family="sans-serif">PARKIR</text>
+              <text x="962" y="988" fill="#231f20" font-size="15" font-weight="900" text-anchor="middle" font-family="sans-serif">MOBIL</text>
+            </g>
+
+            <!-- 5J. PELATARAN, 5 GAZEBOS & BAR CAFE (Exact Match with closeup media_1794024986104_5957691f.jpg!) -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-92 transition-opacity"
+              data-zone-category="kuliner"
+              data-zone-title="Pelataran Komunal, Gazebo & Bar Cafe"
+              data-zone-sub="PLAZA LIVE MUSIC & KEDAI KOPI SUNGAI"
+              data-zone-desc="Area pelataran rumput terbuka dengan 5 gazebo santai di sisi baratnya serta kedai Bar Cafe di tepi sungai dekat Jembatan Utama."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="782"
+              data-anchor-y="915"
+            >
+              <!-- Left narrow green strip of Pelataran (west of internal road) -->
+              <polygon points="648,835 698,832 695,975 658,975" fill="#9bc659" stroke="#689429" stroke-width="1" />
+              <!-- Main Pelataran lawn (east of internal road) -->
+              <polygon points="712,830 858,822 858,992 725,998 712,975" fill="#9bc659" stroke="#689429" stroke-width="1.5" />
+
+              <!-- 3 Octagonal Gazebos on the LEFT of the Pelataran internal road + 3 on the RIGHT (1:1 with closeup!) -->
+              <use href="#gazebo-icon" transform="translate(682, 855) scale(0.88)" />
+              <use href="#gazebo-icon" transform="translate(684, 888) scale(0.88)" />
+              <use href="#gazebo-icon" transform="translate(686, 922) scale(0.88)" />
+              <use href="#gazebo-icon" transform="translate(724, 852) scale(0.88)" />
+              <use href="#gazebo-icon" transform="translate(726, 885) scale(0.88)" />
+              <use href="#gazebo-icon" transform="translate(728, 918) scale(0.88)" />
+
+              <!-- Pelataran Pin Icon -->
+              <g transform="translate(785, 912)">
+                <path d="M0,26 C-12,10 -20,0 -20,-10 A20,20 0 1,1 20,-10 C20,0 12,10 0,26 Z" fill="#2185c5" stroke="#ffffff" stroke-width="2" />
+                <circle cx="0" cy="-10" r="12" fill="#ffffff" />
+                <circle cx="0" cy="-13" r="3.5" fill="#2185c5" />
+                <circle cx="-6" cy="-8" r="2.5" fill="#2185c5" />
+                <circle cx="6" cy="-8" r="2.5" fill="#2185c5" />
+              </g>
+              <text x="785" y="962" fill="#ffffff" font-size="11.5" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.05em">PELATARAN</text>
+
+              <!-- Bar Cafe Isometric Awning Stall at (702, 965) -->
+              <g transform="translate(702, 965)">
+                <rect x="-18" y="-6" width="36" height="18" fill="#f5e1c8" stroke="#5a3210" stroke-width="1.2" />
+                <polygon points="-22,-6 0,-18 22,-6" fill="#d93829" stroke="#5a3210" stroke-width="1.2" />
+                <line x1="-10" y1="-12" x2="-10" y2="-6" stroke="#ffffff" stroke-width="2" />
+                <line x1="0" y1="-16" x2="0" y2="-6" stroke="#ffffff" stroke-width="2" />
+                <line x1="10" y1="-12" x2="10" y2="-6" stroke="#ffffff" stroke-width="2" />
+                <text x="22" y="-16" fill="#ffffff" font-size="6" font-weight="900" text-anchor="middle" font-family="sans-serif">BAR CAFE</text>
+              </g>
+            </g>
+
+            <!-- 5K. RIVER BREEZE & INDOOR CAFE (Exact Match with grid_bottom.jpg!) -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-95 transition-opacity"
+              data-zone-category="kuliner"
+              data-zone-title="River Breeze Lounge & Indoor Cafe"
+              data-zone-sub="PINE RESTO & RIVERSIDE DINING"
+              data-zone-desc="Pusat kuliner dan restoran ikonik Jolotundo di tepi Sungai Bajulan. Memiliki bangunan chalet kayu Indoor Cafe, taman meja payung outdoor, serta dek River Breeze dengan 6 sun-lounger menghadap sungai."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="775"
+              data-anchor-y="1125"
+            >
+              <!-- Outer Courtyard Polygon -->
+              <polygon points="652,1022 854,1008 894,1228 730,1278" fill="#ffffff" stroke="#7c7e82" stroke-width="2.5" stroke-linejoin="round" />
+              <!-- Left River Breeze Grey Deck Strip -->
+              <polygon points="652,1022 706,1018 776,1265 730,1278" fill="#6d6e71" />
+              <!-- 6 White Sun Loungers along River Breeze -->
+              <use href="#sun-lounger" transform="translate(682, 1052) scale(0.95)" />
+              <use href="#sun-lounger" transform="translate(692, 1088) scale(0.95)" />
+              <use href="#sun-lounger" transform="translate(702, 1124) scale(0.95)" />
+              <use href="#sun-lounger" transform="translate(712, 1160) scale(0.95)" />
+              <use href="#sun-lounger" transform="translate(722, 1196) scale(0.95)" />
+              <use href="#sun-lounger" transform="translate(732, 1232) scale(0.95)" />
+
+              <!-- Vertical RIVER BREEZE Text -->
+              <text x="744" y="1142" fill="#6d6e71" font-size="21" font-weight="900" text-anchor="middle" transform="rotate(75, 744, 1142)" font-family="sans-serif" letter-spacing="0.06em">
+                RIVER BREEZE
+              </text>
+
+              <!-- Indoor Cafe Chalet House Icon -->
+              <g transform="translate(804, 1048)">
+                <rect x="-26" y="-10" width="52" height="28" fill="#8c5327" stroke="#3e220c" stroke-width="1.5" />
+                <polygon points="-32,-10 0,-30 32,-10" fill="#5e3214" stroke="#3e220c" stroke-width="1.5" />
+                <rect x="-8" y="2" width="16" height="16" fill="#fce592" />
+                <circle cx="-26" cy="12" r="6" fill="#4e8c31" />
+                <circle cx="26" cy="12" r="5" fill="#6db337" />
+                <text x="0" y="30" fill="#58595b" font-size="9.5" font-weight="900" text-anchor="middle" font-family="sans-serif">INDOOR</text>
+                <text x="0" y="40" fill="#58595b" font-size="9.5" font-weight="900" text-anchor="middle" font-family="sans-serif">CAFE</text>
+              </g>
+
+              <!-- Detailed Top-Down Outdoor Cafe Tables, Chairs & Garden Paths -->
+              <g transform="translate(795, 1118)">
+                <rect x="-7" y="-10" width="14" height="20" rx="2" fill="#8c7a6b" />
+                <circle cx="-11" cy="-5" r="2" fill="#58595b" />
+                <circle cx="-11" cy="5" r="2" fill="#58595b" />
+                <circle cx="11" cy="-5" r="2" fill="#58595b" />
+                <circle cx="11" cy="5" r="2" fill="#58595b" />
+              </g>
+              <g transform="translate(832, 1114)">
+                <rect x="-7" y="-10" width="14" height="20" rx="2" fill="#8c7a6b" />
+                <circle cx="-11" cy="-5" r="2" fill="#58595b" />
+                <circle cx="-11" cy="5" r="2" fill="#58595b" />
+                <circle cx="11" cy="-5" r="2" fill="#58595b" />
+                <circle cx="11" cy="5" r="2" fill="#58595b" />
+              </g>
+              <g transform="translate(804, 1158)">
+                <circle cx="0" cy="0" r="8" fill="#d9cbb8" stroke="#6c584c" stroke-width="1.2" />
+                <circle cx="-11" cy="0" r="2.2" fill="#6c584c" />
+                <circle cx="11" cy="0" r="2.2" fill="#6c584c" />
+              </g>
+              <g transform="translate(842, 1154)">
+                <circle cx="0" cy="0" r="8" fill="#d9cbb8" stroke="#6c584c" stroke-width="1.2" />
+                <circle cx="-11" cy="0" r="2.2" fill="#6c584c" />
+                <circle cx="11" cy="0" r="2.2" fill="#6c584c" />
+              </g>
+              <g transform="translate(816, 1208)">
+                <ellipse cx="0" cy="0" rx="13" ry="9" fill="#6d6e71" />
+                <circle cx="-16" cy="0" r="2.2" fill="#4a4849" />
+                <circle cx="16" cy="0" r="2.2" fill="#4a4849" />
+                <circle cx="-7" cy="-12" r="2.2" fill="#4a4849" />
+                <circle cx="7" cy="-12" r="2.2" fill="#4a4849" />
+                <circle cx="-7" cy="12" r="2.2" fill="#4a4849" />
+                <circle cx="7" cy="12" r="2.2" fill="#4a4849" />
+              </g>
+              <g transform="translate(856, 1196)">
+                <circle cx="0" cy="0" r="8" fill="#82b53e" />
+                <circle cx="-11" cy="0" r="2.2" fill="#6c584c" />
+                <circle cx="11" cy="0" r="2.2" fill="#6c584c" />
+              </g>
+            </g>
+
+            <!-- 5L. 10 INDIVIDUALLY CLICKABLE RIVERSIDE WOODEN CABINS (DELUXE 1 TO DELUXE 10) -->
+            <g>
+              {riversideCabins.map((cabin) => (
+                <g 
+                  id={`riverside-cabin-${cabin.num}`}
+                  class="map-interactive-zone cursor-pointer group"
+                  data-zone-category="glamping"
+                  data-zone-title={`Deluxe Riverside Cabin #${cabin.numStr} (${cabin.label})`}
+                  data-zone-sub="KABIN KAYU EKSKLUSIF TEPI SUNGAI TENGGARA"
+                  data-zone-desc={`Unit kabin chalet kayu ${cabin.label} yang berjajar tepat di tepi Sungai Bajulan di sebelah selatan River Breeze & Indoor Cafe.`}
+                  data-zone-link="/akomodasi/deluxe-camp"
+                  data-anchor-x={cabin.x}
+                  data-anchor-y={cabin.y}
+                  transform={`translate(${cabin.x}, ${cabin.y})`}
+                >
+                  <use href="#wooden-cabin" />
+                  <!-- Small Red DELUXE Badge Plate above Cabin Roof (matches media_1794023054595_2d837518.jpg!) -->
+                  <rect x="-14" y="-20" width="28" height="6.5" rx="1.5" fill="#8c2d19" />
+                  <text x="0" y="-15.2" fill="#ffffff" font-size="4.2" font-weight="900" text-anchor="middle" font-family="sans-serif">
+                    {cabin.label}
+                  </text>
+                </g>
+              ))}
+            </g>
+
+            <!-- =============================================================== -->
+            <!-- 6. WEST BANK FACILITIES & AREA KOMUNAL                          -->
+            <!-- =============================================================== -->
+
+            <!-- Area Komunal Barat -->
+            <g 
+              class="map-interactive-zone cursor-pointer hover:opacity-92 transition-opacity"
+              data-zone-category="wahana"
+              data-zone-title="Area Komunal Barat"
+              data-zone-sub="ZONA BERKUMPUL & API UNGGUN CAMPING BARAT"
+              data-zone-desc="Lapangan komunal terbuka di Sektor Barat tepat di sebelah selatan batu alam besar, digunakan untuk titik kumpul dan api unggun penghuni tenda 01–100."
+              data-zone-link="/akomodasi"
+              data-anchor-x="302"
+              data-anchor-y="915"
+            >
+              <g transform="translate(302, 912) scale(0.8)">
+                <path d="M0,26 C-12,10 -20,0 -20,-10 A20,20 0 1,1 20,-10 C20,0 12,10 0,26 Z" fill="#2185c5" stroke="#ffffff" stroke-width="2" />
+                <circle cx="0" cy="-10" r="12" fill="#ffffff" />
+                <circle cx="0" cy="-12" r="4" fill="#2185c5" />
+              </g>
+              <text x="302" y="952" fill="#5e3a18" font-size="8.8" font-weight="900" text-anchor="middle" font-family="sans-serif">AREA</text>
+              <text x="302" y="963" fill="#5e3a18" font-size="8.8" font-weight="900" text-anchor="middle" font-family="sans-serif">KOMUNAL</text>
+            </g>
+
+            <!-- 3 Individual West Bank Kamar Mandi Blocks (Exact Grid Positions) -->
+            <!-- Kamar Mandi Barat Utara (Above Tent 44) -->
+            <g 
+              class="map-interactive-zone cursor-pointer"
+              data-zone-category="fasilitas"
+              data-zone-title="Kamar Mandi Barat Utara (Dekat Tenda 44 & 52)"
+              data-zone-sub="SANITASI SEKTOR BARAT UTARA"
+              data-zone-desc="Fasilitas kamar mandi dan toilet bersih untuk melayani klaster tenda 01–15, 36–44, 45–51, dan 52–63."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="428"
+              data-anchor-y="366"
+            >
+              <rect x="398" y="350" width="60" height="32" rx="6" fill="#4fa3c7" stroke="#ffffff" stroke-width="1" />
+              <text x="428" y="364" fill="#ffffff" font-size="7.5" font-weight="900" text-anchor="middle" font-family="sans-serif">🚻 KAMAR</text>
+              <text x="428" y="375" fill="#ffffff" font-size="7.5" font-weight="900" text-anchor="middle" font-family="sans-serif">MANDI</text>
+            </g>
+
+            <!-- Kamar Mandi Barat Tengah (Above Jalur Evakuasi) -->
+            <g 
+              class="map-interactive-zone cursor-pointer"
+              data-zone-category="fasilitas"
+              data-zone-title="Kamar Mandi Barat Tengah (Poros Jalur Evakuasi)"
+              data-zone-sub="SANITASI TENGAH & AREA KOMUNAL"
+              data-zone-desc="Fasilitas kamar mandi di simpang utama Jalur Evakuasi Barat, melayani Area Komunal serta klaster tenda 64–67 dan 32–35."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="380"
+              data-anchor-y="812"
+            >
+              <rect x="346" y="796" width="68" height="32" rx="6" fill="#4fa3c7" stroke="#ffffff" stroke-width="1" />
+              <text x="380" y="810" fill="#ffffff" font-size="8" font-weight="900" text-anchor="middle" font-family="sans-serif">🚻 KAMAR</text>
+              <text x="380" y="821" fill="#ffffff" font-size="8" font-weight="900" text-anchor="middle" font-family="sans-serif">MANDI</text>
+            </g>
+
+            <!-- Kamar Mandi Barat Selatan (Between 89 and 84, above 83) -->
+            <g 
+              class="map-interactive-zone cursor-pointer"
+              data-zone-category="fasilitas"
+              data-zone-title="Kamar Mandi Barat Selatan (Antara Tenda 89 & 84)"
+              data-zone-sub="SANITASI SEKTOR BARAT DAYA & SELATAN"
+              data-zone-desc="Fasilitas kamar mandi di bagian selatan yang melayani klaster tenda 68–72, 73–81, 82–83, 84–88, dan 89–100."
+              data-zone-link="/#fasilitas"
+              data-anchor-x="345"
+              data-anchor-y="1342"
+            >
+              <rect x="318" y="1325" width="54" height="32" rx="6" fill="#4fa3c7" stroke="#ffffff" stroke-width="1" />
+              <text x="345" y="1339" fill="#ffffff" font-size="7" font-weight="900" text-anchor="middle" font-family="sans-serif">🚻 KAMAR</text>
+              <text x="345" y="1349" fill="#ffffff" font-size="7" font-weight="900" text-anchor="middle" font-family="sans-serif">MANDI</text>
+            </g>
+
+            <!-- =============================================================== -->
+            <!-- 7. DECORATIVE WOODLAND CLUMPS & PINE TREES ACROSS THE VALLEY    -->
+            <!-- =============================================================== -->
+            <g pointer-events="none">
+              {forestClumps.map((fc) => (
+                <use href="#forest-clump" transform={`translate(${fc.x}, ${fc.y}) scale(${fc.s})`} />
+              ))}
+              {pineTrees.map((tree) => (
+                <use href="#pine-tree" transform={`translate(${tree.x}, ${tree.y})`} />
+              ))}
+            </g>
+
+            <!-- =============================================================== -->
+            <!-- 8. ALL 100 NUMBERED WEST-BANK TENT PLOTS (01 TO 100)            -->
+            <!-- =============================================================== -->
+            <g id="west-tents-layer">
+              {westTentPlots.map((plot) => (
+                <g 
+                  id={`tent-plot-${parseInt(plot.num, 10)}`}
+                  data-tent-num={plot.num}
+                  data-zone-category="camping"
+                  data-zone-title={`Kavling Tenda No. ${plot.num}`}
+                  data-zone-sub={plot.zone.toUpperCase()}
+                  data-zone-desc={plot.desc}
+                  data-zone-link="/akomodasi/pinus-camp"
+                  data-anchor-x={plot.x}
+                  data-anchor-y={plot.y}
+                  class="map-interactive-zone map-tent-node cursor-pointer group"
+                  transform={`translate(${plot.x}, ${plot.y})`}
+                >
+                  <use href="#tent-icon" transform="translate(0, 7)" />
+                  <rect 
+                    x="-12.5" 
+                    y="-13.5" 
+                    width="25" 
+                    height="14.5" 
+                    rx="6.5" 
+                    fill="#ffffff" 
+                    stroke="#231f20" 
+                    stroke-width="1.35"
+                    class="transition-colors group-hover:fill-[#141110]"
+                  />
+                  <text 
+                    x="0" 
+                    y="-3.2" 
+                    fill="#231f20" 
+                    font-size="8.5" 
+                    font-weight="900" 
+                    text-anchor="middle" 
+                    font-family="sans-serif"
+                    class="transition-colors group-hover:fill-[#f4efe6]"
+                  >
+                    {plot.num}
+                  </text>
+                </g>
+              ))}
+            </g>
+
+            <!-- Dynamic Active Selection Target Ring -->
+            <g id="map-highlight-group" class="hidden pointer-events-none">
+              <circle 
+                id="map-highlight-ring-outer" 
+                cx="-100" 
+                cy="-100" 
+                r="26" 
+                fill="none" 
+                stroke="#d93829" 
+                stroke-width="3.5" 
+                stroke-dasharray="6 4"
+              />
+              <circle 
+                id="map-highlight-ring-inner" 
+                cx="-100" 
+                cy="-100" 
+                r="18" 
+                fill="#d93829" 
+                fill-opacity="0.18" 
+                stroke="#141110" 
+                stroke-width="2" 
+              />
+            </g>
+
+            <!-- =============================================================== -->
+            <!-- 9. MAP HEADER TITLE, LOGOS, COMPASS ROSE & FOOTER BAR           -->
+            <!-- =============================================================== -->
+            <g transform="translate(98, 92)">
+              <circle cx="0" cy="0" r="28" fill="#ffffff" stroke="#231f20" stroke-width="1.5" />
+              <path d="M-20,8 L-8,-12 L2,2 L10,-8 L20,8 Z" fill="none" stroke="#231f20" stroke-width="1.6" />
+              <polygon points="-8,8 0,-4 8,8" fill="#d47612" stroke="#231f20" stroke-width="1.2" />
+              <text x="0" y="38" fill="#231f20" font-size="6.8" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.06em">JOLOTUNDO</text>
+              <text x="0" y="45" fill="#4a4849" font-size="4.5" font-weight="700" text-anchor="middle" font-family="sans-serif">GLAMPING &amp; EDUPARK</text>
+            </g>
+
+            <g transform="translate(182, 92)">
+              <circle cx="0" cy="0" r="26" fill="#ffffff" />
+              <circle cx="0" cy="-6" r="13" fill="#82b53e" />
+              <path d="M0,6 L0,-6 M0,-1 L-5,-5 M0,1 L5,-3" stroke="#1e6b3a" stroke-width="2" stroke-linecap="round" />
+              <path d="M-15,9 Q0,20 15,9" stroke="#1e6b3a" stroke-width="4.5" stroke-linecap="round" fill="none" />
+            </g>
+
+            <g transform="translate(985, 118)" text-anchor="middle" font-family="sans-serif">
+              <text x="0" y="0" fill="#323031" font-size="56" font-weight="900" letter-spacing="0.06em">DENAH</text>
+              <text x="0" y="62" fill="#323031" font-size="56" font-weight="900" letter-spacing="0.04em">LOKASI</text>
+              <text x="0" y="98" fill="#323031" font-size="23" font-weight="800" letter-spacing="0.22em">JOLOTUNDO</text>
+              <text x="0" y="122" fill="#4a4849" font-size="18" font-weight="500" letter-spacing="0.1em">Glamping &amp; Edupark</text>
+            </g>
+
+            <g transform="translate(1028, 382)">
+              <circle cx="0" cy="0" r="46" fill="none" stroke="#141110" stroke-width="3" />
+              <circle cx="0" cy="0" r="38" fill="none" stroke="#141110" stroke-width="1" />
+              <polygon points="0,0 -32,-32 -8,0 0,0" fill="#141110" />
+              <polygon points="0,0 32,-32 0,-8 0,0" fill="#141110" />
+              <polygon points="0,0 32,32 8,0 0,0" fill="#141110" />
+              <polygon points="0,0 -32,32 0,8 0,0" fill="#141110" />
+              <polygon points="0,-68 -12,0 0,-10 12,0" fill="#141110" />
+              <polygon points="0,68 -12,0 0,10 12,0" fill="#141110" />
+              <polygon points="-68,0 0,-12 -10,0 0,12" fill="#141110" />
+              <polygon points="68,0 0,-12 10,0 0,12" fill="#141110" />
+              <circle cx="0" cy="0" r="6" fill="#f3efc6" stroke="#141110" stroke-width="2" />
+              <text x="0" y="-76" fill="#141110" font-size="18" font-weight="800" text-anchor="middle" font-family="sans-serif">N</text>
+              <text x="0" y="90" fill="#141110" font-size="18" font-weight="800" text-anchor="middle" font-family="sans-serif">S</text>
+              <text x="-84" y="6" fill="#141110" font-size="18" font-weight="800" text-anchor="middle" font-family="sans-serif">W</text>
+              <text x="84" y="6" fill="#141110" font-size="18" font-weight="800" text-anchor="middle" font-family="sans-serif">E</text>
+            </g>
+
+            <g transform="translate(970, 1588)">
+              <rect x="-135" y="-18" width="270" height="36" rx="18" fill="#0b0b0b" />
+              <text x="0" y="6" fill="#ffffff" font-size="18" font-weight="900" text-anchor="middle" font-family="sans-serif" letter-spacing="0.06em">
+                BY DAN_GROUP
+              </text>
+            </g>
+
+            <rect x="0" y="1612" width="1200" height="38" fill="#1b8a4b" />
+            <text x="600" y="1636" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" font-family="sans-serif" letter-spacing="0.08em">
+              📷 jolotundoedupark     •     📘 Jolotundo Edupark     •     📞 0822 2950 0998
+            </text>
+
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- 3. RIGHT COLUMN: INTERACTIVE ZONE INSPECTOR & LEGEND (4 COLS)           -->
+      <!-- ======================================================================= -->
+      <aside class="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
+        
+        <!-- Active Zone Inspector Card -->
+        <div class="border border-[#141110]/25 bg-transparent p-6 sm:p-8 space-y-5">
+          <div class="flex items-center justify-between border-b border-[#141110]/15 pb-3">
+            <span class="text-[10px] font-mono-tag tracking-[0.22em] text-[#141110]/55 uppercase">
+              INSPEKTOR ZONA PETA
+            </span>
+            <span id="inspector-badge" class="text-[10px] font-mono-tag font-bold px-2.5 py-0.5 bg-[#141110] text-[#d8c39e] uppercase">
+              MASTERPLAN 2D
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <span id="inspector-sub" class="text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-wider block">
+              GUNUNG WILIS ±800 MDPL // BAJULAN
+            </span>
+            <h3 id="inspector-title" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#141110] font-sans leading-snug">
+              Pilih Tenda atau Zona di Peta
+            </h3>
+            <p id="inspector-desc" class="text-xs sm:text-sm text-[#141110]/75 font-sans leading-relaxed pt-1">
+              Klik pada nomor kavling tenda (01–100), Korean Glamping (Tenda 1–13), Deluxe Riverside Cabin (01–10), Stable Kuda, Area Outbound, Aula, atau River Breeze Cafe pada peta untuk memunculkan penunjuk informasi langsung di atas titik lokasi.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-[#141110]/15 flex flex-col gap-2.5">
+            <a 
+              id="inspector-link"
+              href="/akomodasi"
+              class="group flex items-center justify-between w-full px-5 py-3.5 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all"
+            >
+              <span id="inspector-link-label">Lihat Katalog Akomodasi</span>
+              <span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Legend & Quick Directory Box -->
+        <div class="border border-[#141110]/20 p-6 sm:p-7 space-y-4">
+          <span class="text-xs font-mono-tag font-bold tracking-widest text-[#141110] uppercase block border-b border-[#141110]/15 pb-2.5">
+            PINTASAN ZONA UTAMA
+          </span>
+
+          <div class="grid grid-cols-1 gap-2.5 text-xs font-sans">
+            <button type="button" data-quick-zone="Korean Glamping" class="quick-zone-btn flex items-center justify-between p-2.5 border border-[#141110]/15 hover:border-[#141110] text-left transition-colors cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 bg-[#c5db7f] border border-[#5e3a18] inline-block shrink-0"></span>
+                <span class="font-bold text-[#141110]">Korean Glamping (Tenda 1–13)</span>
+              </div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/55">Sektor Timur →</span>
+            </button>
+
+            <button type="button" data-quick-zone="Stable Kuda" class="quick-zone-btn flex items-center justify-between p-2.5 border border-[#141110]/15 hover:border-[#141110] text-left transition-colors cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 bg-[#78b033] inline-block shrink-0"></span>
+                <span class="font-bold text-[#141110]">Jolotundo Stable Kuda</span>
+              </div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/55">Sektor Timur →</span>
+            </button>
+
+            <button type="button" data-quick-zone="Area Outbound" class="quick-zone-btn flex items-center justify-between p-2.5 border border-[#141110]/15 hover:border-[#141110] text-left transition-colors cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 bg-[#699e2c] inline-block shrink-0"></span>
+                <span class="font-bold text-[#141110]">Lapangan Area Outbound</span>
+              </div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/55">Sektor Timur →</span>
+            </button>
+
+            <button type="button" data-quick-zone="River Breeze" class="quick-zone-btn flex items-center justify-between p-2.5 border border-[#141110]/15 hover:border-[#141110] text-left transition-colors cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 bg-[#6d6e71] inline-block shrink-0"></span>
+                <span class="font-bold text-[#141110]">River Breeze &amp; Indoor Cafe</span>
+              </div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/55">Tepi Sungai →</span>
+            </button>
+
+            <button type="button" data-quick-zone="Aula Kaca" class="quick-zone-btn flex items-center justify-between p-2.5 border border-[#141110]/15 hover:border-[#141110] text-left transition-colors cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 bg-[#d9b382] border border-[#4a3520] inline-block shrink-0"></span>
+                <span class="font-bold text-[#141110]">Aula, Resepsionis &amp; Mushola</span>
+              </div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/55">Pintu Masuk →</span>
+            </button>
+
+            <button type="button" data-quick-zone="Deluxe Riverside Cabin #01" class="quick-zone-btn flex items-center justify-between p-2.5 border border-[#141110]/15 hover:border-[#141110] text-left transition-colors cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 bg-[#8c5327] inline-block shrink-0"></span>
+                <span class="font-bold text-[#141110]">10 Unit Deluxe Wooden Cabin</span>
+              </div>
+              <span class="text-[10px] font-mono-tag text-[#141110]/55">Tenggara →</span>
+            </button>
+          </div>
+
+          <div class="pt-2 text-[11px] font-mono-tag text-[#141110]/60 leading-relaxed">
+            • <strong>Sektor Barat (Kiri Sungai):</strong> Kavling Tenda 01–100, Area Komunal, Taman Anggrek &amp; 3 Kamar Mandi.<br/>
+            • <strong>Sektor Timur (Kanan Sungai):</strong> Indian Camp, Camping Ground 1–100, Korean Glamping 1–13, River Lounge, Stable Kuda, Outbound, Aula, Cafe &amp; Parkir.
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .font-mono-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+  .map-interactive-zone.is-dimmed {
+    opacity: 0.18;
+    transition: opacity 0.25s ease;
+  }
+  .map-interactive-zone.is-highlighted {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(20, 17, 16, 0.45));
+  }
+</style>
+
+<script is:inline>
+  function initMasterplan2DMap() {
+    const viewport = document.getElementById('map-pan-zoom-viewport');
+    const svgMap = document.getElementById('interactive-svg-map');
+    const highlightGroup = document.getElementById('map-highlight-group');
+    const highlightOuter = document.getElementById('map-highlight-ring-outer');
+    const highlightInner = document.getElementById('map-highlight-ring-inner');
+
+    const callout = document.getElementById('map-floating-callout');
+    const calloutBadge = document.getElementById('callout-badge');
+    const calloutSub = document.getElementById('callout-sub');
+    const calloutTitle = document.getElementById('callout-title');
+    const calloutDesc = document.getElementById('callout-desc');
+    const calloutLink = document.getElementById('callout-link');
+    const calloutLinkText = document.getElementById('callout-link-text');
+    const calloutCloseBtn = document.getElementById('callout-close-btn');
+
+    const zoomInBtn = document.getElementById('zoom-in-btn');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+    const zoomResetBtn = document.getElementById('zoom-reset-btn');
+    const zoomIndicator = document.getElementById('zoom-level-indicator');
+    const canvasZoomIn = document.getElementById('canvas-zoom-in');
+    const canvasZoomOut = document.getElementById('canvas-zoom-out');
+    const canvasZoomReset = document.getElementById('canvas-zoom-reset');
+
+    const searchInput = document.getElementById('map-search-input');
+    const searchBtn = document.getElementById('map-search-btn');
+    const filterBtns = document.querySelectorAll('.map-filter-btn');
+    const zones = document.querySelectorAll('.map-interactive-zone');
+    const quickBtns = document.querySelectorAll('.quick-zone-btn');
+
+    const titleEl = document.getElementById('inspector-title');
+    const subEl = document.getElementById('inspector-sub');
+    const descEl = document.getElementById('inspector-desc');
+    const linkEl = document.getElementById('inspector-link');
+    const linkLabelEl = document.getElementById('inspector-link-label');
+    const badgeEl = document.getElementById('inspector-badge');
+
+    if (!viewport || !svgMap) return;
+
+    const MAP_W = 1200;
+    const MAP_H = 1650;
+    const MIN_ZOOM = 1.0;
+    const MAX_ZOOM = 3.5;
+
+    let zoom = 1.0;
+    let vx = 0;
+    let vy = 0;
+    let vw = MAP_W;
+    let vh = MAP_H;
+
+    let activeAnchorX = null;
+    let activeAnchorY = null;
+
+    function clampViewBox() {
+      vw = MAP_W / zoom;
+      vh = MAP_H / zoom;
+      const maxVx = Math.max(0, MAP_W - vw);
+      const maxVy = Math.max(0, MAP_H - vh);
+      vx = Math.max(0, Math.min(maxVx, vx));
+      vy = Math.max(0, Math.min(maxVy, vy));
+    }
+
+    function updateCalloutPosition() {
+      if (!callout || activeAnchorX === null || activeAnchorY === null) return;
+      if (callout.classList.contains('hidden')) return;
+
+      const rect = viewport.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      const relX = (activeAnchorX - vx) / vw;
+      const relY = (activeAnchorY - vy) / vh;
+
+      const pixelX = Math.max(155, Math.min(rect.width - 155, relX * rect.width));
+      const pixelY = Math.max(185, Math.min(rect.height - 24, relY * rect.height));
+
+      callout.style.left = `${pixelX.toFixed(1)}px`;
+      callout.style.top = `${pixelY.toFixed(1)}px`;
+    }
+
+    function applyViewBox() {
+      clampViewBox();
+      svgMap.setAttribute('viewBox', `${vx.toFixed(1)} ${vy.toFixed(1)} ${vw.toFixed(1)} ${vh.toFixed(1)}`);
+      if (zoomIndicator) {
+        zoomIndicator.textContent = `${Math.round(zoom * 100)}%`;
+      }
+      updateCalloutPosition();
+    }
+
+    function zoomToPoint(newZoom, focusSvgX, focusSvgY) {
+      const clampedZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
+      const cx = focusSvgX !== undefined ? focusSvgX : vx + vw / 2;
+      const cy = focusSvgY !== undefined ? focusSvgY : vy + vh / 2;
+
+      const relX = (cx - vx) / vw;
+      const relY = (cy - vy) / vh;
+
+      zoom = clampedZoom;
+      vw = MAP_W / zoom;
+      vh = MAP_H / zoom;
+
+      vx = cx - relX * vw;
+      vy = cy - relY * vh;
+
+      applyViewBox();
+    }
+
+    function centerOnSvgPoint(targetX, targetY, targetZoom) {
+      if (targetZoom && targetZoom > zoom) {
+        zoom = Math.min(MAX_ZOOM, targetZoom);
+      }
+      vw = MAP_W / zoom;
+      vh = MAP_H / zoom;
+      vx = targetX - vw / 2;
+      vy = targetY - vh / 2;
+      applyViewBox();
+    }
+
+    function handleZoomIn() {
+      zoomToPoint(zoom + 0.4, activeAnchorX ?? (vx + vw / 2), activeAnchorY ?? (vy + vh / 2));
+    }
+    function handleZoomOut() {
+      zoomToPoint(zoom - 0.4, activeAnchorX ?? (vx + vw / 2), activeAnchorY ?? (vy + vh / 2));
+    }
+    function handleZoomReset() {
+      zoom = 1.0;
+      vx = 0;
+      vy = 0;
+      applyViewBox();
+    }
+
+    zoomInBtn?.addEventListener('click', handleZoomIn);
+    canvasZoomIn?.addEventListener('click', handleZoomIn);
+    zoomOutBtn?.addEventListener('click', handleZoomOut);
+    canvasZoomOut?.addEventListener('click', handleZoomOut);
+    zoomResetBtn?.addEventListener('click', handleZoomReset);
+    canvasZoomReset?.addEventListener('click', handleZoomReset);
+
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const rect = viewport.getBoundingClientRect();
+      const mouseRelX = (e.clientX - rect.left) / rect.width;
+      const mouseRelY = (e.clientY - rect.top) / rect.height;
+      const focusX = vx + mouseRelX * vw;
+      const focusY = vy + mouseRelY * vh;
+
+      const delta = e.deltaY < 0 ? 0.28 : -0.28;
+      zoomToPoint(zoom + delta, focusX, focusY);
+    }, { passive: false });
+
+    let isDragging = false;
+    let dragMoved = false;
+    let startClientX = 0;
+    let startClientY = 0;
+    let startVx = 0;
+    let startVy = 0;
+
+    viewport.addEventListener('mousedown', (e) => {
+      if (callout && callout.contains(e.target)) return;
+      isDragging = true;
+      dragMoved = false;
+      startClientX = e.clientX;
+      startClientY = e.clientY;
+      startVx = vx;
+      startVy = vy;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startClientX;
+      const dy = e.clientY - startClientY;
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        dragMoved = true;
+      }
+
+      const rect = viewport.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      if (zoom <= 1.01 && dragMoved) {
+        zoom = 1.35;
+        vw = MAP_W / zoom;
+        vh = MAP_H / zoom;
+        startVx = (MAP_W - vw) / 2;
+        startVy = (MAP_H - vh) / 2;
+      }
+
+      const svgDx = (dx / rect.width) * vw;
+      const svgDy = (dy / rect.height) * vh;
+
+      vx = startVx - svgDx;
+      vy = startVy - svgDy;
+      applyViewBox();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    viewport.addEventListener('touchstart', (e) => {
+      if (callout && callout.contains(e.target)) return;
+      if (e.touches.length === 1) {
+        isDragging = true;
+        dragMoved = false;
+        startClientX = e.touches[0].clientX;
+        startClientY = e.touches[0].clientY;
+        startVx = vx;
+        startVy = vy;
+      }
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const dx = e.touches[0].clientX - startClientX;
+      const dy = e.touches[0].clientY - startClientY;
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        dragMoved = true;
+      }
+      const rect = viewport.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      const svgDx = (dx / rect.width) * vw;
+      const svgDy = (dy / rect.height) * vh;
+
+      vx = startVx - svgDx;
+      vy = startVy - svgDy;
+      applyViewBox();
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    calloutCloseBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      callout?.classList.add('hidden');
+      highlightGroup?.classList.add('hidden');
+      activeAnchorX = null;
+      activeAnchorY = null;
+    });
+
+    function selectZoneElement(el, autoZoomIn = false) {
+      const title = el.getAttribute('data-zone-title') || 'Zona Jolotundo';
+      const sub = el.getAttribute('data-zone-sub') || 'KAWASAN UTAMA';
+      const desc = el.getAttribute('data-zone-desc') || '';
+      const link = el.getAttribute('data-zone-link') || '/akomodasi';
+      const cat = (el.getAttribute('data-zone-category') || 'ZONA').toUpperCase();
+
+      const actionLabel = link.includes('wahana')
+        ? 'Lihat Detail Wahana'
+        : link.includes('event')
+        ? 'Lihat Detail Venue & Event'
+        : 'Lihat Detail & Reservasi';
+
+      if (titleEl) titleEl.textContent = title;
+      if (subEl) subEl.textContent = sub;
+      if (descEl) descEl.textContent = desc;
+      if (badgeEl) badgeEl.textContent = cat;
+      if (linkEl) linkEl.setAttribute('href', link);
+      if (linkLabelEl) linkLabelEl.textContent = actionLabel;
+
+      let ax = parseFloat(el.getAttribute('data-anchor-x') || '');
+      let ay = parseFloat(el.getAttribute('data-anchor-y') || '');
+
+      if (isNaN(ax) || isNaN(ay)) {
+        const transformAttr = el.getAttribute('transform') || '';
+        const match = transformAttr.match(/translate\(([-0-9.]+),\s*([-0-9.]+)\)/);
+        if (match) {
+          ax = parseFloat(match[1]);
+          ay = parseFloat(match[2]);
+        } else {
+          ax = 600;
+          ay = 820;
+        }
+      }
+
+      activeAnchorX = ax;
+      activeAnchorY = ay;
+
+      if (highlightGroup && highlightOuter && highlightInner) {
+        highlightOuter.setAttribute('cx', String(ax));
+        highlightOuter.setAttribute('cy', String(ay));
+        highlightInner.setAttribute('cx', String(ax));
+        highlightInner.setAttribute('cy', String(ay));
+        highlightGroup.classList.remove('hidden');
+      }
+
+      if (callout) {
+        if (calloutBadge) calloutBadge.textContent = cat;
+        if (calloutSub) calloutSub.textContent = sub;
+        if (calloutTitle) calloutTitle.textContent = title;
+        if (calloutDesc) calloutDesc.textContent = desc;
+        if (calloutLink) calloutLink.setAttribute('href', link);
+        if (calloutLinkText) calloutLinkText.textContent = actionLabel;
+        callout.classList.remove('hidden');
+      }
+
+      if (autoZoomIn) {
+        centerOnSvgPoint(ax, ay, Math.max(zoom, 1.85));
+      } else {
+        updateCalloutPosition();
+      }
+    }
+
+    zones.forEach((zone) => {
+      zone.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dragMoved) return;
+        selectZoneElement(zone, false);
+      });
+    });
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterBtns.forEach((b) => {
+          b.className = 'map-filter-btn px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-transparent text-[#141110] border border-[#141110]/25 hover:border-[#141110] cursor-pointer transition-all';
+        });
+        btn.className = 'map-filter-btn active px-3.5 py-2 text-xs font-mono-tag uppercase tracking-wider bg-[#141110] text-[#f4efe6] border border-[#141110] font-bold cursor-pointer transition-all';
+
+        zones.forEach((z) => {
+          const zCat = z.getAttribute('data-zone-category');
+          if (filter === 'all' || zCat === filter) {
+            z.classList.remove('is-dimmed');
+            z.classList.add('is-highlighted');
+          } else {
+            z.classList.add('is-dimmed');
+            z.classList.remove('is-highlighted');
+          }
+        });
+      });
+    });
+
+    quickBtns.forEach((qBtn) => {
+      qBtn.addEventListener('click', () => {
+        const query = qBtn.getAttribute('data-quick-zone') || '';
+        const target = Array.from(zones).find((z) =>
+          (z.getAttribute('data-zone-title') || '').toLowerCase().includes(query.toLowerCase())
+        );
+        if (target) {
+          selectZoneElement(target, true);
+        }
+      });
+    });
+
+    function handleSearch() {
+      if (!searchInput) return;
+      const raw = searchInput.value.trim();
+      if (!raw) return;
+
+      const numMatch = raw.match(/^\d+$/);
+      if (numMatch) {
+        const numInt = parseInt(raw, 10);
+        const plotEl = document.getElementById(`tent-plot-${numInt}`);
+        if (plotEl) {
+          selectZoneElement(plotEl, true);
+          return;
+        }
+      }
+
+      const found = Array.from(zones).find((z) =>
+        (z.getAttribute('data-zone-title') || '').toLowerCase().includes(raw.toLowerCase())
+      );
+      if (found) {
+        selectZoneElement(found, true);
+      }
+    }
+
+    searchBtn?.addEventListener('click', handleSearch);
+    searchInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleSearch();
+    });
+
+    window.addEventListener('resize', updateCalloutPosition);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMasterplan2DMap);
+  } else {
+    initMasterplan2DMap();
+  }
+</script>

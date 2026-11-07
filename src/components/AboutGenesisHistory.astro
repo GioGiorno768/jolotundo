@@ -1,0 +1,126 @@
+---
+// SEJARAH & GENESIS (Dari 4 Tenda Internal Dan Group ke Ekowisata Terpadu)
+// 1:1 GoUncharted Two-Column Sticky Scrollytelling Architecture
+const milestones = [
+  {
+    index: "01",
+    phase: "GENESIS // INTI FUNGSIONAL",
+    year: "Awal Mula",
+    title: "Kebutuhan Internal Korporat Dan Group",
+    desc: "Kawasan ini mulanya dikembangkan secara khusus sebagai inisiatif internal Dan Group yang membutuhkan lokasi gathering, konsolidasi manajemen, dan kegiatan korporat yang memadai, privat, dan menyatu murni dengan alam.",
+    highlight: "Kebutuhan internal Dan Group"
+  },
+  {
+    index: "02",
+    phase: "TONGGAK NOL // 4 TENDA",
+    year: "2023",
+    title: "Bermula Dari Hanya 4 Tenda Pertama",
+    desc: "Apa yang berawal sebagai fasilitas gathering internal berkapasitas 4 tenda di tepian Sungai Bajulan, menjadi laboratorium pertama bagaimana kenyamanan istirahat dapat berpadu harmonis dengan gemuruh alam hutan pinus.",
+    highlight: "Debut akomodasi 4 tenda"
+  },
+  {
+    index: "03",
+    phase: "TRANSFORMASI // DIBUKA UNTUK UMUM",
+    year: "Evolusi",
+    title: "Membuka Pintu Bagi Publik & Masyarakat Luas",
+    desc: "Melihat potensi lanskap alam Desa Bajulan yang luar biasa dan tingginya kebutuhan publik serta korporasi luar akan ruang rekreasi yang menyegarkan pikiran, Dan Group memutuskan untuk membuka dan mengelola kawasan ini secara komersial profesional.",
+    highlight: "Respons atas tingginya animo publik"
+  },
+  {
+    index: "04",
+    phase: "DESTINASI TERPADU // HARI INI",
+    year: "Sekarang",
+    title: "Pelopor Ekowisata Terpadu Jawa Timur",
+    desc: "Kini bertransformasi menjadi Jolotundo Glamping & Edupark: destinasi ekowisata berskala luas dengan 100 kavling tenda, kabin kayu deluxe ber-AC, lintasan ATV & offroad jeep, wahana berkuda, aula MICE, dan pariwisata berkelanjutan.",
+    highlight: "100+ Tenda & Ekosistem Terpadu"
+  }
+];
+---
+
+<section id="sejarah" class="relative z-10 bg-[#f4efe6] text-[#141110] py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20 border-b border-[#141110]/15">
+  <div class="max-w-[1540px] mx-auto">
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+      
+      <!-- Left Column: Sticky Narrative Anchor (GoUncharted Dual-Sticky Pattern) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-7">
+        
+        <!-- Kicker Bar -->
+        <div class="flex items-center gap-2 text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#141110]"></span>
+          <span>OUR HISTORY // PERJALANAN KAMI</span>
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-normal tracking-tight text-[#141110] font-sans leading-[1.12]">
+          Dari inisiatif 4 tenda internal, menjadi pelopor ekowisata terpadu.
+        </h2>
+
+        <p class="text-sm sm:text-base text-[#141110]/75 font-sans leading-relaxed font-light">
+          Setiap sudut Jolotundo lahir dari komitmen menjaga keaslian lembah Bajulan. Apa yang semula dirancang khusus untuk konsolidasi internal <strong class="text-[#141110] font-semibold">Dan Group</strong> kini telah tumbuh menjadi rumah bagi ratusan korporasi, institusi, dan ribuan keluarga.
+        </p>
+
+        <!-- Metric Indicator Card -->
+        <div class="pt-4 border-t border-[#141110]/15 grid grid-cols-2 gap-6 text-xs font-mono-tag">
+          <div>
+            <span class="text-[#141110]/40 uppercase block mb-1">TITIK AWAL (2023)</span>
+            <span class="text-2xl font-bold text-[#141110]">4 TENDA</span>
+            <span class="text-[11px] text-[#141110]/60 block mt-0.5">Konsolidasi Internal</span>
+          </div>
+          <div>
+            <span class="text-[#141110]/40 uppercase block mb-1">SKALA SAAT INI</span>
+            <span class="text-2xl font-bold text-emerald-900">100+ UNIT</span>
+            <span class="text-[11px] text-[#141110]/60 block mt-0.5">Kavling & Kabin Deluxe</span>
+          </div>
+        </div>
+
+        <!-- Tagline Quote Box -->
+        <div class="p-5 bg-white/60 border border-[#141110]/15">
+          <p class="text-xs font-mono-tag text-[#141110]/80 leading-relaxed uppercase tracking-wider">
+            [ TONGGAK PENCAPAIAN // SUSTAINABLE TOURISM EKOSISTEM DAN GROUP ]
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Interactive Chronological Story Stack -->
+      <div class="lg:col-span-7 flex flex-col gap-6 sm:gap-8">
+        {milestones.map((item) => (
+          <article class="history-card group relative p-8 sm:p-10 bg-white/70 hover:bg-white border border-[#141110]/15 hover:border-[#141110] transition-all duration-300 shadow-[0_4px_20px_rgba(20,17,16,0.03)] hover:shadow-[0_12px_32px_rgba(20,17,16,0.08)]">
+            
+            <!-- Card Header: Index & Phase -->
+            <div class="flex items-center justify-between pb-6 border-b border-[#141110]/10 text-xs font-mono-tag tracking-wider uppercase">
+              <div class="flex items-center gap-3">
+                <span class="text-lg font-bold text-[#141110]">{item.index}</span>
+                <span class="text-[#141110]/30">//</span>
+                <span class="text-[#141110]/60">{item.phase}</span>
+              </div>
+              <span class="px-2.5 py-1 bg-[#141110] text-[#f4efe6] text-[11px] font-bold">
+                {item.year}
+              </span>
+            </div>
+
+            <!-- Card Body -->
+            <div class="mt-6 space-y-3">
+              <h3 class="text-xl sm:text-2xl font-semibold tracking-tight text-[#141110] font-sans">
+                {item.title}
+              </h3>
+              <p class="text-sm sm:text-base text-[#141110]/75 font-sans leading-relaxed font-light">
+                {item.desc}
+              </p>
+            </div>
+
+            <!-- Card Footer: Highlight Tag -->
+            <div class="mt-6 pt-4 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/60">
+              <span class="uppercase tracking-wider">FOKUS: {item.highlight}</span>
+              <span class="group-hover:translate-x-1 transition-transform text-[#141110] font-bold">→</span>
+            </div>
+
+          </article>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+

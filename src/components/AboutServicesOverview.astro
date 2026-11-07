@@ -1,0 +1,119 @@
+---
+// PORTOFOLIO LAYANAN TERPADU (Compro Hal. 6)
+// 4 Sektor Layanan Terpadu Jolotundo Glamping & Edupark
+
+const services = [
+  {
+    num: "01",
+    sector: "ACCOMMODATION",
+    title: "Glamping & Authentic Camping",
+    desc: "Koleksi 7 ragam penginapan terpadu: dari kemewahan Kabin Deluxe ber-AC dan Smart TV, River Camp di bantaran sungai alami, glamping tematik Korea & Indian, hingga sensasi berkemah murni di Camping Ground kavling 01–100.",
+    image: "/images/accommodations/deluxe-camp-editorial.jpg",
+    link: "/akomodasi",
+    linkText: "Eksplorasi 7 Akomodasi",
+    highlights: ["Deluxe Cabin AC", "River Camp Alami", "Korean & Indian Glamping", "Camping Ground 01–100"]
+  },
+  {
+    num: "02",
+    sector: "ADVENTURE & EDUPARK",
+    title: "Wahana, Rekreasi & Satwa",
+    desc: "Aktivitas pemacu adrenalin melintasi bentang alam Bajulan dengan ATV Adventure dan armada Offroad Jeep 4x4, disempurnakan dengan santai berkuda di Jolotundo Stable dan eduwisata satwa ramah keluarga di Mini Zoo.",
+    image: "/images/activities/wahana-hero.jpg",
+    link: "/wahana",
+    linkText: "Lihat Seluruh Wahana",
+    highlights: ["ATV Hutan & Sungai", "Jeep Offroad 4x4", "Jolotundo Stable Kuda", "Mini Zoo Edukasi"]
+  },
+  {
+    num: "03",
+    sector: "CORPORATE & WEDDINGS",
+    title: "Event, Outbound & MICE",
+    desc: "Fasilitas skala korporat yang berakar dari sejarah Dan Group: Gedung Aula Kaca Full AC berkapasitas ratusan peserta, area outbound pembangun sinergi tim, serta kapel alam romantis untuk momen sakral Wedding & Pre-Wedding.",
+    image: "/images/facilities/event-hero.jpg",
+    link: "/event",
+    linkText: "Detail Venue & MICE",
+    highlights: ["Aula Kaca Serbaguna AC", "Outbound & Team Building", "Romantic Pine Wedding", "Amfiteater Api Unggun"]
+  },
+  {
+    num: "04",
+    sector: "GASTRONOMY & AMENITIES",
+    title: "Resto, Cafe & Fasilitas Terpadu",
+    desc: "Pusat kuliner tepi sungai di River Breeze Lounge dan chalet Indoor Cafe kayu, dilengkapi Warung Ketan tradisional, Mushola representatif, area parkir mobil dan motor berkapasitas besar, serta pengamanan 24 jam.",
+    image: "/images/facilities/pine-resto-cafe.jpg",
+    link: "/#fasilitas",
+    linkText: "Fasilitas & Resto",
+    highlights: ["River Breeze Lounge", "Indoor Chalet Cafe", "Warung Ketan Tradisional", "Parkir Mobil & Bus Luas"]
+  }
+];
+---
+
+<section id="layanan" class="relative z-10 bg-[#f4efe6] text-[#141110] py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20 border-b border-[#141110]/15">
+  <div class="max-w-[1540px] mx-auto space-y-16">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between pb-8 border-b border-[#141110]/15 gap-6">
+      <div class="space-y-3 max-w-2xl">
+        <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.28em] uppercase block">
+          — EKOSISTEM TERINTEGRASI // OUR SERVICES
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#141110] font-sans">
+          Satu Destinasi, Pengalaman Lengkap.
+        </h2>
+      </div>
+      <div class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
+        [ 04 INTEGRATED SECTORS ]
+      </div>
+    </div>
+
+    <!-- 4 Cards Grid (2x2 Asymmetric Editorial Style) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+      {services.map((svc) => (
+        <article class="p-8 sm:p-10 bg-white/70 hover:bg-white border border-[#141110]/15 hover:border-[#141110] transition-all duration-300 flex flex-col justify-between group shadow-[0_4px_24px_rgba(20,17,16,0.03)] hover:shadow-[0_16px_40px_rgba(20,17,16,0.08)]">
+          
+          <div>
+            <!-- Card Top Header -->
+            <div class="flex items-center justify-between pb-6 border-b border-[#141110]/10 text-xs font-mono-tag tracking-wider uppercase">
+              <span class="text-xl font-bold text-[#141110]">{svc.num}</span>
+              <span class="px-2.5 py-1 bg-[#141110] text-[#f4efe6] text-[10px] font-bold">
+                {svc.sector}
+              </span>
+            </div>
+
+            <!-- Title & Narrative -->
+            <div class="mt-6 space-y-3">
+              <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#141110] font-sans">
+                {svc.title}
+              </h3>
+              <p class="text-sm sm:text-base text-[#141110]/75 font-sans leading-relaxed font-light">
+                {svc.desc}
+              </p>
+            </div>
+
+            <!-- Highlights Pill Grid -->
+            <div class="mt-6 pt-5 border-t border-[#141110]/10 flex flex-wrap gap-2">
+              {svc.highlights.map((item) => (
+                <span class="text-xs font-mono-tag px-2.5 py-1 bg-[#f4efe6] border border-[#141110]/10 text-[#141110]/80">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Bottom Action Link -->
+          <div class="mt-8 pt-5 border-t border-[#141110]/10 flex items-center justify-between">
+            <a 
+              href={svc.link} 
+              class="inline-flex items-center gap-2 text-xs font-mono-tag font-bold uppercase tracking-wider text-[#141110] group-hover:text-emerald-900 transition-colors"
+            >
+              <span>{svc.linkText}</span>
+              <span class="group-hover:translate-x-1.5 transition-transform">↗</span>
+            </a>
+            <span class="text-xs font-mono-tag text-[#141110]/30">DAN GROUP</span>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+

@@ -1,0 +1,105 @@
+---
+// WHY CHOOSE US (Compro Hal. 17)
+// Interactive 4-Column Editorial Architecture with Depth Hover & Focus
+
+const advantages = [
+  {
+    num: "01",
+    tag: "GEOGRAFI & LINGKUNGAN",
+    title: "Natural Location",
+    lead: "Pegunungan Asri & Mata Air Alami",
+    desc: "Terletak di kawasan alam pegunungan yang masih terjaga keasliannya, Jolotundo menawarkan pengalaman menginap di tengah ribuan pohon pinus dan sumber mata air alami yang menyegarkan. Bebas bising kota, berhawa sejuk 800 MDPL, namun tetap berakses jalan mulus.",
+    specs: ["Hutan Pinus Asli", "Mata Air Bajulan", "±800 MDPL", "Akses Bus Lancar"]
+  },
+  {
+    num: "02",
+    tag: "TERPADU & LENGKAP",
+    title: "All-in-One Destination",
+    lead: "Seluruh Kebutuhan Dalam Satu Kawasan",
+    desc: "Mulai dari 7 pilihan tenda glamping tematik, fasilitas resto tepi sungai, gedung aula meeting MICE serbaguna berpendingin udara, aktivitas petualangan ATV & Offroad Jeep, hingga wisata edukasi berkuda dan mini zoo—semuanya terintegrasi praktis.",
+    specs: ["7 Tipe Glamping", "Gedung Aula AC", "ATV & Offroad", "3 Titik F&B"]
+  },
+  {
+    num: "03",
+    tag: "ETIKA & KEBERLANJUTAN",
+    title: "Eco-Friendly Practices",
+    lead: "Pariwisata Berdampak Positif",
+    desc: "Kami percaya bahwa pariwisata terbaik adalah yang merawat kelestarian bumi dan memberdayakan warga setempat. Kami menerapkan tata kelola ramah lingkungan dan berkolaborasi harmonis dengan warga Desa Bajulan.",
+    specs: ["Zero Harm to Stream", "100% Warga Lokal", "Pemberdayaan UMKM", "Pengolahan Organik"]
+  },
+  {
+    num: "04",
+    tag: "SOLUSI KORPORAT & MICE",
+    title: "Customization Program",
+    lead: "Fleksibilitas Desain Rundown Acara",
+    desc: "Kami menyadari setiap instansi dan keluarga memiliki objektif yang unik. Tim hospitality dan outbound kami siap merancang konsep kegiatan, susunan jadwal, serta menu katering secara spesifik sesuai visi acara Anda.",
+    specs: ["Custom Rundown", "Fasilitator Berlisensi", "Katering Prasmanan", "Dokumentasi Drone"]
+  }
+];
+---
+
+<section id="keunggulan" class="relative z-10 bg-[#f4efe6] text-[#141110] py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20 border-b border-[#141110]/15">
+  <div class="max-w-[1540px] mx-auto space-y-16 sm:space-y-20">
+
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between pb-8 border-b border-[#141110]/15 gap-6">
+      <div class="space-y-3 max-w-2xl">
+        <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.28em] uppercase block">
+          — NILAI JUAL UNIK // VALUE PROPOSITION
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#141110] font-sans">
+          Mengapa Memilih Jolotundo Glamping & Edupark?
+        </h2>
+      </div>
+      <div class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
+        [ 04 REASONS TO PARTNER WITH US ]
+      </div>
+    </div>
+
+    <!-- 4 Interactive Editorial Columns -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+      {advantages.map((item) => (
+        <article class="p-8 sm:p-9 bg-white/70 hover:bg-white border border-[#141110]/15 hover:border-[#141110] transition-all duration-300 flex flex-col justify-between group shadow-[0_4px_24px_rgba(20,17,16,0.03)] hover:shadow-[0_16px_40px_rgba(20,17,16,0.08)]">
+          
+          <div>
+            <!-- Top Card Tag -->
+            <div class="flex items-center justify-between pb-5 border-b border-[#141110]/10 text-xs font-mono-tag">
+              <span class="text-xl font-bold text-[#141110]">{item.num}</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#141110]/50">{item.tag}</span>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <div class="mt-6 space-y-2">
+              <span class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider block">
+                {item.lead}
+              </span>
+              <h3 class="text-2xl font-semibold tracking-tight text-[#141110] font-sans leading-snug">
+                {item.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-[#141110]/75 font-sans leading-relaxed font-light pt-2">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+
+          <!-- Specs Pill Tags -->
+          <div class="mt-8 pt-5 border-t border-[#141110]/10 space-y-3">
+            <span class="text-[10px] font-mono-tag text-[#141110]/40 uppercase tracking-widest block">
+              SPESIFIKASI UNGGULAN:
+            </span>
+            <div class="flex flex-wrap gap-1.5">
+              {item.specs.map((spec) => (
+                <span class="text-[11px] font-mono-tag px-2 py-0.5 bg-[#f4efe6] border border-[#141110]/10 text-[#141110]/80">
+                  {spec}
+                </span>
+              ))}
+            </div>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+

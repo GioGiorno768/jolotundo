@@ -1,0 +1,196 @@
+---
+// VISI, MISI, & OUR VALUES (Compro Hal. 4 & 5)
+// GoUncharted Clean Editorial Architecture with Interactive Value Cards
+
+const misiList = [
+  {
+    num: "01",
+    label: "HOSPITALITAS & KENYAMANAN",
+    title: "Kenyamanan, Keamanan & Kehangatan Pelayanan",
+    desc: "Menyediakan fasilitas glamping modern berstandar prima yang menjamin rasa aman, kehangatan staf, dan kenyamanan istirahat maksimal di tengah alam bebas."
+  },
+  {
+    num: "02",
+    label: "EDUPARK & KARAKTER",
+    title: "Program Edukatif & Pembentukan Karakter",
+    desc: "Menyelenggarakan program eduwisata interaktif dan outbound korporat yang menantang kekompakan, kepemimpinan, dan sinergi tim di alam terbuka."
+  },
+  {
+    num: "03",
+    label: "SUSTAINABILITY & EKOSISTEM",
+    title: "Praktik Ramah Lingkungan Berkelanjutan",
+    desc: "Menerapkan standar operasional ramah lingkungan di setiap sudut kawasan untuk merawat keaslian mata air, sungai alami, dan kanopi hutan pinus lereng Wilis."
+  },
+  {
+    num: "04",
+    label: "PEMBERDAYAAN LOKAL",
+    title: "Kearifan Lokal Nganjuk & Nilai Ekonomi",
+    desc: "Tumbuh bersama masyarakat Desa Bajulan melalui penyerapan tenaga kerja lokal, kemitraan UMKM kuliner, serta pelestarian budaya tradisional."
+  }
+];
+
+const valuesList = [
+  {
+    id: "sustainability",
+    index: "01",
+    tag: "PLANET & FUTURE",
+    name: "Sustainability",
+    subtitle: "Kelestarian Ekosistem Jangka Panjang",
+    body: "Kami berkomitmen menjaga kelestarian alam dengan menerapkan praktik ramah lingkungan di setiap aspek operasional. Setiap keputusan bisnis kami mempertimbangkan dampak jangka panjang terhadap ekosistem dan generasi mendatang.",
+    quote: "Harmoni abadi antara pariwisata dan alam."
+  },
+  {
+    id: "community",
+    index: "02",
+    tag: "PEOPLE & IMPACT",
+    name: "Community Empowerment",
+    subtitle: "Pemberdayaan Masyarakat Sekitar",
+    body: "Kami tumbuh bersama komunitas lokal dengan memberdayakan masyarakat Desa Bajulan melalui peluang kerja, kemitraan usaha lokal, dan pelestarian budaya. Kesejahteraan komunitas adalah bagian integral dari kesuksesan kami.",
+    quote: "Maju dan bermartabat bersama warga lokal."
+  },
+  {
+    id: "education",
+    index: "03",
+    tag: "MINDFUL LEARNING",
+    name: "Environmental Education",
+    subtitle: "Edukasi Alam Mendalam",
+    body: "Kami percaya bahwa pemahaman mendalam tentang alam adalah kunci pelestarian. Melalui program edukatif yang menarik di edupark dan mini zoo, kami menginspirasi tamu untuk mencintai dan melindungi lingkungan sekitar mereka.",
+    quote: "Menanamkan kecintaan pada bumi sejak dini."
+  },
+  {
+    id: "innovation",
+    index: "04",
+    tag: "PRODUCT & EXPERIENCE",
+    name: "Innovation",
+    subtitle: "Inovasi Pengalaman Berkelanjutan",
+    body: "Kami tidak pernah berhenti meneliti dan mengembangkan produk atau pengalaman baru yang relevan dengan tren pariwisata modern dan kebutuhan pelanggan—dari glamping estetik hingga fasilitas MICE terpadu.",
+    quote: "Adaptif, relevan, dan terus berevolusi."
+  }
+];
+---
+
+<section id="visi-misi" class="relative z-10 bg-[#f4efe6] text-[#141110] py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20 border-b border-[#141110]/15">
+  <div class="max-w-[1540px] mx-auto space-y-20 sm:space-y-28">
+
+    <!-- 1. THE VISION STATEMENT (Full-Width Minimalist Typography Banner) -->
+    <div class="border-b border-[#141110]/15 pb-16 sm:pb-20">
+      
+      <div class="flex items-center gap-2 text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-800"></span>
+        <span>VISI KAMI // OUR VISION</span>
+      </div>
+
+      <blockquote class="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#141110] font-sans leading-[1.2] max-w-5xl">
+        “Menjadi destinasi glamping dan eduwisata terkemuka di Indonesia yang menginspirasi gaya hidup selaras dengan alam, mempromosikan kelestarian lingkungan yang berkelanjutan, dan memberikan pengalaman liburan yang bermakna.”
+      </blockquote>
+
+      <div class="mt-8 flex items-center gap-4 text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
+        <span>— KOMITMEN RESMI DIREKSI DAN GROUP</span>
+        <span>•</span>
+        <span>EST. 2023</span>
+      </div>
+
+    </div>
+
+    <!-- 2. FOUR STRATEGIC MISSIONS (Minimalist Asymmetric 4-Column Grid) -->
+    <div class="space-y-10">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase block mb-2">
+            — EMPAT PILAR STRATEGIS
+          </span>
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[#141110] font-sans">
+            Misi Kami Menjaga Standar Keunggulan
+          </h3>
+        </div>
+        <span class="text-xs font-mono-tag text-[#141110]/50 uppercase">
+          [ 04 STRATEGIC MISSIONS ]
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {misiList.map((misi) => (
+          <div class="p-7 bg-white/60 hover:bg-white border border-[#141110]/15 hover:border-[#141110] transition-all duration-300 flex flex-col justify-between min-h-[260px] group">
+            <div>
+              <div class="flex items-center justify-between pb-4 border-b border-[#141110]/10 text-xs font-mono-tag">
+                <span class="font-bold text-[#141110]">{misi.num}</span>
+                <span class="text-[#141110]/50 uppercase tracking-wider">{misi.label}</span>
+              </div>
+              <h4 class="mt-4 text-lg font-semibold tracking-tight text-[#141110] font-sans leading-snug">
+                {misi.title}
+              </h4>
+              <p class="mt-2.5 text-xs sm:text-sm text-[#141110]/70 font-sans leading-relaxed font-light">
+                {misi.desc}
+              </p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-[#141110]/10 flex items-center justify-end">
+              <span class="text-xs font-mono-tag text-[#141110]/40 group-hover:text-[#141110] group-hover:translate-x-1 transition-all">
+                EKOSISTEM →
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- 3. OUR VALUES (Interactive Minimalist Bento Grid) -->
+    <div class="pt-8 border-t border-[#141110]/15 space-y-10">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase block mb-2">
+            — PRINSIP & NILAI-NILAI INTI
+          </span>
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[#141110] font-sans">
+            Our Values: Komitmen Yang Kami Pegang
+          </h3>
+        </div>
+        <p class="text-xs font-mono-tag text-[#141110]/60 max-w-sm sm:text-right uppercase">
+          Empat nilai yang mendasari setiap keputusan operasional dan pembangunan di Jolotundo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {valuesList.map((val) => (
+          <article class="p-8 sm:p-10 bg-white/70 hover:bg-white border border-[#141110]/15 hover:border-[#141110] transition-all duration-300 relative group flex flex-col justify-between shadow-[0_4px_24px_rgba(20,17,16,0.03)] hover:shadow-[0_12px_36px_rgba(20,17,16,0.08)]">
+            
+            <div>
+              <!-- Header -->
+              <div class="flex items-center justify-between pb-5 border-b border-[#141110]/10 text-xs font-mono-tag tracking-wider uppercase">
+                <span class="text-lg font-bold text-[#141110]">{val.index}</span>
+                <span class="px-2.5 py-1 bg-[#f4efe6] border border-[#141110]/15 text-[#141110] font-semibold text-[10px]">
+                  {val.tag}
+                </span>
+              </div>
+
+              <!-- Content -->
+              <div class="mt-6 space-y-3">
+                <span class="text-xs font-mono-tag text-[#141110]/50 uppercase tracking-widest block">
+                  {val.subtitle}
+                </span>
+                <h4 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#141110] font-sans">
+                  {val.name}
+                </h4>
+                <p class="text-sm sm:text-base text-[#141110]/75 font-sans leading-relaxed font-light pt-1">
+                  {val.body}
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer Quote Tag -->
+            <div class="mt-8 pt-4 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag">
+              <span class="text-[#141110]/60 italic font-sans font-light">“{val.quote}”</span>
+              <span class="text-[#141110] font-bold group-hover:scale-110 transition-transform">✓</span>
+            </div>
+
+          </article>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+

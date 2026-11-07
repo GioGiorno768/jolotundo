@@ -1,0 +1,276 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import FooterCTA from '../components/FooterCTA.astro';
+
+import AboutGenesisHistory from '../components/AboutGenesisHistory.astro';
+import AboutVisiMisiValues from '../components/AboutVisiMisiValues.astro';
+import AboutWhyChooseUs from '../components/AboutWhyChooseUs.astro';
+import AboutServicesOverview from '../components/AboutServicesOverview.astro';
+import AboutClienteleQuotes from '../components/AboutClienteleQuotes.astro';
+
+// Split kata untuk efek Scroll-Driven Word Reveal (1:1 GoUncharted Editorial Architecture)
+const manifestoWords = "Lebih dari sekadar tempat menginap, kami menghadirkan ruang untuk terhubung kembali dengan alam dan merajut kebersamaan.".split(" ");
+---
+
+<Layout 
+  title="Tentang Kami — Jolotundo Glamping & Edupark (Dan Group)"
+  description="Kisah perjalanan Jolotundo Glamping & Edupark di lereng Gunung Wilis, Desa Bajulan, Nganjuk. Dari inisiatif 4 tenda internal Dan Group di tahun 2023 hingga bertransformasi menjadi pelopor destinasi ekowisata terpadu di Indonesia."
+>
+  <!-- Floating Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Background -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED PARALLAX TRANSLATE-Y)       -->
+    <!-- ========================================================================= -->
+    <header 
+      id="tentang-hero" 
+      class="relative w-full h-[100svh] min-h-[560px] sm:min-h-[660px] flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+    >
+      <!-- Parallax Translate-Y Background Layer -->
+      <div 
+        id="tentang-hero-parallax-layer"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src="/images/hero.jpg" 
+          alt="Jolotundo Glamping & Edupark - Dan Group Ecosystem" 
+          class="w-full h-full object-cover object-center scale-105"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <!-- Atmospheric Vignettes / Dual Scrim for Editorial Typography Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/25 to-black/85 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-black/15 pointer-events-none"></div>
+      </div>
+
+      <!-- Top Spacer to clear floating pill navbar -->
+      <div class="relative z-10 w-full pt-24 sm:pt-32"></div>
+
+      <!-- Center Display Typography (Pure GoUncharted Clean Brutalist-Luxury) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto my-auto w-full">
+        
+        <!-- Small Centered Bracketed Eyebrow Kicker (Single Clean Line, Never Wraps) -->
+        <span class="text-[11px] sm:text-xs font-mono-tag tracking-[0.25em] sm:tracking-[0.35em] text-[#d8c39e] uppercase mb-4 sm:mb-6 drop-shadow-md">
+          [ TENTANG KAMI // DAN GROUP ]
+        </span>
+
+        <!-- Giant Bold Display Headline (Pure Editorial Luxury) -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[92px] font-extrabold uppercase tracking-tight text-white leading-[0.94] font-sans drop-shadow-2xl">
+          WHERE NATURE<br />
+          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">meets</span> ELEGANCE.
+        </h1>
+
+        <!-- Elegant Refined One-Line Subtitle (Simple, Poetic & Clean) -->
+        <p class="text-xs sm:text-sm md:text-base font-sans text-white/80 max-w-lg mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light">
+          Harmoni kemewahan glamping, edukasi alam, dan pariwisata berkelanjutan di lereng Gunung Wilis.
+        </p>
+
+      </div>
+
+      <!-- Bottom Metadata Bar (1:1 GoUncharted: Hairline Divider + Specs Columns) -->
+      <div class="relative z-10 w-full">
+        <!-- Thin Hairline Divider -->
+        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
+          <div class="w-full border-t border-white/15"></div>
+        </div>
+
+        <!-- Metadata Row (Single Razor-Sharp Line on Mobile & Desktop) -->
+        <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-4 sm:py-5 flex items-center justify-between text-[11px] sm:text-xs font-mono-tag text-white/70 uppercase tracking-wider">
+          
+          <!-- Left: Group & Origin -->
+          <div class="flex items-center gap-2 sm:gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#d8c39e]"></span>
+            <span class="text-white font-semibold">DAN GROUP</span>
+            <span class="text-white/30 hidden sm:inline">•</span>
+            <span class="text-white/60 hidden sm:inline">EST. 2023</span>
+            <span class="text-white/30 hidden md:inline">•</span>
+            <span class="text-white/60 hidden md:inline">DESA BAJULAN, NGANJUK</span>
+          </div>
+
+          <!-- Right: Elevation & Subtle Scroll Cue -->
+          <div class="flex items-center gap-3 sm:gap-6">
+            <span class="text-white/50">±800 MDPL</span>
+            <span class="text-white/30 hidden sm:inline">•</span>
+            <a href="#kisah-kami" class="text-white/70 hover:text-white transition-colors flex items-center gap-1.5 group">
+              <span>EXPLORE</span>
+              <span class="text-[#d8c39e] group-hover:translate-y-0.5 transition-transform duration-200">↓</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- 2. SCROLL-DRIVEN EDITORIAL MANIFESTO (1:1 GOUNCHARTED "WHY FORTY-TWO")    -->
+    <!-- ========================================================================= -->
+    <section id="kisah-kami" class="relative z-10 bg-[#f4efe6] text-[#141110] py-20 sm:py-28 lg:py-36 px-6 sm:px-10 lg:px-14 xl:px-20 transition-colors duration-300 border-b border-[#141110]/15">
+      <div class="max-w-[1360px] mx-auto">
+        
+        <!-- Small Editorial Kicker with Dash (1:1 GoUncharted: "— WHY FORTY-TWO") -->
+        <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/50 tracking-[0.28em] uppercase block mb-6 sm:mb-10">
+          — THE MANIFESTO
+        </span>
+
+        <!-- Giant Typography Statement with Word-by-Word Scroll Reveal -->
+        <h2 
+          id="manifesto-reveal-heading"
+          class="text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.75rem] font-normal leading-[1.14] tracking-[-0.03em] text-[#141110] font-sans"
+        >
+          {manifestoWords.map((word) => (
+            <span 
+              class="reveal-word inline-block mr-[0.24em] transition-opacity duration-150 ease-out will-change-[opacity]" 
+              style="opacity: 0.15;"
+            >
+              {word}
+            </span>
+          ))}
+        </h2>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 3. OUR HISTORY // GENESIS (4 Tenda Internal -> Destinasi Terpadu)         -->
+    <!-- ========================================================================= -->
+    <AboutGenesisHistory />
+
+    <!-- ========================================================================= -->
+    <!-- 4. VISI, MISI, & OUR VALUES (Komitmen Ekosistem Dan Group)               -->
+    <!-- ========================================================================= -->
+    <AboutVisiMisiValues />
+
+    <!-- ========================================================================= -->
+    <!-- 5. PORTOFOLIO LAYANAN // 4 INTEGRATED SECTORS                             -->
+    <!-- ========================================================================= -->
+    <AboutServicesOverview />
+
+    <!-- ========================================================================= -->
+    <!-- 6. WHY CHOOSE US? // 4 VALUE PROPOSITIONS                                 -->
+    <!-- ========================================================================= -->
+    <AboutWhyChooseUs />
+
+    <!-- ========================================================================= -->
+    <!-- 7. OUR CLIENTELE, TESTIMONI RESMI & LEGALITAS ENTITAS DAN GROUP           -->
+    <!-- ========================================================================= -->
+    <AboutClienteleQuotes />
+
+    <!-- ========================================================================= -->
+    <!-- 8. FOOTER CONCIERGE CTA                                                   -->
+    <!-- ========================================================================= -->
+    <FooterCTA />
+
+  </main>
+</Layout>
+
+<style>
+  .font-mono-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+</style>
+
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: HERO PARALLAX & SCROLL-DRIVEN TEXT REVEAL ENGINES             -->
+<!-- ========================================================================= -->
+<script is:inline>
+  // 1. Hero Parallax Translate-Y Engine
+  function initTentangHeroParallax() {
+    const heroSection = document.getElementById('tentang-hero');
+    const parallaxLayer = document.getElementById('tentang-hero-parallax-layer');
+    if (!heroSection || !parallaxLayer) return;
+
+    let isTicking = false;
+
+    function updateHeroParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight;
+
+      if (scrollY <= heroHeight + 100) {
+        const translateY = scrollY * 0.35;
+        parallaxLayer.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+      }
+    }
+
+    function handleScroll() {
+      if (!isTicking) {
+        requestAnimationFrame(() => {
+          updateHeroParallax();
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateHeroParallax();
+  }
+
+  // 2. 1:1 GoUncharted Scroll-Driven Word-by-Word Text Reveal Engine
+  function initScrollTextReveal() {
+    const heading = document.getElementById('manifesto-reveal-heading');
+    if (!heading) return;
+
+    const words = heading.querySelectorAll('.reveal-word');
+    if (!words || words.length === 0) return;
+
+    const totalWords = words.length;
+    let isTicking = false;
+    let isVisible = false;
+
+    const updateWords = () => {
+      const rect = heading.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Start when heading enters 82% of viewport
+      // Complete smoothly when heading is centered at 38% of viewport
+      const startTrigger = viewportHeight * 0.82;
+      const endTrigger = viewportHeight * 0.38;
+
+      const rawProgress = (startTrigger - rect.top) / (startTrigger - endTrigger);
+      const overallProgress = Math.max(0, Math.min(1, rawProgress));
+
+      words.forEach((word, idx) => {
+        const wordStart = idx / totalWords;
+        const wordEnd = (idx + 1) / totalWords;
+        const wordProgress = Math.max(0, Math.min(1, (overallProgress - wordStart) / (wordEnd - wordStart)));
+        // Subtle base opacity 0.15 smoothly transitions to 1.0 deep solid black
+        const opacity = 0.15 + wordProgress * 0.85;
+        word.style.opacity = opacity.toFixed(2);
+      });
+
+      isTicking = false;
+    };
+
+    const onScroll = () => {
+      if (!isTicking && isVisible) {
+        requestAnimationFrame(updateWords);
+        isTicking = true;
+      }
+    };
+
+    const obs = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible) updateWords();
+    }, { rootMargin: '200px 0px' });
+    obs.observe(heading);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateWords();
+  }
+
+  function setupTentangPage() {
+    initTentangHeroParallax();
+    initScrollTextReveal();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTentangPage);
+  } else {
+    setupTentangPage();
+  }
+</script>
