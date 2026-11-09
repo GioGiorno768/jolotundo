@@ -1,0 +1,497 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import FooterCTA from '../../components/FooterCTA.astro';
+import siteData from '../../data/siteData.json';
+
+// WhatsApp Order URL
+const waPhone = siteData.brand.whatsapp || "6282249828998";
+const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Halo Admin Jolotundo, saya mau order menu Warung Ketan / Kopi Jolotundo Cafe.")}`;
+
+// Categorized Menu Data
+const menuCategories = [
+  {
+    category: "VARIAN WARUNG KETAN LEGENDARIS",
+    tag: "SIGNATURE STICKY RICE",
+    items: [
+      {
+        name: "Ketan Bubuk Kedelai Tradisional",
+        price: "Rp 12.000",
+        desc: "Ketan putih pulen gurih bertabur parutan kelapa muda segar dan serbuk kedelai manis gurih otentik resep turun-temurun khas Jawa Timuran.",
+        badge: "OTENTIK LEGENDARIS"
+      },
+      {
+        name: "Ketan Susu Keju Melimpah",
+        price: "Rp 15.000",
+        desc: "Ketan hangat pulen disiram krimer kental manis dan limpahan keju cheddar parut gurih melimpah yang lumer berpadu hangatnya ketan.",
+        badge: "FAVORIT REMAJA"
+      },
+      {
+        name: "Ketan Serundeng Pedas Manis",
+        price: "Rp 14.000",
+        desc: "Ketan gurih berpadu taburan serundeng kelapa sangrai berbumbu ketumbar wangi, daun salam, lengkuas, dan cabai aromatik pedas manis gurih.",
+        badge: "SAVORY & SPICY"
+      },
+      {
+        name: "Ketan Cokelat Meises Keju",
+        price: "Rp 15.000",
+        desc: "Kombinasi klasik butiran meises cokelat premium, parutan keju gurih, dan kental manis vanila yang disukai seluruh anggota keluarga.",
+        badge: "KIDS FAVORITE"
+      },
+      {
+        name: "Ketan Durian Lumer Lereng Wilis",
+        price: "Rp 20.000",
+        desc: "Ketan pulen hangat disiram saus vla daging durian asli yang kental, legit, manis harum, dan lumer di mulut saat dinikmati.",
+        badge: "SEASONAL DELIGHT"
+      },
+      {
+        name: "Ketan Hitam Manis Kelapa Muda",
+        price: "Rp 14.000",
+        desc: "Ketan hitam pulen alami bertekstur legit dengan siraman kuah santan gurih dan parutan kelapa muda segar tanpa pewarna buatan.",
+        badge: "NATURAL GRAIN"
+      }
+    ]
+  },
+  {
+    category: "GORENGAN HANGAT & KUDAPAN DESA",
+    tag: "FRESH FROM WOK",
+    items: [
+      {
+        name: "Pisang Goreng Madu Crispy",
+        price: "Rp 15.000",
+        desc: "Pisang kepok matang pohon berbalut adonan tepung crispy keemasan, disajikan panas dengan siraman madu hutan murni lereng Wilis.",
+        badge: "BEST SELLER SNACK"
+      },
+      {
+        name: "Tahu Bakso Sapi Hangat Bajulan",
+        price: "Rp 18.000",
+        desc: "Tahu cokelat isi adonan daging sapi cincang gurih empuk yang digoreng garing, disajikan bersama cabai rawit hijau segar yang pedas menggigit.",
+        badge: "SAVORY BITE"
+      },
+      {
+        name: "Tempe Mendoan Daun Bawang",
+        price: "Rp 14.000",
+        desc: "Tempe kedelai tipis berbalut tepung bumbu ketumbar dan daun bawang segar, digoreng setengah matang lembut dengan sambal kecap pedas manis.",
+        badge: "TRADISIONAL"
+      },
+      {
+        name: "Jadah Bakar Bumbu Desa",
+        price: "Rp 12.000",
+        desc: "Uli ketan putih bakar beraroma daun pisang hangus yang harum menggoda, disajikan dengan cocolan serundeng atau sambal kecap.",
+        badge: "RUSTIC HERITAGE"
+      },
+      {
+        name: "Bakwan Jagung Manis Renyah",
+        price: "Rp 14.000",
+        desc: "Pipilan jagung manis segar dipadu irisan seledri dan rempah bawang, digoreng renyah garing di luar lembut gurih di dalam.",
+        badge: "CRISPY CORN"
+      },
+      {
+        name: "Singkong Goreng Sambal Bawang",
+        price: "Rp 16.000",
+        desc: "Potongan singkong empuk yang merekah gurih setelah digoreng renyah, disajikan bersama ulekan sambal bawang pedas segar khas pedesaan.",
+        badge: "HOT & SPICY"
+      }
+    ]
+  },
+  {
+    category: "SEDUHAN KOPI TRADISIONAL & HERBAL",
+    tag: "MOUNTAIN BREWS",
+    items: [
+      {
+        name: "Kopi Kothok Wilis Panci Tembaga",
+        price: "Rp 12.000",
+        desc: "Bubuk kopi robusta Bajulan dimasak bersama air dan gula aren hingga mendidih di panci tembaga, menghasilkan busa tebal dan aroma sangrai khas.",
+        badge: "METODE KOTHOK"
+      },
+      {
+        name: "Kopi Tubruk Manis Legit",
+        price: "Rp 10.000",
+        desc: "Seduhan kopi hitam pekat tradisional dengan takaran gula pasir pas, kental aromatik dan menjadi teman obrolan paling hangat.",
+        badge: "KLASIK DESA"
+      },
+      {
+        name: "Susu Segar Jahe Emprit Bakar",
+        price: "Rp 15.000",
+        desc: "Susu sapi murni segar berpadu perasan sari jahe emprit bakar geprek dan sedikit gula aren, menghangatkan tubuh seketika di udara dingin.",
+        badge: "PENGHANGAT BADAN"
+      },
+      {
+        name: "Teh Tarik Busa Lembut",
+        price: "Rp 14.000",
+        desc: "Seduhan teh hitam pekat dipadukan susu kental manis lalu ditarik berulang kali hingga tercipta lapisan buih lembut yang creamy.",
+        badge: "CREAMY FOAM"
+      },
+      {
+        name: "Kopi Jahe Gula Aren Wilis",
+        price: "Rp 14.000",
+        desc: "Perpaduan mantap antara pahit kopi robusta, pedas hangat jahe bakar, dan manis karamel gula aren organik asli lereng pegunungan.",
+        badge: "SPICE COFFEE"
+      },
+      {
+        name: "Wedang Secang Jeruk Nipis Madu",
+        price: "Rp 16.000",
+        desc: "Rebusan serutan kayu secang merah dengan perasan jeruk nipis segar dan madu murni, menyegarkan tenggorokan dan kaya antioksidan.",
+        badge: "HERBAL FRESH"
+      }
+    ]
+  }
+];
+
+// Highlight Specs
+const outletSpecs = [
+  { label: "KAPASITAS TEMPAT DUDUK", value: "80 Kursi Tamu", note: "Rustic Pine Chalet & Garden Seating" },
+  { label: "JAM OPERASIONAL", value: "07.00 — 21.00 WIB", note: "Buka Paling Pagi untuk Sarapan" },
+  { label: "LOKASI SENTRAL", value: "Area Komunal Tengah", note: "Akses Mudah dari Semua Tenda Glamping" },
+  { label: "KEISTIMEWAAN", value: "Warung Ketan Asli", note: "Ketan Hangat Pulen & Kopi Kothok" }
+];
+---
+
+<Layout 
+  title="Jolotundo Cafe & Warung Ketan — Pine Chalet & Kudapan Tradisional | Jolotundo Glamping"
+  description="Kehangatan pondok kayu pine chalet, camilan ketan legendaris kelapa gurih, gorengan pisang madu, dan kopi kothok lereng Wilis di Jolotundo Edupark."
+>
+  <!-- Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Editorial -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED PARALLAX TRANSLATE-Y)       -->
+    <!-- ========================================================================= -->
+    <header 
+      id="cafe-hero" 
+      class="relative w-full h-[100svh] min-h-[580px] sm:min-h-[680px] flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+    >
+      <!-- Parallax Translate-Y Background Layer -->
+      <div 
+        id="cafe-hero-parallax-layer"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src="/images/facilities/jolotundo-cafe-ketan.jpg" 
+          alt="Jolotundo Cafe & Warung Ketan Pondok Pinus" 
+          class="w-full h-full object-cover object-center scale-105"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/90 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+      </div>
+
+      <!-- Top Spacer -->
+      <div class="relative z-10 w-full pt-24 sm:pt-32"></div>
+
+      <!-- Center Hero Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto my-auto w-full">
+        
+        <!-- Eyebrow Kicker -->
+        <div class="flex items-center gap-2 mb-4 sm:mb-6">
+          <a href="/fasilitas" class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] text-[#d8c39e] hover:text-white uppercase transition-colors">
+            ← [ FASILITAS & RESTO ]
+          </a>
+          <span class="text-white/40 font-mono-tag text-xs">•</span>
+          <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase">
+            OUTLET // 02
+          </span>
+        </div>
+
+        <!-- Giant Display Headline -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[90px] font-extrabold uppercase tracking-tight text-white leading-[0.94] font-sans drop-shadow-2xl">
+          JOLOTUNDO CAFE<br />
+          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">& warung ketan</span> UNDER THE PINES.
+        </h1>
+
+        <!-- Editorial Subtitle -->
+        <p class="text-xs sm:text-sm md:text-base font-sans text-white/80 max-w-2xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light">
+          Kehangatan pondok kayu pine chalet berpadu dengan kelezatan aneka olahan ketan pulen legendaris bertabur kelapa gurih, gorengan renyah yang baru diangkat, dan seduhan kopi kothok khas pedesaan Jawa Timur.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mt-6 sm:mt-8">
+          <a 
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors shadow-lg flex items-center gap-2"
+          >
+            <span>Order Menu via WhatsApp</span>
+            <span>↗</span>
+          </a>
+          <a 
+            href="#daftar-menu" 
+            class="px-5 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-mono-tag text-xs font-semibold uppercase tracking-wider transition-colors backdrop-blur-sm"
+          >
+            [ LIHAT VARIAN KETAN ↓ ]
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Metadata Specs -->
+      <div class="relative z-10 w-full px-6 sm:px-12 lg:px-16 pb-6 sm:pb-8 pt-4 border-t border-white/15 bg-gradient-to-t from-black/60 to-transparent">
+        <div class="max-w-[1680px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tag tracking-widest uppercase text-white/70">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-white font-semibold">PINE CHALET • SENTRAL KOMUNAL PINUS</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-white/60">
+            <span>KAPASITAS: 80 KURSI</span>
+            <span class="hidden sm:inline">•</span>
+            <span>BUKA PAGI: 07.00 — 21.00 WIB</span>
+            <span class="hidden sm:inline">•</span>
+            <span class="text-[#d8c39e]">SARAPAN & NGOPI SENJA</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ========================================================================= -->
+    <!-- 2. EDITORIAL ESSENCE & NARRATIVE (1:1 GOUNCHARTED TWO-COLUMN SPLIT)       -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15">
+      <div class="max-w-[1680px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        
+        <!-- Left Column: Big Philosophy Quote -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase">
+            <span>[ TRADISI KULINER // 02 ]</span>
+            <span>•</span>
+            <span class="text-[#8c6d37] font-semibold">WARUNG KETAN & PINE CHALET</span>
+          </div>
+          <blockquote class="text-2xl sm:text-3xl lg:text-4xl font-light text-[#141110] font-serif italic leading-snug">
+            “Ada ketenangan yang tak ternilai saat menggenggam secangkir kopi panas di pagi hari yang berkabut, ditemani sepiring ketan pulen hangat yang baru matang dari dandang tradisional.”
+          </blockquote>
+          <div class="pt-4 border-t border-[#141110]/15 flex items-center justify-between text-xs font-mono-tag text-[#141110]/60">
+            <span>LOKASI: AREA KOMUNAL SENTRAL</span>
+            <span class="text-[#8c6d37]">BUKA MULAI 07.00 PAGI</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Narrative & Specifications Grid -->
+        <div class="lg:col-span-7 flex flex-col gap-8">
+          <div class="space-y-4 text-sm sm:text-base font-sans text-[#141110]/80 font-light leading-relaxed">
+            <p>
+              Berdiri di bawah kanopi hutan pinus yang teduh, Jolotundo Cafe & Warung Ketan dirancang sebagai ruang komunal yang hangat dan bersahaja. Menghidupkan kembali tradisi kuliner pedesaan lereng Wilis, tempat di mana wisatawan dan tamu glamping dapat berkumpul santai tanpa sekat formalitas.
+            </p>
+            <p>
+              Beras ketan pilihan dikukus secara tradisional menggunakan dandang bambu untuk memastikan tekstur pulen yang sempurna. Dipadukan dengan parutan kelapa muda gurih, bubuk kedelai wangi, hingga pilihan topping modern seperti keju cheddar leleh dan saus durian asli. Dibuka sejak pukul 07.00 pagi, menjadikannya pilihan favorit untuk sarapan cepat sebelum Anda memulai petualangan offroad atau trekking alam.
+            </p>
+          </div>
+
+          <!-- Specs Matrix -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-[#141110]/15">
+            {outletSpecs.map((s) => (
+              <div class="p-4 bg-white/60 border border-[#141110]/15 flex flex-col justify-between">
+                <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
+                  {s.label}
+                </span>
+                <span class="text-base font-bold text-[#141110] font-sans tracking-tight block">
+                  {s.value}
+                </span>
+                <span class="text-xs text-[#8c6d37] font-mono-tag mt-1 block">
+                  {s.note}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 3. CURATED MENU CATALOGUE (TABS & EDITORIAL CARDS)                       -->
+    <!-- ========================================================================= -->
+    <section id="daftar-menu" class="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#ece6d9]/40 scroll-mt-14">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#141110]/15">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-2">
+              <span>[ BUKU MENU WARUNG KETAN ]</span>
+              <span>•</span>
+              <span class="text-[#8c6d37] font-semibold">KUDAPAN HANGAT HARGA BERSAHABAT</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
+              Daftar Menu Jolotundo Cafe
+            </h2>
+          </div>
+          <div class="text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span>BUKA 07.00–21.00 WIB • DINE-IN & TAKEAWAY KE TENDA</span>
+          </div>
+        </div>
+
+        <!-- Menu Categories Loop -->
+        <div class="space-y-16 sm:space-y-20">
+          {menuCategories.map((cat, cIdx) => (
+            <div>
+              <!-- Category Header -->
+              <div class="flex items-center justify-between pb-3 mb-6 border-b border-[#141110]/20">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-mono-tag font-bold text-[#8c6d37]">0{cIdx + 1}</span>
+                  <h3 class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-[#141110]">
+                    {cat.category}
+                  </h3>
+                </div>
+                <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest hidden sm:inline">
+                  {cat.tag}
+                </span>
+              </div>
+
+              <!-- Menu Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {cat.items.map((item) => (
+                  <div class="p-5 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between group">
+                    <div>
+                      <div class="flex items-start justify-between gap-3 mb-2">
+                        <h4 class="text-base sm:text-lg font-bold text-[#141110] font-sans tracking-tight group-hover:text-[#8c6d37] transition-colors">
+                          {item.name}
+                        </h4>
+                        <span class="text-sm font-bold font-mono-tag text-[#141110] shrink-0">
+                          {item.price}
+                        </span>
+                      </div>
+                      <span class="inline-block text-[9px] font-mono-tag px-2 py-0.5 bg-[#141110]/5 text-[#8c6d37] uppercase font-semibold mb-3 border border-[#141110]/10">
+                        {item.badge}
+                      </span>
+                      <p class="text-xs text-[#141110]/70 font-sans font-light leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 4. EARLY MORNING & TAKEAWAY SERVICE TO TENTS                             -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-20 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#141110] text-[#f4efe6]">
+      <div class="max-w-[1680px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+          
+          <div class="lg:col-span-8 flex flex-col gap-3">
+            <span class="text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase font-bold">
+              [ LAYANAN ROOM SERVICE & TAKEAWAY ]
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-white">
+              Antar Sarapan Hangat & Kopi Langsung ke Tenda Glamping Anda
+            </h3>
+            <p class="text-xs sm:text-sm text-white/80 font-sans font-light leading-relaxed max-w-3xl">
+              Malas keluar dari tenda di pagi hari yang dingin? Anda dapat memesan aneka varian ketan hangat, gorengan pisang madu, dan kopi kothok untuk diantar langsung ke teras unit akomodasi Anda melalui WhatsApp Concierge kami.
+            </p>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
+            <a 
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full py-3.5 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-lg"
+            >
+              Order Sarapan via WhatsApp ↗
+            </a>
+            <span class="text-[10px] font-mono-tag text-white/50 text-center uppercase tracking-wider">
+              Buka Setiap Hari Mulai 07.00 Pagi
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 5. OUTLET NAVIGATION SWITCHER (Next to River Breeze & All Amenities)     -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-24 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 select-none">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <div class="flex items-center justify-between pb-4 mb-8 border-b border-[#141110]/15 text-xs font-mono-tag text-[#141110]/60">
+          <span>NAVIGASI KULINER & FASILITAS</span>
+          <span class="text-[#8c6d37]">JOLOTUNDO ECOSYSTEM</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          
+          <!-- Switch to River Breeze -->
+          <a 
+            href="/fasilitas/river-breeze" 
+            class="group p-6 sm:p-8 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono-tag text-[#8c6d37] mb-2 uppercase">
+                <span>[ OUTLET 01 // PREV ]</span>
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-[#141110] mb-2">
+                River Breeze Cafe & Resto
+              </h3>
+              <p class="text-xs sm:text-sm text-[#141110]/70 font-sans font-light leading-relaxed">
+                Santap istimewa di dek kayu panggung tepat di sempadan aliran sungai jernih. Menu Rawon Iga Wilis, Gurame Bakar Madu, dan live akustik akhir pekan.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/80 font-bold uppercase">
+              <span>Buka Halaman River Breeze</span>
+              <span>↗</span>
+            </div>
+          </a>
+
+          <!-- Switch to All 8 Amenities Overview -->
+          <a 
+            href="/fasilitas" 
+            class="group p-6 sm:p-8 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono-tag text-[#8c6d37] mb-2 uppercase">
+                <span>[ OVERVIEW // 8 SARANA RESORT ]</span>
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-[#141110] mb-2">
+                Seluruh Fasilitas & Katering MICE
+              </h3>
+              <p class="text-xs sm:text-sm text-[#141110]/70 font-sans font-light leading-relaxed">
+                Eksplorasi sarana resort terintegrasi mulai dari area parkir luas, aula limasan pertemuan, sanitasi air hangat, hingga paket katering rombongan.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/80 font-bold uppercase">
+              <span>Jelajahi Semua Fasilitas</span>
+              <span>↗</span>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Luxury Footer CTA -->
+  <FooterCTA />
+
+  <!-- Hero Parallax Script -->
+  <script is:inline>
+    const heroParallaxLayer = document.getElementById('cafe-hero-parallax-layer');
+    if (heroParallaxLayer) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        if (scrolled < window.innerHeight * 1.5) {
+          heroParallaxLayer.style.transform = `translate3d(0, ${scrolled * 0.35}px, 0)`;
+        }
+      }, { passive: true });
+    }
+  </script>
+</Layout>

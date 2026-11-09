@@ -1,173 +1,516 @@
 ---
 // CLIENTELE & SOCIAL PROOF (Compro Hal. 19 & 20)
-// 100+ BUMN & Corporate Partners + Official Client Quotes
-import PartnerMarquee from './PartnerMarquee.astro';
+// 1:1 GoUncharted Clean Brutalist-Luxury Split Layout: Left Title & Narrative / Right Complete 28-Logo Matrix
+// 100+ BUMN & Corporate Partners + Official Verified Quotes + Dan Group Authority
 
 const testimonials = [
   {
+    index: "01",
     client: "Team RSUD Dr. Soegiri, Lamongan",
-    role: "INSTITUSI KESEHATAN // OUTBOUND & GATHERING",
-    quote: "Sangat puas, tenda nyaman bersih, toilet banyak bersih akses dari parkiran ke tenda dekat, pegawai ramah dan tanggap terhadap pengunjung.",
-    rating: "5.0",
-    date: "Corporate Gathering"
+    institution: "INSTITUSI KESEHATAN JAWA TIMUR",
+    program: "Corporate Outbound & Capacity Building",
+    quote: "Sangat puas. Tenda nyaman dan bersih, toilet banyak dan terawat, akses dari parkiran ke tenda dekat, serta seluruh staf sangat ramah dan tanggap terhadap kebutuhan rombongan kami.",
+    year: "VERIFIED GATHERING"
   },
   {
+    index: "02",
     client: "Team KKG Kecamatan Tulungagung",
-    role: "KORPS PENDIDIKAN // CAPACITY BUILDING",
-    quote: "Saya merasa puas karena suasana memang tenang, udara disana sangat sejuk dan bisa me-refresh otak, pelayanan juga baik, petugasnya juga ramah, kebersihan sangat terjaga dan itu membuat pengunjung merasa nyaman.",
-    rating: "5.0",
-    date: "Team Consolidation"
+    institution: "KORPS PENDIDIKAN TULUNGAGUNG",
+    program: "Annual Team Consolidation & Gathering",
+    quote: "Suasana tenang dan udara sejuk lereng Gunung Wilis sangat efektif me-refresh pikiran. Pelayanan prima, petugas ramah, serta kebersihan kawasan yang terjaga membuat seluruh peserta merasa nyaman.",
+    year: "VERIFIED GATHERING"
   }
-];
-
-const clientCategories = [
-  { label: "BUMN & ENERGI", examples: "Pertamina, PLN, Semen Indonesia, KAI, Bulog, Jasa Marga" },
-  { label: "PERBANKAN & KEUANGAN", examples: "Bank Mandiri, BRI, Bank Jatim, BJB, CIMB Niaga, Pegadaian" },
-  { label: "KORPORAT & OTOMOTIF", examples: "Yamaha, Astra Daihatsu, Adira Finance, FIFGROUP, Indomarco" },
-  { label: "PEMERINTAH & KESEHATAN", examples: "RSUD Dr. Soegiri, KKG Jawa Timur, Dinas & Pemkab" }
 ];
 ---
 
 <section id="klien-testimoni" class="relative z-10 bg-[#f4efe6] text-[#141110] py-24 sm:py-32 px-6 sm:px-10 lg:px-14 xl:px-20 border-b border-[#141110]/15">
-  <div class="max-w-[1540px] mx-auto space-y-20 sm:space-y-24">
+  <div class="max-w-[1540px] mx-auto space-y-20 sm:space-y-28">
 
-    <!-- 1. OUR CLIENTELE HEADER -->
-    <div class="space-y-8">
+    <!-- ========================================================================= -->
+    <!-- 1. SPLIT CLIENTELE: LEFT TITLE & NARRATIVE // RIGHT COMPLETE LOGO MATRIX  -->
+    <!-- ========================================================================= -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-start">
       
-      <div class="flex flex-col md:flex-row md:items-end justify-between pb-8 border-b border-[#141110]/15 gap-6">
-        <div class="space-y-3 max-w-3xl">
-          <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.28em] uppercase block">
+      <!-- Samping Kiri: Title, Kicker, Narrative & Key Highlights -->
+      <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+        
+        <div class="space-y-3">
+          <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/50 tracking-[0.28em] uppercase block">
             — PORTOFOLIO B2B // OUR CLIENTELE
           </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#141110] font-sans leading-tight">
-            100+ Corporate & Institutions Enjoy Their Time in Jolotundo.
+          <h2 class="text-3xl sm:text-5xl lg:text-[46px] xl:text-[50px] font-normal tracking-tight text-[#141110] font-sans leading-[1.08]">
+            Dipercaya lebih dari 100+ korporasi dan institusi nasional.
           </h2>
         </div>
-        <div class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
-          [ TRUSTED NATIONWIDE ]
+
+        <p class="text-sm sm:text-base text-[#141110]/75 font-sans leading-relaxed font-light">
+          Dari BUMN strategis, perbankan nasional, korporasi otomotif, hingga instansi kedinasan pemerintah—Jolotundo menjadi ruang terpercaya untuk gathering korporat, outbound sinergi, dan agenda MICE di lereng Gunung Wilis.
+        </p>
+
+        <!-- Monospaced Data Points / Badges -->
+        <div class="pt-6 border-t border-[#141110]/15 flex flex-col gap-2.5 text-xs font-mono-tag text-[#141110]/65 uppercase">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-800"></span>
+            <span class="font-bold text-[#141110]">28+ MITRA KORPORASI & KEDINASAN RESMI</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#141110]/30">•</span>
+            <span>100+ EVENT KORPORAT & DINAS TERLAKSANA</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#141110]/30">•</span>
+            <span>GEDUNG AULA MICE FULL AC & OUTBOUND TERPADU</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#141110]/30">•</span>
+            <span>AKSES BUS BESAR & JALUR ASPAL MULUS</span>
+          </div>
         </div>
+
+        <!-- Quick CTA Button -->
+        <div class="pt-4">
+          <a 
+            href="https://wa.me/6282249829998?text=Halo%20Admin%20Dan%20Group%20Jolotundo,%20saya%20ingin%20konsultasi%20program%20gathering%20dan%20kemitraan%20B2B." 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3.5 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all border border-[#141110]"
+          >
+            <span>Konsultasi Gathering & MICE</span>
+            <span>↗</span>
+          </a>
+        </div>
+
       </div>
 
-      <!-- Partner Logo Marquee Rail (16 Vector BUMN & Corporate Logos) -->
-      <PartnerMarquee />
+      <!-- Samping Kanan: Complete Architectural 4x7 Logo Matrix (28 Brands & Institutions) -->
+      <div class="lg:col-span-7">
+        
+        <!-- Grid Header: Category Indicators -->
+        <div class="flex items-center justify-between pb-3 text-[11px] font-mono-tag text-[#141110]/50 uppercase tracking-widest">
+          <span>[ BUMN • PERBANKAN • KORPORAT • KEDINASAN ]</span>
+          <span>28 LOGO RESMI</span>
+        </div>
 
-      <!-- Client Category Breakdown Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-        {clientCategories.map((cat, idx) => (
-          <div class="p-5 bg-white/60 border border-[#141110]/10 text-xs font-mono-tag space-y-1.5">
-            <span class="text-[#141110]/40 uppercase tracking-wider block">0{idx + 1} // {cat.label}</span>
-            <p class="text-[#141110]/80 font-sans font-normal leading-relaxed">{cat.examples}</p>
+        <div class="border-t border-l border-[#141110]/20 grid grid-cols-2 sm:grid-cols-4 bg-white/40">
+          
+          <!-- ROW 1: INSTANSI PEMERINTAH & KESEHATAN -->
+          
+          <!-- 01: RSUD DR. SOEGIRI -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="RSUD Dr. Soegiri Lamongan">
+            <div class="logo-box flex items-center justify-center max-w-[130px] max-h-[30px]">
+              <svg class="h-6 sm:h-7 w-auto" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 6C18 6 22 9 22 14C22 19 18 22 14 22H6V6H14Z" fill="#008080"/>
+                <path d="M12 10H16V18H12V10Z" fill="#FFFFFF"/>
+                <path d="M8 12H20V16H8V12Z" fill="#FFFFFF"/>
+                <text x="28" y="16" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="#141110">RSUD DR. SOEGIRI</text>
+                <text x="28" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8" fill="#141110" opacity="0.6">LAMONGAN</text>
+              </svg>
+            </div>
           </div>
-        ))}
+
+          <!-- 02: KKG JAWA TIMUR -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="KKG Korwil Jawa Timur">
+            <div class="logo-box flex items-center justify-center max-w-[130px] max-h-[30px]">
+              <svg class="h-6 sm:h-7 w-auto" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="14" cy="18" r="10" stroke="#005BAB" stroke-width="2" fill="#F7A800"/>
+                <text x="28" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="12" fill="#141110">KKG KORWIL</text>
+                <text x="28" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8" fill="#141110" opacity="0.6">JAWA TIMUR</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 03: KEMENAG RI -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Kementerian Agama RI">
+            <div class="logo-box flex items-center justify-center max-w-[130px] max-h-[30px]">
+              <svg class="h-6 sm:h-7 w-auto" viewBox="0 0 150 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="14,6 17,14 25,14 19,19 21,27 14,22 7,27 9,19 3,14 11,14" fill="#008242"/>
+                <circle cx="14" cy="17" r="4" fill="#FFD100"/>
+                <text x="28" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="12" fill="#008242">KEMENAG RI</text>
+                <text x="28" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8" fill="#141110" opacity="0.6">IKHLAS BERAMAL</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 04: PEMKAB NGANJUK -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Pemerintah Kabupaten Nganjuk">
+            <div class="logo-box flex items-center justify-center max-w-[130px] max-h-[30px]">
+              <svg class="h-6 sm:h-7 w-auto" viewBox="0 0 155 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 8H21C21 17 17 25 14 27C11 25 7 17 7 8Z" fill="#005BAB" stroke="#008242" stroke-width="1.5"/>
+                <circle cx="14" cy="16" r="3.5" fill="#FFD100"/>
+                <text x="26" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="#141110">PEMKAB NGANJUK</text>
+                <text x="26" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8" fill="#141110" opacity="0.6">KEDINASAN DAERAH</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ROW 2: BUMN STRATEGIS -->
+
+          <!-- 05: PERTAMINA -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Pertamina">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.5 4.5L25 10.5L18.5 14L8 8L14.5 4.5Z" fill="#0072CE"/>
+                <path d="M6 10L16.5 16L12.5 24L2 18L6 10Z" fill="#78BE20"/>
+                <path d="M19 15L29.5 21L25.5 29L15 23L19 15Z" fill="#ED1C24"/>
+                <text x="36" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="17" fill="#141110" letter-spacing="1">PERTAMINA</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 06: PLN -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT PLN (Persero)">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-6 sm:h-7 w-auto" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 5H28C28 17 24 28 17 31C10 28 6 17 6 5Z" fill="#FFD100" stroke="#008080" stroke-width="1.5"/>
+                <path d="M21 7L13 18H18L11 27L15 19H10L14 11H19L21 7Z" fill="#ED1C24"/>
+                <text x="36" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="21" fill="#008080" letter-spacing="1.5">PLN</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 07: KAI -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT Kereta Api Indonesia (Persero)">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 8H15L15 28H8V8Z" fill="#F37021"/>
+                <path d="M15 18L26 8H35L22 20L36 28H27L15 20V18Z" fill="#002D72"/>
+                <circle cx="23" cy="11" r="3" fill="#F37021"/>
+                <text x="42" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="22" fill="#002D72" letter-spacing="2">KAI</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 08: PT INKA -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT INKA (Persero)">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 18L16 8L20 12L14 18L20 24L16 28L6 18Z" fill="#0072BC"/>
+                <path d="M18 18L28 8L32 12L26 18L32 24L28 28L18 18Z" fill="#ED1C24"/>
+                <text x="40" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="20" fill="#003366" letter-spacing="2">INKA</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ROW 3: PERBANKAN NASIONAL -->
+
+          <!-- 09: BANK MANDIRI -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Bank Mandiri">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 150 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 8C110 5 125 5 135 12C125 10 112 11 100 15C108 12 120 12 130 16C120 14 110 15 100 18L100 8Z" fill="#F7A800"/>
+                <text x="8" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="21" fill="#003B70" letter-spacing="-0.5">mandiri</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 10: BANK BRI -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Bank Rakyat Indonesia (BRI)">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 145 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="4" width="28" height="28" rx="6" fill="#00529C"/>
+                <path d="M11 25V11H19C21.5 11 23 12.5 23 14.5C23 16 22 17 20.5 17.5C22.5 18 23.5 19.5 23.5 21.5C23.5 23.5 21.5 25 19 25H11ZM15 16H18C19 16 20 15.5 20 14.5C20 13.5 19 13 18 13H15V16ZM15 23H18.5C19.5 23 20.5 22.5 20.5 21.5C20.5 20.5 19.5 20 18.5 20H15V23Z" fill="#FFFFFF"/>
+                <text x="40" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="18" fill="#00529C" letter-spacing="1">BANK BRI</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 11: BANK JATIM -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Bank Jatim">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 155 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 24C6 14 16 8 26 8C20 14 16 19 16 26C16 27 18 28 20 28C14 28 6 27 6 24Z" fill="#E30613"/>
+                <circle cx="24" cy="12" r="3.5" fill="#E30613"/>
+                <text x="36" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="18" fill="#141110" letter-spacing="-0.3">bank<tspan fill="#E30613">jatim</tspan></text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 12: BANK BJB -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Bank BJB">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 130 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 5C22 7 24 7 26 5" stroke="#FDB813" stroke-width="2" stroke-linecap="round"/>
+                <path d="M18 9C21 11 25 11 28 9" stroke="#0072BC" stroke-width="2" stroke-linecap="round"/>
+                <text x="8" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="18" fill="#0072BC" letter-spacing="-0.5">bank bjb</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ROW 4: PERBANKAN & LOGISTIK -->
+
+          <!-- 13: CIMB NIAGA -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="CIMB Niaga">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 165 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 8H16L24 18L16 28H6L14 18L6 8Z" fill="#ED1C24"/>
+                <text x="30" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="16" fill="#141110" letter-spacing="1">CIMB <tspan fill="#ED1C24">NIAGA</tspan></text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 14: BTPN SYARIAH -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="BTPN Syariah">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="8" y="14" font-family="'Plus Jakarta Sans', serif" font-style="italic" font-weight="600" font-size="10" fill="#E85E1A">syariah</text>
+                <text x="8" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="19" fill="#E85E1A" letter-spacing="0.5">btpn</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 15: BULOG -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Perum BULOG">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 135 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="18" r="11" stroke="#00A0E2" stroke-width="2.5" stroke-dasharray="4 2"/>
+                <circle cx="16" cy="18" r="5" fill="#00A0E2"/>
+                <text x="36" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20" fill="#005B94" letter-spacing="1">bulog</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 16: SEMEN INDONESIA (SIG) -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="SIG - Semen Indonesia Group">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 6L24 11V21L14 16V6Z" fill="#ED1C24"/>
+                <path d="M14 16L24 21L14 26L4 21L14 16Z" fill="#00386B"/>
+                <path d="M4 11L14 6V16L4 21V11Z" fill="#888888"/>
+                <text x="34" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="22" fill="#00386B" letter-spacing="2">SIG</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ROW 5: INFRASTRUKTUR & INDUSTRI -->
+
+          <!-- 17: JASA MARGA -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Jasa Marga Tollroad Operator">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 165 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="17" cy="18" r="11" stroke="#F39200" stroke-width="2.5"/>
+                <path d="M12 24L17 11L22 24" stroke="#005596" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="36" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="16" fill="#005596" letter-spacing="1">JASAMARGA</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 18: PEGADAIAN -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT Pegadaian">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 155 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="13" cy="18" r="7" stroke="#008242" stroke-width="2" fill="none"/>
+                <circle cx="21" cy="18" r="7" stroke="#008242" stroke-width="2" fill="none"/>
+                <text x="36" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="17" fill="#008242" letter-spacing="0.5">Pegadaian</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 19: PETROKIMIA GRESIK -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Petrokimia Gresik">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 185 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="18" r="10" stroke="#FFCC00" stroke-width="2" fill="#006633"/>
+                <path d="M11 18H21M16 13V23" stroke="#FFFFFF" stroke-width="1.8"/>
+                <text x="34" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="13" fill="#006633" letter-spacing="0.5">PETROKIMIA</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 20: SUCOFINDO -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT Sucofindo">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="18" r="10" stroke="#005B94" stroke-width="2" fill="none"/>
+                <path d="M11 18C11 14 16 14 16 18C16 22 21 22 21 18" stroke="#F39200" stroke-width="2" stroke-linecap="round"/>
+                <text x="34" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="15" fill="#005B94" letter-spacing="1">SUCOFINDO</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ROW 6: OTOMOTIF & MULTIFINANCE -->
+
+          <!-- 21: YAMAHA -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Yamaha Motor">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 145 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="17" cy="18" r="11" stroke="#D71920" stroke-width="2"/>
+                <path d="M17 10V26M10 14L24 22M10 22L24 14" stroke="#D71920" stroke-width="1.8"/>
+                <text x="36" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="17" fill="#D71920" letter-spacing="1.5">YAMAHA</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 22: ASTRA DAIHATSU -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Astra Daihatsu">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 175 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="7" width="22" height="22" rx="4" stroke="#D71920" stroke-width="2"/>
+                <path d="M12 12V24H17C20 24 22 22 22 18C22 14 20 12 17 12H12Z" fill="#D71920"/>
+                <text x="36" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="14" fill="#141110" letter-spacing="0.5">ASTRA <tspan fill="#D71920">DAIHATSU</tspan></text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 23: FIFGROUP ASTRA -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="FIFGROUP member of ASTRA">
+            <div class="logo-box flex items-center justify-center max-w-[130px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 155 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 10C8 7 12 6 15 9C12 12 10 16 11 22C8 20 6 15 6 10Z" fill="#0072BC"/>
+                <path d="M11 12C14 9 18 9 20 12C18 15 17 19 18 25C15 23 12 18 11 12Z" fill="#00A0E2"/>
+                <text x="26" y="20" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="14" fill="#002D72" letter-spacing="0.8">FIFGROUP</text>
+                <text x="26" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8" fill="#0072BC" letter-spacing="0.3">member of ASTRA</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 24: ADIRA FINANCE -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="ADIRA Finance">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 145 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 22L16 10L19 15L11 24L6 22Z" fill="#FFD100"/>
+                <text x="20" y="20" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-style="italic" font-size="15" fill="#141110" letter-spacing="1">ADIRA</text>
+                <text x="22" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8" fill="#141110" letter-spacing="2.5">FINANCE</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ROW 7: KORPORASI RITEL & DISTRIBUSI -->
+
+          <!-- 25: INDOMARCO -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="Indomarco">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 150 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="8" width="142" height="20" rx="10" stroke="#ED1C24" stroke-width="1.8" fill="none"/>
+                <text x="14" y="23" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="13" fill="#ED1C24" letter-spacing="1">INDOMARCO</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 26: PT SURYA MADISTRINDO (SM) -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT Surya Madistrindo">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 145 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="6" width="22" height="24" rx="2" fill="#141110"/>
+                <path d="M15 8C19 8 22 11 22 15C19 15 15 18 15 22C11 22 8 19 8 15C11 15 15 12 15 8Z" fill="#ED1C24"/>
+                <circle cx="15" cy="15" r="3" fill="#FFD100"/>
+                <text x="32" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="15" fill="#141110" letter-spacing="1">SM</text>
+                <text x="32" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="7" fill="#141110" letter-spacing="0.2">Surya Madistrindo</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 27: STP (SURI TANI PEMUKA) -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="PT Suri Tani Pemuka (STP)">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 110 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="8" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="24" fill="#005BAB" letter-spacing="-1">stp</text>
+                <text x="56" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="10" fill="#005BAB" opacity="0.7">GROUP</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 28: AVI / NVI GROUP -->
+          <div class="border-r border-b border-[#141110]/20 h-20 sm:h-24 flex items-center justify-center p-3 sm:p-4 hover:bg-white transition-all duration-200 group" title="AVI / NVI">
+            <div class="logo-box flex items-center justify-center max-w-[125px] max-h-[30px]">
+              <svg class="h-5 sm:h-6 w-auto" viewBox="0 0 100 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 24L18 8H26L16 24H8Z" fill="#582C83"/>
+                <path d="M22 24L32 8H40L30 24H22Z" fill="#F7A800"/>
+                <path d="M34 24L44 8H52L42 24H34Z" fill="#582C83"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer Tag Below Matrix: And several others -->
+        <div class="pt-3 flex items-center justify-between text-[11px] font-mono-tag text-[#141110]/55 uppercase">
+          <span>• DAN PULUHAN INSTANSI LAINNYA</span>
+          <span>EST. 2023 — NGANJUK</span>
+        </div>
+
       </div>
 
     </div>
 
-    <!-- 2. KATA MEREKA TENTANG KAMI (Compro Hal. 19 Quotes) -->
-    <div class="pt-8 border-t border-[#141110]/15 space-y-12">
+    <!-- ========================================================================= -->
+    <!-- 2. VERIFIED CLIENT QUOTES (Pure Editorial Layout - Zero SaaS Star Clutter)  -->
+    <!-- ========================================================================= -->
+    <div class="space-y-12 sm:space-y-16 pt-8 border-t border-[#141110]/20">
       
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <!-- Section Sub-Header -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between pb-6 border-b border-[#141110]/15 gap-4">
         <div>
-          <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase block mb-2">
-            — TESTIMONI RESMI KORPORASI
+          <span class="text-xs sm:text-sm font-mono-tag text-[#141110]/50 tracking-[0.28em] uppercase block mb-2">
+            — SUARA KLIEN // OFFICIAL TESTIMONIALS
           </span>
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[#141110] font-sans">
-            Kata Mereka Tentang Pengalaman di Jolotundo
+          <h3 class="text-2xl sm:text-4xl font-normal tracking-tight text-[#141110] font-sans">
+            Kata mereka tentang pengalaman di Jolotundo.
           </h3>
         </div>
-        <span class="text-xs font-mono-tag text-[#141110]/50 uppercase">
-          [ VERIFIED GATHERING EXPERIENCE ]
+        <span class="text-xs font-mono-tag text-[#141110]/50 uppercase tracking-wider shrink-0">
+          [ DOKUMENTASI RESMI GATHERING ]
         </span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- 2 Large Editorial Quotes (Clean Side-by-Side with Hairline Border) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 lg:gap-16">
         {testimonials.map((item) => (
-          <div class="p-8 sm:p-10 bg-white/80 hover:bg-white border border-[#141110]/15 hover:border-[#141110] transition-all duration-300 flex flex-col justify-between group shadow-[0_4px_24px_rgba(20,17,16,0.03)] hover:shadow-[0_12px_36px_rgba(20,17,16,0.08)]">
+          <article class="flex flex-col justify-between space-y-8 group">
             
-            <div>
-              <!-- Rating & Type -->
-              <div class="flex items-center justify-between pb-6 border-b border-[#141110]/10 text-xs font-mono-tag">
-                <span class="text-emerald-900 font-bold tracking-widest">★★★★★ {item.rating}</span>
-                <span class="text-[#141110]/50 uppercase">{item.date}</span>
-              </div>
-
-              <!-- Quote Body -->
-              <blockquote class="mt-6 text-lg sm:text-xl font-sans font-light text-[#141110] leading-relaxed italic">
-                “{item.quote}”
+            <!-- Large Editorial Quote -->
+            <div class="space-y-4">
+              <span class="text-3xl sm:text-4xl font-serif text-[#141110]/30 select-none block leading-none">“</span>
+              <blockquote class="text-xl sm:text-2xl lg:text-[25px] font-light text-[#141110] leading-relaxed font-sans -mt-2">
+                {item.quote}
               </blockquote>
             </div>
 
-            <!-- Client Info -->
-            <div class="mt-8 pt-5 border-t border-[#141110]/10 space-y-1">
-              <h4 class="text-base font-semibold tracking-tight text-[#141110] font-sans">
-                {item.client}
-              </h4>
-              <p class="text-xs font-mono-tag text-[#141110]/50 uppercase tracking-wider">
-                {item.role}
+            <!-- Client Metadata Attribution (Clean Hairline Top Border) -->
+            <div class="pt-6 border-t border-[#141110]/15 space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono-tag">
+                <span class="text-xs sm:text-sm font-semibold tracking-tight text-[#141110] font-sans">
+                  {item.client}
+                </span>
+                <span class="text-[10px] sm:text-xs text-[#141110]/50 tracking-wider uppercase">
+                  {item.year}
+                </span>
+              </div>
+              <p class="text-xs font-mono-tag text-[#141110]/60 uppercase tracking-wider">
+                {item.institution} • {item.program}
               </p>
             </div>
 
-          </div>
+          </article>
         ))}
       </div>
 
     </div>
 
-    <!-- 3. LOKASI & KONTAK RESMI ENTITAS (Compro Hal. 21) -->
-    <div class="p-8 sm:p-12 bg-white/80 border border-[#141110]/20 space-y-8">
+    <!-- ========================================================================= -->
+    <!-- 3. DAN GROUP ECOSYSTEM AUTHORITY BANNER (Clean Single-Line Editorial Strip) -->
+    <!-- ========================================================================= -->
+    <div class="border-t border-[#141110]/20 pt-10 sm:pt-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
       
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-8 border-b border-[#141110]/15 gap-6">
-        <div>
-          <span class="text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase block mb-1">
-            ENTITAS & BADAN USAHA RESMI
-          </span>
-          <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#141110] font-sans">
-            Jolotundo Glamping & Edupark
-          </h3>
-          <p class="text-xs font-mono-tag text-emerald-900 uppercase tracking-widest mt-1">
-            BAGIAN DARI EKOSISTEM BISNIS DAN GROUP
-          </p>
+      <div class="space-y-2 max-w-2xl">
+        <div class="flex items-center gap-2 text-xs font-mono-tag text-[#141110]/50 uppercase tracking-widest">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-800"></span>
+          <span>ENTITAS RESMI // EKOSISTEM BISNIS DAN GROUP</span>
         </div>
-
-        <div class="flex flex-wrap items-center gap-3">
-          <a 
-            href="https://wa.me/6282249829998?text=Halo%20Admin%20Dan%20Group%20Jolotundo,%20saya%20ingin%20konsultasi%20program%20gathering%20dan%20kemitraan." 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="px-6 py-3 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all"
-          >
-            Konsultasi Gathering & MICE ↗
-          </a>
-          <a 
-            href="/lokasi" 
-            class="px-5 py-3 border border-[#141110]/20 hover:border-[#141110] font-mono-tag text-xs font-semibold uppercase tracking-wider transition-all"
-          >
-            Lihat Denah & Rute →
-          </a>
-        </div>
+        <p class="text-sm sm:text-base text-[#141110]/80 font-sans font-light leading-relaxed">
+          Jolotundo Glamping & Edupark dikelola secara profesional di bawah naungan <strong class="font-semibold text-[#141110]">Dan Group</strong>. Terbuka untuk kemitraan strategis, gathering institusi, dan kerjasama B2B skala nasional.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-mono-tag">
-        <div class="space-y-1.5">
-          <span class="text-[#141110]/40 uppercase block">ALAMAT KAWASAN:</span>
-          <p class="text-[#141110] font-sans text-sm leading-relaxed">
-            Dusun Plakat, Desa Bajulan, Kec. Loceret, Kab. Nganjuk, Jawa Timur, Indonesia 64471
-          </p>
-        </div>
-        <div class="space-y-1.5">
-          <span class="text-[#141110]/40 uppercase block">HOTLINE & WHATSAPP:</span>
-          <p class="text-[#141110] font-sans text-sm font-semibold">
-            +62 822-4982-9998
-          </p>
-          <span class="text-[11px] text-[#141110]/50 block">Layanan Tamu & Reservasi 24 Jam</span>
-        </div>
-        <div class="space-y-1.5">
-          <span class="text-[#141110]/40 uppercase block">SURAT ELEKTRONIK / EMAIL:</span>
-          <p class="text-[#141110] font-sans text-sm font-semibold">
-            jolotundoedupark@gmail.com
-          </p>
-          <span class="text-[11px] text-[#141110]/50 block">Kerjasama Korporat & B2B Inquiries</span>
-        </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <a 
+          href="https://wa.me/6282249829998?text=Halo%20Admin%20Dan%20Group%20Jolotundo,%20saya%20ingin%20konsultasi%20program%20gathering%20dan%20kemitraan." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all border border-[#141110]"
+        >
+          <span>Konsultasi B2B & Gathering</span>
+          <span>↗</span>
+        </a>
       </div>
 
     </div>
@@ -175,3 +518,14 @@ const clientCategories = [
   </div>
 </section>
 
+<style>
+  .logo-box {
+    filter: grayscale(100%) opacity(45%) contrast(85%);
+    transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .logo-box {
+    filter: grayscale(0%) opacity(100%) contrast(100%);
+    transform: scale(1.05);
+  }
+</style>

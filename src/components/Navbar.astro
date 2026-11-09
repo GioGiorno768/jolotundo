@@ -7,7 +7,31 @@ const menuRows = [
   { title: "Akomodasi & Glamping", tag: "7 KATEGORI", href: "/akomodasi" },
   { title: "Wahana & Rekreasi", tag: "ADVENTURE", href: "/wahana" },
   { title: "Event & Gathering", tag: "VENUES & MICE", href: "/event" },
-  { title: "Fasilitas & Resto", tag: "AMENITIES", href: "/#fasilitas" },
+  { 
+    title: "Fasilitas & Resto", 
+    tag: "AMENITIES", 
+    isDropdown: true,
+    children: [
+      { 
+        title: "River Breeze", 
+        desc: "Riverside Dining & Lounge Tepi Sungai", 
+        href: "/fasilitas/river-breeze", 
+        tag: "RIVERSIDE" 
+      },
+      { 
+        title: "Jolotundo Cafe", 
+        desc: "Pine Chalet Indoor Cafe & Warung Ketan", 
+        href: "/fasilitas/jolotundo-cafe", 
+        tag: "PINE CHALET" 
+      },
+      { 
+        title: "Semua Fasilitas & Sarana", 
+        desc: "8 Sarana Resort, Parkir & Katering", 
+        href: "/fasilitas", 
+        tag: "OVERVIEW" 
+      }
+    ]
+  },
   { title: "Tentang Kami", tag: "DANGROUP", href: "/tentang" },
   { title: "Lokasi & Rute", tag: "BAJULAN", href: "/lokasi" }
 ];
@@ -83,25 +107,80 @@ const menuRows = [
         <!-- Menu Rows Stack (Compact, elegant, zero line-wrapping) -->
         <nav class="flex flex-col px-4 sm:px-6 pt-1 sm:pt-2 pb-2 sm:pb-3 divide-y divide-white/10">
           {menuRows.map((row) => (
-            <a
-              href={row.href}
-              class="menu-row-link group flex items-center justify-between py-2.5 sm:py-3.5 hover:border-[#d8c39e]/40 transition-colors"
-            >
-              <!-- Left: Big Editorial Title -->
-              <span class="text-[14.5px] sm:text-lg lg:text-xl font-medium tracking-tight text-white/90 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 truncate pr-2 sm:pr-3">
-                {row.title}
-              </span>
+            row.isDropdown ? (
+              <div class="flex flex-col py-1">
+                <!-- Fasilitas & Resto Dropdown Trigger Button -->
+                <button
+                  id="nav-fasilitas-toggle-btn"
+                  type="button"
+                  aria-expanded="false"
+                  class="group flex items-center justify-between py-2 sm:py-2.5 hover:border-[#d8c39e]/40 transition-colors w-full text-left cursor-pointer"
+                >
+                  <!-- Left: Title -->
+                  <span class="text-[14.5px] sm:text-lg lg:text-xl font-medium tracking-tight text-white/90 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 truncate pr-2 sm:pr-3">
+                    {row.title}
+                  </span>
 
-              <!-- Right: Monospace Metadata Tag -->
-              <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <span class="text-[9px] sm:text-[10px] font-mono-tag text-[#d8c39e]/80 tracking-widest uppercase">
-                  {row.tag}
-                </span>
-                <span class="text-xs text-white/30 group-hover:text-[#d8c39e] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
-                  ↗
-                </span>
+                  <!-- Right: Tag + Dropdown Arrow -->
+                  <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    <span class="text-[9px] sm:text-[10px] font-mono-tag text-[#d8c39e]/80 tracking-widest uppercase">
+                      {row.tag}
+                    </span>
+                    <span id="nav-fasilitas-arrow" class="text-xs text-white/40 group-hover:text-[#d8c39e] transition-transform duration-300">
+                      ↓
+                    </span>
+                  </div>
+                </button>
+
+                <!-- Dropdown Submenu Container (Smooth Grid Rows Animation) -->
+                <div 
+                  id="nav-fasilitas-dropdown" 
+                  class="grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden"
+                >
+                  <div class="min-h-0 pl-3 sm:pl-4 border-l border-white/20 ml-2 sm:ml-3 my-1.5 space-y-1">
+                    {row.children.map((child, cIdx) => (
+                      <a
+                        href={child.href}
+                        class="menu-row-link group/sub flex items-center justify-between py-2 px-2.5 hover:bg-white/5 transition-all duration-200"
+                      >
+                        <div class="flex flex-col pr-2">
+                          <span class="text-[13.5px] sm:text-base font-medium text-white/90 group-hover/sub:text-[#d8c39e] transition-colors">
+                            {child.title}
+                          </span>
+                          <span class="text-[10px] sm:text-[11px] text-white/50 font-sans font-light">
+                            {child.desc}
+                          </span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-[9px] font-mono-tag text-[#d8c39e] shrink-0">
+                          <span>0{cIdx + 1}</span>
+                          <span class="text-xs group-hover/sub:translate-x-0.5 group-hover/sub:-translate-y-0.5 transition-transform">↗</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </a>
+            ) : (
+              <a
+                href={row.href}
+                class="menu-row-link group flex items-center justify-between py-2.5 sm:py-3.5 hover:border-[#d8c39e]/40 transition-colors"
+              >
+                <!-- Left: Big Editorial Title -->
+                <span class="text-[14.5px] sm:text-lg lg:text-xl font-medium tracking-tight text-white/90 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 truncate pr-2 sm:pr-3">
+                  {row.title}
+                </span>
+
+                <!-- Right: Monospace Metadata Tag -->
+                <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  <span class="text-[9px] sm:text-[10px] font-mono-tag text-[#d8c39e]/80 tracking-widest uppercase">
+                    {row.tag}
+                  </span>
+                  <span class="text-xs text-white/30 group-hover:text-[#d8c39e] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
+                    ↗
+                  </span>
+                </div>
+              </a>
+            )
           ))}
         </nav>
 
@@ -149,6 +228,32 @@ const menuRows = [
 
   let isMenuOpen = false;
   let openScrollY = 0;
+
+  // Fasilitas & Resto Dropdown Submenu Logic
+  const fasilitasToggleBtn = document.getElementById('nav-fasilitas-toggle-btn');
+  const fasilitasDropdown = document.getElementById('nav-fasilitas-dropdown');
+  const fasilitasArrow = document.getElementById('nav-fasilitas-arrow');
+  let isFasilitasOpen = false;
+
+  function setFasilitasDropdown(open) {
+    isFasilitasOpen = open;
+    fasilitasToggleBtn?.setAttribute('aria-expanded', String(open));
+    if (open) {
+      fasilitasDropdown?.classList.remove('grid-rows-[0fr]', 'opacity-0');
+      fasilitasDropdown?.classList.add('grid-rows-[1fr]', 'opacity-100');
+      fasilitasArrow?.classList.add('rotate-180', 'text-[#d8c39e]');
+    } else {
+      fasilitasDropdown?.classList.remove('grid-rows-[1fr]', 'opacity-100');
+      fasilitasDropdown?.classList.add('grid-rows-[0fr]', 'opacity-0');
+      fasilitasArrow?.classList.remove('rotate-180', 'text-[#d8c39e]');
+    }
+  }
+
+  fasilitasToggleBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setFasilitasDropdown(!isFasilitasOpen);
+  });
 
   function setMenuState(open) {
     if (isMenuOpen === open) return;
@@ -203,6 +308,9 @@ const menuRows = [
         waFloating.style.visibility = '';
         waFloating.style.pointerEvents = '';
       }
+
+      // 4. Collapse nested dropdowns
+      setFasilitasDropdown(false);
     }
   }
 
@@ -247,7 +355,30 @@ const menuRows = [
 
       if (!targetHref) return;
 
-      const isHome = window.location.pathname === '/' || window.location.pathname === '';
+      const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+      const [linkPath, linkHash] = targetHref.split('#');
+      const normalizedLinkPath = (linkPath || '').replace(/\/$/, '') || '/';
+
+      // If clicking an anchor link on the same current page:
+      if (linkHash && (normalizedLinkPath === currentPath || normalizedLinkPath === '')) {
+        e.preventDefault();
+        const hashSelector = '#' + linkHash;
+        // @ts-ignore
+        const lenis = window.__lenis;
+        if (lenis) {
+          if (hashSelector === '#hero-section' || hashSelector === '#') {
+            lenis.scrollTo(0, { duration: 1.6 });
+          } else {
+            lenis.scrollTo(hashSelector, { offset: -30, duration: 1.6 });
+          }
+        } else {
+          const el = document.querySelector(hashSelector);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+      }
+
+      const isHome = currentPath === '/';
 
       if (targetHref.startsWith('#') || targetHref.startsWith('/#')) {
         if (isHome) {
@@ -266,7 +397,6 @@ const menuRows = [
             if (el) el.scrollIntoView({ behavior: 'smooth' });
           }
         }
-        // If not home, let browser navigate to /#section normally
       } else if (isHome && targetHref === '/') {
         e.preventDefault();
         // @ts-ignore

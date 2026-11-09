@@ -1,0 +1,485 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import FooterCTA from '../../components/FooterCTA.astro';
+import siteData from '../../data/siteData.json';
+
+// WhatsApp Booking URL
+const waPhone = siteData.brand.whatsapp || "6282249828998";
+const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin reservasi meja / paket dining di River Breeze Cafe & Resto.")}`;
+
+// Categorized Menu Data
+const menuCategories = [
+  {
+    category: "MAKANAN UTAMA NUSANTARA",
+    tag: "HERITAGE RECIPES",
+    items: [
+      {
+        name: "Rawon Iga Rempah Wilis",
+        price: "Rp 45.000",
+        desc: "Kluwek hitam pekat pilihan dengan potongan iga sapi empuk lembut, disajikan bersama tauge pendek segar, telur asin gurih, dan sambal terasi terpisah.",
+        badge: "CHEF'S SIGNATURE"
+      },
+      {
+        name: "Gurame Bakar Madu Lereng",
+        price: "Rp 55.000",
+        desc: "Ikan gurame air tawar segar dibakar dengan olesan madu hutan murni Jolotundo dan rempah manis gurih aromatik, disajikan dengan lalapan petik segar.",
+        badge: "BEST SELLER"
+      },
+      {
+        name: "Nasi Goreng Spesial Jolotundo",
+        price: "Rp 32.000",
+        desc: "Nasi goreng racikan bumbu khas pedesaan dengan suwiran ayam kampung, telur mata sapi, sate ayam bumbu kacang, dan kerupuk udang renyah.",
+        badge: "FAVORIT TAMU"
+      },
+      {
+        name: "Sup Iga Asam Pedas Segar",
+        price: "Rp 48.000",
+        desc: "Kaldu sapi gurih bening berpadu asam alami belimbing wuluh lereng pegunungan, potongan tomat hijau segar, cabai rawit utuh, dan iga sapi empuk.",
+        badge: "WARM BROTH"
+      },
+      {
+        name: "Ayam Bakar Madu Taliwang",
+        price: "Rp 38.000",
+        desc: "Potongan ayam bakar gurih pedas khas Nusantara dengan olesan madu hutan dan paduan plecing kangkung segar plus sambal tomat terasi.",
+        badge: "PEDAS MANIS"
+      },
+      {
+        name: "Mie Godog Jawa Kental",
+        price: "Rp 28.000",
+        desc: "Mie kuah gurih kental berkaldu ayam kampung dengan kocokan telur bebek, potongan sawi hijau segar, kubis renyah, dan taburan bawang goreng harum.",
+        badge: "COMFORT FOOD"
+      }
+    ]
+  },
+  {
+    category: "KUDAPAN & SNACK TEPI SUNGAI",
+    tag: "CRISPY BITES",
+    items: [
+      {
+        name: "Platter Gorengan River Breeze",
+        price: "Rp 25.000",
+        desc: "Kombinasi tempe mendoan hangat, tahu bakso sapi gurih, dan bakwan sayur jagung renyah, disajikan bersama sambal kecap cabai rawit pedas manis.",
+        badge: "SHARING PLATTER"
+      },
+      {
+        name: "Singkong Keju Goreng Merekah",
+        price: "Rp 20.000",
+        desc: "Singkong pegunungan pilihan yang direbus rempah bawang lalu digoreng merekah renyah di luar lembut di dalam, bertabur keju cheddar gurih melimpah.",
+        badge: "CRISPY OUTSIDE"
+      },
+      {
+        name: "Pisang Bakar Cokelat Keju Aren",
+        price: "Rp 22.000",
+        desc: "Pisang raja bakar beraroma arang manis, disiram kental manis, taburan keju parut gurih, meises cokelat, dan sedikit lelehan gula aren murni.",
+        badge: "SWEET CLASSIC"
+      },
+      {
+        name: "French Fries & Bratwurst Grilled",
+        price: "Rp 26.000",
+        desc: "Kentang goreng renyah bumbu garlic herb dipadu potongan sosis sapi bratwurst panggang dengan cocolan saus BBQ smokey dan mayones lembut.",
+        badge: "KIDS FAVORITE"
+      }
+    ]
+  },
+  {
+    category: "RACIKAN KOPI & MINUMAN HANGAT",
+    tag: "SPECIALTY BREWS",
+    items: [
+      {
+        name: "Kopi Robusta Tubruk Bajulan",
+        price: "Rp 15.000",
+        desc: "Biji kopi robusta pilihan dari kebun kopi lereng Wilis, disangrai medium-dark menghasilkan cita rasa cokelat karamel yang pekat dan harum memikat.",
+        badge: "LOCAL HARVEST"
+      },
+      {
+        name: "Manual Brew V60 / Japanese Iced",
+        price: "Rp 22.000",
+        desc: "Seduhan pour-over filter biji kopi single origin lereng Wilis dengan ekstraksi bersih, acidity seimbang, dan nuansa aroma buah tropis.",
+        badge: "SINGLE ORIGIN"
+      },
+      {
+        name: "Kopi Susu Gula Aren River Breeze",
+        price: "Rp 20.000",
+        desc: "Double espresso blend berpadu susu segar dingin/hangat dan sirup gula aren aren organik murni bertekstur kental legit.",
+        badge: "BEST SELLER DRINK"
+      },
+      {
+        name: "Wedang Uwuh Mangkunegaran",
+        price: "Rp 18.000",
+        desc: "Minuman herbal tradisional rebusan kayu secang merah, cengkeh wangi, kapulaga, serai, daun kayu manis, dan jahe emprit bakar geprek.",
+        badge: "HERBAL WARMTH"
+      },
+      {
+        name: "Wedang Jahe Serai Madu Murni",
+        price: "Rp 18.000",
+        desc: "Sari jahe emprit bakar geprek berpadu serai wangi segar dan manis murni madu hutan lereng Wilis tanpa pemanis buatan.",
+        badge: "IMMUNE BOOSTER"
+      },
+      {
+        name: "Blue Wilis River Mocktail",
+        price: "Rp 24.000",
+        desc: "Mocktail dingin menyegarkan perpaduan ekstrak bunga telang biru alami, perasan jeruk lemon segar, daun mint dingin, dan soda dingin berbuih.",
+        badge: "REFRESHING SODA"
+      }
+    ]
+  }
+];
+
+// Highlight Specs
+const outletSpecs = [
+  { label: "KAPASITAS TEMPAT DUDUK", value: "150 Kursi Tamu", note: "Riverside Deck & Semi-Indoor Dining" },
+  { label: "JAM OPERASIONAL", value: "08.00 — 22.00 WIB", note: "Buka Setiap Hari (Senin s/d Minggu)" },
+  { label: "KONEKTIVITAS & DAYA", value: "Dedicated Wi-Fi + Stopkontak", note: "Tersedia di Seluruh Area Meja Dek" },
+  { label: "HIBURAN & LIVE MUSIC", value: "Akustik Santai & Bonfire", note: "Setiap Akhir Pekan & Malam Hari" }
+];
+---
+
+<Layout 
+  title="River Breeze Cafe & Resto — Riverside Dining & Lounge | Jolotundo Glamping"
+  description="Sensasi kuliner istimewa di atas dek panggung kayu tepi sungai alami Jolotundo. Rawon Iga Wilis, Gurame Bakar Madu, kopi robusta lokal, dan live akustik akhir pekan."
+>
+  <!-- Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Editorial -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED PARALLAX TRANSLATE-Y)       -->
+    <!-- ========================================================================= -->
+    <header 
+      id="river-hero" 
+      class="relative w-full h-[100svh] min-h-[580px] sm:min-h-[680px] flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+    >
+      <!-- Parallax Translate-Y Background Layer -->
+      <div 
+        id="river-hero-parallax-layer"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src="/images/facilities/pine-resto-cafe.jpg" 
+          alt="River Breeze Cafe & Resto Tepi Sungai Jolotundo" 
+          class="w-full h-full object-cover object-center scale-105"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/90 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+      </div>
+
+      <!-- Top Spacer -->
+      <div class="relative z-10 w-full pt-24 sm:pt-32"></div>
+
+      <!-- Center Hero Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto my-auto w-full">
+        
+        <!-- Eyebrow Kicker -->
+        <div class="flex items-center gap-2 mb-4 sm:mb-6">
+          <a href="/fasilitas" class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] text-[#d8c39e] hover:text-white uppercase transition-colors">
+            ← [ FASILITAS & RESTO ]
+          </a>
+          <span class="text-white/40 font-mono-tag text-xs">•</span>
+          <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase">
+            OUTLET // 01
+          </span>
+        </div>
+
+        <!-- Giant Display Headline -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[90px] font-extrabold uppercase tracking-tight text-white leading-[0.94] font-sans drop-shadow-2xl">
+          RIVER BREEZE<br />
+          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">dining by the</span> WATER.
+        </h1>
+
+        <!-- Editorial Subtitle -->
+        <p class="text-xs sm:text-sm md:text-base font-sans text-white/80 max-w-2xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light">
+          Sensasi santap istimewa di atas panggung dek kayu alami tepat di bibir aliran sungai jernih lereng Wilis. Menikmati hangatnya resep kuliner Nusantara diiringi ritme gemericik air dan kesejukan kabut pinus.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mt-6 sm:mt-8">
+          <a 
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-5 py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors shadow-lg flex items-center gap-2"
+          >
+            <span>Reservasi Meja via WhatsApp</span>
+            <span>↗</span>
+          </a>
+          <a 
+            href="#daftar-menu" 
+            class="px-5 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-mono-tag text-xs font-semibold uppercase tracking-wider transition-colors backdrop-blur-sm"
+          >
+            [ LIHAT DAFTAR MENU ↓ ]
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Metadata Specs -->
+      <div class="relative z-10 w-full px-6 sm:px-12 lg:px-16 pb-6 sm:pb-8 pt-4 border-t border-white/15 bg-gradient-to-t from-black/60 to-transparent">
+        <div class="max-w-[1680px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tag tracking-widest uppercase text-white/70">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-white font-semibold">RIVERSIDE WOODEN DECK • BAJULAN</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-white/60">
+            <span>KAPASITAS: 150 KURSI</span>
+            <span class="hidden sm:inline">•</span>
+            <span>JAM BUKA: 08.00 — 22.00 WIB</span>
+            <span class="hidden sm:inline">•</span>
+            <span class="text-[#d8c39e]">FREE HTM UNTUK UMUM</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ========================================================================= -->
+    <!-- 2. EDITORIAL ESSENCE & NARRATIVE (1:1 GOUNCHARTED TWO-COLUMN SPLIT)       -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15">
+      <div class="max-w-[1680px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        
+        <!-- Left Column: Big Philosophy Quote -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase">
+            <span>[ FILOSOFI RESTO // 01 ]</span>
+            <span>•</span>
+            <span class="text-[#8c6d37] font-semibold">ALFRESCO RIVERSIDE DINING</span>
+          </div>
+          <blockquote class="text-2xl sm:text-3xl lg:text-4xl font-light text-[#141110] font-serif italic leading-snug">
+            “Di River Breeze, suara gemericik air alami bukan sekadar latar belakang, melainkan irama hidup yang menemani setiap teguk kopi dan suapan hidangan hangat Anda.”
+          </blockquote>
+          <div class="pt-4 border-t border-[#141110]/15 flex items-center justify-between text-xs font-mono-tag text-[#141110]/60">
+            <span>LOKASI: SEMPADAN SUNGAI JOLOTUNDO</span>
+            <span class="text-[#8c6d37]">MATA AIR GUNUNG WILIS</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Narrative & Specifications Grid -->
+        <div class="lg:col-span-7 flex flex-col gap-8">
+          <div class="space-y-4 text-sm sm:text-base font-sans text-[#141110]/80 font-light leading-relaxed">
+            <p>
+              Dirancang dengan arsitektur panggung dek kayu solid yang menyatu harmonis dengan kontur bebatuan kali, River Breeze Cafe & Resto menyuguhkan pengalaman kuliner yang tidak dapat Anda temukan di restoran perkotaan. Di bawah naungan kanopi pinus yang rindang, Anda dapat merasakan sejuknya tiupan angin lembah sembari menyaksikan kejernihan aliran air yang bersumber langsung dari puncak Gunung Wilis.
+            </p>
+            <p>
+              Dapur kami mendedikasikan diri pada sajian autentik Nusantara berbahan baku lokal segar. Mulai dari kehangatan kuah Rawon Iga rempah kluwek yang dimasak perlahan hingga gurame bakar beroles madu hutan murni, setiap piring dipersiapkan dengan higienitas ketat dan standar keramahan tinggi.
+            </p>
+          </div>
+
+          <!-- Specs Matrix -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-[#141110]/15">
+            {outletSpecs.map((s) => (
+              <div class="p-4 bg-white/60 border border-[#141110]/15 flex flex-col justify-between">
+                <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
+                  {s.label}
+                </span>
+                <span class="text-base font-bold text-[#141110] font-sans tracking-tight block">
+                  {s.value}
+                </span>
+                <span class="text-xs text-[#8c6d37] font-mono-tag mt-1 block">
+                  {s.note}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 3. CURATED MENU CATALOGUE (TABS & EDITORIAL CARDS)                       -->
+    <!-- ========================================================================= -->
+    <section id="daftar-menu" class="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#ece6d9]/40 scroll-mt-14">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#141110]/15">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-2">
+              <span>[ BUKU MENU RESMI ]</span>
+              <span>•</span>
+              <span class="text-[#8c6d37] font-semibold">HALAL & HIGIENIS BERKUALITAS</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
+              Daftar Menu River Breeze
+            </h2>
+          </div>
+          <div class="text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span>HARGA NETT • TERSEDIA UNTUK UMUM & TAMU GLAMPING</span>
+          </div>
+        </div>
+
+        <!-- Menu Categories Loop -->
+        <div class="space-y-16 sm:space-y-20">
+          {menuCategories.map((cat, cIdx) => (
+            <div>
+              <!-- Category Header -->
+              <div class="flex items-center justify-between pb-3 mb-6 border-b border-[#141110]/20">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-mono-tag font-bold text-[#8c6d37]">0{cIdx + 1}</span>
+                  <h3 class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-[#141110]">
+                    {cat.category}
+                  </h3>
+                </div>
+                <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest hidden sm:inline">
+                  {cat.tag}
+                </span>
+              </div>
+
+              <!-- Menu Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {cat.items.map((item) => (
+                  <div class="p-5 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between group">
+                    <div>
+                      <div class="flex items-start justify-between gap-3 mb-2">
+                        <h4 class="text-base sm:text-lg font-bold text-[#141110] font-sans tracking-tight group-hover:text-[#8c6d37] transition-colors">
+                          {item.name}
+                        </h4>
+                        <span class="text-sm font-bold font-mono-tag text-[#141110] shrink-0">
+                          {item.price}
+                        </span>
+                      </div>
+                      <span class="inline-block text-[9px] font-mono-tag px-2 py-0.5 bg-[#141110]/5 text-[#8c6d37] uppercase font-semibold mb-3 border border-[#141110]/10">
+                        {item.badge}
+                      </span>
+                      <p class="text-xs text-[#141110]/70 font-sans font-light leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 4. RULES & REGULATIONS (OUTSIDE FOOD & BBQ POLICY)                       -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-20 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#141110] text-[#f4efe6]">
+      <div class="max-w-[1680px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+          
+          <div class="lg:col-span-8 flex flex-col gap-3">
+            <span class="text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase font-bold">
+              [ KEBIJAKAN RESMI // ATURAN MAKANAN DARI LUAR ]
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-white">
+              Ketentuan Membawa Makanan & Alat BBQ Pribadi
+            </h3>
+            <p class="text-xs sm:text-sm text-white/80 font-sans font-light leading-relaxed max-w-3xl">
+              Demi kenyamanan dan standar operasional area resto, pengunjung diperbolehkan membawa makanan dari luar serta membawa peralatan BBQ pribadi mulai pukul <strong>19.00 WIB (jam 7 malam)</strong>. Sebelum pukul 19.00 WIB, seluruh pesanan hidangan utama dan minuman dapat dipesan langsung melalui kasir River Breeze Cafe & Resto.
+            </p>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
+            <a 
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full py-3.5 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-lg"
+            >
+              Order Paket BBQ Siap Masak ↗
+            </a>
+            <span class="text-[10px] font-mono-tag text-white/50 text-center uppercase tracking-wider">
+              Tersedia Sewa Alat Panggangan & Arang
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 5. OUTLET NAVIGATION SWITCHER (Next to Jolotundo Cafe & All Amenities)    -->
+    <!-- ========================================================================= -->
+    <section class="py-16 sm:py-24 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 select-none">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <div class="flex items-center justify-between pb-4 mb-8 border-b border-[#141110]/15 text-xs font-mono-tag text-[#141110]/60">
+          <span>NAVIGASI KULINER & FASILITAS</span>
+          <span class="text-[#8c6d37]">JOLOTUNDO ECOSYSTEM</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          
+          <!-- Switch to Jolotundo Cafe -->
+          <a 
+            href="/fasilitas/jolotundo-cafe" 
+            class="group p-6 sm:p-8 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono-tag text-[#8c6d37] mb-2 uppercase">
+                <span>[ OUTLET 02 // NEXT ]</span>
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-[#141110] mb-2">
+                Jolotundo Cafe & Warung Ketan
+              </h3>
+              <p class="text-xs sm:text-sm text-[#141110]/70 font-sans font-light leading-relaxed">
+                Pondok kayu pine chalet dengan kudapan ketan tradisional legendaris, pisang goreng madu, dan kopi kothok wilis hangat. Buka mulai pukul 07.00 WIB.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/80 font-bold uppercase">
+              <span>Buka Halaman Jolotundo Cafe</span>
+              <span>↗</span>
+            </div>
+          </a>
+
+          <!-- Switch to All 8 Amenities Overview -->
+          <a 
+            href="/fasilitas" 
+            class="group p-6 sm:p-8 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono-tag text-[#8c6d37] mb-2 uppercase">
+                <span>[ OVERVIEW // 8 SARANA RESORT ]</span>
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-[#141110] mb-2">
+                Seluruh Fasilitas & Katering MICE
+              </h3>
+              <p class="text-xs sm:text-sm text-[#141110]/70 font-sans font-light leading-relaxed">
+                Eksplorasi sarana resort terintegrasi mulai dari area parkir luas, aula limasan pertemuan, sanitasi air hangat, hingga paket katering rombongan.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/80 font-bold uppercase">
+              <span>Jelajahi Semua Fasilitas</span>
+              <span>↗</span>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Luxury Footer CTA -->
+  <FooterCTA />
+
+  <!-- Hero Parallax Script -->
+  <script is:inline>
+    const heroParallaxLayer = document.getElementById('river-hero-parallax-layer');
+    if (heroParallaxLayer) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        if (scrolled < window.innerHeight * 1.5) {
+          heroParallaxLayer.style.transform = `translate3d(0, ${scrolled * 0.35}px, 0)`;
+        }
+      }, { passive: true });
+    }
+  </script>
+</Layout>

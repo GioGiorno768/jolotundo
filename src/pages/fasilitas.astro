@@ -1,0 +1,855 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import FooterCTA from '../components/FooterCTA.astro';
+import facilities from '../data/facilities.json';
+import siteData from '../data/siteData.json';
+
+// Metadata F&B Outlets
+const outlets = [
+  {
+    id: "river-breeze",
+    number: "01",
+    tag: "RIVERSIDE DINING & DECK LOUNGE",
+    name: "River Breeze Cafe & Resto",
+    badge: "TEPI SUNGAI ALAMI",
+    tagline: "Santap istimewa di atas panggung dek kayu alami tepat di sempadan aliran sungai jernih lereng Wilis.",
+    description: "Menikmati sajian hangat di tengah sejuknya udara pegunungan dengan alunan gemericik air sungai alami yang menenangkan. River Breeze menghadirkan pengalaman alfresco dining yang memadukan kehangatan resep kuliner Nusantara, racikan kopi lereng Wilis, dan atmosfer alam terbuka berkanopi pinus.",
+    image: "/images/facilities/pine-resto-cafe.jpg",
+    capacity: "150 Kursi Tamu",
+    hours: "08.00 — 22.00 WIB (Buka Setiap Hari)",
+    setting: "Riverside Wooden Deck & Semi-Indoor Dining",
+    ambience: "Gemericik Sungai, Kabut Pinus & Live Akustik Akhir Pekan",
+    menuItems: [
+      {
+        name: "Rawon Iga Rempah Wilis",
+        desc: "Kuah kluwek hitam pekat kaya rempah dengan potongan iga sapi empuk, tauge pendek, telur asin, dan sambal terasi segar.",
+        tag: "CHEF'S SIGNATURE"
+      },
+      {
+        name: "Gurame Bakar Madu Lereng",
+        desc: "Ikan gurame segar dibakar dengan olesan madu hutan murni Jolotundo dan bumbu rempah aromatik manis gurih.",
+        tag: "BEST SELLER"
+      },
+      {
+        name: "Nasi Goreng Spesial Jolotundo",
+        desc: "Nasi goreng bumbu tradisional dengan suwiran ayam kampung, telur mata sapi, sate ayam, dan kerupuk udang renyah.",
+        tag: "FAVORIT TAMU"
+      },
+      {
+        name: "Sup Iga Asam Pedas Segar",
+        desc: "Potongan iga sapi empuk dengan kuah kaldu sapi bening berpadu asam belimbing wuluh dan irisan tomat hijau segar.",
+        tag: "WARM BROTH"
+      },
+      {
+        name: "Kopi Tubruk Robusta Bajulan",
+        desc: "Seduhan biji kopi robusta pilihan dari lereng Gunung Wilis dengan karakter body tebal dan aroma cokelat alami.",
+        tag: "LOCAL HARVEST"
+      },
+      {
+        name: "Wedang Uwuh & Jahe Serai Madu",
+        desc: "Rebusan rempah secang, cengkeh, kayu manis, jahe emprit bakar, dan madu hutan murni penghangat raga.",
+        tag: "HERBAL WARMTH"
+      }
+    ],
+    rules: "Tamu diperbolehkan membawa makanan dari luar atau alat BBQ sendiri mulai pukul 19.00 WIB. Sebelum jam 19.00, seluruh konsumsi dapat dipesan langsung di River Breeze."
+  },
+  {
+    id: "jolotundo-cafe",
+    number: "02",
+    tag: "PINE CHALET & TRADITIONAL DELIGHTS",
+    name: "Jolotundo Cafe & Warung Ketan",
+    badge: "KUDAPAN TRADISIONAL KHAS",
+    tagline: "Kehangatan pondok kayu pinus, camilan ketan legendaris bertabur kelapa gurih, dan kopi sangrai lokal.",
+    description: "Berada tepat di area sentral komunal Jolotundo, Jolotundo Cafe & Warung Ketan hadir sebagai sanctuary bersantai santai dengan nuansa pine chalet pedesaan. Menyuguhkan sepiring ketan hangat pulen favorit para pelancong, gorengan renyah yang baru diangkat dari wajan, serta seduhan kopi panas yang ramah di kantong.",
+    image: "/images/facilities/jolotundo-cafe-ketan.jpg",
+    capacity: "80 Kursi Tamu",
+    hours: "07.00 — 21.00 WIB (Buka Pagi untuk Sarapan)",
+    setting: "Rustic Pine Chalet & Open Garden Seating",
+    ambience: "Aroma Kopi Sangrai, Hangat Kayu Pinus & Angin Lembah",
+    menuItems: [
+      {
+        name: "Ketan Bubuk Kedelai Tradisional",
+        desc: "Ketan putih pulen gurih bertabur parutan kelapa muda segar dan serbuk kedelai manis gurih khas Jawa Timuran.",
+        tag: "LEGENDARIS"
+      },
+      {
+        name: "Ketan Susu Keju Melimpah",
+        desc: "Ketan hangat pulen disiram kental manis krimer dan parutan keju cheddar melimpah yang gurih meleleh.",
+        tag: "FAVORIT ANAK & REMAJA"
+      },
+      {
+        name: "Ketan Serundeng Pedas Manis",
+        desc: "Ketan gurih berpadu taburan serundeng kelapa sangrai berbumbu ketumbar, lengkuas, dan cabai aromatik harum.",
+        tag: "SAVORY & SPICY"
+      },
+      {
+        name: "Pisang Goreng Madu Crispy",
+        desc: "Pisang kepok manis berbalut adonan tepung renyah keemasan, disajikan hangat dengan cocolan madu hutan alami.",
+        tag: "CRISPY SNACK"
+      },
+      {
+        name: "Kopi Kothok Wilis Mendidih",
+        desc: "Kopi robusta lokal yang dimasak langsung mendidih bersama gula aren alami di panci tembaga tradisional.",
+        tag: "TRADISIONAL"
+      },
+      {
+        name: "Susu Jahe Segar Lereng Wilis",
+        desc: "Susu sapi murni segar berpadu sari jahe emprit bakar geprek yang memberikan rasa hangat seketika di dada.",
+        tag: "SEHAT & HANGAT"
+      }
+    ],
+    rules: "Buka lebih awal pukul 07.00 WIB untuk melayani sarapan pagi para tamu glamping dan wisatawan yang ingin menghirup udara pagi."
+  }
+];
+
+// Paket Katering & MICE
+const cateringPackages = [
+  {
+    index: "01",
+    tag: "BUFFET PRASMANAN",
+    title: "Prasmanan Nusantara MICE",
+    pax: "Min. 30 Pax",
+    desc: "Sajian lengkap prasmanan masakan Nusantara hangat dengan set meja buffet dekoratif berbalut nuansa pedesaan mewah.",
+    features: [
+      "Nasi Putih Wangi & Nasi Liwet Gurih",
+      "Pilihan Lauk Utama (Ayam Bakar Madu / Rendang Sapi)",
+      "Lauk Pendamping (Gurame Fillet Asam Manis / Telur Balado)",
+      "Sayur Hangat (Sup Kimlo / Sayur Asem / Cah Brokoli)",
+      "Sambal Bajak, Lalapan Segar & Kerupuk Udang",
+      "Buah Potong Segar, Es Teh Manis & Air Mineral",
+      "Include Meja Buffet, Pemanas Makanan & Pramusaji"
+    ],
+    ctaText: "Inquire Paket Buffet"
+  },
+  {
+    index: "02",
+    tag: "MEETING & GATHERING",
+    title: "Coffee Break & High Tea Set",
+    pax: "Min. 20 Pax",
+    desc: "Teman rehat sempurna saat jeda rapat, seminar, konsolidasi korporat di Pendopo Limasan, atau workshop kreatif.",
+    features: [
+      "2 Macam Snack Tradisional (Ketan, Pisang Goreng, Lemper)",
+      "1 Macam Pastry Gurih (Pastel / Risoles Rogout)",
+      "Free Flow Kopi Robusta Lereng Wilis Hangat",
+      "Free Flow Teh Melati & Teh Rempah Panas",
+      "Air Mineral Cup & Gula Batu Alami",
+      "Penyajian Meja Estetik Kayu Jati"
+    ],
+    ctaText: "Inquire Coffee Break"
+  },
+  {
+    index: "03",
+    tag: "LIVE COOKING NIGHT",
+    title: "Paket Live BBQ Tepi Sungai",
+    pax: "Family & Corporate Group",
+    desc: "Momen keakraban santap malam memanggang daging sapi premium di depan tenda glamping atau di panggung dek tepi sungai.",
+    features: [
+      "Daging Sapi US Shortplate Slice Marinasi Gurih",
+      "Sosis Sapi Bratwurst Premium & Jagung Manis",
+      "Saus Signature (Blackpepper & Smokey BBQ)",
+      "Mentega Gurih & Bawang Bombay",
+      "Panggangan Portable / Arang Briket Siap Pakai",
+      "Capit, Piring Saji & Peralatan Makan Lengkap"
+    ],
+    ctaText: "Inquire Paket BBQ"
+  }
+];
+
+// FAQ Fasilitas & Resto
+const faqs = [
+  {
+    q: "Apakah pengunjung umum yang tidak menginap boleh makan di River Breeze dan Warung Ketan?",
+    a: "Sangat boleh! Jolotundo menganut sistem Free HTM (Gratis Tiket Masuk). Siapa pun dipersilakan masuk untuk sarapan, makan siang, ngopi senja di tepi sungai, atau sekadar menikmati udara sejuk hutan pinus."
+  },
+  {
+    q: "Bagaimana peraturan membawa makanan dari luar atau alat BBQ sendiri?",
+    a: "Tamu diperbolehkan membawa makanan dari luar dan perlengkapan BBQ sendiri mulai pukul 19.00 WIB (jam 7 malam). Sebelum pukul 19.00, seluruh kebutuhan F&B dapat dinikmati langsung melalui River Breeze Cafe & Resto atau Jolotundo Cafe."
+  },
+  {
+    q: "Apakah kamar mandi umum dilengkapi dengan fasilitas air panas (water heater)?",
+    a: "Ya, seluruh bilik kamar mandi dan sanitasi sentral di Jolotundo telah dilengkapi dengan instalasi water heater otomatis dengan suhu dan tekanan stabil, menjamin kenyamanan mandi Anda di tengah sejuknya udara pegunungan."
+  },
+  {
+    q: "Apakah area parkir dapat menampung rombongan bus besar (Big Bus 50+ seat)?",
+    a: "Bisa. Akses jalan aspal dari Kota Nganjuk ke gerbang Jolotundo di Desa Bajulan telah beraspal rata dan lebar. Area parkir kami dirancang luas dan datar dengan kapasitas puluhan mobil pribadi hingga beberapa bus pariwisata besar serta pengawasan satpam 24 jam."
+  },
+  {
+    q: "Bagaimana cara melakukan reservasi meja atau paket katering rombongan?",
+    a: "Untuk pemesanan meja khusus tepi sungai atau pesanan katering prasmanan rombongan di atas 20 orang, Anda dapat menghubungi tim Concierge kami melalui WhatsApp minimal H-3 sebelum jadwal kunjungan."
+  }
+];
+---
+
+<Layout 
+  title="Fasilitas & Resto — River Breeze & Jolotundo Cafe | Jolotundo Glamping & Edupark"
+  description="Pusat kuliner River Breeze tepi sungai alami, Jolotundo Cafe & Warung Ketan pondok pinus, serta 8 fasilitas sarana pendukung lengkap berstandar resort di lereng Gunung Wilis, Bajulan, Nganjuk."
+>
+  <!-- Floating Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Background (Pure GoUncharted Brutalist-Luxury) -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
+
+    <!-- ========================================================================= -->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED PARALLAX TRANSLATE-Y)       -->
+    <!-- ========================================================================= -->
+    <header 
+      id="fasilitas-hero" 
+      class="relative w-full h-[100svh] min-h-[580px] sm:min-h-[680px] flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+    >
+      <!-- Parallax Translate-Y Background Layer -->
+      <div 
+        id="fasilitas-hero-parallax-layer"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
+        style="transform: translate3d(0, 0px, 0);"
+      >
+        <img 
+          src="/images/facilities/pine-resto-cafe.jpg" 
+          alt="River Breeze Cafe & Resto - Jolotundo Glamping & Edupark" 
+          class="w-full h-full object-cover object-center scale-105"
+          fetchpriority="high"
+          loading="eager"
+        />
+        <!-- Atmospheric Vignettes / Scrim for Editorial Typography Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/90 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+      </div>
+
+      <!-- Top Spacer to clear floating pill navbar -->
+      <div class="relative z-10 w-full pt-24 sm:pt-32"></div>
+
+      <!-- Center Display Typography (Pure GoUncharted Brutalist-Luxury Architecture) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto my-auto w-full">
+        
+        <!-- Small Centered Bracketed Eyebrow Kicker -->
+        <span class="text-[11px] sm:text-xs font-mono-tag tracking-[0.25em] sm:tracking-[0.35em] text-[#d8c39e] uppercase mb-4 sm:mb-6 drop-shadow-md">
+          [ FASILITAS & RESTO // JOLOTUNDO ECOSYSTEM ]
+        </span>
+
+        <!-- Giant Bold Display Headline -->
+        <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-extrabold uppercase tracking-tight text-white leading-[0.96] font-sans drop-shadow-2xl">
+          MOUNTAIN CULINARY<br />
+          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">meets</span> RIVERSIDE CALM.
+        </h1>
+
+        <!-- Elegant Refined Subtitle -->
+        <p class="text-xs sm:text-sm md:text-base font-sans text-white/80 max-w-2xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light">
+          Harmoni kehangatan santap di dek tepi aliran sungai alami lereng Wilis, kenikmatan Warung Ketan pondok pinus, serta 8 fasilitas sarana terpadu berstandar resort bintang lima.
+        </p>
+
+        <!-- Quick Jump Buttons to Primary Sections -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-6 sm:mt-8">
+          <a 
+            href="#river-breeze" 
+            class="px-4 py-2 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-[11px] font-semibold uppercase tracking-wider transition-colors shadow-lg"
+          >
+            [ ↓ RIVER BREEZE RESTO ]
+          </a>
+          <a 
+            href="#jolotundo-cafe" 
+            class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-mono-tag text-[11px] font-semibold uppercase tracking-wider transition-colors backdrop-blur-sm"
+          >
+            [ ↓ JOLOTUNDO CAFE & KETAN ]
+          </a>
+          <a 
+            href="#sarana-resort" 
+            class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-mono-tag text-[11px] font-semibold uppercase tracking-wider transition-colors backdrop-blur-sm hidden sm:inline-block"
+          >
+            [ ↓ 8 SARANA RESORT ]
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Metadata Bar (1:1 with GoUncharted Hero Specs) -->
+      <div class="relative z-10 w-full px-6 sm:px-12 lg:px-16 pb-6 sm:pb-8 pt-4 border-t border-white/15 bg-gradient-to-t from-black/60 to-transparent">
+        <div class="max-w-[1680px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tag tracking-widest uppercase text-white/70">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-white font-semibold">BAJULAN, LOCERET, NGANJUK</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-white/60">
+            <span>2 OUTLET KULINER UTAMA</span>
+            <span class="hidden sm:inline">•</span>
+            <span>8 SARANA RESORT LENGKAP</span>
+            <span class="hidden sm:inline">•</span>
+            <span class="text-[#d8c39e]">FREE HTM / BUKA SETIAP HARI</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ========================================================================= -->
+    <!-- 2. STICKY SUB-NAV ANCHOR BAR (Quick Jump Across Page)                    -->
+    <!-- ========================================================================= -->
+    <nav class="sticky top-0 z-40 bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#141110]/15 select-none transition-colors">
+      <div class="max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-14 flex items-center justify-between h-12 sm:h-14 overflow-x-auto no-scrollbar gap-4 text-xs font-mono-tag">
+        <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+          <span class="text-[#141110]/50 tracking-widest uppercase text-[10px]">EKSPLORASI:</span>
+        </div>
+        <div class="flex items-center gap-4 sm:gap-8 shrink-0 tracking-wider uppercase text-[11px] sm:text-xs">
+          <a href="#river-breeze" class="text-[#141110] hover:text-[#b48a4e] font-semibold transition-colors flex items-center gap-1">
+            <span>01</span>
+            <span>River Breeze</span>
+          </a>
+          <a href="#jolotundo-cafe" class="text-[#141110] hover:text-[#b48a4e] font-semibold transition-colors flex items-center gap-1">
+            <span>02</span>
+            <span>Jolotundo Cafe</span>
+          </a>
+          <a href="#sarana-resort" class="text-[#141110] hover:text-[#b48a4e] font-semibold transition-colors flex items-center gap-1">
+            <span>03</span>
+            <span>8 Sarana Resort</span>
+          </a>
+          <a href="#katering-gathering" class="text-[#141110] hover:text-[#b48a4e] font-semibold transition-colors flex items-center gap-1">
+            <span>04</span>
+            <span>Katering & MICE</span>
+          </a>
+          <a href="#faq-fasilitas" class="text-[#141110] hover:text-[#b48a4e] font-semibold transition-colors flex items-center gap-1">
+            <span>05</span>
+            <span>FAQ & Aturan</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- ========================================================================= -->
+    <!-- 3. SECTION 01 // RIVER BREEZE CAFE & RESTO (RIVERSIDE DECK)               -->
+    <!-- ========================================================================= -->
+    <section id="river-breeze" class="relative z-10 py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 scroll-mt-14">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <!-- Section Header Row -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#141110]/15">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-2">
+              <span>[ OUTLET // 01 ]</span>
+              <span>•</span>
+              <span class="text-[#8c6d37] font-semibold">RIVERSIDE DINING & DECK LOUNGE</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
+              River Breeze Cafe & Resto
+            </h2>
+          </div>
+          <div class="text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span>DEK TEPI SUNGAI ALAMI • BUKA 08.00–22.00</span>
+          </div>
+        </div>
+
+        <!-- Split Grid: Left Details & Menu, Right Photo Frame -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-start">
+          
+          <!-- Left Column (lg:col-span-7) -->
+          <div class="lg:col-span-7 flex flex-col gap-8 sm:gap-10">
+            
+            <!-- Editorial Sub-tagline & Narrative -->
+            <div>
+              <p class="text-lg sm:text-2xl font-light text-[#141110] leading-snug font-serif italic mb-4">
+                “Santap istimewa di atas dek kayu panggung, berpadu lembutnya semilir angin sejuk dan gemericik aliran sungai pegunungan lereng Wilis.”
+              </p>
+              <p class="text-sm sm:text-base font-sans text-[#141110]/80 leading-relaxed font-light">
+                Di River Breeze, kami meramu atmosfer alam pegunungan dengan kehangatan cita rasa Nusantara. Panggung dek kayu terbuka dibangun persis di sisi bibir sungai berbatu alami, memungkinkan para tamu bersantap sambil meresapi kesejukan mata air murni dan keteduhan pepohonan pinus. Tempat ideal untuk sarapan syahdu, makan siang keluarga, hingga makan malam romantis bertabur lampu temaram.
+              </p>
+            </div>
+
+            <!-- Specs Grid (Clean Brutalist Hairlines) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 border-y border-[#141110]/15 py-5 text-xs font-mono-tag">
+              <div class="flex flex-col gap-1 pr-3 border-r border-[#141110]/15">
+                <span class="text-[10px] text-[#141110]/50 uppercase tracking-widest">KAPASITAS</span>
+                <span class="text-sm font-bold text-[#141110] font-sans">150 Kursi</span>
+                <span class="text-[10px] text-[#141110]/70">Deck & Semi-Indoor</span>
+              </div>
+              <div class="flex flex-col gap-1 px-3 sm:border-r sm:border-[#141110]/15">
+                <span class="text-[10px] text-[#141110]/50 uppercase tracking-widest">JAM BUKA</span>
+                <span class="text-sm font-bold text-[#141110] font-sans">08.00 — 22.00</span>
+                <span class="text-[10px] text-[#141110]/70">Buka Setiap Hari</span>
+              </div>
+              <div class="flex flex-col gap-1 pl-3 col-span-2 sm:col-span-1 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#141110]/15">
+                <span class="text-[10px] text-[#141110]/50 uppercase tracking-widest">ATMOSFER</span>
+                <span class="text-sm font-bold text-[#141110] font-sans">Riverside Deck</span>
+                <span class="text-[10px] text-[#141110]/70">Akustik Akhir Pekan</span>
+              </div>
+            </div>
+
+            <!-- Signature Menu Highlights -->
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#141110]/15">
+                <span class="text-xs font-mono-tag font-semibold tracking-widest uppercase text-[#141110]">
+                  [ MENU SIGNATURE PILIHAN // RIVER BREEZE ]
+                </span>
+                <span class="text-[10px] font-mono-tag text-[#8c6d37] uppercase">HALAL & HIGIENIS</span>
+              </div>
+
+              <!-- Menu 2-Column Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {outlets[0].menuItems.map((item) => (
+                  <div class="p-4 bg-white/70 border border-[#141110]/15 flex flex-col justify-between hover:border-[#8c6d37] transition-colors">
+                    <div>
+                      <div class="flex items-center justify-between gap-2 mb-1.5">
+                        <h4 class="text-sm sm:text-base font-bold text-[#141110] font-sans tracking-tight">
+                          {item.name}
+                        </h4>
+                        <span class="text-[9px] font-mono-tag px-2 py-0.5 bg-[#141110] text-[#d8c39e] uppercase font-semibold shrink-0">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <p class="text-xs text-[#141110]/70 font-sans font-light leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Outside Food Rules Callout -->
+            <div class="p-4 sm:p-5 bg-[#141110] text-[#f4efe6] border border-[#d8c39e]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-widest font-bold">
+                  [ RULES // MAKANAN DARI LUAR ]
+                </span>
+                <p class="text-xs font-sans text-white/80 font-light leading-relaxed">
+                  {outlets[0].rules}
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 shrink-0">
+                <a 
+                  href="/fasilitas/river-breeze"
+                  class="px-4 py-2.5 bg-white hover:bg-[#d8c39e] text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors border border-white shadow-sm"
+                >
+                  Halaman Khusus River Breeze ↗
+                </a>
+                <a 
+                  href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20ingin%20reservasi%20meja%20River%20Breeze%20Resto."}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-4 py-2.5 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+                >
+                  Reservasi Meja ↗
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Editorial Photo Frame (lg:col-span-5) -->
+          <div class="lg:col-span-5 lg:sticky lg:top-20 flex flex-col gap-3">
+            <div class="relative w-full aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group">
+              <img 
+                src="/images/facilities/pine-resto-cafe.jpg" 
+                alt="Suasana River Breeze Cafe & Resto Jolotundo" 
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none"></div>
+              
+              <!-- Floating Top Badge -->
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-3 py-1 bg-black/80 border border-white/10 font-bold backdrop-blur-md">
+                  OUTLET 01 // RIVERSIDE
+                </span>
+              </div>
+
+              <!-- Floating Bottom Caption -->
+              <div class="absolute bottom-5 left-5 right-5 z-10 pointer-events-none">
+                <span class="text-sm font-sans font-bold text-white uppercase tracking-tight block">
+                  River Breeze Wooden Deck
+                </span>
+                <span class="text-xs font-mono-tag text-[#d8c39e] uppercase tracking-wider block mt-0.5">
+                  150 Kursi Tamu • Tepi Aliran Sungai
+                </span>
+              </div>
+            </div>
+
+            <!-- Sub Photo Specs -->
+            <div class="flex items-center justify-between text-[11px] font-mono-tag text-[#141110]/60 px-1 py-1 border-t border-[#141110]/15">
+              <span>BAJULAN, LOCERET</span>
+              <span class="text-[#8c6d37] font-semibold">LIVE ACOUSTIC WEEKEND</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 4. SECTION 02 // JOLOTUNDO CAFE & WARUNG KETAN (PINE CHALET)              -->
+    <!-- ========================================================================= -->
+    <section id="jolotundo-cafe" class="relative z-10 py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#ece6d9]/60 scroll-mt-14">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <!-- Section Header Row -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#141110]/15">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-2">
+              <span>[ OUTLET // 02 ]</span>
+              <span>•</span>
+              <span class="text-[#8c6d37] font-semibold">PINE CHALET & TRADITIONAL SNACKS</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
+              Jolotundo Cafe & Warung Ketan
+            </h2>
+          </div>
+          <div class="text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <span>PONDOK PINUS • BUKA MULAI 07.00 WIB</span>
+          </div>
+        </div>
+
+        <!-- Split Grid (Alternated: Left Photo, Right Content) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-start">
+          
+          <!-- Left Column: Editorial Photo Frame (lg:col-span-5) -->
+          <div class="lg:col-span-5 lg:sticky lg:top-20 order-2 lg:order-1 flex flex-col gap-3">
+            <div class="relative w-full aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group">
+              <img 
+                src="/images/facilities/jolotundo-cafe-ketan.jpg" 
+                alt="Jolotundo Cafe & Warung Ketan - Kudapan Tradisional Khas Pegunungan" 
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none"></div>
+              
+              <!-- Floating Top Badge -->
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-3 py-1 bg-black/80 border border-white/10 font-bold backdrop-blur-md">
+                  OUTLET 02 // PINE CHALET
+                </span>
+              </div>
+
+              <!-- Floating Bottom Caption -->
+              <div class="absolute bottom-5 left-5 right-5 z-10 pointer-events-none">
+                <span class="text-sm font-sans font-bold text-white uppercase tracking-tight block">
+                  Warung Ketan & Kopi Wilis
+                </span>
+                <span class="text-xs font-mono-tag text-[#d8c39e] uppercase tracking-wider block mt-0.5">
+                  Ketan Pulen Hangat • Kopi Tubruk Sangrai
+                </span>
+              </div>
+            </div>
+
+            <!-- Sub Photo Specs -->
+            <div class="flex items-center justify-between text-[11px] font-mono-tag text-[#141110]/60 px-1 py-1 border-t border-[#141110]/15">
+              <span>AREA KOMUNAL SENTRAL</span>
+              <span class="text-[#8c6d37] font-semibold">BUKA SETIAP HARI (07.00—21.00)</span>
+            </div>
+          </div>
+
+          <!-- Right Column: Content & Details (lg:col-span-7) -->
+          <div class="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-8 sm:gap-10">
+            
+            <!-- Narrative -->
+            <div>
+              <p class="text-lg sm:text-2xl font-light text-[#141110] leading-snug font-serif italic mb-4">
+                “Kehangatan sepiring ketan pulen bertabur kelapa gurih, renyahnya pisang goreng hangat, dan aroma kopi sangrai di bawah sejuknya pondok pinus.”
+              </p>
+              <p class="text-sm sm:text-base font-sans text-[#141110]/80 leading-relaxed font-light">
+                Terletak di persimpangan komunal sentral Jolotundo, Jolotundo Cafe & Warung Ketan menyajikan kehangatan otentik khas pedesaan Jawa Timur. Menjadi spot berkumpul favorit para tamu sejak pagi hari untuk menikmati seduhan kopi kothok panas sembari menyantap aneka olahan ketan tradisional legendaris dengan harga yang sangat bersahabat.
+              </p>
+            </div>
+
+            <!-- Specs Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 border-y border-[#141110]/15 py-5 text-xs font-mono-tag">
+              <div class="flex flex-col gap-1 pr-3 border-r border-[#141110]/15">
+                <span class="text-[10px] text-[#141110]/50 uppercase tracking-widest">KAPASITAS</span>
+                <span class="text-sm font-bold text-[#141110] font-sans">80 Kursi</span>
+                <span class="text-[10px] text-[#141110]/70">Pine Chalet & Garden</span>
+              </div>
+              <div class="flex flex-col gap-1 px-3 sm:border-r sm:border-[#141110]/15">
+                <span class="text-[10px] text-[#141110]/50 uppercase tracking-widest">JAM BUKA</span>
+                <span class="text-sm font-bold text-[#141110] font-sans">07.00 — 21.00</span>
+                <span class="text-[10px] text-[#141110]/70">Buka Pagi Sarapan</span>
+              </div>
+              <div class="flex flex-col gap-1 pl-3 col-span-2 sm:col-span-1 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#141110]/15">
+                <span class="text-[10px] text-[#141110]/50 uppercase tracking-widest">SPECIALTY</span>
+                <span class="text-sm font-bold text-[#141110] font-sans">Warung Ketan</span>
+                <span class="text-[10px] text-[#141110]/70">Kopi Tubruk & Snack</span>
+              </div>
+            </div>
+
+            <!-- Menu Highlights Grid -->
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#141110]/15">
+                <span class="text-xs font-mono-tag font-semibold tracking-widest uppercase text-[#141110]">
+                  [ MENU KETAN & KUDAPAN HANGAT // JOLOTUNDO CAFE ]
+                </span>
+                <span class="text-[10px] font-mono-tag text-[#8c6d37] uppercase">HARGA BERSAHABAT</span>
+              </div>
+
+              <!-- Menu 2-Column Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {outlets[1].menuItems.map((item) => (
+                  <div class="p-4 bg-white/70 border border-[#141110]/15 flex flex-col justify-between hover:border-[#8c6d37] transition-colors">
+                    <div>
+                      <div class="flex items-center justify-between gap-2 mb-1.5">
+                        <h4 class="text-sm sm:text-base font-bold text-[#141110] font-sans tracking-tight">
+                          {item.name}
+                        </h4>
+                        <span class="text-[9px] font-mono-tag px-2 py-0.5 bg-[#141110] text-[#d8c39e] uppercase font-semibold shrink-0">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <p class="text-xs text-[#141110]/70 font-sans font-light leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Early Morning Callout -->
+            <div class="p-4 sm:p-5 bg-white border border-[#141110]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-[10px] font-mono-tag text-[#8c6d37] uppercase tracking-widest font-bold">
+                  [ SARAPAN PAGI & NGOPI SENJA ]
+                </span>
+                <p class="text-xs font-sans text-[#141110]/80 font-light leading-relaxed">
+                  {outlets[1].rules}
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 shrink-0">
+                <a 
+                  href="/fasilitas/jolotundo-cafe"
+                  class="px-4 py-2.5 bg-[#8c6d37] hover:bg-[#141110] text-white font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+                >
+                  Halaman Khusus Jolotundo Cafe ↗
+                </a>
+                <a 
+                  href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20mau%20order%20menu%20Warung%20Ketan."}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-4 py-2.5 bg-[#141110] hover:bg-[#8c6d37] text-white font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+                >
+                  Order via WhatsApp ↗
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 5. SECTION 03 // 8 SARANA & AMENITIES RESORT TERPADU                     -->
+    <!-- ========================================================================= -->
+    <section id="sarana-resort" class="relative z-10 py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 scroll-mt-14">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#141110]/15">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-2">
+              <span>[ SARANA // 03 ]</span>
+              <span>•</span>
+              <span class="text-[#8c6d37] font-semibold">INFRASTRUKTUR & FASILITAS LENGKAP</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
+              8 Sarana Berstandar Resort
+            </h2>
+          </div>
+          <div class="text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider">
+            <span>TERINTEGRASI DI SELURUH KAWASAN JOLOTUNDO</span>
+          </div>
+        </div>
+
+        <!-- 8 Facilities Grid (4x2 on Desktop, 2x4 on Tablet, 1x8 on Mobile) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {facilities.map((fac) => (
+            <div class="group flex flex-col bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all duration-300">
+              
+              <!-- Image Frame -->
+              <div class="relative w-full aspect-[4/3] overflow-hidden bg-black">
+                <img 
+                  src={fac.image} 
+                  alt={fac.title + " - Jolotundo Glamping & Edupark"}
+                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none"></div>
+                
+                <!-- Index Badge -->
+                <div class="absolute top-3 left-3 z-10 pointer-events-none">
+                  <span class="text-[9px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-2.5 py-1 bg-black/80 border border-white/10 font-bold backdrop-blur-sm">
+                    INDEX // {fac.index}
+                  </span>
+                </div>
+
+                <!-- Floating Bottom Category -->
+                <div class="absolute bottom-3 left-3 right-3 z-10 pointer-events-none">
+                  <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-wider block">
+                    {fac.category}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Content Body -->
+              <div class="p-5 flex flex-col justify-between flex-1 gap-4">
+                <div>
+                  <h3 class="text-base sm:text-lg font-bold text-[#141110] font-sans tracking-tight mb-2">
+                    {fac.title}
+                  </h3>
+                  <p class="text-xs text-[#141110]/75 font-sans font-light leading-relaxed line-clamp-3">
+                    {fac.statement.replace(/[“”"]/g, '')}
+                  </p>
+                </div>
+
+                <!-- Meta Specs List -->
+                <div class="pt-3 border-t border-[#141110]/10 flex flex-col gap-1.5 text-[11px] font-mono-tag text-[#141110]/70">
+                  {fac.meta.map((m) => (
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-1 h-1 bg-[#8c6d37]"></span>
+                      <span class="truncate">{m}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 6. SECTION 04 // KATERING & JAMUAN ROMBONGAN (MICE & GATHERING)           -->
+    <!-- ========================================================================= -->
+    <section id="katering-gathering" class="relative z-10 py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#141110] text-[#f4efe6] scroll-mt-14 select-none">
+      <div class="max-w-[1680px] mx-auto">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-white/15">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#d8c39e] uppercase mb-2">
+              <span>[ KATERING // 04 ]</span>
+              <span>•</span>
+              <span>GROUP BANQUET & GATHERING</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-white">
+              Paket Katering & Jamuan Acara
+            </h2>
+          </div>
+          <div class="text-xs font-mono-tag text-white/60 uppercase tracking-wider">
+            <span>KONSUMSI OUTBOUND, WEDDING & GATHERING KORPORAT</span>
+          </div>
+        </div>
+
+        <!-- 3 Packages Cards (Pure GoUncharted Brutalist Luxury) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+          {cateringPackages.map((pkg) => (
+            <div class="p-6 sm:p-8 bg-white/5 border border-white/15 hover:border-[#d8c39e] flex flex-col justify-between transition-colors">
+              <div>
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/15 text-xs font-mono-tag">
+                  <span class="text-[#d8c39e] tracking-widest uppercase font-semibold">
+                    [ PAKET // {pkg.index} ]
+                  </span>
+                  <span class="text-white/60 uppercase">
+                    {pkg.pax}
+                  </span>
+                </div>
+
+                <span class="text-[10px] font-mono-tag text-[#d8c39e]/80 uppercase tracking-widest block mb-1">
+                  {pkg.tag}
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight mb-3">
+                  {pkg.title}
+                </h3>
+                <p class="text-xs sm:text-sm text-white/70 font-sans font-light leading-relaxed mb-6">
+                  {pkg.desc}
+                </p>
+
+                <!-- Features checklist -->
+                <div class="space-y-2 mb-8 pt-4 border-t border-white/10">
+                  {pkg.features.map((feat) => (
+                    <div class="flex items-start gap-2 text-xs font-sans text-white/80 font-light">
+                      <span class="text-[#d8c39e] font-mono-tag font-bold shrink-0 mt-0.5">✓</span>
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <a 
+                href={"https://wa.me/" + siteData.brand.whatsapp + "?text=Halo%20Admin%20Jolotundo,%20saya%20tertarik%20dengan%20" + encodeURIComponent(pkg.title) + "."}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-md"
+              >
+                {pkg.ctaText} ↗
+              </a>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 7. SECTION 05 // FAQ & ATURAN FASILITAS & RESTO                           -->
+    <!-- ========================================================================= -->
+    <section id="faq-fasilitas" class="relative z-10 py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 scroll-mt-14">
+      <div class="max-w-4xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center pb-8 mb-10 border-b border-[#141110]/15">
+          <span class="text-xs font-mono-tag text-[#8c6d37] tracking-[0.25em] uppercase font-semibold block mb-2">
+            [ QUESTIONS // FAQ & RULES ]
+          </span>
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
+            Pertanyaan Seputar Fasilitas & Resto
+          </h2>
+        </div>
+
+        <!-- Accordion Items -->
+        <div class="divide-y divide-[#141110]/15 border-y border-[#141110]/15">
+          {faqs.map((faq, fIdx) => (
+            <details class="group py-5 transition-colors cursor-pointer">
+              <summary class="flex items-center justify-between text-left font-sans text-base sm:text-lg font-bold text-[#141110] group-hover:text-[#8c6d37] list-none transition-colors">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono-tag text-[#141110]/50 font-normal">0{fIdx + 1}</span>
+                  <span>{faq.q}</span>
+                </span>
+                <span class="text-lg font-mono-tag text-[#141110]/40 group-open:rotate-45 group-open:text-[#8c6d37] transition-transform duration-300">
+                  +
+                </span>
+              </summary>
+              <div class="mt-3 pl-7 pr-4 text-xs sm:text-sm font-sans text-[#141110]/80 font-light leading-relaxed">
+                {faq.a}
+              </div>
+            </details>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- GoUncharted Footer CTA -->
+  <FooterCTA />
+
+  <!-- Hero Parallax Translate-Y Script -->
+  <script is:inline>
+    const heroParallaxLayer = document.getElementById('fasilitas-hero-parallax-layer');
+    if (heroParallaxLayer) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        if (scrolled < window.innerHeight * 1.5) {
+          heroParallaxLayer.style.transform = `translate3d(0, ${scrolled * 0.35}px, 0)`;
+        }
+      }, { passive: true });
+    }
+  </script>
+</Layout>
+
