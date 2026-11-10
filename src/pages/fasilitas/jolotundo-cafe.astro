@@ -4,244 +4,181 @@ import Navbar from '../../components/Navbar.astro';
 import FooterCTA from '../../components/FooterCTA.astro';
 import siteData from '../../data/siteData.json';
 
-// WhatsApp Order URL
+// WhatsApp Order / Reservation URL
 const waPhone = siteData.brand.whatsapp || "6282249828998";
-const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Halo Admin Jolotundo, saya mau order menu Warung Ketan / Kopi Jolotundo Cafe.")}`;
+const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin memesan menu Warung Ketan / Kopi di Jolotundo Cafe.")}`;
 
-// Categorized Menu Data
-const menuCategories = [
+// Split kata untuk efek Scroll-Driven Word Reveal (1:1 GoUncharted Architecture)
+const placeHeadline = "Aroma ketan hangat, seduhan kopi lereng Wilis, dan teduhnya bayang kanopi pinus yang memeluk senja.".split(" ");
+
+// GoUncharted Hairline Metadata Table Rows (1:1 with Reference Design)
+const placeTableRows = [
   {
-    category: "VARIAN WARUNG KETAN LEGENDARIS",
-    tag: "SIGNATURE STICKY RICE",
-    items: [
-      {
-        name: "Ketan Bubuk Kedelai Tradisional",
-        price: "Rp 12.000",
-        desc: "Ketan putih pulen gurih bertabur parutan kelapa muda segar dan serbuk kedelai manis gurih otentik resep turun-temurun khas Jawa Timuran.",
-        badge: "OTENTIK LEGENDARIS"
-      },
-      {
-        name: "Ketan Susu Keju Melimpah",
-        price: "Rp 15.000",
-        desc: "Ketan hangat pulen disiram krimer kental manis dan limpahan keju cheddar parut gurih melimpah yang lumer berpadu hangatnya ketan.",
-        badge: "FAVORIT REMAJA"
-      },
-      {
-        name: "Ketan Serundeng Pedas Manis",
-        price: "Rp 14.000",
-        desc: "Ketan gurih berpadu taburan serundeng kelapa sangrai berbumbu ketumbar wangi, daun salam, lengkuas, dan cabai aromatik pedas manis gurih.",
-        badge: "SAVORY & SPICY"
-      },
-      {
-        name: "Ketan Cokelat Meises Keju",
-        price: "Rp 15.000",
-        desc: "Kombinasi klasik butiran meises cokelat premium, parutan keju gurih, dan kental manis vanila yang disukai seluruh anggota keluarga.",
-        badge: "KIDS FAVORITE"
-      },
-      {
-        name: "Ketan Durian Lumer Lereng Wilis",
-        price: "Rp 20.000",
-        desc: "Ketan pulen hangat disiram saus vla daging durian asli yang kental, legit, manis harum, dan lumer di mulut saat dinikmati.",
-        badge: "SEASONAL DELIGHT"
-      },
-      {
-        name: "Ketan Hitam Manis Kelapa Muda",
-        price: "Rp 14.000",
-        desc: "Ketan hitam pulen alami bertekstur legit dengan siraman kuah santan gurih dan parutan kelapa muda segar tanpa pewarna buatan.",
-        badge: "NATURAL GRAIN"
-      }
-    ]
+    label: "SETTING",
+    title: "Pine Forest Wooden Chalet",
+    desc: "Pondok paviliun kayu pinus alami dengan area indoor hangat dan alfresco deck di bawah naungan pohon pinus."
   },
   {
-    category: "GORENGAN HANGAT & KUDAPAN DESA",
-    tag: "FRESH FROM WOK",
-    items: [
-      {
-        name: "Pisang Goreng Madu Crispy",
-        price: "Rp 15.000",
-        desc: "Pisang kepok matang pohon berbalut adonan tepung crispy keemasan, disajikan panas dengan siraman madu hutan murni lereng Wilis.",
-        badge: "BEST SELLER SNACK"
-      },
-      {
-        name: "Tahu Bakso Sapi Hangat Bajulan",
-        price: "Rp 18.000",
-        desc: "Tahu cokelat isi adonan daging sapi cincang gurih empuk yang digoreng garing, disajikan bersama cabai rawit hijau segar yang pedas menggigit.",
-        badge: "SAVORY BITE"
-      },
-      {
-        name: "Tempe Mendoan Daun Bawang",
-        price: "Rp 14.000",
-        desc: "Tempe kedelai tipis berbalut tepung bumbu ketumbar dan daun bawang segar, digoreng setengah matang lembut dengan sambal kecap pedas manis.",
-        badge: "TRADISIONAL"
-      },
-      {
-        name: "Jadah Bakar Bumbu Desa",
-        price: "Rp 12.000",
-        desc: "Uli ketan putih bakar beraroma daun pisang hangus yang harum menggoda, disajikan dengan cocolan serundeng atau sambal kecap.",
-        badge: "RUSTIC HERITAGE"
-      },
-      {
-        name: "Bakwan Jagung Manis Renyah",
-        price: "Rp 14.000",
-        desc: "Pipilan jagung manis segar dipadu irisan seledri dan rempah bawang, digoreng renyah garing di luar lembut gurih di dalam.",
-        badge: "CRISPY CORN"
-      },
-      {
-        name: "Singkong Goreng Sambal Bawang",
-        price: "Rp 16.000",
-        desc: "Potongan singkong empuk yang merekah gurih setelah digoreng renyah, disajikan bersama ulekan sambal bawang pedas segar khas pedesaan.",
-        badge: "HOT & SPICY"
-      }
-    ]
+    label: "KAPASITAS",
+    title: "200 Kursi Tamu",
+    desc: "Kombinasi bangku kayu solid, meja keluarga santai, dan area lesehan yang ramah anak serta nyaman untuk rombongan."
   },
   {
-    category: "SEDUHAN KOPI TRADISIONAL & HERBAL",
-    tag: "MOUNTAIN BREWS",
-    items: [
-      {
-        name: "Kopi Kothok Wilis Panci Tembaga",
-        price: "Rp 12.000",
-        desc: "Bubuk kopi robusta Bajulan dimasak bersama air dan gula aren hingga mendidih di panci tembaga, menghasilkan busa tebal dan aroma sangrai khas.",
-        badge: "METODE KOTHOK"
-      },
-      {
-        name: "Kopi Tubruk Manis Legit",
-        price: "Rp 10.000",
-        desc: "Seduhan kopi hitam pekat tradisional dengan takaran gula pasir pas, kental aromatik dan menjadi teman obrolan paling hangat.",
-        badge: "KLASIK DESA"
-      },
-      {
-        name: "Susu Segar Jahe Emprit Bakar",
-        price: "Rp 15.000",
-        desc: "Susu sapi murni segar berpadu perasan sari jahe emprit bakar geprek dan sedikit gula aren, menghangatkan tubuh seketika di udara dingin.",
-        badge: "PENGHANGAT BADAN"
-      },
-      {
-        name: "Teh Tarik Busa Lembut",
-        price: "Rp 14.000",
-        desc: "Seduhan teh hitam pekat dipadukan susu kental manis lalu ditarik berulang kali hingga tercipta lapisan buih lembut yang creamy.",
-        badge: "CREAMY FOAM"
-      },
-      {
-        name: "Kopi Jahe Gula Aren Wilis",
-        price: "Rp 14.000",
-        desc: "Perpaduan mantap antara pahit kopi robusta, pedas hangat jahe bakar, dan manis karamel gula aren organik asli lereng pegunungan.",
-        badge: "SPICE COFFEE"
-      },
-      {
-        name: "Wedang Secang Jeruk Nipis Madu",
-        price: "Rp 16.000",
-        desc: "Rebusan serutan kayu secang merah dengan perasan jeruk nipis segar dan madu murni, menyegarkan tenggorokan dan kaya antioksidan.",
-        badge: "HERBAL FRESH"
-      }
-    ]
+    label: "JAM BUKA",
+    title: "07.00 — 22.00 WIB",
+    desc: "Buka setiap hari melayani sarapan pagi sejuk berkabut, santap siang santai, hingga nongkrong malam syahdu."
+  },
+  {
+    label: "SUASANA",
+    title: "Sejuk Pegunungan (18°–22°C)",
+    desc: "Udara murni pegunungan dengan aroma pinus alami dan pencahayaan warm ambient lembut saat petang tiba."
+  },
+  {
+    label: "MENU UTAMA",
+    title: "Warung Ketan, Bakso & Kopi",
+    desc: "Ketan kelapa kedelai otentik, ketan durian lumer, bakso sapi kuah rempah, mie pedas, aneka Chinese snack & specialty coffee."
+  },
+  {
+    label: "PEMESANAN",
+    title: "Scan QR Meja & Kasir",
+    desc: "Pemesanan mandiri cepat dan praktis via scan QR di masing-masing meja atau langsung melalui kasir sentral."
+  },
+  {
+    label: "PEMBAYARAN",
+    title: "Cashless QRIS & Tunai",
+    desc: "Mendukung seluruh aplikasi dompet digital & mobile banking QRIS (BCA, Mandiri, BRI, GoPay, OVO, ShopeePay) serta tunai."
   }
 ];
 
-// Highlight Specs
-const outletSpecs = [
-  { label: "KAPASITAS TEMPAT DUDUK", value: "80 Kursi Tamu", note: "Rustic Pine Chalet & Garden Seating" },
-  { label: "JAM OPERASIONAL", value: "07.00 — 21.00 WIB", note: "Buka Paling Pagi untuk Sarapan" },
-  { label: "LOKASI SENTRAL", value: "Area Komunal Tengah", note: "Akses Mudah dari Semua Tenda Glamping" },
-  { label: "KEISTIMEWAAN", value: "Warung Ketan Asli", note: "Ketan Hangat Pulen & Kopi Kothok" }
+// Curated Jolotundo Cafe Preview Gallery Images (1:1 GoUncharted Sticky Horizontal Scroll)
+const cafeGalleryImages = [
+  {
+    src: "/images/facilities/jolotundo-cafe-ketan.jpg",
+    caption: "Warung Ketan Tradisional Legendaris",
+    subtitle: "PULEN HANGAT DENGAN TABURAN KELAPA & KEDELAI"
+  },
+  {
+    src: "/images/facilities/pine-resto-cafe.jpg",
+    caption: "Chalet Kayu di Bawah Kanopi Pinus",
+    subtitle: "ALFRESCO SEATING AMIDST PINE TREES"
+  },
+  {
+    src: "/images/accommodations/paket-grill.jpg",
+    caption: "Kudapan Gorengan & Bakso Rempah",
+    subtitle: "FRESH FROM WOK & STEAMING BROTH"
+  },
+  {
+    src: "/images/facilities/amfiteater-bonfire.jpg",
+    caption: "Suasana Hangat Petang Hari",
+    subtitle: "COZY EVENING LIGHTING & WARM AMBIENCE"
+  },
+  {
+    src: "/images/facilities/meeting-hall-pendopo.jpg",
+    caption: "Ruang Duduk Keluarga Luas",
+    subtitle: "SPACIOUS TIMBER PAVILION CAPACITY"
+  },
+  {
+    src: "/images/facilities/glass-hall-venue.jpg",
+    caption: "Arsitektur Kayu Natural Bajulan",
+    subtitle: "TIMELESS RUSTIC FOREST DESIGN"
+  }
+];
+
+// Daftar Bab Buku Menu Jolotundo Cafe (10 Halaman sesuai Menu PDF Resmi)
+const menuChapters = [
+  { page: 1, title: "Cover Menu" },
+  { page: 2, title: "Panduan Order" },
+  { page: 3, title: "Ayam & Nasi" },
+  { page: 4, title: "Bakso & Mie" },
+  { page: 5, title: "Nusantara Snack" },
+  { page: 6, title: "Chinese Snack" },
+  { page: 7, title: "Aneka Bapao" },
+  { page: 8, title: "Menu Dessert" },
+  { page: 9, title: "Kopi & Latte" },
+  { page: 10, title: "Jus & Minuman Anak" }
 ];
 ---
 
-<Layout 
-  title="Jolotundo Cafe & Warung Ketan — Pine Chalet & Kudapan Tradisional | Jolotundo Glamping"
-  description="Kehangatan pondok kayu pine chalet, camilan ketan legendaris kelapa gurih, gorengan pisang madu, dan kopi kothok lereng Wilis di Jolotundo Edupark."
+<Layout
+  title="Jolotundo Cafe & Warung Ketan | Kuliner Pinus & Kopi Lereng Wilis"
+  description="Pondok cafe kayu pinus & warung ketan legendaris di Jolotundo Edupark Bajulan. Nikmati aneka olahan ketan pulen hangat, bakso kuah rempah, kudapan krispi, dan seduhan kopi lereng Wilis."
 >
-  <!-- Expanding Pill Navbar -->
+  <!-- Fullscreen Floating Pill Navigation -->
   <Navbar />
 
-  <!-- Main Canvas: Warm Stone Editorial -->
   <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
 
     <!-- ========================================================================= -->
-    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED PARALLAX TRANSLATE-Y)       -->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (PARALLAX + BRUTALIST MONOSPACE METADATA)   -->
     <!-- ========================================================================= -->
-    <header 
-      id="cafe-hero" 
-      class="relative w-full h-[100svh] min-h-[580px] sm:min-h-[680px] flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
-    >
-      <!-- Parallax Translate-Y Background Layer -->
+    <header class="relative h-screen h-[100dvh] min-h-[100dvh] w-full flex flex-col justify-between overflow-hidden bg-[#141110] select-none">
+      
+      <!-- Parallax Background Image Layer with Cinematic Darkness -->
       <div 
         id="cafe-hero-parallax-layer"
-        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] pointer-events-none will-change-transform z-0"
-        style="transform: translate3d(0, 0px, 0);"
+        class="absolute inset-0 w-full h-[120%] -top-[10%] bg-cover bg-center will-change-transform"
+        style="background-image: url('/images/facilities/jolotundo-cafe-ketan.jpg');"
       >
-        <img 
-          src="/images/facilities/jolotundo-cafe-ketan.jpg" 
-          alt="Jolotundo Cafe & Warung Ketan Pondok Pinus" 
-          class="w-full h-full object-cover object-center scale-105"
-          fetchpriority="high"
-          loading="eager"
-        />
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/90 pointer-events-none"></div>
-        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+        <!-- Sophisticated Editorial Film Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/90"></div>
+        <div class="absolute inset-0 bg-radial-[circle_at_center,_var(--tw-gradient-stops)] from-transparent via-black/30 to-black/85"></div>
       </div>
 
-      <!-- Top Spacer -->
-      <div class="relative z-10 w-full pt-24 sm:pt-32"></div>
+      <!-- Top Hairline Spacer for Floating Navbar -->
+      <div class="h-20 sm:h-28 shrink-0"></div>
 
-      <!-- Center Hero Content -->
-      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto my-auto w-full">
+      <!-- Center Editorial Display Typography -->
+      <div class="relative z-10 w-full max-w-[1680px] mx-auto px-5 sm:px-12 lg:px-16 flex flex-col items-center text-center my-auto py-4 sm:py-8">
         
-        <!-- Eyebrow Kicker -->
-        <div class="flex items-center gap-2 mb-4 sm:mb-6">
-          <a href="/fasilitas" class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] text-[#d8c39e] hover:text-white uppercase transition-colors">
-            ← [ FASILITAS & RESTO ]
-          </a>
-          <span class="text-white/40 font-mono-tag text-xs">•</span>
-          <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase">
-            OUTLET // 02
-          </span>
-        </div>
+        <!-- Monospace Kicker Pill -->
+        <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.2em] sm:tracking-[0.28em] uppercase text-[#d8c39e] mb-3 sm:mb-5 block drop-shadow">
+          — WARUNG KETAN & KOPI PINUS
+        </span>
 
-        <!-- Giant Display Headline -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[90px] font-extrabold uppercase tracking-tight text-white leading-[0.94] font-sans drop-shadow-2xl">
-          JOLOTUNDO CAFE<br />
-          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">& warung ketan</span> UNDER THE PINES.
+        <!-- Clean, Powerful & Elegant Title -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-[-0.03em] text-white leading-[1.02] sm:leading-[0.96] font-sans drop-shadow-lg">
+          Jolotundo Cafe.
         </h1>
 
-        <!-- Editorial Subtitle -->
-        <p class="text-xs sm:text-sm md:text-base font-sans text-white/80 max-w-2xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light">
-          Kehangatan pondok kayu pine chalet berpadu dengan kelezatan aneka olahan ketan pulen legendaris bertabur kelapa gurih, gorengan renyah yang baru diangkat, dan seduhan kopi kothok khas pedesaan Jawa Timur.
+        <!-- Simple, Clean & Poetic Subtitle -->
+        <p class="text-xs sm:text-base md:text-lg font-sans text-white/80 max-w-md sm:max-w-xl mx-auto mt-3 sm:mt-5 drop-shadow leading-relaxed font-light">
+          Hangatnya ketan tradisional legendaris dan seduhan kopi lereng Wilis di bawah naungan rimbun kanopi pinus.
         </p>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-3 mt-6 sm:mt-8">
+        <!-- Clean Subtle Action Links -->
+        <div class="flex items-center gap-3 sm:gap-6 mt-6 sm:mt-10 text-[11px] sm:text-xs font-mono-tag tracking-wider uppercase">
           <a 
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="px-5 py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-colors shadow-lg flex items-center gap-2"
+            class="px-4 sm:px-5 py-2.5 sm:py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-bold transition-colors shadow-md flex items-center gap-1.5"
           >
-            <span>Order Menu via WhatsApp</span>
+            <span>Reservasi / Order</span>
             <span>↗</span>
           </a>
           <a 
             href="#daftar-menu" 
-            class="px-5 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-mono-tag text-xs font-semibold uppercase tracking-wider transition-colors backdrop-blur-sm"
+            class="px-3 py-2 text-white/80 hover:text-white transition-colors border-b border-white/40 pb-0.5 flex items-center gap-1"
           >
-            [ LIHAT VARIAN KETAN ↓ ]
+            <span>Buka Menu</span>
+            <span>↓</span>
           </a>
         </div>
       </div>
 
-      <!-- Bottom Metadata Specs -->
-      <div class="relative z-10 w-full px-6 sm:px-12 lg:px-16 pb-6 sm:pb-8 pt-4 border-t border-white/15 bg-gradient-to-t from-black/60 to-transparent">
-        <div class="max-w-[1680px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tag tracking-widest uppercase text-white/70">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="text-white font-semibold">PINE CHALET • SENTRAL KOMUNAL PINUS</span>
+      <!-- Bottom Metadata Bar: Clean Single Row on Mobile, Full on Desktop -->
+      <div class="relative z-10 w-full px-5 sm:px-12 lg:px-16 pb-4 sm:pb-8 pt-3 border-t border-white/15 bg-gradient-to-t from-black/85 via-black/40 to-transparent shrink-0">
+        <div class="max-w-[1680px] mx-auto flex items-center justify-between gap-2 text-[10px] sm:text-xs font-mono-tag tracking-wider sm:tracking-widest uppercase text-white/70">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+            <span class="text-white font-medium truncate">KANOPI PINUS BAJULAN</span>
           </div>
-          <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-white/60">
-            <span>KAPASITAS: 80 KURSI</span>
+          <div class="flex items-center gap-2 sm:gap-6 text-white/60 shrink-0">
+            <span class="hidden sm:inline">200 KURSI TAMU</span>
             <span class="hidden sm:inline">•</span>
-            <span>BUKA PAGI: 07.00 — 21.00 WIB</span>
-            <span class="hidden sm:inline">•</span>
-            <span class="text-[#d8c39e]">SARAPAN & NGOPI SENJA</span>
+            <span>07.00 — 22.00 WIB</span>
+            <span>•</span>
+            <span class="text-[#d8c39e] font-bold">FREE HTM</span>
           </div>
         </div>
       </div>
@@ -249,51 +186,59 @@ const outletSpecs = [
 
 
     <!-- ========================================================================= -->
-    <!-- 2. EDITORIAL ESSENCE & NARRATIVE (1:1 GOUNCHARTED TWO-COLUMN SPLIT)       -->
+    <!-- 2. SECTION: — THE PLACE (1:1 GOUNCHARTED EDITORIAL WITH SCROLL REVEAL)   -->
     <!-- ========================================================================= -->
-    <section class="py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15">
-      <div class="max-w-[1680px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+    <section id="the-place" class="py-20 sm:py-28 lg:py-36 px-6 sm:px-10 lg:px-16 xl:px-20 border-b border-[#141110]/15 scroll-mt-12 bg-[#f4efe6]">
+      <div class="max-w-[1680px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-start">
         
-        <!-- Left Column: Big Philosophy Quote -->
-        <div class="lg:col-span-5 flex flex-col gap-6">
-          <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase">
-            <span>[ TRADISI KULINER // 02 ]</span>
-            <span>•</span>
-            <span class="text-[#8c6d37] font-semibold">WARUNG KETAN & PINE CHALET</span>
-          </div>
-          <blockquote class="text-2xl sm:text-3xl lg:text-4xl font-light text-[#141110] font-serif italic leading-snug">
-            “Ada ketenangan yang tak ternilai saat menggenggam secangkir kopi panas di pagi hari yang berkabut, ditemani sepiring ketan pulen hangat yang baru matang dari dandang tradisional.”
-          </blockquote>
-          <div class="pt-4 border-t border-[#141110]/15 flex items-center justify-between text-xs font-mono-tag text-[#141110]/60">
-            <span>LOKASI: AREA KOMUNAL SENTRAL</span>
-            <span class="text-[#8c6d37]">BUKA MULAI 07.00 PAGI</span>
-          </div>
+        <!-- Left Column: — THE PLACE + Word-by-Word Scroll Reveal Headline + Subtitle -->
+        <div class="lg:col-span-7 flex flex-col">
+          
+          <!-- Monospace Kicker with thin dash -->
+          <span class="text-xs font-mono-tag tracking-[0.25em] text-[#141110]/60 uppercase mb-6 sm:mb-8 block">
+            — THE PLACE
+          </span>
+
+          <!-- Big Typographic Headline with Word-by-Word Scroll Reveal -->
+          <h2 
+            id="place-reveal-heading"
+            class="text-3xl sm:text-5xl md:text-6xl lg:text-[3.6rem] xl:text-[4.2rem] leading-[1.08] tracking-[-0.03em] text-[#141110] font-normal"
+          >
+            {placeHeadline.map((word) => (
+              <span 
+                class="reveal-word inline-block mr-[0.22em] transition-opacity duration-150 ease-out will-change-[opacity]" 
+                style="opacity: 0.18;"
+              >
+                {word}
+              </span>
+            ))}
+          </h2>
+
+          <!-- Secondary Subtitle matching GoUncharted -->
+          <p class="text-base sm:text-xl lg:text-2xl text-[#141110]/60 font-sans font-light leading-relaxed mt-8 sm:mt-12 max-w-2xl">
+            Pondok kayu alami dengan aroma seduhan kopi khas Jawa Timur dan gurihnya ketan bertabur kelapa muda, menghadirkan suasana santai yang menghangatkan tubuh di tengah dinginnya udara lereng Wilis.
+          </p>
         </div>
 
-        <!-- Right Column: Narrative & Specifications Grid -->
-        <div class="lg:col-span-7 flex flex-col gap-8">
-          <div class="space-y-4 text-sm sm:text-base font-sans text-[#141110]/80 font-light leading-relaxed">
-            <p>
-              Berdiri di bawah kanopi hutan pinus yang teduh, Jolotundo Cafe & Warung Ketan dirancang sebagai ruang komunal yang hangat dan bersahaja. Menghidupkan kembali tradisi kuliner pedesaan lereng Wilis, tempat di mana wisatawan dan tamu glamping dapat berkumpul santai tanpa sekat formalitas.
-            </p>
-            <p>
-              Beras ketan pilihan dikukus secara tradisional menggunakan dandang bambu untuk memastikan tekstur pulen yang sempurna. Dipadukan dengan parutan kelapa muda gurih, bubuk kedelai wangi, hingga pilihan topping modern seperti keju cheddar leleh dan saus durian asli. Dibuka sejak pukul 07.00 pagi, menjadikannya pilihan favorit untuk sarapan cepat sebelum Anda memulai petualangan offroad atau trekking alam.
-            </p>
-          </div>
+        <!-- Right Column: 1:1 GoUncharted Hairline Metadata Table -->
+        <div class="lg:col-span-5 flex flex-col pt-2 lg:pt-4">
+          <div class="border-t border-[#141110]/20 divide-y divide-[#141110]/20">
+            {placeTableRows.map((row) => (
+              <div class="py-5 sm:py-6 flex items-start gap-6 sm:gap-8">
+                <!-- Left Tag / Label -->
+                <span class="w-24 sm:w-32 shrink-0 text-xs font-mono-tag tracking-widest text-[#141110]/50 uppercase pt-0.5">
+                  {row.label}
+                </span>
 
-          <!-- Specs Matrix -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-[#141110]/15">
-            {outletSpecs.map((s) => (
-              <div class="p-4 bg-white/60 border border-[#141110]/15 flex flex-col justify-between">
-                <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block mb-1">
-                  {s.label}
-                </span>
-                <span class="text-base font-bold text-[#141110] font-sans tracking-tight block">
-                  {s.value}
-                </span>
-                <span class="text-xs text-[#8c6d37] font-mono-tag mt-1 block">
-                  {s.note}
-                </span>
+                <!-- Right Spec & Description -->
+                <div class="flex-1 flex flex-col gap-1">
+                  <span class="text-base sm:text-lg font-bold text-[#141110] font-sans tracking-tight">
+                    {row.title}
+                  </span>
+                  <span class="text-xs sm:text-sm text-[#141110]/65 font-sans font-light leading-relaxed">
+                    {row.desc}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -304,71 +249,200 @@ const outletSpecs = [
 
 
     <!-- ========================================================================= -->
-    <!-- 3. CURATED MENU CATALOGUE (TABS & EDITORIAL CARDS)                       -->
+    <!-- 3. OFFICIAL MENU BOOK PREVIEW (REALISTIC MENU BOOK SPREAD ARCHITECTURE)   -->
     <!-- ========================================================================= -->
-    <section id="daftar-menu" class="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#ece6d9]/40 scroll-mt-14">
+    <section id="daftar-menu" class="py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-14 xl:px-20 border-b border-[#141110]/15 bg-[#f4efe6] scroll-mt-14">
       <div class="max-w-[1680px] mx-auto">
         
-        <!-- Section Header -->
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#141110]/15">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-mono-tag tracking-widest text-[#141110]/60 uppercase mb-2">
-              <span>[ BUKU MENU WARUNG KETAN ]</span>
-              <span>•</span>
-              <span class="text-[#8c6d37] font-semibold">KUDAPAN HANGAT HARGA BERSAHABAT</span>
-            </div>
-            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-none font-sans text-[#141110]">
-              Daftar Menu Jolotundo Cafe
+        <!-- Typography: Header Kicker + Giant Headline + Editorial Description -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 sm:pb-10 mb-8 sm:mb-12 border-b border-[#141110]/15">
+          <div class="max-w-4xl">
+            <!-- Subtle Kicker -->
+            <span class="text-xs font-mono-tag tracking-[0.25em] text-[#141110]/60 uppercase mb-3 block">
+              — BUKU MENU CAFE
+            </span>
+            <!-- Bold Display Headline -->
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#141110] leading-[1.02] font-sans">
+              Buku Menu Resmi Jolotundo Cafe.
             </h2>
+            <!-- Editorial Description -->
+            <p class="text-sm sm:text-base lg:text-lg text-[#141110]/70 font-sans font-light leading-relaxed mt-4 sm:mt-5 max-w-3xl">
+              Disajikan dengan format buku menu 3D interaktif layaknya memegang buku menu fisik di atas meja kayu pinus. Jelajahi 10 halaman sajian ketan aneka topping, bakso kuah rempah, mie lezat, aneka Chinese snack, dessert manis, hingga racikan kopi lereng Wilis.
+            </p>
           </div>
-          <div class="text-xs font-mono-tag text-[#141110]/70 uppercase tracking-wider flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-            <span>BUKA 07.00–21.00 WIB • DINE-IN & TAKEAWAY KE TENDA</span>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3 shrink-0 self-start lg:self-end">
+            <a 
+              href="/docs/menu-jolotundo-cafe.pdf" 
+              download="Menu-Jolotundo-Cafe.pdf"
+              class="px-4 py-2.5 bg-white border border-[#141110]/20 hover:border-[#141110] text-[#141110] font-mono-tag text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm flex items-center gap-2"
+            >
+              <span>Unduh PDF Resmi</span>
+              <span>↓</span>
+            </a>
+            <a 
+              href="https://heyzine.com/flip-book/642f8c2f3f.html" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2.5 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm flex items-center gap-2"
+            >
+              <span>Buka Tab Baru</span>
+              <span>↗</span>
+            </a>
           </div>
         </div>
 
-        <!-- Menu Categories Loop -->
-        <div class="space-y-16 sm:space-y-20">
-          {menuCategories.map((cat, cIdx) => (
-            <div>
-              <!-- Category Header -->
-              <div class="flex items-center justify-between pb-3 mb-6 border-b border-[#141110]/20">
-                <div class="flex items-center gap-3">
-                  <span class="text-xs font-mono-tag font-bold text-[#8c6d37]">0{cIdx + 1}</span>
-                  <h3 class="text-xl sm:text-2xl font-bold font-sans uppercase tracking-tight text-[#141110]">
-                    {cat.category}
-                  </h3>
-                </div>
-                <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest hidden sm:inline">
-                  {cat.tag}
-                </span>
-              </div>
+        <!-- Menu Chapter Index Tabs (Protruding Tabs / Pembatas Buku Menu) -->
+        <div class="mb-6 sm:mb-8">
+          <div class="flex items-center justify-between pb-2 mb-3 text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest">
+            <span>[ PEMBATAS BAB BUKU MENU ]</span>
+            <span class="hidden sm:inline">KLIK BAB UNTUK MEMBUKA HALAMAN</span>
+          </div>
+          <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 no-scrollbar">
+            {menuChapters.map((ch) => (
+              <button 
+                type="button"
+                data-jump-page={ch.page}
+                class="chapter-jump-btn shrink-0 px-3 py-1.5 bg-white border border-[#141110]/15 hover:border-[#141110] hover:bg-[#141110] hover:text-white transition-all text-xs font-mono-tag tracking-wider text-[#141110]/80 cursor-pointer flex items-center gap-1.5 shadow-sm"
+              >
+                <span class="font-bold text-[10px] text-[#8c6d37]">{String(ch.page).padStart(2, '0')}.</span>
+                <span>{ch.title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
 
-              <!-- Menu Grid -->
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {cat.items.map((item) => (
-                  <div class="p-5 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between group">
-                    <div>
-                      <div class="flex items-start justify-between gap-3 mb-2">
-                        <h4 class="text-base sm:text-lg font-bold text-[#141110] font-sans tracking-tight group-hover:text-[#8c6d37] transition-colors">
-                          {item.name}
-                        </h4>
-                        <span class="text-sm font-bold font-mono-tag text-[#141110] shrink-0">
-                          {item.price}
-                        </span>
-                      </div>
-                      <span class="inline-block text-[9px] font-mono-tag px-2 py-0.5 bg-[#141110]/5 text-[#8c6d37] uppercase font-semibold mb-3 border border-[#141110]/10">
-                        {item.badge}
-                      </span>
-                      <p class="text-xs text-[#141110]/70 font-sans font-light leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+        <!-- ======================================================================= -->
+        <!-- REALISTIC HEYZINE 3D FLIPBOOK BINDER (HARDCOVER MAT & BRASS CORNERS)    -->
+        <!-- ======================================================================= -->
+        <div class="relative w-full bg-[#141110] p-3 sm:p-6 lg:p-8 border border-[#141110]/20 shadow-[0_30px_90px_rgba(0,0,0,0.5)] flex flex-col">
+          
+          <!-- Top Control Toolbar Inside Book Frame -->
+          <div class="w-full pb-4 sm:pb-5 mb-4 sm:mb-5 border-b border-white/15 flex flex-wrap items-center justify-between gap-4 text-white select-none">
+            
+            <!-- Left: Current Title Info -->
+            <div class="flex items-center gap-3">
+              <span class="text-xs sm:text-sm font-mono-tag tracking-wider uppercase text-[#d8c39e] font-semibold">
+                JOLOTUNDO CAFE MENU
+              </span>
+            </div>
+
+            <!-- Right: Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3 text-xs font-mono-tag">
+              <button 
+                id="heyzine-fullscreen-btn" 
+                type="button"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-[#d8c39e] hover:text-[#141110] text-white border border-white/20 transition-colors cursor-pointer"
+                title="Buka Mode Layar Penuh"
+              >
+                <span>⛶ Layar Penuh</span>
+              </button>
+
+              <a 
+                href="https://heyzine.com/flip-book/642f8c2f3f.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-[#d8c39e] hover:text-white transition-colors border border-white/20"
+                title="Buka Flipbook di Tab Baru"
+              >
+                <span>Tab Baru</span>
+                <span>↗</span>
+              </a>
+
+              <a 
+                href="/docs/menu-jolotundo-cafe.pdf" 
+                download
+                class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#d8c39e] hover:bg-white text-[#141110] font-bold transition-colors shadow-sm"
+                title="Unduh File PDF Asli"
+              >
+                <span>Unduh PDF ↓</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Physical Menu Book Hardcover Leatherette Mat & Heyzine Frame -->
+          <div 
+            id="book-viewport-container" 
+            class="relative w-full p-2 sm:p-4 lg:p-6 bg-[#26201c] border-2 border-[#3d342e] shadow-[0_25px_80px_rgba(0,0,0,0.85)] flex flex-col items-center justify-center overflow-hidden"
+          >
+            <!-- Subtle Brass Corner Hardware (4 Corners) -->
+            <div class="absolute top-1.5 left-1.5 w-4 h-4 border-t-2 border-l-2 border-[#d8c39e]/60 pointer-events-none z-20"></div>
+            <div class="absolute top-1.5 right-1.5 w-4 h-4 border-t-2 border-r-2 border-[#d8c39e]/60 pointer-events-none z-20"></div>
+            <div class="absolute bottom-1.5 left-1.5 w-4 h-4 border-b-2 border-l-2 border-[#d8c39e]/60 pointer-events-none z-20"></div>
+            <div class="absolute bottom-1.5 right-1.5 w-4 h-4 border-b-2 border-r-2 border-[#d8c39e]/60 pointer-events-none z-20"></div>
+
+            <!-- Frame Wrapper with Mobile Scroll Guard (Prevents Iframe Scroll-Lock) -->
+            <div class="relative w-full overflow-hidden">
+              <!-- Heyzine 3D Interactive Flipbook Iframe -->
+              <iframe 
+                id="heyzine-menu-frame"
+                src="https://heyzine.com/flip-book/642f8c2f3f.html" 
+                class="w-full h-[520px] sm:h-[680px] lg:h-[780px] border-0 rounded-none bg-[#141110] shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                allowfullscreen="true"
+                allow="clipboard-write; fullscreen; autoplay; web-share"
+                scrolling="no"
+                title="Buku Menu Jolotundo Cafe Heyzine Flipbook"
+              ></iframe>
+
+              <!-- Mobile Scroll Guard Overlay: Menjamin jempol HP bisa scroll halaman tanpa tersangkut di iframe -->
+              <div 
+                id="mobile-scroll-guard"
+                class="absolute inset-0 sm:hidden z-10 flex flex-col items-center justify-start p-3 pointer-events-auto"
+              >
+                
               </div>
             </div>
-          ))}
+
+            <!-- Dedicated Mobile Touch Control Bar (Prominent Prev/Next & Page Counter for Smartphones) -->
+            <div class="w-full mt-3 pt-3 border-t border-white/10 flex items-center justify-between gap-2 text-white select-none sm:hidden">
+              <button 
+                id="mobile-prev-page-btn" 
+                type="button" 
+                class="flex-1 py-3 px-3 bg-white/10 active:bg-[#d8c39e] active:text-[#141110] text-white border border-white/20 text-xs font-mono-tag font-bold flex items-center justify-center gap-1.5 transition-colors touch-manipulation cursor-pointer"
+                title="Halaman Sebelumnya" 
+              >
+                <span>← prev</span>
+              </button>
+              
+              <div class="px-3 py-2.5 bg-black/50 border border-white/15 text-white font-mono-tag text-xs font-bold shrink-0 text-center">
+                <span id="mobile-page-indicator" class="text-[#d8c39e]">Hal 01</span> / 10
+              </div>
+
+              <button 
+                id="mobile-next-page-btn" 
+                type="button" 
+                class="flex-1 py-3 px-3 bg-[#d8c39e] active:bg-white text-[#141110] text-xs font-mono-tag font-bold flex items-center justify-center gap-1.5 transition-colors touch-manipulation shadow-sm cursor-pointer"
+                title="Halaman Berikutnya"
+              >
+                <span>next →</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Bottom Book Footer Bar -->
+          <div class="w-full pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono-tag text-white/60">
+            <div class="flex items-center gap-2">
+              <span class="text-[#d8c39e] font-bold">💡 Tips Navigasi:</span>
+              <span class="hidden sm:inline">Tarik sudut kertas dengan sentuhan mouse/jari untuk membalik halaman layaknya buku asli.</span>
+              <span class="sm:hidden">Gunakan tombol 'Layar Penuh' atau tombol panah bawah untuk membaca dengan leluasa.</span>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <a 
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-mono-tag font-bold text-[#d8c39e] hover:text-white transition-colors uppercase flex items-center gap-1.5"
+              >
+                <span>Order Menu / Info via WhatsApp</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -376,7 +450,237 @@ const outletSpecs = [
 
 
     <!-- ========================================================================= -->
-    <!-- 4. EARLY MORNING & TAKEAWAY SERVICE TO TENTS                             -->
+    <!-- FULLSCREEN MENU READER MODAL (DEDICATED EXIT BUTTONS FOR MOBILE & DESKTOP) -->
+    <!-- ========================================================================= -->
+    <div 
+      id="menu-fullscreen-modal" 
+      class="fixed inset-0 z-[99999] bg-[#141110] hidden flex-col select-none"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Buku Menu Jolotundo Cafe Layar Penuh"
+    >
+      <!-- Top Navigation & Close Bar -->
+      <div class="w-full px-3 sm:px-6 py-2.5 sm:py-3.5 bg-[#1c1815] border-b border-white/15 flex items-center justify-between gap-3 text-white z-50 shrink-0">
+        <!-- Left: Badge & Chapter Title -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+          <div class="flex flex-col min-w-0">
+            <span class="text-[10px] sm:text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase truncate font-bold">
+              JOLOTUNDO CAFE // 3D FLIPBOOK MENU
+            </span>
+            <span id="modal-chapter-title" class="text-xs sm:text-sm text-white/90 font-sans truncate font-medium">
+              Cover Menu
+            </span>
+          </div>
+        </div>
+
+        <!-- Center/Right: Page Indicator & BIG CLOSE BUTTON -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <!-- Page Pill -->
+          <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-black/60 border border-white/20 text-[#d8c39e] font-mono-tag text-xs font-bold shrink-0">
+            <span id="modal-page-num">Hal 01</span> / 10
+          </div>
+
+          <!-- PROMINENT CLOSE / EXIT BUTTON (UNMISSABLE ON MOBILE & DESKTOP) -->
+          <button 
+            type="button" 
+            id="modal-close-btn"
+            class="px-3.5 sm:px-5 py-2 sm:py-2.5 bg-[#d8c39e] hover:bg-white active:scale-95 text-[#141110] font-mono-tag text-xs sm:text-sm font-black uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xl cursor-pointer border-0"
+            title="Keluar dari Tampilan Layar Penuh"
+          >
+            <span class="text-base font-black">✕</span>
+            <span>KELUAR</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Center: Fullscreen Heyzine Iframe & Floating Exit Button -->
+      <div class="relative w-full flex-1 bg-[#141110] overflow-hidden">
+        <iframe 
+          id="modal-heyzine-frame"
+          src="" 
+          class="w-full h-full border-0 bg-[#141110]"
+          allowfullscreen="true"
+          allow="clipboard-write; fullscreen; autoplay; web-share"
+          scrolling="no"
+          title="Buku Menu Jolotundo Cafe Fullscreen Viewer"
+        ></iframe>
+      </div>
+
+      <!-- Bottom Navigation Control Bar -->
+      <div class="w-full px-3 sm:px-6 py-2.5 sm:py-3 bg-[#1c1815] border-t border-white/15 flex items-center justify-between gap-3 text-white z-50 shrink-0">
+        <button 
+          id="modal-prev-btn" 
+          type="button" 
+          class="flex-1 sm:flex-initial sm:min-w-[160px] py-2.5 px-4 bg-white/10 active:bg-[#d8c39e] active:text-[#141110] text-white border border-white/20 text-xs font-mono-tag font-bold flex items-center justify-center gap-2 transition-colors touch-manipulation cursor-pointer"
+        >
+          <span>← Hal Sebelumnya</span>
+        </button>
+
+        <div class="hidden sm:flex items-center gap-3 text-xs font-mono-tag text-white/50">
+          <span>Tekan <kbd class="px-1.5 py-0.5 bg-white/10 border border-white/20 text-white rounded">Esc</kbd> atau klik <strong>✕ KELUAR</strong> untuk kembali</span>
+        </div>
+
+        <button 
+          id="modal-next-btn" 
+          type="button" 
+          class="flex-1 sm:flex-initial sm:min-w-[160px] py-2.5 px-4 bg-[#d8c39e] active:bg-white text-[#141110] text-xs font-mono-tag font-bold flex items-center justify-center gap-2 transition-colors touch-manipulation cursor-pointer"
+        >
+          <span>Hal Berikutnya →</span>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- 4. SECTION: STICKY HORIZONTAL SCROLL PREVIEW GALLERY (1:1 GOUNCHARTED)   -->
+    <!-- ========================================================================= -->
+    <section 
+      id="cafe-preview-gallery" 
+      class="relative bg-[#f4efe6] text-[#141110] border-b border-[#141110]/15 select-none h-[200vh] sm:h-[220vh]"
+    >
+      <!-- Sticky Viewport Frame (Pins at top of screen) -->
+      <div 
+        id="cafe-gallery-sticky-viewport" 
+        class="sticky top-0 h-screen h-[100dvh] w-full overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 pb-4 sm:pb-6 px-4 sm:px-8 lg:px-14 xl:px-20 select-none z-10"
+      >
+        <!-- Top Bar: Kicker + Status -->
+        <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#141110]/15 w-full max-w-[1680px] mx-auto shrink-0">
+          <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 bg-[#141110]"></span>
+            <span>PREVIEW GALLERY</span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest">
+            <span class="hidden sm:inline">Gulir ke bawah untuk eksplorasi visual suasana cafe</span>
+          </div>
+        </div>
+
+        <!-- Middle: Horizontal Sliding Image Track -->
+        <div id="cafe-slider-window" class="relative w-full my-auto overflow-hidden py-2 sm:py-4">
+          <div 
+            id="cafe-slider-track" 
+            class="flex items-center gap-4 sm:gap-6 lg:gap-8 will-change-transform"
+            style="transform: translate3d(0, 0px, 0);"
+          >
+            {cafeGalleryImages.map((img, i) => (
+              <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl group cursor-pointer transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+                
+                <!-- Image with Smooth Hover Zoom -->
+                <img 
+                  src={img.src} 
+                  alt={img.caption} 
+                  class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                <!-- Soft Vignette Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/20 pointer-events-none"></div>
+
+                <!-- Top Index Tag -->
+                <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                  <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-2.5 py-1 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
+                    0{i + 1} // 0{cafeGalleryImages.length}
+                  </span>
+                </div>
+
+                <!-- Bottom Floating Caption -->
+                <div class="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5 z-10 pointer-events-none">
+                  <span class="text-xs sm:text-sm font-bold font-sans text-white uppercase tracking-tight block drop-shadow leading-snug">
+                    {img.caption}
+                  </span>
+                  <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-wider block mt-0.5">
+                    {img.subtitle}
+                  </span>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Bottom: 1:1 GoUncharted Bottom Sub-Bar -->
+        <div class="w-full max-w-[1680px] mx-auto shrink-0 flex flex-col gap-3 pt-1">
+          
+          <!-- Hairline Divider with Dynamic Sliding Progress Bar Line -->
+          <div class="relative w-full h-[2px] bg-[#141110]/15 overflow-hidden">
+            <div 
+              id="cafe-progress-bar" 
+              class="absolute top-0 left-0 h-full bg-[#141110] transition-all duration-75 will-change-[width]"
+              style="width: 15%;"
+            ></div>
+          </div>
+
+          <!-- Metadata Row Below Divider -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+            
+            <!-- Left: Outlet Title & Setting + 3 Metadata Specs -->
+            <div class="flex flex-wrap items-center gap-4 sm:gap-8">
+              <div>
+                <h4 class="text-base sm:text-lg lg:text-xl font-bold tracking-tight text-[#141110] uppercase font-sans leading-none">
+                  Jolotundo Cafe & Warung Ketan
+                </h4>
+                <span class="text-[10px] font-mono-tag text-[#141110]/60 uppercase tracking-widest block mt-0.5">
+                  Pine Forest Chalet · Bajulan Loceret
+                </span>
+              </div>
+
+              <div class="hidden sm:block h-8 w-[1px] bg-[#141110]/15"></div>
+
+              <div class="flex items-center gap-4 sm:gap-6 text-xs font-mono-tag text-[#141110]">
+                <div>
+                  <span class="text-xs sm:text-sm font-bold block">200 Kursi</span>
+                  <span class="text-[9px] text-[#141110]/50 uppercase tracking-widest block">KAPASITAS</span>
+                </div>
+                
+                <div class="h-6 w-[1px] bg-[#141110]/15"></div>
+
+                <div>
+                  <span class="text-xs sm:text-sm font-bold block">07.00–22.00</span>
+                  <span class="text-[9px] text-[#141110]/50 uppercase tracking-widest block">OPERASIONAL</span>
+                </div>
+
+                <div class="h-6 w-[1px] bg-[#141110]/15 hidden xs:block"></div>
+
+                <div class="hidden xs:block">
+                  <span class="text-xs sm:text-sm font-bold block">Hutan Pinus</span>
+                  <span class="text-[9px] text-[#141110]/50 uppercase tracking-widest block">SUASANA</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Pricing Status & WhatsApp Action -->
+            <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0">
+              <div class="text-left sm:text-right">
+                <span class="text-sm sm:text-base lg:text-lg font-bold font-mono-tag text-[#141110] block tracking-tight">
+                  Free HTM
+                </span>
+                <span class="text-[9px] font-mono-tag text-[#141110]/50 uppercase tracking-wider block">
+                  TERBUKA UNTUK UMUM
+                </span>
+              </div>
+
+              <a 
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-5 sm:px-6 py-2.5 sm:py-3 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-[0_8px_20px_rgba(20,17,16,0.3)] shrink-0"
+              >
+                <span>Reservasi / Order</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================================= -->
+    <!-- 5. RULES & ORDERING GUIDANCE (PANDUAN & KENYAMANAN PENGUNJUNG)           -->
     <!-- ========================================================================= -->
     <section class="py-16 sm:py-20 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 bg-[#141110] text-[#f4efe6]">
       <div class="max-w-[1680px] mx-auto">
@@ -384,13 +688,13 @@ const outletSpecs = [
           
           <div class="lg:col-span-8 flex flex-col gap-3">
             <span class="text-xs font-mono-tag text-[#d8c39e] tracking-widest uppercase font-bold">
-              [ LAYANAN ROOM SERVICE & TAKEAWAY ]
+              [ PANDUAN PENGUNJUNG // KENYAMANAN BERSANTAP ]
             </span>
             <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-white">
-              Antar Sarapan Hangat & Kopi Langsung ke Tenda Glamping Anda
+              Sistem Pemesanan Cepat & Fleksibilitas Tempat Duduk
             </h3>
             <p class="text-xs sm:text-sm text-white/80 font-sans font-light leading-relaxed max-w-3xl">
-              Malas keluar dari tenda di pagi hari yang dingin? Anda dapat memesan aneka varian ketan hangat, gorengan pisang madu, dan kopi kothok untuk diantar langsung ke teras unit akomodasi Anda melalui WhatsApp Concierge kami.
+              Pengunjung bebas memilih area duduk indoor berpemanas nuansa kayu maupun alfresco deck di bawah pohon pinus. Untuk efisiensi, silakan lakukan pemesanan mandiri melalui <strong>Scan QR Barcode</strong> yang tersedia di atas meja Anda atau kunjungi meja kasir utama. Pesanan hangat akan segera diantarkan oleh waiter ke meja Anda.
             </p>
           </div>
 
@@ -401,10 +705,10 @@ const outletSpecs = [
               rel="noopener noreferrer"
               class="w-full py-3.5 bg-[#d8c39e] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-lg"
             >
-              Order Sarapan via WhatsApp ↗
+              Order / Pre-Order Rombongan ↗
             </a>
             <span class="text-[10px] font-mono-tag text-white/50 text-center uppercase tracking-wider">
-              Buka Setiap Hari Mulai 07.00 Pagi
+              Tersedia Paket Sarapan Pagi & Snack Box
             </span>
           </div>
 
@@ -414,7 +718,7 @@ const outletSpecs = [
 
 
     <!-- ========================================================================= -->
-    <!-- 5. OUTLET NAVIGATION SWITCHER (Next to River Breeze & All Amenities)     -->
+    <!-- 6. OUTLET NAVIGATION SWITCHER (Next to River Breeze & All Amenities)     -->
     <!-- ========================================================================= -->
     <section class="py-16 sm:py-24 px-4 sm:px-8 lg:px-14 border-b border-[#141110]/15 select-none">
       <div class="max-w-[1680px] mx-auto">
@@ -426,21 +730,21 @@ const outletSpecs = [
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           
-          <!-- Switch to River Breeze -->
+          <!-- Switch to River Breeze Cafe & Resto -->
           <a 
             href="/fasilitas/river-breeze" 
             class="group p-6 sm:p-8 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between"
           >
             <div>
               <div class="flex items-center justify-between text-xs font-mono-tag text-[#8c6d37] mb-2 uppercase">
-                <span>[ OUTLET 01 // PREV ]</span>
+                <span>[ OUTLET 01 // RIVERSIDE ]</span>
                 <span class="group-hover:translate-x-1 transition-transform">→</span>
               </div>
               <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-[#141110] mb-2">
                 River Breeze Cafe & Resto
               </h3>
               <p class="text-xs sm:text-sm text-[#141110]/70 font-sans font-light leading-relaxed">
-                Santap istimewa di dek kayu panggung tepat di sempadan aliran sungai jernih. Menu Rawon Iga Wilis, Gurame Bakar Madu, dan live akustik akhir pekan.
+                Santap istimewa di atas panggung dek kayu alami tepat di bibir aliran sungai jernih berbatu lereng Wilis. Menyajikan aneka olahan gurami bakar, steak, dan hidangan Nusantara.
               </p>
             </div>
             <div class="pt-6 mt-6 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/80 font-bold uppercase">
@@ -449,25 +753,25 @@ const outletSpecs = [
             </div>
           </a>
 
-          <!-- Switch to All 8 Amenities Overview -->
+          <!-- Switch to Accommodations -->
           <a 
-            href="/fasilitas" 
+            href="/akomodasi" 
             class="group p-6 sm:p-8 bg-white border border-[#141110]/15 hover:border-[#8c6d37] transition-all flex flex-col justify-between"
           >
             <div>
               <div class="flex items-center justify-between text-xs font-mono-tag text-[#8c6d37] mb-2 uppercase">
-                <span>[ OVERVIEW // 8 SARANA RESORT ]</span>
+                <span>[ OVERVIEW // 7 TIPE MENGINAP ]</span>
                 <span class="group-hover:translate-x-1 transition-transform">→</span>
               </div>
               <h3 class="text-2xl sm:text-3xl font-bold font-sans uppercase tracking-tight text-[#141110] mb-2">
-                Seluruh Fasilitas & Katering MICE
+                Akomodasi & Glamping
               </h3>
               <p class="text-xs sm:text-sm text-[#141110]/70 font-sans font-light leading-relaxed">
-                Eksplorasi sarana resort terintegrasi mulai dari area parkir luas, aula limasan pertemuan, sanitasi air hangat, hingga paket katering rombongan.
+                Lengkapi momen bersantap Anda dengan bermalam di 7 pilihan glamping tematik, river camp tepi air, hingga camping ground berbalut kabut lereng Wilis.
               </p>
             </div>
             <div class="pt-6 mt-6 border-t border-[#141110]/10 flex items-center justify-between text-xs font-mono-tag text-[#141110]/80 font-bold uppercase">
-              <span>Jelajahi Semua Fasilitas</span>
+              <span>Eksplorasi Akomodasi</span>
               <span>↗</span>
             </div>
           </a>
@@ -482,8 +786,9 @@ const outletSpecs = [
   <!-- Luxury Footer CTA -->
   <FooterCTA />
 
-  <!-- Hero Parallax Script -->
+  <!-- Scripts: Hero Parallax, Text Reveal, Sticky Horizontal Gallery, and Heyzine 3D Flipbook Integration -->
   <script is:inline>
+    // 1. Hero Parallax Translate-Y Engine
     const heroParallaxLayer = document.getElementById('cafe-hero-parallax-layer');
     if (heroParallaxLayer) {
       window.addEventListener('scroll', () => {
@@ -492,6 +797,345 @@ const outletSpecs = [
           heroParallaxLayer.style.transform = `translate3d(0, ${scrolled * 0.35}px, 0)`;
         }
       }, { passive: true });
+    }
+
+    // 2. 1:1 GoUncharted Scroll-Driven Word-by-Word Text Reveal Engine
+    function initScrollTextReveal() {
+      const heading = document.getElementById('place-reveal-heading');
+      if (!heading) return;
+
+      const words = heading.querySelectorAll('.reveal-word');
+      if (!words || words.length === 0) return;
+
+      const totalWords = words.length;
+      let isTicking = false;
+      let isVisible = false;
+
+      const updateWords = () => {
+        const rect = heading.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        const startTrigger = viewportHeight * 0.85;
+        const endTrigger = viewportHeight * 0.35;
+
+        const rawProgress = (startTrigger - rect.top) / (startTrigger - endTrigger);
+        const overallProgress = Math.max(0, Math.min(1, rawProgress));
+
+        words.forEach((word, idx) => {
+          const wordStart = idx / totalWords;
+          const wordEnd = (idx + 1) / totalWords;
+          const wordProgress = Math.max(0, Math.min(1, (overallProgress - wordStart) / (wordEnd - wordStart)));
+          const opacity = 0.18 + wordProgress * 0.82;
+          word.style.opacity = opacity.toFixed(2);
+        });
+        isTicking = false;
+      };
+
+      const onScroll = () => {
+        if (!isTicking && isVisible) {
+          requestAnimationFrame(updateWords);
+          isTicking = true;
+        }
+      };
+
+      const obs = new IntersectionObserver((entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible) updateWords();
+      }, { rootMargin: '120px 0px' });
+      obs.observe(heading);
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      updateWords();
+    }
+
+    // 3. Sticky Horizontal Scroll Preview Gallery Engine
+    function initCafePreviewGallery() {
+      const section = document.getElementById('cafe-preview-gallery');
+      const track = document.getElementById('cafe-slider-track');
+      const progressBar = document.getElementById('cafe-progress-bar');
+      const sliderWindow = document.getElementById('cafe-slider-window');
+      if (!section || !track || !progressBar || !sliderWindow) return;
+
+      let isTicking = false;
+
+      function onScrollGallery() {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const totalDistance = section.offsetHeight - windowHeight;
+
+        if (totalDistance <= 0) return;
+
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
+
+        const trackWidth = track.scrollWidth;
+        const windowWidth = sliderWindow.offsetWidth;
+        const maxScrollX = Math.max(0, trackWidth - windowWidth + 48);
+
+        const translateX = progress * maxScrollX;
+        track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
+
+        const barWidth = 15 + progress * 85;
+        progressBar.style.width = `${barWidth.toFixed(1)}%`;
+      }
+
+      function handleScroll() {
+        if (!isTicking) {
+          requestAnimationFrame(() => {
+            onScrollGallery();
+            isTicking = false;
+          });
+          isTicking = true;
+        }
+      }
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      if (window.__lenis) {
+        window.__lenis.on('scroll', handleScroll);
+      }
+
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          onScrollGallery();
+        }, 100);
+      }, { passive: true });
+
+      onScrollGallery();
+    }
+
+    // 4. Heyzine 3D Interactive Flipbook Engine, Chapter Jumps & Mobile Touch Controls
+    function initHeyzineMenuBook() {
+      const heyzineFrame = document.getElementById('heyzine-menu-frame');
+      const fullscreenBtn = document.getElementById('heyzine-fullscreen-btn');
+      const chapterJumpBtns = document.querySelectorAll('.chapter-jump-btn');
+      const mobilePrevBtn = document.getElementById('mobile-prev-page-btn');
+      const mobileNextBtn = document.getElementById('mobile-next-page-btn');
+      const mobilePageIndicator = document.getElementById('mobile-page-indicator');
+
+      let currentBookPage = 1;
+      const totalBookPages = 10;
+
+      function updateActivePage(pageNum) {
+        currentBookPage = Math.max(1, Math.min(totalBookPages, pageNum));
+        if (heyzineFrame) {
+          heyzineFrame.src = `https://heyzine.com/flip-book/642f8c2f3f.html#page/${currentBookPage}`;
+        }
+        if (mobilePageIndicator) {
+          mobilePageIndicator.textContent = `Hal ${String(currentBookPage).padStart(2, '0')}`;
+        }
+
+        chapterJumpBtns.forEach((b) => {
+          const p = parseInt(b.getAttribute('data-jump-page') || '1', 10);
+          if (p === currentBookPage) {
+            b.classList.add('bg-[#141110]', 'text-white', 'border-[#141110]');
+            b.classList.remove('bg-white', 'text-[#141110]/80');
+          } else {
+            b.classList.remove('bg-[#141110]', 'text-white', 'border-[#141110]');
+            b.classList.add('bg-white', 'text-[#141110]/80');
+          }
+        });
+      }
+
+      // Mobile Prev / Next Buttons
+      mobilePrevBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        updateActivePage(currentBookPage - 1);
+      });
+
+      mobileNextBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        updateActivePage(currentBookPage + 1);
+      });
+
+      // Chapter Jump Buttons with Heyzine #page/{num} Navigation
+      chapterJumpBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const pageNum = parseInt(btn.getAttribute('data-jump-page') || '1', 10);
+          updateActivePage(pageNum);
+          document.getElementById('daftar-menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // Fullscreen Modal Elements
+      const fullscreenModal = document.getElementById('menu-fullscreen-modal');
+      const modalHeyzineFrame = document.getElementById('modal-heyzine-frame');
+      const modalCloseBtn = document.getElementById('modal-close-btn');
+      const modalFloatingExitBtn = document.getElementById('modal-floating-exit-btn');
+      const modalPrevBtn = document.getElementById('modal-prev-btn');
+      const modalNextBtn = document.getElementById('modal-next-btn');
+      const modalPageNum = document.getElementById('modal-page-num');
+      const modalChapterTitle = document.getElementById('modal-chapter-title');
+
+      const chapterTitles = [
+        "Cover Menu",
+        "Panduan Order",
+        "Ayam & Nasi",
+        "Bakso & Mie",
+        "Nusantara Snack",
+        "Chinese Snack",
+        "Aneka Bapao",
+        "Menu Dessert",
+        "Kopi & Latte",
+        "Jus & Minuman Anak"
+      ];
+
+      function updateModalState(pageNum) {
+        if (modalPageNum) {
+          modalPageNum.textContent = `Hal ${String(pageNum).padStart(2, '0')}`;
+        }
+        if (modalChapterTitle) {
+          modalChapterTitle.textContent = chapterTitles[pageNum - 1] || "Buku Menu";
+        }
+      }
+
+      function openFullscreenModal() {
+        if (!fullscreenModal || !modalHeyzineFrame) return;
+
+        // Sync modal frame src with current page
+        modalHeyzineFrame.src = `https://heyzine.com/flip-book/642f8c2f3f.html#page/${currentBookPage}`;
+        updateModalState(currentBookPage);
+
+        // Display modal
+        fullscreenModal.classList.remove('hidden');
+        fullscreenModal.classList.add('flex');
+
+        // Lock background body scroll
+        document.body.style.overflow = 'hidden';
+        if (window.__lenis) window.__lenis.stop();
+
+        // Optional: request native fullscreen on the modal container itself
+        try {
+          if (fullscreenModal.requestFullscreen) {
+            fullscreenModal.requestFullscreen().catch(() => {});
+          } else if (fullscreenModal.webkitRequestFullscreen) {
+            fullscreenModal.webkitRequestFullscreen();
+          }
+        } catch (e) {}
+      }
+
+      function closeFullscreenModal() {
+        if (!fullscreenModal) return;
+
+        // Exit native fullscreen if active
+        try {
+          if (document.fullscreenElement || document.webkitFullscreenElement) {
+            if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+          }
+        } catch (e) {}
+
+        // Hide modal
+        fullscreenModal.classList.remove('flex');
+        fullscreenModal.classList.add('hidden');
+
+        // Clear modal iframe
+        if (modalHeyzineFrame) {
+          modalHeyzineFrame.src = '';
+        }
+
+        // Restore body scroll and Lenis
+        document.body.style.overflow = '';
+        if (window.__lenis) window.__lenis.start();
+
+        // Sync back to inline book
+        updateActivePage(currentBookPage);
+      }
+
+      // Close modal triggers
+      modalCloseBtn?.addEventListener('click', closeFullscreenModal);
+      modalFloatingExitBtn?.addEventListener('click', closeFullscreenModal);
+
+      // Modal Prev/Next Navigation
+      modalPrevBtn?.addEventListener('click', () => {
+        if (currentBookPage > 1) {
+          currentBookPage--;
+          if (modalHeyzineFrame) {
+            modalHeyzineFrame.src = `https://heyzine.com/flip-book/642f8c2f3f.html#page/${currentBookPage}`;
+          }
+          updateModalState(currentBookPage);
+        }
+      });
+
+      modalNextBtn?.addEventListener('click', () => {
+        if (currentBookPage < totalBookPages) {
+          currentBookPage++;
+          if (modalHeyzineFrame) {
+            modalHeyzineFrame.src = `https://heyzine.com/flip-book/642f8c2f3f.html#page/${currentBookPage}`;
+          }
+          updateModalState(currentBookPage);
+        }
+      });
+
+      // Escape key listener
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && fullscreenModal && !fullscreenModal.classList.contains('hidden')) {
+          closeFullscreenModal();
+        }
+      });
+
+      // System back / fullscreen change listener
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && fullscreenModal && !fullscreenModal.classList.contains('hidden')) {
+          closeFullscreenModal();
+        }
+      });
+      document.addEventListener('webkitfullscreenchange', () => {
+        if (!document.webkitFullscreenElement && fullscreenModal && !fullscreenModal.classList.contains('hidden')) {
+          closeFullscreenModal();
+        }
+      });
+
+      // Mobile Scroll Guard & Touch Mode Toggle
+      const mobileGuard = document.getElementById('mobile-scroll-guard');
+      const mobileToggleTouchBtn = document.getElementById('mobile-toggle-touch-btn');
+      const mobileTouchLabel = document.getElementById('mobile-touch-label');
+      const mobileOverlayFsBtn = document.getElementById('mobile-overlay-fs-trigger');
+
+      let isDirectTouch = false;
+
+      mobileToggleTouchBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isDirectTouch = !isDirectTouch;
+        if (isDirectTouch) {
+          mobileGuard?.classList.remove('pointer-events-auto');
+          mobileGuard?.classList.add('pointer-events-none');
+          if (mobileTouchLabel) mobileTouchLabel.textContent = '🔒 Kunci Gulir';
+          if (mobileToggleTouchBtn) {
+            mobileToggleTouchBtn.classList.add('pointer-events-auto', 'bg-[#d8c39e]', 'text-[#141110]');
+            mobileToggleTouchBtn.classList.remove('bg-black/80', 'text-white/90');
+          }
+        } else {
+          mobileGuard?.classList.remove('pointer-events-none');
+          mobileGuard?.classList.add('pointer-events-auto');
+          if (mobileTouchLabel) mobileTouchLabel.textContent = '👆 Buka Sentuh Buku';
+          if (mobileToggleTouchBtn) {
+            mobileToggleTouchBtn.classList.remove('bg-[#d8c39e]', 'text-[#141110]');
+            mobileToggleTouchBtn.classList.add('bg-black/80', 'text-white/90');
+          }
+        }
+      });
+
+      mobileOverlayFsBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openFullscreenModal();
+      });
+
+      // Desktop & Mobile Fullscreen Triggers (Opens our Reader Modal)
+      fullscreenBtn?.addEventListener('click', openFullscreenModal);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initScrollTextReveal();
+        initCafePreviewGallery();
+        initHeyzineMenuBook();
+      });
+    } else {
+      initScrollTextReveal();
+      initCafePreviewGallery();
+      initHeyzineMenuBook();
     }
   </script>
 </Layout>
