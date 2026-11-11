@@ -6,7 +6,7 @@
     "name": "ATV Adventure",
     "headline": "Menembus Belantara Pinus & Arus Sungai",
     "tagline": "Sensasi memacu adrenalin di atas quad bike melintasi bebatuan sungai alami dan jalur tanah basah hutan pinus lereng Wilis.",
-    "image": "/images/activities/atv-adventure.jpg",
+    "image": "/images/activities/atv/atv1.avif",
     "metrics": [
       { "label": "MEDAN JALUR", "value": "Sungai & Hutan Pinus" },
       { "label": "DURASI TRIP", "value": "45 — 60 Menit" },
@@ -22,7 +22,7 @@
     "name": "Jeep Offroad 4x4",
     "headline": "Taklukkan Tanjakan Terjal Lereng Gunung Wilis",
     "tagline": "Ekspedisi overland menembus tanjakan ekstrem dan jalur bebatuan purba dengan panorama lembah Nganjuk dari ketinggian kabut.",
-    "image": "/images/activities/jeep-offroad.jpg",
+    "image": "/images/activities/jeep/jeep.avif",
     "metrics": [
       { "label": "MEDAN JALUR", "value": "Batu Terjal & Puncak Wilis" },
       { "label": "DURASI TRIP", "value": "2 — 3 Jam Ekspedisi" },
@@ -37,8 +37,8 @@
     "tag": "EQUESTRIAN & FOREST TRAIL",
     "name": "Berkuda di Lereng Wilis",
     "headline": "Menyusuri Keheningan Jalur Kanopi Purba",
-    "tagline": "Ketenangan ritmis menunggang kuda terlatih mengitari jalur asri perkebunan dan semilir kabut dingin pegunungan.",
-    "image": "/images/activities/horse-riding.jpg",
+    "tagline": "Ketenangan ritmis menunggang kuda terlatih mengitari jalur asri perkebunan dan semilir kabut dingin pegunungan.", 
+    "image": "/images/activities/horse/horse1.avif",
     "metrics": [
       { "label": "MEDAN JALUR", "value": "Trail Pinus & Kebun Asri" },
       { "label": "DURASI TRIP", "value": "30 — 45 Menit" },
@@ -54,7 +54,7 @@
     "name": "Mini Zoo Edupark",
     "headline": "Sentuhan Hangat Bersama Satwa Ramah Keluarga",
     "tagline": "Wahana interaksi edukatif terbuka yang mengenalkan anak-anak dan keluarga pada ragam satwa jinak di habitat alam bebas.",
-    "image": "/images/activities/mini-zoo.jpg",
+    "image": "/images/activities/zoo/zoo1.avif",
     "metrics": [
       { "label": "HABITAT AREA", "value": "Kawasan Terbuka Asri" },
       { "label": "JAM KUNJUNGAN", "value": "09.00 — 17.00 WIB" },
@@ -70,7 +70,7 @@
     "name": "Outbound & Team Building",
     "headline": "Membangun Kekompakan di Bawah Naungan Alam",
     "tagline": "Program sinergi dan dinamika kelompok terintegrasi yang dipercaya lebih dari 100 instansi korporasi dan BUMN nasional.",
-    "image": "/images/activities/outbound-gathering.jpg",
+    "image": "/images/activities/outbond/outbond1.avif",
     "metrics": [
       { "label": "ARENA VENUE", "value": "Amfiteater & Lapangan Pinus" },
       { "label": "DURASI PROGRAM", "value": "Halfday / Fullday Custom" },
