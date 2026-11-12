@@ -141,7 +141,8 @@
     "priceRawWeekend": 800000,
     "checkIn": "14.00 WIB",
     "checkOut": "12.00 WIB",
-    "image": "/images/accommodations/superior-camp.jpg",
+    "image": "/images/accommodations/superior/superior.avif",
+    "editorialImage": "/images/accommodations/superior/superior.avif",
     "featured": false,
     "facilities": [
       "Bed double size",
@@ -198,7 +199,8 @@
     "priceRawWeekend": 200000,
     "checkIn": "14.00 WIB",
     "checkOut": "10.00 WIB",
-    "image": "/images/accommodations/camping-ground.jpg",
+    "image": "/images/accommodations/ground/ground4.avif",
+    "editorialImage": "/images/accommodations/ground/ground4.avif",
     "featured": false,
     "facilities": [
       "Tenda dome kapasitas 4/6 orang",

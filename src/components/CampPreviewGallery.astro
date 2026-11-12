@@ -1,4 +1,6 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import siteData from '../data/siteData.json';
 
 interface Props {
@@ -22,30 +24,266 @@ interface Props {
 
 const { camp } = Astro.props;
 
+// Metadata map for deluxe camp images to provide curated captions & logical narrative sequence
+const deluxeMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "front2.avif": { caption: "Tampak Depan & Lanskap", subtitle: "Keasrian Alami Pepohonan", order: 1 },
+  "1000396148.avif": { caption: "Kabin Deluxe Jolotundo", subtitle: "Unit Eksklusif & Privat", order: 2 },
+  "bed.avif": { caption: "King Size Master Bed", subtitle: "Kenyamanan Istirahat Maksimal", order: 3 },
+  "room.avif": { caption: "Interior Kamar & Smart TV", subtitle: "Fasilitas Hiburan Lengkap & AC", order: 4 },
+  "ruang-kerja.avif": { caption: "Meja Kerja & Coffee Corner", subtitle: "Workation Nyaman di Alam", order: 5 },
+  "teras-baru-landscape.avif": { caption: "Panorama Teras Tepi Air", subtitle: "Balkon Menghadap Lanskap Asri", order: 6 },
+  "teras-baru.avif": { caption: "Balkon Kayu Luas", subtitle: "Area Bersantai & Menikmati Udara", order: 7 },
+  "teras.avif": { caption: "Teras Santai Kabin", subtitle: "Suasana Teduh & Tenang", order: 8 },
+  "toilet.avif": { caption: "Kamar Mandi Modern", subtitle: "Water Heater & Shower Bersih", order: 9 },
+  "toilet2.avif": { caption: "Fasilitas Kamar Mandi", subtitle: "Amenities Lengkap & Nyaman", order: 10 },
+};
+
+// Excluded images that should not appear in the gallery
+const excludedDeluxeFiles = new Set(['front.avif', 'preview.avif']);
+
+// Dynamically read ALL images from public/images/accommodations/deluxe folder
+function getDeluxeCampImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'deluxe');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => {
+        const isImage = /\.(avif|webp|jpe?g|png)$/i.test(file);
+        const isExcluded = excludedDeluxeFiles.has(file.toLowerCase());
+        return isImage && !isExcluded;
+      });
+      files.sort((a, b) => {
+        const orderA = deluxeMetaMap[a]?.order ?? 99;
+        const orderB = deluxeMetaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = deluxeMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Deluxe Camp Jolotundo"
+        };
+        return {
+          src: `/images/accommodations/deluxe/${file}`,
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading deluxe camp images:", err);
+  }
+  return [];
+}
+
+// Metadata map for river camp images
+const riverMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "front.avif": { caption: "Fasad Tenda River Camp", subtitle: "Safari Tent Eksklusif Tepi Sungai", order: 1 },
+  "depan-pagi.avif": { caption: "Pagi Hari di Tepi Sungai", subtitle: "Kesejukan Udara & Kabut Pagi", order: 2 },
+  "river.avif": { caption: "Panorama Aliran Sungai", subtitle: "Bebatuan Alami & Gemericik Air", order: 3 },
+  "river-view.avif": { caption: "Pemandangan Sungai Alami", subtitle: "Dek Kayu Menghadap Aliran Air", order: 4 },
+  "samping.avif": { caption: "Area Dek Kayu Samping", subtitle: "Panggung Kayu Elevated Terlindung", order: 5 },
+  "atas.avif": { caption: "Perspektif Lanskap Atas", subtitle: "Deretan Tenda di Bawah Kanopi Pinus", order: 6 },
+  "upside.avif": { caption: "Sudut Pandang Elevasi", subtitle: "Keasrian Alami Rimba Jolotundo", order: 7 },
+  "Bed River.avif": { caption: "Double Bed & Kasur Nyaman", subtitle: "Istirahat Tenang Berteman Alunan Air", order: 8 },
+  "cafe-view.avif": { caption: "Akses Dekat Cafe & Kuliner", subtitle: "Kemudahan Menikmati Makanan Hangat", order: 9 },
+  "night.avif": { caption: "Suasana Senja & Malam Hari", subtitle: "Pencahayaan Hangat Dek Tepi Sungai", order: 10 },
+  "river1.avif": { caption: "Eksplorasi Dek Tepi Sungai", subtitle: "Pengalaman Bermalam Alami", order: 11 },
+  "river2.avif": { caption: "Keheningan Alam Wilis", subtitle: "Ketenangan Gemericik Air Pegunungan", order: 12 },
+};
+
+// Dynamically read ALL images from public/images/accommodations/rivercamp folder
+function getRiverCampImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'rivercamp');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => /\.(avif|webp|jpe?g|png)$/i.test(file));
+      files.sort((a, b) => {
+        const orderA = riverMetaMap[a]?.order ?? 99;
+        const orderB = riverMetaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = riverMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "River Camp Jolotundo"
+        };
+        return {
+          src: encodeURI(`/images/accommodations/rivercamp/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading river camp images:", err);
+  }
+  return [];
+}
+
+// Metadata map for korean glamping images
+const koreanMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "korean1.avif": { caption: "Fasad Utama Korean Glamping", subtitle: "Desain Hangat, Estetik & Fotogenik", order: 1 },
+  "tenda.avif": { caption: "Tenda Glamping Minimalis", subtitle: "Gaya Modern Scandinavian Korea", order: 2 },
+  "tenda2.avif": { caption: "Tampak Depan & Kanopi", subtitle: "Area Teras Terlindung Asri", order: 3 },
+  "side-view.avif": { caption: "Pemandangan Samping Tenda", subtitle: "Suasana Tenang di Bawah Pinus", order: 4 },
+  "street.avif": { caption: "Jalur Setapak Glamping", subtitle: "Akses Rapi & Nyaman Menuju Unit", order: 5 },
+  "bed.avif": { caption: "Matras & Bedding Nyaman", subtitle: "Istirahat Hangat Berbalut Selimut", order: 6 },
+  "kursi-bersantai.avif": { caption: "Kursi Santai Lipat Aesthetic", subtitle: "Perlengkapan Santai Outdoor", order: 7 },
+  "kursi bersantai.avif": { caption: "Kursi Santai Lipat Aesthetic", subtitle: "Perlengkapan Santai Outdoor", order: 7 },
+  "tempat-bersantai.avif": { caption: "Area Piknik & Meja Santai", subtitle: "Spot Nyaman Menikmati Sore", order: 8 },
+  "tempat-bersantai2.avif": { caption: "Meja BBQ & Kumpul Santai", subtitle: "Kebersamaan Pasangan & Teman", order: 9 },
+  "tempat-bersantai3.avif": { caption: "Sudut Santai Bawah Pinus", subtitle: "Kesejukan Udara Lereng Wilis", order: 10 },
+  "tempat-bersantai4.avif": { caption: "Suasana Santai Terbuka", subtitle: "Panorama Hijau Pegunungan", order: 11 },
+  "tempat-bersantai5.avif": { caption: "Area Kumpul Eksklusif", subtitle: "Ruang Cerita di Alam Bebas", order: 12 },
+  "tenda3.avif": { caption: "Perspektif Tenda Asri", subtitle: "Keindahan Lanskap Glamping", order: 13 },
+  "tenda4.avif": { caption: "Detail Tenda & Kanopi", subtitle: "Konstruksi Kokoh & Elegan", order: 14 },
+};
+
+// Dynamically read ALL images from public/images/accommodations/koreanglamping folder
+function getKoreanGlampingImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'koreanglamping');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => /\.(avif|webp|jpe?g|png)$/i.test(file));
+      files.sort((a, b) => {
+        const orderA = koreanMetaMap[a]?.order ?? 99;
+        const orderB = koreanMetaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = koreanMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Korean Glamping Jolotundo"
+        };
+        return {
+          src: encodeURI(`/images/accommodations/koreanglamping/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading korean glamping images:", err);
+  }
+  return [];
+}
+
+// Metadata map for superior camp images
+const superiorMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "superior.avif": { caption: "Fasad Utama Superior Camp", subtitle: "Kabin Kayu Modern Berpendingin AC", order: 1 },
+  "outside.avif": { caption: "Lanskap Luar & Fasad Depan", subtitle: "Keasrian Alami di Bawah Pinus", order: 2 },
+  "teras.avif": { caption: "Teras Santai Depan Kabin", subtitle: "Balkon Menghadap Pepohonan", order: 3 },
+  "superior-bed.avif": { caption: "Double Size Bed Nyaman", subtitle: "Kenyamanan Istirahat Maksimal", order: 4 },
+  "ac.avif": { caption: "Air Conditioner (AC)", subtitle: "Suhu Ruangan Sejuk & Menenangkan", order: 5 },
+  "fasilitas.avif": { caption: "Meja TV, Tea Maker & Amenities", subtitle: "Fasilitas Kamar Lengkap & Bersih", order: 6 },
+  "stop-kontak.avif": { caption: "Stop Kontak & Sambungan Listrik", subtitle: "Dukungan Daya & Pengisian Gawai", order: 7 },
+};
+
+// Excluded images for superior camp
+const excludedSuperiorFiles = new Set(['outside2.avif']);
+
+// Dynamically read ALL images from public/images/accommodations/superior folder
+function getSuperiorCampImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'superior');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => {
+        const isImage = /\.(avif|webp|jpe?g|png)$/i.test(file);
+        const isExcluded = excludedSuperiorFiles.has(file.toLowerCase());
+        return isImage && !isExcluded;
+      });
+      files.sort((a, b) => {
+        const orderA = superiorMetaMap[a]?.order ?? 99;
+        const orderB = superiorMetaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = superiorMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Superior Camp Jolotundo"
+        };
+        return {
+          src: encodeURI(`/images/accommodations/superior/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading superior camp images:", err);
+  }
+  return [];
+}
+
+// Metadata map for camping ground images
+const groundMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "ground.avif": { caption: "Hamparan Berkemah Jolotundo", subtitle: "Area Terbuka Luas di Bawah Pinus", order: 1 },
+  "ground2.avif": { caption: "Lanskap Tenda Berkemah", subtitle: "Nuansa Alami & Sejuk Lereng Wilis", order: 2 },
+  "ground4.avif": { caption: "Kavling Mandiri Luas", subtitle: "Esensi Berkemah Murni di Alam Bebas", order: 3 },
+  "ground-night.avif": { caption: "Suasana Malam Camping Ground", subtitle: "Lampu Tenda Hangat di Bawah Bintang", order: 4 },
+  "ground-night2.avif": { caption: "Panorama Malam Lereng Wilis", subtitle: "Ketenangan & Syahdunya Malam Hutan", order: 5 },
+};
+
+// Dynamically read ALL images from public/images/accommodations/ground folder
+function getGroundCampImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'ground');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => /\.(avif|webp|jpe?g|png)$/i.test(file));
+      files.sort((a, b) => {
+        const orderA = groundMetaMap[a]?.order ?? 99;
+        const orderB = groundMetaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = groundMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Camping Ground Jolotundo"
+        };
+        return {
+          src: encodeURI(`/images/accommodations/ground/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading ground camp images:", err);
+  }
+  return [];
+}
+
+const deluxeGalleryImages = getDeluxeCampImages();
+const riverGalleryImages = getRiverCampImages();
+const koreanGalleryImages = getKoreanGlampingImages();
+const superiorGalleryImages = getSuperiorCampImages();
+const groundGalleryImages = getGroundCampImages();
+
 // Curate diverse, photorealistic preview images tailored for this camp experience
 const campGalleries: Record<string, Array<{ src: string; caption: string; subtitle: string }>> = {
-  "deluxe-camp": [
-    { src: "/images/accommodations/deluxe-camp-new.jpg", caption: "Kabin Jati Tepi Sungai", subtitle: "AC & Kenyamanan Hotel Bintang" },
-    { src: "/images/accommodations/river-camp-editorial.jpg", caption: "Alunan Air Alami", subtitle: "Gemericik Sungai Berbatu Alami" },
-    { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Kanopi Pinus Purba", subtitle: "Kesejukan Udara ±800 MDPL" },
-    { src: "/images/grill/paket-grill-big.jpg", caption: "Pesta Barbeque Outdoor", subtitle: "Daging Segar & Alat Lengkap" },
-    { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Kehangatan Api Unggun", subtitle: "Malam Berbintang Lereng Wilis" },
-    { src: "/images/upgrade/paket-a-atv-comfort.jpg", caption: "Eksplorasi Jalur Pinus", subtitle: "Petualangan Wana Wisata" }
+  "deluxe-camp": deluxeGalleryImages.length > 0 ? deluxeGalleryImages : [
+    { src: "/images/accommodations/deluxecamp/deluxe1.avif", caption: "Kabin Jati Tepi Sungai", subtitle: "AC & Kenyamanan Hotel Bintang" }
   ],
-  "river-camp": [
-    { src: "/images/accommodations/river-camp-editorial.jpg", caption: "Dek Kayu Tepi Sungai", subtitle: "Sensasi Suara Alam Mengalir" },
-    { src: "/images/accommodations/deluxe-camp-new.jpg", caption: "Safari Tent Eksklusif", subtitle: "Double Bed & Kasur Empuk" },
-    { src: "/images/accommodations/pinus-camp-plus-new.jpg", caption: "Kesejukan Aliran Sungai", subtitle: "Tenda 40–51 Area Sungai" },
-    { src: "/images/grill/paket-grill-small.jpg", caption: "Barbeque Santai Berdua", subtitle: "Panggangan Daging Segar" },
-    { src: "/images/upgrade/paket-b-bbq-comfort.jpg", caption: "Lampu Senja Hangat", subtitle: "Suasana Intim Tepi Air" }
+  "deluxe": deluxeGalleryImages,
+  "deluxecamp": deluxeGalleryImages,
+  "river-camp": riverGalleryImages.length > 0 ? riverGalleryImages : [
+    { src: "/images/accommodations/rivercamp/river1.avif", caption: "Dek Kayu Tepi Sungai", subtitle: "Sensasi Suara Alam Mengalir" },
+    { src: "/images/accommodations/river-camp-editorial.jpg", caption: "Alunan Air Alami", subtitle: "Gemericik Sungai Berbatu Alami" }
   ],
-  "korean-glamping": [
-    { src: "/images/accommodations/korean-glamping-editorial.jpg", caption: "Aesthetic Korean Camp", subtitle: "Desain Hangat & Fotogenik" },
-    { src: "/images/grill/paket-grill-big.jpg", caption: "Pesta Grill Lengkap", subtitle: "Kompor & Cooking Set Siap Pakai" },
-    { src: "/images/upgrade/paket-b-bbq-comfort.jpg", caption: "Suasana Senja Berlampu", subtitle: "Momen Romantis & Hangat" },
-    { src: "/images/accommodations/pinus-camp-plus-new.jpg", caption: "Hutan Pinus Berkabut", subtitle: "Suasana Sejuk Pegunungan" },
-    { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Api Unggun Bersama", subtitle: "Hangat di Bawah Langit Malam" }
+  "rivercamp": riverGalleryImages,
+  "river": riverGalleryImages,
+  "korean-glamping": koreanGalleryImages.length > 0 ? koreanGalleryImages : [
+    { src: "/images/accommodations/koreanglamping/korean1.avif", caption: "Aesthetic Korean Camp", subtitle: "Desain Hangat & Fotogenik" }
   ],
+  "koreanglamping": koreanGalleryImages,
+  "korean": koreanGalleryImages,
+  "superior-camp": superiorGalleryImages.length > 0 ? superiorGalleryImages : [
+    { src: "/images/accommodations/superior/superior.avif", caption: "Kabin Modern Superior", subtitle: "Smart TV, AC & Tea Maker" }
+  ],
+  "superior": superiorGalleryImages,
+  "camping-ground": groundGalleryImages.length > 0 ? groundGalleryImages : [
+    { src: "/images/accommodations/ground/ground.avif", caption: "Hamparan Berkemah Luas", subtitle: "Esensi Berkemah Murni di Alam" }
+  ],
+  "ground": groundGalleryImages,
   "pinus-camp-plus": [
     { src: "/images/accommodations/pinus-camp-plus-new.jpg", caption: "Panggung Dek & Sungai", subtitle: "Tenda Menghadap Aliran Air" },
     { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Deretan Ribuan Pinus", subtitle: "Privasi Asri & Alami" },
@@ -53,42 +291,47 @@ const campGalleries: Record<string, Array<{ src: string; caption: string; subtit
     { src: "/images/upgrade/paket-a-atv-comfort.jpg", caption: "Petualangan Wana Wisata", subtitle: "Jalur Off-road Hutan Pinus" },
     { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Malam Dingin Pegunungan", subtitle: "Hangat Bersama Api Unggun" }
   ],
-  "superior-camp": [
-    { src: "/images/accommodations/superior-camp-new.jpg", caption: "Kabin Modern Superior", subtitle: "Smart TV, AC & Tea Maker" },
-    { src: "/images/accommodations/deluxe-camp-new.jpg", caption: "Kenyamanan Kabin Kayu", subtitle: "Fasilitas Prima Kamar Tidur" },
-    { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Terraced Pine Hill", subtitle: "Pemandangan Lembah Pinus" },
-    { src: "/images/grill/paket-grill-big.jpg", caption: "Makan Malam Barbeque", subtitle: "Santapan Lezat di Luar Kabin" },
-    { src: "/images/upgrade/paket-b-bbq-comfort.jpg", caption: "Pencahayaan Hangat", subtitle: "Istirahat Tenang dan Damai" }
-  ],
   "pinus-camp": [
     { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Tenda Autentik Pinus", subtitle: "Menyatu Murni dengan Alam Bebas" },
     { src: "/images/accommodations/pinus-camp-plus-new.jpg", caption: "Panggung Kayu Elevated", subtitle: "Terlindung Bebas Lembab Tanah" },
     { src: "/images/grill/bbq-gear-rental.jpg", caption: "Santai Kopi & Teh", subtitle: "Menghayati Ketenangan Hutan" },
     { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Api Unggun Hutan", subtitle: "Cahaya Bara di Tengah Malam" }
-  ],
-  "camping-ground": [
-    { src: "/images/accommodations/camping-ground-new.jpg", caption: "Hamparan Berkemah Luas", subtitle: "Esensi Berkemah Murni di Alam" },
-    { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Kavling Mandiri Pinus", subtitle: "Di Bawah Langit Berbintang" },
-    { src: "/images/grill/paket-grill-big.jpg", caption: "Masak & Grill Rombongan", subtitle: "Kebersamaan Keluarga & Teman" },
-    { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Api Unggun Terpusat", subtitle: "Hangatnya Cerita Malam Berkemah" },
-    { src: "/images/upgrade/paket-a-atv-comfort.jpg", caption: "Lintasan Petualangan", subtitle: "Aktivitas Seru di Jolotundo" }
   ]
 };
 
-// Default fallback images if specific ID has fewer items
-const galleryImages = campGalleries[camp.id] || [
-  { src: camp.editorialImage || camp.image, caption: camp.name, subtitle: camp.setting },
-  { src: "/images/accommodations/deluxe-camp-new.jpg", caption: "Kabin & Tenda Kayu", subtitle: "Arsitektur Alami Pegunungan" },
-  { src: "/images/accommodations/river-camp-editorial.jpg", caption: "Aliran Sungai Alami", subtitle: "Kesejukan Air Lereng Wilis" },
-  { src: "/images/grill/paket-grill-big.jpg", caption: "Paket Barbeque Grill", subtitle: "Pesta Panggang Daging Segar" },
-  { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Api Unggun Malam Hari", subtitle: "Kehangatan di Tengah Dingin" }
-];
+// Select images: prioritize dynamic folders if camp is deluxe, river camp, korean glamping, superior, or ground
+const isDeluxe = camp.id === 'deluxe-camp' || camp.id === 'deluxe' || camp.id.includes('delux');
+const isRiver = camp.id === 'river-camp' || camp.id === 'rivercamp' || camp.id.includes('river');
+const isKorean = camp.id === 'korean-glamping' || camp.id === 'koreanglamping' || camp.id.includes('korean');
+const isSuperior = camp.id === 'superior-camp' || camp.id === 'superior' || camp.id.includes('superior');
+const isGround = camp.id === 'camping-ground' || camp.id === 'ground' || camp.id.includes('ground');
+
+const galleryImages = (isDeluxe && deluxeGalleryImages.length > 0)
+  ? deluxeGalleryImages
+  : (isRiver && riverGalleryImages.length > 0)
+  ? riverGalleryImages
+  : (isKorean && koreanGalleryImages.length > 0)
+  ? koreanGalleryImages
+  : (isSuperior && superiorGalleryImages.length > 0)
+  ? superiorGalleryImages
+  : (isGround && groundGalleryImages.length > 0)
+  ? groundGalleryImages
+  : (campGalleries[camp.id] || [
+      { src: camp.editorialImage || camp.image, caption: camp.name, subtitle: camp.setting },
+      { src: "/images/accommodations/deluxe-camp-new.jpg", caption: "Kabin & Tenda Kayu", subtitle: "Arsitektur Alami Pegunungan" },
+      { src: "/images/accommodations/river-camp-editorial.jpg", caption: "Aliran Sungai Alami", subtitle: "Kesejukan Air Lereng Wilis" },
+      { src: "/images/grill/paket-grill-big.jpg", caption: "Paket Barbeque Grill", subtitle: "Pesta Panggang Daging Segar" },
+      { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Api Unggun Malam Hari", subtitle: "Kehangatan di Tengah Dingin" }
+    ]);
+
+// Calculate dynamic scroll height based on image count (12 images = ~320vh)
+const scrollHeightVh = Math.max(220, Math.min(340, 180 + galleryImages.length * 12));
 ---
 
 <!-- 
   =============================================================================
   SECTION: STICKY HORIZONTAL SCROLL PREVIEW GALLERY (1:1 GOUNCHARTED REFERENCE)
-  - Outer Container: Tall vertical scroll distance (280vh)
+  - Outer Container: Dynamic vertical scroll distance based on image count
   - Sticky Viewport: Pins at top of screen (h-screen)
   - Horizontal Track: Translates -X on vertical scroll
   - Bottom Bar: 1:1 with GoUncharted (Title, Specs, Progress Line, Price, CTA)
@@ -96,8 +339,8 @@ const galleryImages = campGalleries[camp.id] || [
 -->
 <section 
   id="camp-preview-gallery" 
-  class="relative bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 select-none"
-  style="height: 280vh;"
+  class="relative bg-[#f4efe6] text-[#141110] select-none"
+  style={`height: ${scrollHeightVh}vh;`}
 >
   
   <!-- Sticky Viewport Frame (Pins at top of screen) -->
@@ -107,17 +350,7 @@ const galleryImages = campGalleries[camp.id] || [
   >
     
     <!-- Top Bar: Kicker + Status -->
-    <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#141110]/15 w-full max-w-[1680px] mx-auto shrink-0">
-      <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase">
-        <span class="w-1.5 h-1.5 bg-[#141110]"></span>
-        <span>PREVIEW GALLERY // SUASANA & DETAIL</span>
-      </div>
-      <div class="flex items-center gap-2 text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest">
-        <span class="inline-block w-1.5 h-1.5 bg-emerald-700 animate-pulse"></span>
-        <span class="hidden sm:inline">Gulir ke bawah untuk menjelajahi foto preview</span>
-        <span class="sm:hidden">Scroll untuk eksplorasi foto</span>
-      </div>
-    </div>
+    
 
     <!-- Middle: Horizontal Sliding Image Track -->
     <div id="gallery-slider-window" class="relative w-full my-auto overflow-hidden py-2 sm:py-4">
@@ -127,14 +360,14 @@ const galleryImages = campGalleries[camp.id] || [
         style="transform: translate3d(0, 0px, 0);"
       >
         {galleryImages.map((img, i) => (
-          <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl group cursor-pointer transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+          <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group cursor-pointer transform-gpu will-change-transform contain-paint">
             
             <!-- Image with Smooth Hover Zoom -->
             <img 
               src={img.src} 
               alt={img.caption} 
               class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              loading="lazy"
+              loading={i < 3 ? "eager" : "lazy"}
               decoding="async"
             />
 
@@ -144,7 +377,7 @@ const galleryImages = campGalleries[camp.id] || [
             <!-- Top Index Tag -->
             <div class="absolute top-4 left-4 z-10 pointer-events-none">
               <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-2.5 py-1 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
-                0{i + 1} // 0{galleryImages.length}
+                {String(i + 1).padStart(2, '0')} // {String(galleryImages.length).padStart(2, '0')}
               </span>
             </div>
 
@@ -170,8 +403,8 @@ const galleryImages = campGalleries[camp.id] || [
       <div class="relative w-full h-[2px] bg-[#141110]/15 overflow-hidden">
         <div 
           id="gallery-progress-bar" 
-          class="absolute top-0 left-0 h-full bg-[#141110] transition-all duration-75 will-change-[width]"
-          style="width: 15%;"
+          class="absolute top-0 left-0 h-full w-full bg-[#141110] origin-left will-change-transform"
+          style="transform: scaleX(0.15);"
         ></div>
       </div>
 
@@ -258,71 +491,94 @@ const galleryImages = campGalleries[camp.id] || [
     const sliderWindow = document.getElementById('gallery-slider-window');
     if (!section || !track || !progressBar || !sliderWindow) return;
 
+    // Cached metrics to avoid forced layout reflow during scroll
+    let sectionTop = 0;
+    let sectionHeight = 0;
+    let windowHeight = 0;
+    let totalDistance = 0;
+    let maxScrollX = 0;
     let isTicking = false;
-    let isIntersecting = false;
 
-    function onScrollGallery() {
+    function updateMetrics() {
       const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const totalDistance = section.offsetHeight - windowHeight;
+      windowHeight = window.innerHeight;
+      sectionTop = window.scrollY + rect.top;
+      sectionHeight = section.offsetHeight;
+      totalDistance = Math.max(1, sectionHeight - windowHeight);
 
-      if (totalDistance <= 0) return;
-
-      // Progress from 0 (when top enters/hits 0) to 1 (when bottom hits window bottom)
-      const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
-
-      // Calculate total horizontal overflow distance of cards
       const trackWidth = track.scrollWidth;
       const windowWidth = sliderWindow.offsetWidth;
-      const maxScrollX = Math.max(0, trackWidth - windowWidth + 48); // 48px padding buffer
-
-      // Hardware-accelerated translate-3d
-      const translateX = progress * maxScrollX;
-      track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
-
-      // Dynamic progress bar width (from 15% to 100%)
-      const barWidth = 15 + progress * 85;
-      progressBar.style.width = `${barWidth.toFixed(1)}%`;
+      maxScrollX = Math.max(0, trackWidth - windowWidth + 64);
     }
 
-    function handleScroll() {
-      if (!isTicking && isIntersecting) {
+    function renderGallery(currentScroll) {
+      const scrolled = currentScroll - sectionTop;
+
+      // Skip off-screen rendering
+      if (scrolled < -windowHeight || scrolled > totalDistance + windowHeight) {
+        return;
+      }
+
+      const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
+      const translateX = progress * maxScrollX;
+
+      // Pure GPU transform: 0 layout reflows!
+      track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
+      progressBar.style.transform = `scaleX(${(0.15 + progress * 0.85).toFixed(4)})`;
+    }
+
+    function onScrollNative() {
+      if (!isTicking) {
         requestAnimationFrame(() => {
-          onScrollGallery();
+          const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+          renderGallery(currentScroll);
           isTicking = false;
         });
         isTicking = true;
       }
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        isIntersecting = entry.isIntersecting;
-        if (isIntersecting) {
-          onScrollGallery();
-        }
+    // Direct frame-by-frame synchronization with Lenis smooth scroll
+    if (window.__lenis) {
+      window.__lenis.on('scroll', (e) => {
+        renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
       });
-    }, {
-      root: null,
-      threshold: 0,
-      rootMargin: "200px 0px"
-    });
+    } else {
+      window.addEventListener('scroll', onScrollNative, { passive: true });
+      const checkLenis = setInterval(() => {
+        if (window.__lenis) {
+          window.removeEventListener('scroll', onScrollNative);
+          window.__lenis.on('scroll', (e) => {
+            renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+          });
+          clearInterval(checkLenis);
+        }
+      }, 150);
+      setTimeout(() => clearInterval(checkLenis), 3000);
+    }
 
-    observer.observe(section);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
+    // Refresh metrics on resize
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        onScrollGallery();
+        updateMetrics();
+        const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+        renderGallery(currentScroll);
       }, 100);
     }, { passive: true });
 
-    // Initial check
-    onScrollGallery();
+    // Initial setup
+    updateMetrics();
+    const initialScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+    renderGallery(initialScroll);
+
+    // Re-verify metrics once all images have laid out
+    window.addEventListener('load', () => {
+      updateMetrics();
+      const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+      renderGallery(currentScroll);
+    }, { once: true });
   }
 
   if (document.readyState === 'loading') {
