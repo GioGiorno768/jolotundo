@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+
+const quickLinks = [
+  {
+    index: "01",
+    tag: "BERANDA",
+    title: "Kembali ke Halaman Utama",
+    desc: "Mulai ulang eksplorasi dari halaman depan Jolotundo.",
+    href: "/"
+  },
+  {
+    index: "02",
+    tag: "GLAMPING",
+    title: "Koleksi Akomodasi & Tenda",
+    desc: "Deluxe, Superior, Korean, Indian, River, Pinus & Ground.",
+    href: "/akomodasi"
+  },
+  {
+    index: "03",
+    tag: "WAHANA",
+    title: "Wahana & Rekreasi",
+    desc: "ATV, Jeep Offroad 4x4, Berkuda, Mini Zoo & Outbound.",
+    href: "/wahana"
+  },
+  {
+    index: "04",
+    tag: "DENAH 2D",
+    title: "Lokasi & Peta Masterplan",
+    desc: "Rute menuju Desa Bajulan dan denah interaktif 100 kavling.",
+    href: "/lokasi"
+  },
+  {
+    index: "05",
+    tag: "EVENT",
+    title: "Wedding, Hall & Gathering",
+    desc: "Venue pernikahan outdoor, aula kaca & gathering korporat.",
+    href: "/event"
+  },
+  {
+    index: "06",
+    tag: "RESERVASI",
+    title: "Pesan Tenda Online",
+    desc: "Cek ketersediaan tanggal dan booking langsung.",
+    href: "https://jolotundo.netlify.app/",
+    external: true
+  }
+];
+---
+
+<Layout
+  title="404 — Halaman Tidak Ditemukan | Jolotundo Glamping & Edupark"
+  description="Halaman yang Anda cari tidak ditemukan atau telah berpindah. Jelajahi kembali koleksi glamping, wahana, dan denah lokasi Jolotundo."
+  noindex={true}
+>
+  <Navbar />
+
+  <main class="min-h-screen bg-[#141110] text-[#f4efe6] flex flex-col justify-between pt-32 sm:pt-40 pb-16 sm:pb-24 px-6 sm:px-10 lg:px-14 xl:px-20 selection:bg-[#d8c39e] selection:text-[#141110]">
+    <div class="max-w-[1680px] w-full mx-auto flex flex-col gap-12 sm:gap-16">
+      
+      <!-- Top Coordinate & Error Meta Header -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-white/15">
+        <div class="flex items-center gap-3">
+          <span class="w-2 h-2 bg-[#d8c39e] animate-pulse"></span>
+          <span class="text-xs font-mono-tag uppercase tracking-[0.25em] text-[#d8c39e]">
+            STATUS // 404 NOT FOUND
+          </span>
+        </div>
+        <span class="text-xs font-mono-tag uppercase tracking-[0.2em] text-white/45">
+          7°44'18.2"S 111°49'32.4"E • BAJULAN, NGANJUK
+        </span>
+      </div>
+
+      <!-- Main Editorial Hero Block -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+        <div class="lg:col-span-7">
+          <span class="block text-7xl sm:text-9xl font-extrabold font-mono-tag tracking-tighter text-white/10 leading-none select-none mb-2">
+            404
+          </span>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05] font-sans">
+            Jalur Ini Tidak Mengarah ke Kemah.
+          </h1>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <p class="text-sm sm:text-base text-white/75 font-sans leading-relaxed font-light">
+            Halaman atau rute yang Anda tuju mungkin sudah dipindahkan, salah ketik, atau belum tersedia. Silakan kembali ke jalur utama atau pilih destinasi di bawah ini.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="/"
+              class="inline-flex items-center justify-between gap-3 px-6 py-3.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6]"
+            >
+              <span>Kembali ke Beranda</span>
+              <span>↗</span>
+            </a>
+            <a
+              href="/lokasi"
+              class="inline-flex items-center justify-between gap-3 px-6 py-3.5 bg-transparent hover:bg-white/10 text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-white/25 hover:border-white"
+            >
+              <span>Buka Denah Kawasan</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Orientation Navigation Grid -->
+      <section class="pt-6 border-t border-white/15">
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-xs font-mono-tag uppercase tracking-[0.25em] text-white/50">
+            NAVIGASI CEPAT KAWASAN
+          </span>
+          <span class="text-[11px] font-mono-tag uppercase tracking-widest text-[#d8c39e]">
+            06 TUJUAN POPULER
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {quickLinks.map((item) => (
+            <a
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
+              class="group p-5 sm:p-6 bg-white/[0.03] hover:bg-white/[0.08] border border-white/15 hover:border-[#d8c39e]/60 transition-all duration-200 flex flex-col justify-between gap-4"
+            >
+              <div class="flex items-center justify-between text-[11px] font-mono-tag">
+                <span class="text-[#d8c39e] tracking-widest font-bold">
+                  {item.index} // {item.tag}
+                </span>
+                <span class="text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all">
+                  ↗
+                </span>
+              </div>
+              <div>
+                <h2 class="text-lg sm:text-xl font-bold text-white group-hover:text-[#d8c39e] transition-colors font-sans">
+                  {item.title}
+                </h2>
+                <p class="text-xs text-white/60 font-sans leading-relaxed mt-1.5">
+                  {item.desc}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Bottom Minimalist Copyright -->
+    <div class="max-w-[1680px] w-full mx-auto pt-14 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono-tag text-white/40 uppercase tracking-widest">
+      <span>JOLOTUNDO GLAMPING &amp; EDUPARK • DAN GROUP</span>
+      <span>DUSUN PLAKAT, DESA BAJULAN, NGANJUK</span>
+    </div>
+  </main>
+</Layout>
+

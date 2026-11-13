@@ -53,6 +53,20 @@ const accommodations = [
   },
   {
     index: "04",
+    id: "indian-camp",
+    name: "Indian Camp",
+    category: "forest",
+    tier: "Experiential Glamping",
+    setting: "Pine Forest Lawn",
+    capacity: "3 s/d 6 Orang",
+    tagline: "Camping dengan gaya indian memberikan nuansa alam, petualangan, serta suasana etnik yang unik, nyaman, dan lengkap dengan perlengkapan BBQ.",
+    pills: ["Gaya Indian Etnik", "Kapasitas 3 & 6 Pax", "Mulai Rp 600K", "BBQ & Cooking Set"],
+    image: "/images/accommodations/indian/indian1.avif",
+    editorialImage: "/images/accommodations/indian/indian1.avif",
+    gridClass: "grid-col-7 camp-card-hero"
+  },
+  {
+    index: "05",
     id: "river-camp",
     name: "River Camp",
     category: "river",
@@ -66,32 +80,18 @@ const accommodations = [
     gridClass: "grid-col-7 camp-card-hero"
   },
   {
-    index: "05",
-    id: "pinus-camp-plus",
-    name: "Pinus Camp Plus",
-    category: "river",
-    tier: "Experiential Glamping",
-    setting: "Pine & Small Creek",
-    capacity: "2 Orang",
-    tagline: "Tenda panggung kayu di tengah sejuknya ribuan pohon pinus dengan aliran sungai kecil persis di depan tenda (Tenda 40–51).",
-    pills: ["Hutan Pinus", "Sungai Kecil", "Dek Panggung", "Maks 2 Tamu"],
-    image: "/images/accommodations/pinuscamp/pinus1.avif",
-    editorialImage: "/images/accommodations/pinuscamp/pinus1.avif",
-    gridClass: "grid-col-half"
-  },
-  {
     index: "06",
     id: "pinus-camp",
-    name: "Pinus Camp",
+    name: "Pinus Camp & Plus",
     category: "forest",
     tier: "Rustic & Nature",
-    setting: "Deep Pine Canopy",
+    setting: "Pine Canopy & Small Creek",
     capacity: "2 Orang",
-    tagline: "Keteduhan autentik hutan pinus yang menjulang tinggi, menghadirkan privasi istirahat yang sangat tenang, sejuk, dan asri.",
-    pills: ["Kanopi Pinus", "Dek Kayu", "Udara Sejuk", "Maks 2 Tamu"],
-    image: "/images/accommodations/pinuscamp/pinus2.avif",
-    editorialImage: "/images/accommodations/pinuscamp/pinus2.avif",
-    gridClass: "grid-col-half"
+    tagline: "Tenda panggung kayu di tengah keteduhan ribuan pohon pinus, tersedia opsi Reguler dan Plus di tepi aliran sungai kecil.",
+    pills: ["Opsi Tepi Sungai", "Dek Panggung", "Mulai Rp 250K", "2 Tamu"],
+    image: "/images/accommodations/pinuscamp/pinus1.avif",
+    editorialImage: "/images/accommodations/pinuscamp/pinus1.avif",
+    gridClass: "grid-col-5 camp-card-hero"
   },
   {
     index: "07",
@@ -103,8 +103,8 @@ const accommodations = [
     capacity: "4 s/d 6 Orang",
     tagline: "Area berkemah luas di bawah langit bertabur bintang untuk petualang sejati yang mendambakan esensi berkemah murni di alam bebas.",
     pills: ["Tenda Dome", "Matras Tidur", "Api Unggun", "4–6 Tamu"],
-    image: "/images/accommodations/ground/ground.avif",
-    editorialImage: "/images/accommodations/ground/ground.avif",
+    image: "/images/accommodations/ground/ground4.avif",
+    editorialImage: "/images/accommodations/ground/ground4.avif",
     gridClass: "grid-col-full camp-card-panorama"
   }
 ];
@@ -121,7 +121,8 @@ const categories = [
 
 <Layout 
   title="Koleksi Akomodasi & Glamping — Jolotundo Glamping & Edupark"
-  description="Koleksi lengkap 7 tipe penginapan di Jolotundo Glamping & Edupark, Bajulan, Nganjuk. Dari Deluxe Camp AC, River Camp, Korean Glamping hingga Camping Ground alami."
+  description="Koleksi lengkap 7 tipe penginapan di Jolotundo Glamping & Edupark, Bajulan, Nganjuk: Deluxe Camp AC, Superior Camp, Korean Glamping, Indian Camp, River Camp, Pinus Camp & Plus, serta Camping Ground."
+  image="/images/accommodations/deluxe-camp-new.jpg"
 >
   <!-- Floating Expanding Pill Navbar -->
   <Navbar />
@@ -168,8 +169,17 @@ const categories = [
           <span class="text-[#141110]/40">/</span>
           <span>7 TIPE AKOMODASI</span>
         </div>
-        <div class="hidden sm:flex items-center gap-2 text-[#141110]/50 text-[11px]">
-          <span>[ LERENG GUNUNG WILIS • ±800 MDPL ]</span>
+        <div class="flex items-center gap-4">
+          <span class="hidden md:inline-block text-[#141110]/50 text-[11px]">[ LERENG GUNUNG WILIS • ±800 MDPL ]</span>
+          <a
+            href="https://jolotundo.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-[11px] font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-md"
+          >
+            <span>Pesan Tenda Online</span>
+            <span>↗</span>
+          </a>
         </div>
       </div>
     </div>
@@ -242,7 +252,7 @@ const categories = [
                       ))}
                     </div>
 
-                    <!-- Direct Action: Button Lihat Detail (Tanpa Pricelist) -->
+                    <!-- Direct Action: Button Lihat Detail & Pesan Tenda Online -->
                     <div class="pt-3.5 pb-1 border-t border-white/15 flex items-center justify-between gap-3">
                       <div class="flex items-center gap-2">
                         <span class="w-1.5 h-1.5 bg-[#d8c39e] inline-block"></span>
@@ -251,14 +261,27 @@ const categories = [
                         </span>
                       </div>
 
-                      <!-- Sharp Button Lihat Detail (Direct Link to Camp Detail Page) -->
-                      <a
-                        href={`/akomodasi/${stay.id}`}
-                        class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
-                      >
-                        <span>Lihat Detail</span>
-                        <span>↗</span>
-                      </a>
+                      <div class="flex items-center gap-2">
+                        <!-- Direct Link to Camp Detail Page -->
+                        <a
+                          href={`/akomodasi/${stay.id}`}
+                          class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-white/15 hover:bg-white text-white hover:text-black font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-white/20 shrink-0"
+                        >
+                          <span>Detail</span>
+                          <span>↗</span>
+                        </a>
+
+                        <!-- Direct Booking Button to https://jolotundo.netlify.app/ -->
+                        <a
+                          href="https://jolotundo.netlify.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
+                        >
+                          <span>Pesan Tenda</span>
+                          <span>↗</span>
+                        </a>
+                      </div>
                     </div>
 
                   </div>

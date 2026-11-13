@@ -1,0 +1,23 @@
+{
+  "name": "Jolotundo Glamping & Edupark",
+  "short_name": "Jolotundo",
+  "description": "Pionir destinasi ekowisata terpadu di lereng Gunung Wilis, Bajulan, Nganjuk — glamping tematik, wahana petualangan, kuliner tepi sungai, dan venue gathering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b130e",
+  "theme_color": "#0b130e",
+  "lang": "id-ID",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
+

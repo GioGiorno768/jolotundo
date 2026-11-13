@@ -20,9 +20,9 @@ const staysConfig = [
     featuredStay: accommodations.find((s) => s.id === "korean-glamping")
   },
   {
-    id: "pinus-camp-plus",
+    id: "pinus-camp",
     gridClass: "col-span-12 lg:col-span-7 h-[480px] sm:h-[540px] lg:h-[580px]",
-    featuredStay: accommodations.find((s) => s.id === "pinus-camp-plus")
+    featuredStay: accommodations.find((s) => s.id === "pinus-camp")
   }
 ];
 ---
@@ -129,16 +129,27 @@ const staysConfig = [
                         </span>
                       </div>
 
-                      <!-- Sharp Button Lihat Detail -->
-                      <a
-                        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin tahu ketersediaan dan detail informasi untuk *${stay.name}*.`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
-                      >
-                        <span>Lihat Detail</span>
-                        <span>↗</span>
-                      </a>
+                      <div class="flex items-center gap-2">
+                        <!-- Direct Link to Camp Detail Page -->
+                        <a
+                          href={`/akomodasi/${stay.id}`}
+                          class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-white/15 hover:bg-white text-white hover:text-black font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-white/20 shrink-0"
+                        >
+                          <span>Detail</span>
+                          <span>↗</span>
+                        </a>
+
+                        <!-- Direct Booking Button to https://jolotundo.netlify.app/ -->
+                        <a
+                          href="https://jolotundo.netlify.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
+                        >
+                          <span>Pesan Tenda</span>
+                          <span>↗</span>
+                        </a>
+                      </div>
                     </div>
 
                   </div>

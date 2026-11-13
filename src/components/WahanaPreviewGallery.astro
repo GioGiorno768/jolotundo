@@ -1,4 +1,6 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import siteData from '../data/siteData.json';
 
 interface Props {
@@ -11,22 +13,130 @@ interface Props {
     elevation: string;
     priceStarting: string;
     contactType: string;
-    gallery: Array<{ src: string; caption: string; subtitle: string }>;
+    gallery?: Array<{ src: string; caption: string; subtitle: string }>;
   };
 }
 
 const { activity } = Astro.props;
-const galleryImages = activity.gallery || [];
+
+// Mapping activity ID to folder name in public/images/activities/
+const activityFolderMap: Record<string, string> = {
+  "atv-adventure": "atv",
+  "atv": "atv",
+  "jeep-offroad": "jeep",
+  "jeep": "jeep",
+  "wisata-berkuda": "horse",
+  "horse-riding": "horse",
+  "horse": "horse",
+  "mini-zoo": "zoo",
+  "mini-zoo-edupark": "zoo",
+  "zoo": "zoo",
+  "outbound-gathering": "outbond",
+  "outbound": "outbond",
+  "outbond": "outbond"
+};
+
+// Curated metadata for each activity image
+const activityMetaMap: Record<string, Record<string, { caption: string; subtitle: string; order: number }>> = {
+  atv: {
+    "atv1.avif": { caption: "Aksi Lintasan Sungai", subtitle: "Sensasi Cipratan Air Alami", order: 1 },
+    "atv2.avif": { caption: "Menembus Rute Bebatuan", subtitle: "Tantangan Jalur Offroad Kali", order: 2 },
+    "atv3.avif": { caption: "Konvoi Jalur Pinus", subtitle: "Manuver di Bawah Naungan Pohon", order: 3 },
+    "atv4.avif": { caption: "Adrenalin Quad Bike", subtitle: "Kendali Penuh di Medan Menantang", order: 4 },
+    "atv5.avif": { caption: "Tanjakan Tanah Basah", subtitle: "Torsi Kuat Mesin ATV Prima", order: 5 },
+    "atv6.avif": { caption: "Kanopi Purba Bajulan", subtitle: "Kesejukan Udara ±800 MDPL", order: 6 },
+    "atv7.avif": { caption: "Arung Arus Dangkal", subtitle: "Keseruan Basah di Sungai Berbatu", order: 7 },
+    "atv8.avif": { caption: "Jalur Berkelok Hutan", subtitle: "Sensasi Petualangan Alami", order: 8 },
+    "atv9.avif": { caption: "Offroad Seru Bersama", subtitle: "Kekompakan Mengarungi Jalur", order: 9 },
+    "atv10.avif": { caption: "Eksplorasi Lereng Wilis", subtitle: "Panorama Rimba Asri Jolotundo", order: 10 },
+    "atv11.avif": { caption: "Aksi Penuh Semangat", subtitle: "Momen Adrenalin Tak Terlupakan", order: 11 },
+    "atv.avif": { caption: "Unit Quad Bike Prima", subtitle: "Perawatan Rutin & Standar Keamanan", order: 12 },
+  },
+  jeep: {
+    "jeep4.avif": { caption: "Aksi 4x4 Offroad Ekstrem", subtitle: "Menembus Rute Bebatuan Cadas", order: 1 },
+    "jeep.avif": { caption: "Armada 4x4 Tangguh", subtitle: "Mobil Overland Berpenggerak Ganda", order: 2 },
+    "jeep1.avif": { caption: "Tanjakan Terjal Lereng", subtitle: "Skill Driver Berpengalaman", order: 3 },
+    "jeep3.avif": { caption: "Ekspedisi Rimba Wilis", subtitle: "Kawasan Alami Hutan Tropis", order: 4 },
+    "jeep5.avif": { caption: "Lintas Batuan Purba", subtitle: "Sensasi Goyangan Offroad Asli", order: 5 },
+    "jeep6.avif": { caption: "Rute Air Terjun Ngleyangan", subtitle: "Petualangan Menembus Percikan Air", order: 6 },
+    "jeep7.avif": { caption: "Sensasi Overland Seru", subtitle: "Pemberhentian Spot Foto Eksotis", order: 7 },
+    "jeep8.avif": { caption: "Panorama Lembah Bajulan", subtitle: "Ketinggian Sejuk Puncak Wilis", order: 8 },
+    "jeep9.avif": { caption: "Konvoi Offroad Berkesan", subtitle: "Kebersamaan Rombongan & Keluarga", order: 9 },
+  },
+  horse: {
+    "horse1.avif": { caption: "Tunggang Kuda Lereng Wilis", subtitle: "Pengalaman Berkuda di Alam Asri", order: 1 },
+    "horse2.avif": { caption: "Jalur Teduh Kanopi Pinus", subtitle: "Langkah Santai Menikmati Udara Sejuk", order: 2 },
+    "horse3.avif": { caption: "Pawang Pendamping Berpengalaman", subtitle: "Keamanan & Kenyamanan Terjamin", order: 3 },
+    "horse4.avif": { caption: "Ketenangan Semilir Angin", subtitle: "Aktivitas Menenangkan & Meditatif", order: 4 },
+    "horse5.avif": { caption: "Wisata Ramah Keluarga", subtitle: "Cocok untuk Anak & Pemula", order: 5 },
+  },
+  zoo: {
+    "zoo1.avif": { caption: "Fasad Mini Zoo Edupark", subtitle: "Habitat Terbuka di Bawah Naungan Pinus", order: 1 },
+    "zoo2.avif": { caption: "Taman Kelinci & Marmut", subtitle: "Interaksi Langsung & Feeding Sayuran Segar", order: 2 },
+    "zoo3.avif": { caption: "Penangkaran Rusa Jinak", subtitle: "Satwa Anggun di Lereng Gunung Wilis", order: 3 },
+    "zoo4.avif": { caption: "Aviary Burung Eksotis", subtitle: "Kicauan Asri Satwa Unggas Terbuka", order: 4 },
+    "zoo5.avif": { caption: "Petting Farm & Domba Lucu", subtitle: "Pengalaman Edukatif Ramah Anak & Balita", order: 5 },
+  },
+  outbond: {
+    "outbond1.avif": { caption: "Sinergi & Team Building", subtitle: "Membangun Kekompakan Kelompok", order: 1 },
+    "outbond2.avif": { caption: "Dinamika Kelompok & Fun Games", subtitle: "Tawa & Semangat Kolaborasi", order: 2 },
+    "outbond3.avif": { caption: "Arena Lapangan Pinus Luas", subtitle: "Kapasitas Ratusan Peserta", order: 3 },
+    "outbond4.avif": { caption: "Aktivitas Luar Ruang Terbuka", subtitle: "Udara Bersih Pegunungan Wilis", order: 4 },
+    "outbond5.avif": { caption: "Tantangan Kerjasama Regu", subtitle: "Fasilitator & Trainer Profesional", order: 5 },
+    "outbond6.avif": { caption: "Leadership & Ice Breaking", subtitle: "Mencairkan Suasana & Eratkan Komunikasi", order: 6 },
+    "outbond7.avif": { caption: "Gathering Korporat & BUMN", subtitle: "Paket Lengkap All-Inclusive", order: 7 },
+    "outbond8.avif": { caption: "Momen Kebersamaan Berkesan", subtitle: "Energi Positif untuk Tim Anda", order: 8 },
+  }
+};
+
+// Dynamically read images from folder if available
+function getActivityImages(activityId: string): Array<{ src: string; caption: string; subtitle: string }> {
+  const folder = activityFolderMap[activityId];
+  if (!folder) return [];
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'activities', folder);
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(f => /\.(avif|webp|jpe?g|png)$/i.test(f));
+      const metaMap = activityMetaMap[folder] || {};
+      files.sort((a, b) => {
+        const orderA = metaMap[a]?.order ?? 99;
+        const orderB = metaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = metaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Jolotundo Edupark"
+        };
+        return {
+          src: encodeURI(`/images/activities/${folder}/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading activity images:", err);
+  }
+  return [];
+}
+
+const dynamicImages = getActivityImages(activity.id);
+// Spa uses fallback activity.gallery until photos are provided
+const galleryImages = dynamicImages.length > 0 ? dynamicImages : (activity.gallery || []);
 
 // Destination WhatsApp Concierge
 const waPhone = activity.contactType === "corporate" ? "6282249829998" : (siteData.brand.whatsapp || "6282249828998");
 const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Halo Admin Jolotundo Edupark, saya tertarik reservasi dan info ketersediaan untuk *${activity.name}*.`)}`;
+
+// Calculate dynamic scroll height based on image count
+const scrollHeightVh = Math.max(220, Math.min(340, 180 + galleryImages.length * 12));
 ---
 
 <!-- 
   =============================================================================
   SECTION: STICKY HORIZONTAL SCROLL PREVIEW GALLERY (1:1 GOUNCHARTED REFERENCE)
-  - Outer Container: Tall vertical scroll distance (280vh)
+  - Outer Container: Dynamic vertical scroll distance based on image count
   - Sticky Viewport: Pins at top of screen (h-screen)
   - Horizontal Track: Translates -X on vertical scroll
   - Bottom Bar: 1:1 with GoUncharted (Title, Specs, Progress Line, Price, CTA)
@@ -35,7 +145,7 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
 <section 
   id="wahana-preview-gallery" 
   class="relative bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 select-none"
-  style="height: 280vh;"
+  style={`height: ${scrollHeightVh}vh;`}
 >
   
   <!-- Sticky Viewport Frame (Pins at top of screen) -->
@@ -65,14 +175,14 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
         style="transform: translate3d(0, 0px, 0);"
       >
         {galleryImages.map((img, i) => (
-          <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl group cursor-pointer transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+          <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group cursor-pointer transform-gpu will-change-transform contain-paint">
             
             <!-- Image with Smooth Hover Zoom -->
             <img 
               src={img.src} 
               alt={img.caption} 
               class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              loading="lazy"
+              loading={i < 3 ? "eager" : "lazy"}
               decoding="async"
             />
 
@@ -82,7 +192,7 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
             <!-- Top Index Tag -->
             <div class="absolute top-4 left-4 z-10 pointer-events-none">
               <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-2.5 py-1 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
-                0{i + 1} // 0{galleryImages.length}
+                {String(i + 1).padStart(2, '0')} // {String(galleryImages.length).padStart(2, '0')}
               </span>
             </div>
 
@@ -108,8 +218,8 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
       <div class="relative w-full h-[2px] bg-[#141110]/15 overflow-hidden">
         <div 
           id="wahana-gallery-progress-bar" 
-          class="absolute top-0 left-0 h-full bg-[#141110] transition-all duration-75 will-change-[width]"
-          style="width: 15%;"
+          class="absolute top-0 left-0 h-full w-full bg-[#141110] origin-left will-change-transform"
+          style="transform: scaleX(0.15);"
         ></div>
       </div>
 
@@ -182,7 +292,7 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
 </section>
 
 <!-- ========================================================================= -->
-<!-- JAVASCRIPT: STICKY HORIZONTAL SCROLL CONTROLLER SCRIPT                    -->
+<!-- JAVASCRIPT: STICKY HORIZONTAL SCROLL CONTROLLER SCRIPT (GPU OPTIMIZED)   -->
 <!-- ========================================================================= -->
 <script is:inline>
   function initWahanaGallery() {
@@ -193,49 +303,94 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
 
     if (!section || !track || !progressBar || !sliderWindow) return;
 
+    // Cached metrics: NO DOM queries during active scroll!
+    let sectionTop = 0;
+    let sectionHeight = 0;
+    let windowHeight = 0;
+    let totalDistance = 0;
+    let maxScrollX = 0;
     let isTicking = false;
 
-    function updateScroll() {
+    function updateMetrics() {
       const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
-      const windowHeight = window.innerHeight;
+      windowHeight = window.innerHeight;
+      sectionTop = window.scrollY + rect.top;
+      sectionHeight = section.offsetHeight;
+      totalDistance = Math.max(1, sectionHeight - windowHeight);
 
-      // Calculate vertical scroll progress through the section [0, 1]
-      const totalScrollableDistance = sectionHeight - windowHeight;
-      const scrolledDistance = -rect.top;
-
-      let progress = 0;
-      if (scrolledDistance > 0) {
-        progress = Math.min(1, Math.max(0, scrolledDistance / totalScrollableDistance));
-      }
-
-      // Horizontal track dimensions
       const trackWidth = track.scrollWidth;
       const windowWidth = sliderWindow.offsetWidth;
-      const maxHorizontalScroll = Math.max(0, trackWidth - windowWidth + 40);
-
-      // Interpolate horizontal translation using smooth GPU transform
-      const currentTranslateX = progress * maxHorizontalScroll;
-      track.style.transform = `translate3d(-${currentTranslateX.toFixed(1)}px, 0, 0)`;
-
-      // Update progress bar width
-      const barPercentage = Math.max(12, Math.min(100, (progress * 88) + 12));
-      progressBar.style.width = `${barPercentage.toFixed(1)}%`;
+      maxScrollX = Math.max(0, trackWidth - windowWidth + 64);
     }
 
-    function handleScroll() {
+    function renderGallery(currentScroll) {
+      const scrolled = currentScroll - sectionTop;
+
+      // Skip off-screen rendering
+      if (scrolled < -windowHeight || scrolled > totalDistance + windowHeight) {
+        return;
+      }
+
+      const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
+      const translateX = progress * maxScrollX;
+
+      // Pure GPU transform - 0 layout reflows!
+      track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
+      progressBar.style.transform = `scaleX(${(0.15 + progress * 0.85).toFixed(4)})`;
+    }
+
+    function onScrollNative() {
       if (!isTicking) {
         requestAnimationFrame(() => {
-          updateScroll();
+          const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+          renderGallery(currentScroll);
           isTicking = false;
         });
         isTicking = true;
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    updateScroll();
+    // Direct synchronization with Lenis smooth scroll
+    if (window.__lenis) {
+      window.__lenis.on('scroll', (e) => {
+        renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+      });
+    } else {
+      window.addEventListener('scroll', onScrollNative, { passive: true });
+      const checkLenis = setInterval(() => {
+        if (window.__lenis) {
+          window.removeEventListener('scroll', onScrollNative);
+          window.__lenis.on('scroll', (e) => {
+            renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+          });
+          clearInterval(checkLenis);
+        }
+      }, 150);
+      setTimeout(() => clearInterval(checkLenis), 3000);
+    }
+
+    // Refresh metrics on resize
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updateMetrics();
+        const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+        renderGallery(currentScroll);
+      }, 100);
+    }, { passive: true });
+
+    // Initial setup
+    updateMetrics();
+    const initialScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+    renderGallery(initialScroll);
+
+    // Re-verify metrics once all images have laid out
+    window.addEventListener('load', () => {
+      updateMetrics();
+      const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+      renderGallery(currentScroll);
+    }, { once: true });
   }
 
   if (document.readyState === 'loading') {
@@ -244,4 +399,3 @@ const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIC
     initWahanaGallery();
   }
 </script>
-

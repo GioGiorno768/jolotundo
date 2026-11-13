@@ -53,31 +53,43 @@ const googleMapsUrl = "https://maps.google.com/?q=Jolotundo+Glamping+and+Edupark
       Ceritakan kapan dan bersama siapa Anda akan berkunjung. Tim concierge kami akan merespons dengan jadwal ketersediaan nyata, rekomendasi glamping terbaik, atau opsi tanggal ideal di lereng Wilis.
     </p>
 
-    <!-- Signature GoUncharted Button: [ Plan a trip | ↗ ] -->
-    <a
-      href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Concierge Jolotundo, saya ingin merencanakan liburan glamping.")}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="group inline-flex items-center bg-white text-[#141110] font-sans text-sm sm:text-base font-semibold transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:bg-[#f4efe6] overflow-hidden cursor-pointer pe-1"
-    >
-      <span class="px-6 sm:px-8 py-3.5 sm:py-4 tracking-tight">
-        Plan a trip
-      </span>
-      <span class="w-11 sm:w-12 h-11 sm:h-12 bg-black text-white flex items-center justify-center shrink-0 group-hover:bg-[#1f1b19] transition-colors">
-        <svg 
-          class="w-4 h-4 transform transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          stroke-width="2.5" 
-          stroke-linecap="round" 
-          stroke-linejoin="round"
-        >
-          <line x1="7" y1="17" x2="17" y2="7"></line>
-          <polyline points="7 7 17 7 17 17"></polyline>
-        </svg>
-      </span>
-    </a>
+    <!-- Action Buttons: [ Pesan Tenda Online ] & [ Konsultasi Concierge ] -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href="https://jolotundo.netlify.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group inline-flex items-center bg-white text-[#141110] font-sans text-sm sm:text-base font-semibold transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:bg-[#f4efe6] overflow-hidden cursor-pointer pe-1"
+      >
+        <span class="px-6 sm:px-8 py-3.5 sm:py-4 tracking-tight">
+          Pesan Tenda Online
+        </span>
+        <span class="w-11 sm:w-12 h-11 sm:h-12 bg-black text-white flex items-center justify-center shrink-0 group-hover:bg-[#1f1b19] transition-colors">
+          <svg 
+            class="w-4 h-4 transform transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2.5" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
+
+      <a
+        href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent("Halo Concierge Jolotundo, saya ingin merencanakan liburan glamping.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 bg-black/60 hover:bg-black text-[#f4efe6] backdrop-blur-md border border-white/20 hover:border-white font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 shadow-xl"
+      >
+        <span>Konsultasi Concierge</span>
+        <span>↗</span>
+      </a>
+    </div>
 
   </div>
 

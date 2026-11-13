@@ -9,9 +9,29 @@ import FacilitiesSticky from '../components/FacilitiesSticky.astro';
 import ReviewsGoogle from '../components/ReviewsGoogle.astro';
 import FaqSection from '../components/FaqSection.astro';
 import FooterCTA from '../components/FooterCTA.astro';
+import faqs from '../data/faqs.json';
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faqs.map((item) => ({
+		"@type": "Question",
+		"name": item.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": item.answer
+		}
+	}))
+};
 ---
 
-<Layout title="Jolotundo Glamping & Edupark — Ekowisata Pegunungan Nganjuk">
+<Layout
+	title="Jolotundo Glamping & Edupark — Ekowisata Pegunungan Nganjuk"
+	description="Pionir destinasi ekowisata terpadu di lereng Gunung Wilis, Desa Bajulan, Nganjuk. Nikmati Deluxe & River Camp, Korean & Indian Glamping, ATV, Jeep Offroad, Mini Zoo, hingga kuliner tepi sungai."
+	image="/images/hero.jpg"
+	preloadHero="/images/hero.jpg"
+	schema={faqSchema}
+>
 	<!-- Floating Expanding Pill Navbar (GoUncharted Model) -->
 	<Navbar />
 

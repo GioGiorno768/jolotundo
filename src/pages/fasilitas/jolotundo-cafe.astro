@@ -50,39 +50,32 @@ const placeTableRows = [
   }
 ];
 
-// Curated Jolotundo Cafe Preview Gallery Images (1:1 GoUncharted Sticky Horizontal Scroll)
+// Curated Jolotundo Cafe Preview Gallery Images (Seluruh 4 Gambar dari resto/jolocafe)
 const cafeGalleryImages = [
   {
-    src: "/images/facilities/jolotundo-cafe-ketan.jpg",
-    caption: "Warung Ketan Tradisional Legendaris",
+    src: "/images/resto/jolocafe/jolo1.avif",
+    caption: "Pondok Chalet Kayu & Warung Ketan",
+    subtitle: "PONDOK KAYU HANGAT DI BAWAH KANOPI PINUS"
+  },
+  {
+    src: "/images/resto/jolocafe/jolo2.avif",
+    caption: "Ketan Tradisional & Kopi Hangat",
     subtitle: "PULEN HANGAT DENGAN TABURAN KELAPA & KEDELAI"
   },
   {
-    src: "/images/facilities/pine-resto-cafe.jpg",
-    caption: "Chalet Kayu di Bawah Kanopi Pinus",
-    subtitle: "ALFRESCO SEATING AMIDST PINE TREES"
+    src: "/images/resto/jolocafe/jolo3.avif",
+    caption: "Area Duduk Alfresco Asri",
+    subtitle: "TEMPAT BERSANTAI TEDUH DENGAN UDARA SEGAR"
   },
   {
-    src: "/images/accommodations/paket-grill.jpg",
-    caption: "Kudapan Gorengan & Bakso Rempah",
-    subtitle: "FRESH FROM WOK & STEAMING BROTH"
-  },
-  {
-    src: "/images/facilities/amfiteater-bonfire.jpg",
-    caption: "Suasana Hangat Petang Hari",
-    subtitle: "COZY EVENING LIGHTING & WARM AMBIENCE"
-  },
-  {
-    src: "/images/facilities/meeting-hall-pendopo.jpg",
-    caption: "Ruang Duduk Keluarga Luas",
-    subtitle: "SPACIOUS TIMBER PAVILION CAPACITY"
-  },
-  {
-    src: "/images/facilities/glass-hall-venue.jpg",
-    caption: "Arsitektur Kayu Natural Bajulan",
-    subtitle: "TIMELESS RUSTIC FOREST DESIGN"
+    src: "/images/resto/jolocafe/jolo4.avif",
+    caption: "Kehangatan Nongkrong & Kuliner",
+    subtitle: "SAJIAN KHAS PEGUNUNGAN & BAKSO REMPAH"
   }
 ];
+
+// Dynamic vertical scroll distance based on image count
+const scrollHeightVh = Math.max(220, Math.min(320, 180 + cafeGalleryImages.length * 15));
 
 // Daftar Bab Buku Menu Jolotundo Cafe (10 Halaman sesuai Menu PDF Resmi)
 const menuChapters = [
@@ -102,6 +95,7 @@ const menuChapters = [
 <Layout
   title="Jolotundo Cafe & Warung Ketan | Kuliner Pinus & Kopi Lereng Wilis"
   description="Pondok cafe kayu pinus & warung ketan legendaris di Jolotundo Edupark Bajulan. Nikmati aneka olahan ketan pulen hangat, bakso kuah rempah, kudapan krispi, dan seduhan kopi lereng Wilis."
+  image="/images/facilities/jolotundo-cafe-ketan.jpg"
 >
   <!-- Fullscreen Floating Pill Navigation -->
   <Navbar />
@@ -117,7 +111,7 @@ const menuChapters = [
       <div 
         id="cafe-hero-parallax-layer"
         class="absolute inset-0 w-full h-[120%] -top-[10%] bg-cover bg-center will-change-transform"
-        style="background-image: url('/images/facilities/jolotundo-cafe-ketan.jpg');"
+        style="background-image: url('/images/resto/jolocafe/jolo1.avif');"
       >
         <!-- Sophisticated Editorial Film Gradient -->
         <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/90"></div>
@@ -537,7 +531,8 @@ const menuChapters = [
     <!-- ========================================================================= -->
     <section 
       id="cafe-preview-gallery" 
-      class="relative bg-[#f4efe6] text-[#141110] border-b border-[#141110]/15 select-none h-[200vh] sm:h-[220vh]"
+      class="relative bg-[#f4efe6] text-[#141110] border-b border-[#141110]/15 select-none"
+      style={`height: ${scrollHeightVh}vh;`}
     >
       <!-- Sticky Viewport Frame (Pins at top of screen) -->
       <div 
@@ -548,10 +543,10 @@ const menuChapters = [
         <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#141110]/15 w-full max-w-[1680px] mx-auto shrink-0">
           <div class="flex items-center gap-2.5 text-xs font-mono-tag text-[#141110]/70 tracking-widest uppercase">
             <span class="w-1.5 h-1.5 bg-[#141110]"></span>
-            <span>PREVIEW GALLERY</span>
+            <span>PREVIEW GALLERY // SUASANA & WARUNG KETAN</span>
           </div>
           <div class="flex items-center gap-2 text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest">
-            <span class="hidden sm:inline">Gulir ke bawah untuk eksplorasi visual suasana cafe</span>
+            <span class="hidden sm:inline">Scroll ke bawah untuk eksplorasi visual suasana cafe</span>
           </div>
         </div>
 
@@ -563,24 +558,24 @@ const menuChapters = [
             style="transform: translate3d(0, 0px, 0);"
           >
             {cafeGalleryImages.map((img, i) => (
-              <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl group cursor-pointer transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+              <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group cursor-pointer transform-gpu will-change-transform contain-paint">
                 
                 <!-- Image with Smooth Hover Zoom -->
                 <img 
                   src={img.src} 
                   alt={img.caption} 
                   class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                  loading="lazy"
+                  loading={i < 3 ? "eager" : "lazy"}
                   decoding="async"
                 />
 
                 <!-- Soft Vignette Gradient -->
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/20 pointer-events-none"></div>
 
-                <!-- Top Index Tag -->
+                <!-- Top Index Tag (2-Digit) -->
                 <div class="absolute top-4 left-4 z-10 pointer-events-none">
                   <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-2.5 py-1 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
-                    0{i + 1} // 0{cafeGalleryImages.length}
+                    {String(i + 1).padStart(2, '0')} // {String(cafeGalleryImages.length).padStart(2, '0')}
                   </span>
                 </div>
 
@@ -602,12 +597,12 @@ const menuChapters = [
         <!-- Bottom: 1:1 GoUncharted Bottom Sub-Bar -->
         <div class="w-full max-w-[1680px] mx-auto shrink-0 flex flex-col gap-3 pt-1">
           
-          <!-- Hairline Divider with Dynamic Sliding Progress Bar Line -->
+          <!-- Hairline Divider with Dynamic Sliding Progress Bar Line (GPU ScaleX) -->
           <div class="relative w-full h-[2px] bg-[#141110]/15 overflow-hidden">
             <div 
               id="cafe-progress-bar" 
-              class="absolute top-0 left-0 h-full bg-[#141110] transition-all duration-75 will-change-[width]"
-              style="width: 15%;"
+              class="absolute top-0 left-0 h-full w-full bg-[#141110] transform-gpu origin-left will-change-transform"
+              style="transform: scaleX(0.15);"
             ></div>
           </div>
 
@@ -848,7 +843,7 @@ const menuChapters = [
       updateWords();
     }
 
-    // 3. Sticky Horizontal Scroll Preview Gallery Engine
+    // 3. Sticky Horizontal Scroll Preview Gallery Engine (Zero-Reflow GPU Engine)
     function initCafePreviewGallery() {
       const section = document.getElementById('cafe-preview-gallery');
       const track = document.getElementById('cafe-slider-track');
@@ -857,52 +852,92 @@ const menuChapters = [
       if (!section || !track || !progressBar || !sliderWindow) return;
 
       let isTicking = false;
+      let sectionTop = 0;
+      let totalDistance = 1;
+      let maxScrollX = 0;
+      let windowHeight = window.innerHeight;
 
-      function onScrollGallery() {
+      // Cache DOM metrics on load and resize only
+      function updateMetrics() {
         const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const totalDistance = section.offsetHeight - windowHeight;
-
-        if (totalDistance <= 0) return;
-
-        const scrolled = -rect.top;
-        const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
+        const currentScrollY = window.__lenis ? window.__lenis.scroll : window.scrollY;
+        sectionTop = rect.top + currentScrollY;
+        windowHeight = window.innerHeight;
+        totalDistance = Math.max(1, section.offsetHeight - windowHeight);
 
         const trackWidth = track.scrollWidth;
         const windowWidth = sliderWindow.offsetWidth;
-        const maxScrollX = Math.max(0, trackWidth - windowWidth + 48);
-
-        const translateX = progress * maxScrollX;
-        track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
-
-        const barWidth = 15 + progress * 85;
-        progressBar.style.width = `${barWidth.toFixed(1)}%`;
+        maxScrollX = Math.max(0, trackWidth - windowWidth + 64);
       }
 
-      function handleScroll() {
+      function renderGallery(currentScroll) {
+        const scrolled = currentScroll - sectionTop;
+
+        // Skip off-screen rendering
+        if (scrolled < -windowHeight || scrolled > totalDistance + windowHeight) {
+          return;
+        }
+
+        const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
+        const translateX = progress * maxScrollX;
+
+        // Pure GPU transform - 0 layout reflows!
+        track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
+        progressBar.style.transform = `scaleX(${(0.15 + progress * 0.85).toFixed(4)})`;
+      }
+
+      function onScrollNative() {
         if (!isTicking) {
           requestAnimationFrame(() => {
-            onScrollGallery();
+            const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+            renderGallery(currentScroll);
             isTicking = false;
           });
           isTicking = true;
         }
       }
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
+      // Direct synchronization with Lenis smooth scroll
       if (window.__lenis) {
-        window.__lenis.on('scroll', handleScroll);
+        window.__lenis.on('scroll', (e) => {
+          renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+        });
+      } else {
+        window.addEventListener('scroll', onScrollNative, { passive: true });
+        const checkLenis = setInterval(() => {
+          if (window.__lenis) {
+            window.removeEventListener('scroll', onScrollNative);
+            window.__lenis.on('scroll', (e) => {
+              renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+            });
+            clearInterval(checkLenis);
+          }
+        }, 150);
+        setTimeout(() => clearInterval(checkLenis), 3000);
       }
 
+      // Refresh metrics on resize
       let resizeTimer = null;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-          onScrollGallery();
+          updateMetrics();
+          const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+          renderGallery(currentScroll);
         }, 100);
       }, { passive: true });
 
-      onScrollGallery();
+      // Initial setup
+      updateMetrics();
+      const initialScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+      renderGallery(initialScroll);
+
+      // Re-verify metrics once all images have laid out
+      window.addEventListener('load', () => {
+        updateMetrics();
+        const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+        renderGallery(currentScroll);
+      }, { once: true });
     }
 
     // 4. Heyzine 3D Interactive Flipbook Engine, Chapter Jumps & Mobile Touch Controls

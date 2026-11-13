@@ -7,7 +7,7 @@ import accommodations from '../../data/accommodations.json';
 import siteData from '../../data/siteData.json';
 
 export async function getStaticPaths() {
-  return accommodations.map((camp, idx) => {
+  const paths = accommodations.map((camp, idx) => {
     const prevCamp = idx > 0 ? accommodations[idx - 1] : accommodations[accommodations.length - 1];
     const nextCamp = idx < accommodations.length - 1 ? accommodations[idx + 1] : accommodations[0];
     return {
@@ -15,18 +15,62 @@ export async function getStaticPaths() {
       props: { camp, prevCamp, nextCamp }
     };
   });
+
+  // Alias pinus-camp-plus so existing URLs or bookmarks render seamlessly
+  const pinusCamp = accommodations.find(c => c.id === 'pinus-camp');
+  if (pinusCamp) {
+    const prevCamp = accommodations.find(c => c.id === 'river-camp') || accommodations[0];
+    const nextCamp = accommodations.find(c => c.id === 'camping-ground') || accommodations[accommodations.length - 1];
+    paths.push({
+      params: { id: 'pinus-camp-plus' },
+      props: { camp: pinusCamp, prevCamp, nextCamp }
+    });
+  }
+
+  return paths;
 }
 
 const { camp, prevCamp, nextCamp } = Astro.props;
 
+// Flag specific accommodation types for tailored presentation
+const isPinus = camp.id === 'pinus-camp' || camp.id === 'pinus-camp-plus';
+const isIndian = camp.id === 'indian-camp';
+
 // Determine best background image for the hero
 const heroImage = camp.editorialImage || camp.image;
 const pills = camp.pills || [camp.setting, camp.elevation || "±800 MDPL", camp.tier, `Kapasitas ${camp.capacity}`];
+
+// SEO: Map reliable .jpg Open Graph previews & handle alias canonical
+const ogImageMap: Record<string, string> = {
+  "deluxe-camp": "/images/accommodations/deluxe-camp-new.jpg",
+  "superior-camp": "/images/accommodations/superior-camp-new.jpg",
+  "korean-glamping": "/images/accommodations/korean-glamping-editorial.jpg",
+  "indian-camp": "/images/hero.jpg",
+  "river-camp": "/images/accommodations/river-camp-editorial.jpg",
+  "pinus-camp": "/images/accommodations/pinus-camp-plus-new.jpg",
+  "camping-ground": "/images/accommodations/camping-ground-new.jpg"
+};
+const isAliasRoute = Astro.params.id === 'pinus-camp-plus';
+const siteBase = (Astro.site ? Astro.site.toString() : 'https://jolotundo.vercel.app').replace(/\/$/, '');
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Beranda", "item": `${siteBase}/` },
+    { "@type": "ListItem", "position": 2, "name": "Akomodasi", "item": `${siteBase}/akomodasi` },
+    { "@type": "ListItem", "position": 3, "name": camp.name, "item": `${siteBase}/akomodasi/${camp.id}` }
+  ]
+};
 ---
 
 <Layout 
   title={`${camp.name} — Jolotundo Glamping & Edupark`}
   description={`${camp.name} di Jolotundo Glamping & Edupark. ${camp.headline || camp.tagline}. Kapasitas ${camp.capacity}, ${camp.setting}.`}
+  image={ogImageMap[camp.id] || "/images/hero.jpg"}
+  canonical={`/akomodasi/${camp.id}`}
+  noindex={isAliasRoute}
+  preloadHero={heroImage}
+  schema={breadcrumbSchema}
 >
   <!-- Floating Expanding Capsule Navbar -->
   <Navbar />
@@ -123,15 +167,15 @@ const pills = camp.pills || [camp.setting, camp.elevation || "±800 MDPL", camp.
 
           </div>
 
-          <!-- Right Action Button: Check Availability (Direct WhatsApp Concierge) -->
+          <!-- Right Action Button: Pesan Tenda (Direct Online Booking) -->
           <div class="flex items-center gap-3">
             <a 
-              href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin cek ketersediaan dan booking untuk *${camp.name}*.`)}`}
+              href="https://jolotundo.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center justify-between sm:justify-center gap-3 px-6 sm:px-8 py-3.5 bg-black/80 hover:bg-black text-[#f4efe6] backdrop-blur-md border border-white/25 font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:border-white shadow-2xl w-full sm:w-auto"
             >
-              <span>Check Availability</span>
+              <span>Pesan Tenda Sekarang</span>
               <span>↗</span>
             </a>
           </div>
@@ -224,28 +268,116 @@ const pills = camp.pills || [camp.setting, camp.elevation || "±800 MDPL", camp.
               <span class="text-white/60 uppercase">RESMI JOLOTUNDO</span>
             </div>
 
-            <!-- Price Breakdown -->
-            <div class="flex flex-col gap-4 py-6 border-b border-white/15">
-              <div class="flex items-baseline justify-between">
-                <div>
-                  <span class="text-xs font-mono-tag text-white/50 uppercase block">WEEKDAY (SEN–KAM)</span>
-                  <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-white tracking-tight">
-                    {camp.priceWeekday}
-                  </span>
+            <!-- Price Breakdown (Conditional Multi-Tier for Pinus & Indian, Default for Others) -->
+            {isPinus ? (
+              <div class="flex flex-col gap-4 py-5 border-b border-white/15">
+                <!-- Option 1: Pinus Camp Reguler -->
+                <div class="p-3.5 bg-white/[0.04] border border-white/10 flex flex-col gap-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono-tag text-white font-bold tracking-wider uppercase">01. PINUS CAMP (REGULER)</span>
+                    <span class="text-[10px] font-mono-tag text-white/50 uppercase tracking-widest px-2 py-0.5 bg-white/10">Hutan Pinus</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3 pt-1 border-t border-white/10">
+                    <div>
+                      <span class="text-[10px] font-mono-tag text-white/50 uppercase block">WEEKDAY (SEN–KAM)</span>
+                      <span class="text-lg sm:text-xl font-bold font-mono-tag text-white tracking-tight">Rp 250.000</span>
+                      <span class="text-[9px] font-mono-tag text-white/40 block">/ malam</span>
+                    </div>
+                    <div>
+                      <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase block font-semibold">WEEKEND (JUM–MIN)</span>
+                      <span class="text-lg sm:text-xl font-bold font-mono-tag text-[#d8c39e] tracking-tight">Rp 350.000</span>
+                      <span class="text-[9px] font-mono-tag text-[#d8c39e]/50 block">/ malam</span>
+                    </div>
+                  </div>
                 </div>
-                <span class="text-[11px] font-mono-tag text-white/40 uppercase">/ Malam</span>
-              </div>
 
-              <div class="flex items-baseline justify-between pt-2">
-                <div>
-                  <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block font-semibold">WEEKEND (JUM–MIN)</span>
-                  <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-[#d8c39e] tracking-tight">
-                    {camp.priceWeekend}
-                  </span>
+                <!-- Option 2: Pinus Camp Plus -->
+                <div class="p-3.5 bg-white/[0.04] border border-[#d8c39e]/40 flex flex-col gap-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono-tag text-[#d8c39e] font-bold tracking-wider uppercase">02. PINUS CAMP PLUS</span>
+                    <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-widest px-2 py-0.5 bg-[#d8c39e]/15 border border-[#d8c39e]/30">Tepi Sungai</span>
+                  </div>
+                  <p class="text-[11px] text-white/70 font-sans leading-tight">
+                    Tenda 40–51 tepat di sempadan aliran sungai kecil dengan alunan gemericik air alami.
+                  </p>
+                  <div class="grid grid-cols-2 gap-3 pt-1 border-t border-white/10">
+                    <div>
+                      <span class="text-[10px] font-mono-tag text-white/50 uppercase block">WEEKDAY (SEN–KAM)</span>
+                      <span class="text-lg sm:text-xl font-bold font-mono-tag text-white tracking-tight">Rp 300.000</span>
+                      <span class="text-[9px] font-mono-tag text-white/40 block">/ malam</span>
+                    </div>
+                    <div>
+                      <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase block font-semibold">WEEKEND (JUM–MIN)</span>
+                      <span class="text-lg sm:text-xl font-bold font-mono-tag text-[#d8c39e] tracking-tight">Rp 400.000</span>
+                      <span class="text-[9px] font-mono-tag text-[#d8c39e]/50 block">/ malam</span>
+                    </div>
+                  </div>
                 </div>
-                <span class="text-[11px] font-mono-tag text-white/40 uppercase">/ Malam</span>
+                
+                <span class="text-[10px] font-mono-tag text-white/50 italic tracking-tight">
+                  *Fasilitas & benefit keduanya identik, perbedaan terletak pada lokasi tepi aliran sungai.
+                </span>
               </div>
-            </div>
+            ) : isIndian ? (
+              <div class="flex flex-col gap-4 py-5 border-b border-white/15">
+                <!-- Option 1: Kapasitas 3 Orang -->
+                <div class="p-3.5 bg-white/[0.04] border border-white/10 flex flex-col gap-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono-tag text-white font-bold tracking-wider uppercase">KAPASITAS 3 ORANG</span>
+                    <span class="text-[10px] font-mono-tag text-white/50 uppercase tracking-widest px-2 py-0.5 bg-white/10">3 Tamu</span>
+                  </div>
+                  <div class="flex items-baseline justify-between pt-1 border-t border-white/10">
+                    <div>
+                      <span class="text-[10px] font-mono-tag text-white/50 uppercase block">TARIF SEMUA HARI</span>
+                      <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-white tracking-tight">Rp 600.000</span>
+                    </div>
+                    <span class="text-xs font-mono-tag text-white/40 uppercase">/ Malam</span>
+                  </div>
+                </div>
+
+                <!-- Option 2: Kapasitas 6 Orang -->
+                <div class="p-3.5 bg-white/[0.04] border border-[#d8c39e]/40 flex flex-col gap-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono-tag text-[#d8c39e] font-bold tracking-wider uppercase">KAPASITAS 6 ORANG</span>
+                    <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase tracking-widest px-2 py-0.5 bg-[#d8c39e]/15 border border-[#d8c39e]/30">6 Tamu</span>
+                  </div>
+                  <div class="flex items-baseline justify-between pt-1 border-t border-white/10">
+                    <div>
+                      <span class="text-[10px] font-mono-tag text-[#d8c39e] uppercase block font-semibold">TARIF SEMUA HARI</span>
+                      <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-[#d8c39e] tracking-tight">Rp 900.000</span>
+                    </div>
+                    <span class="text-xs font-mono-tag text-white/40 uppercase">/ Malam</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[10px] font-mono-tag text-white/60 pt-1">
+                  <span>IN: 14.00 WIB — OUT: 12.00 WIB</span>
+                  <span class="italic text-white/40">*Belum termasuk pajak</span>
+                </div>
+              </div>
+            ) : (
+              <div class="flex flex-col gap-4 py-6 border-b border-white/15">
+                <div class="flex items-baseline justify-between">
+                  <div>
+                    <span class="text-xs font-mono-tag text-white/50 uppercase block">WEEKDAY (SEN–KAM)</span>
+                    <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-white tracking-tight">
+                      {camp.priceWeekday}
+                    </span>
+                  </div>
+                  <span class="text-[11px] font-mono-tag text-white/40 uppercase">/ Malam</span>
+                </div>
+
+                <div class="flex items-baseline justify-between pt-2">
+                  <div>
+                    <span class="text-xs font-mono-tag text-[#d8c39e] uppercase block font-semibold">WEEKEND (JUM–MIN)</span>
+                    <span class="text-2xl sm:text-3xl font-bold font-mono-tag text-[#d8c39e] tracking-tight">
+                      {camp.priceWeekend}
+                    </span>
+                  </div>
+                  <span class="text-[11px] font-mono-tag text-white/40 uppercase">/ Malam</span>
+                </div>
+              </div>
+            )}
 
             <!-- Perks Summary -->
             <ul class="flex flex-col gap-2 py-4 text-xs font-mono-tag text-white/75">
@@ -253,30 +385,61 @@ const pills = camp.pills || [camp.setting, camp.elevation || "±800 MDPL", camp.
                 <span class="text-emerald-400">✓</span>
                 <span>Termasuk tiket masuk wisata & parkir kendaraan</span>
               </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-400">✓</span>
-                <span>Termasuk sarapan pagi (breakfast)</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-emerald-400">✓</span>
-                <span>Akses 24 jam ke fasilitas umum & resto</span>
-              </li>
+              {isIndian ? (
+                <>
+                  <li class="flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span>
+                    <span>Termasuk kompor, cooking set, kettle & panggang BBQ</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span>
+                    <span>Set meja, kursi santai outdoor & lampu hias gantung</span>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li class="flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span>
+                    <span>Termasuk sarapan pagi (breakfast)</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-emerald-400">✓</span>
+                    <span>Akses 24 jam ke fasilitas umum & resto</span>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 
-          <!-- Direct Booking WhatsApp Action -->
-          <div class="flex flex-col gap-2">
+          <!-- Direct Booking Action: Redirect ke https://jolotundo.netlify.app/ -->
+          <div class="flex flex-col gap-2.5">
             <a 
-              href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin reservasi *${camp.name}* (${camp.priceWeekday} / ${camp.priceWeekend}). Mohon info ketersediaan tanggal.`)}`}
+              href="https://jolotundo.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               class="w-full py-4 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider text-center transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_10px_25px_rgba(244,239,230,0.25)] flex items-center justify-center gap-2"
             >
-              <span>Booking via WhatsApp Concierge</span>
+              <span>Pesan Tenda Sekarang (Online)</span>
               <span>↗</span>
             </a>
+            
+            <a 
+              href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(
+                isPinus
+                  ? `Halo Admin Jolotundo, saya ingin konsultasi ketersediaan dan reservasi *Pinus Camp / Pinus Camp Plus*.`
+                  : isIndian
+                  ? `Halo Admin Jolotundo, saya ingin konsultasi ketersediaan dan reservasi *Indian Camp* (Kapasitas 3 / 6 Orang).`
+                  : `Halo Admin Jolotundo, saya ingin konsultasi ketersediaan dan reservasi *${camp.name}*.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[11px] font-mono-tag text-white/60 hover:text-[#d8c39e] text-center tracking-wider underline underline-offset-4 py-1 transition-colors block"
+            >
+              Atau konsultasi via WhatsApp Concierge ↗
+            </a>
+            
             <span class="text-[10px] font-mono-tag text-white/40 text-center tracking-wider block">
-              [ RESPON CEPAT VIA CONCIERGE RESMI ]
+              [ SISTEM RESERVASI ONLINE RESMI JOLOTUNDO ]
             </span>
           </div>
 

@@ -25,7 +25,7 @@
         "Sound System Lapangan + Genset Daya Listrik",
         "Suasana Hutan Pinus Nuansa Alam Eksklusif"
       ],
-      "image": "/images/facilities/wedding-forest.jpg",
+      "image": "/images/event/wedding/wedding11.avif",
       "detailHref": "/event/wedding",
       "reverse": false
     },
@@ -47,7 +47,7 @@
         "Screen LCD Display + Proyektor Resolusi Tinggi",
         "Meja, Kursi, Karpet Bersih & Sound System Lengkap"
       ],
-      "image": "/images/facilities/glass-hall-venue.jpg",
+      "image": "/images/event/hall/hall2.avif",
       "detailHref": "/event/aula-hall",
       "reverse": true
     },
@@ -69,7 +69,7 @@
         "Sound System Lapangan Pendukung (Rp 300k)",
         "Jasa Dokumentasi (300k) & Live Music (800k) Tersedia"
       ],
-      "image": "/images/activities/outbound-gathering.jpg",
+      "image": "/images/event/gathering/gathering2.avif",
       "detailHref": "/event/gathering-outbound",
       "reverse": false
     }

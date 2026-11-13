@@ -9,10 +9,11 @@ const categories = [
   { id: "adventure", label: "ATV & Offroad" },
   { id: "equestrian", label: "Wisata Berkuda" },
   { id: "wellness", label: "Pine Forest Spa" },
+  { id: "edukasi", label: "Mini Zoo Edupark" },
   { id: "outbound", label: "Outbound B2B" }
 ];
 
-// Koleksi 5 Sektor Aktivitas & Wahana Jolotundo (Editorial Grid Architecture 1:1 Akomodasi)
+// Koleksi 6 Sektor Aktivitas & Wahana Jolotundo (Editorial Grid Architecture 1:1 Akomodasi)
 const activities = [
   {
     index: "01",
@@ -24,7 +25,7 @@ const activities = [
     capacity: "Single & Tandem",
     tagline: "Sensasi memacu adrenalin di atas quad bike melintasi bebatuan sungai alami dan jalur tanah basah hutan pinus lereng Wilis.",
     pills: ["Short & Long Track", "Mulai Rp 50.000", "Helm & Guide", "3 Sesi Harian"],
-    image: "/images/activities/atv-adventure.jpg",
+    image: "/images/activities/atv/atv1.avif",
     gridClass: "grid-col-7 camp-card-hero"
   },
   {
@@ -37,7 +38,7 @@ const activities = [
     capacity: "Rombongan / Jeep",
     tagline: "Ekspedisi overland menembus tanjakan ekstrem, rute Air Terjun Ngleyangan hingga jalur luar Bandara Dhoho Kediri.",
     pills: ["Rp 600.000 / Mobil Jeep", "Free Snack & Drink", "Air Terjun Ngleyangan", "Driver Berpengalaman"],
-    image: "/images/activities/jeep-offroad.jpg",
+    image: "/images/activities/jeep/jeep4.avif",
     gridClass: "grid-col-5 camp-card-hero"
   },
   {
@@ -50,7 +51,7 @@ const activities = [
     capacity: "Anak & Dewasa",
     tagline: "Ketenangan ritmis menunggang kuda terlatih mengitari arena pinus asri dan semilir kabut dingin pegunungan.",
     pills: ["Mulai Rp 25.000", "Horse Riding Eksklusif", "Dokumentasi Foto", "Sewa Sepatu & Helm"],
-    image: "/images/activities/horse-riding.jpg",
+    image: "/images/activities/horse/horse1.avif",
     gridClass: "grid-col-5 camp-card-hero"
   },
   {
@@ -68,6 +69,19 @@ const activities = [
   },
   {
     index: "05",
+    id: "mini-zoo",
+    name: "Mini Zoo Edupark",
+    category: "edukasi",
+    tier: "Edukasi Satwa & Keluarga",
+    setting: "Pine Forest Zoo",
+    capacity: "Anak, Balita & Keluarga",
+    tagline: "Interaksi hangat mengenal dan memberi makan satwa jinak ramah anak di bawah naungan sejuknya hutan pinus lereng Wilis.",
+    pills: ["Mulai Rp 15.000", "Feeding Kelinci & Rusa", "Ramah Anak & Balita", "Paket Edukasi Sekolah"],
+    image: "/images/activities/zoo/zoo1.avif",
+    gridClass: "grid-col-7 camp-card-hero"
+  },
+  {
+    index: "06",
     id: "outbound-gathering",
     name: "Outbound & Gathering",
     category: "outbound",
@@ -76,15 +90,16 @@ const activities = [
     capacity: "50 s/d 150+ Peserta",
     tagline: "Program dinamika kelompok terintegrasi untuk korporasi, BUMN, dinas kedinasan, dan komunitas dengan 9 fasilitas all-inclusive.",
     pills: ["Mulai Rp 25.000 / Org", "9 Fasilitas Include", "Trainer & Sound System", "Spanduk & P3K"],
-    image: "/images/activities/outbound-gathering.jpg",
-    gridClass: "grid-col-full camp-card-panorama"
+    image: "/images/activities/outbond/outbond1.avif",
+    gridClass: "grid-col-5 camp-card-hero"
   }
 ];
 ---
 
 <Layout 
   title="Wahana, Petualangan & Rekreasi — Jolotundo Glamping & Edupark"
-  description="Katalog resmi wahana petualangan ATV, Jeep Offroad 4x4, wisata berkuda, pine forest spa, dan paket outbound gathering korporat di lereng Gunung Wilis Nganjuk."
+  description="Katalog resmi wahana petualangan ATV Adventure, Jeep Offroad 4x4, wisata berkuda, Mini Zoo Edupark ramah anak, pine forest spa, dan paket outbound gathering korporat di lereng Gunung Wilis Nganjuk."
+  image="/images/activities/wahana-hero.jpg"
 >
   <!-- Floating Expanding Pill Navbar -->
   <Navbar />
@@ -106,7 +121,7 @@ const activities = [
         style="transform: translate3d(0, 0px, 0);"
       >
         <img 
-          src="/images/activities/wahana-hero.jpg" 
+          src="/images/activities/horse/horse1.avif" 
           alt="Wana Wisata & Rekreasi Jolotundo Glamping & Edupark" 
           class="w-full h-full object-cover object-center"
           fetchpriority="high"
@@ -124,7 +139,7 @@ const activities = [
         
         <!-- Small Centered Eyebrow Kicker: [ FIELD GUIDE & RECREATION // GUNUNG WILIS ±800 MDPL ] -->
         <span class="text-xs sm:text-sm font-mono-tag tracking-[0.25em] sm:tracking-[0.35em] text-[#d8c39e] uppercase mb-5 sm:mb-7 drop-shadow-md">
-          [ FIELD GUIDE & RECREATION // GUNUNG WILIS ±800 MDPL ]
+          [ FIELD GUIDE & RECREATION ]
         </span>
 
         <!-- Giant Bold Display Headline (Untamed trails, restorative calm.) -->
@@ -154,7 +169,7 @@ const activities = [
             </div>
             <div class="flex items-center gap-2">
               <span class="text-white/40">SEKTOR</span>
-              <span class="text-[#d8c39e] font-bold">05 KLUSTER WAHANA</span>
+              <span class="text-[#d8c39e] font-bold">06 KLUSTER WAHANA</span>
             </div>
             <div class="hidden md:flex items-center gap-2">
               <span class="text-white/40">OFFICIAL SUPPORT</span>
@@ -205,7 +220,7 @@ const activities = [
         <div class="flex items-center gap-2">
           <span class="font-bold text-[#141110]">KATALOG</span>
           <span class="text-[#141110]/40">/</span>
-          <span>05 WAHANA & REKREASI</span>
+          <span>06 WAHANA & REKREASI</span>
         </div>
         <div class="hidden sm:flex items-center gap-2 text-[#141110]/50 text-[11px]">
           <span>[ LERENG GUNUNG WILIS • ±800 MDPL ]</span>

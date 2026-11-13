@@ -252,58 +252,130 @@ function getGroundCampImages(): Array<{ src: string; caption: string; subtitle: 
   return [];
 }
 
+// Metadata map for indian camp images
+const indianMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "indian1.avif": { caption: "Fasad Utama Indian Camp", subtitle: "Nuansa Etnik Unik di Hutan Pinus", order: 1 },
+  "indian2.avif": { caption: "Tenda Indian & Area Kanopi", subtitle: "Petualangan Hangat di Tengah Alam", order: 2 },
+  "indian3.avif": { caption: "Kesejukan Kanopi Pinus", subtitle: "Udara Bersih Pegunungan Wilis", order: 3 },
+  "indian4.avif": { caption: "Tenda Kerucut Etnik & Santai", subtitle: "Kenyamanan Berkemah Eksklusif", order: 4 },
+  "indian5.avif": { caption: "Area Bersantai & Piknik", subtitle: "Fasilitas Lengkap Bersama Sahabat & Keluarga", order: 5 },
+};
+
+// Dynamically read ALL images from public/images/accommodations/indian folder
+function getIndianCampImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'indian');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => /\.(avif|webp|jpe?g|png)$/i.test(file));
+      files.sort((a, b) => {
+        const orderA = indianMetaMap[a]?.order ?? (parseInt(a.replace(/\D/g, ''), 10) || 99);
+        const orderB = indianMetaMap[b]?.order ?? (parseInt(b.replace(/\D/g, ''), 10) || 99);
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = indianMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Indian Camp Jolotundo"
+        };
+        return {
+          src: encodeURI(`/images/accommodations/indian/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading indian camp images:", err);
+  }
+  return [];
+}
+
+// Metadata map for pinus camp images (15 images covering regular & plus locations)
+const pinusMetaMap: Record<string, { caption: string; subtitle: string; order: number }> = {
+  "pinus1.avif": { caption: "Panggung Kayu di Bawah Pinus", subtitle: "Keteduhan Alami Hutan Pinus Bajulan", order: 1 },
+  "pinus2.avif": { caption: "Tenda Panggung Elevated", subtitle: "Terbebas dari Lembap Tanah Hutan", order: 2 },
+  "pinus3.avif": { caption: "Tepi Aliran Sungai Kecil", subtitle: "Sensasi Suasana Pinus Camp Plus", order: 3 },
+  "pinus4.avif": { caption: "Deretan Tenda Hutan Pinus", subtitle: "Keasrian & Privasi Alami Bersantai", order: 4 },
+  "pinus5.avif": { caption: "Area Santai Kayu", subtitle: "Menghirup Segarnya Udara Wilis", order: 5 },
+  "pinus6.avif": { caption: "Pagi Hari di Bawah Pinus", subtitle: "Sinar Mentari Pagi Menembus Pepohonan", order: 6 },
+  "pinus7.avif": { caption: "Jalur Setapak Asri", subtitle: "Akses Nyaman Antara Tenda & Fasilitas", order: 7 },
+  "pinus8.avif": { caption: "Tenda Panggung Tepi Sungai", subtitle: "Alunan Tenang Air Mengalir Sepanjang Hari", order: 8 },
+  "pinus9.avif": { caption: "Perspektif Kanopi Rimba", subtitle: "Kesejukan Asli Ketinggian 800 MDPL", order: 9 },
+  "pinus10.avif": { caption: "Suasana Teduh & Santai", subtitle: "Tempat Sempurna Healing Bersama Teman", order: 10 },
+  "pinus11.avif": { caption: "Tenda Bersih Siap Huni", subtitle: "Layanan Bongkar Pasang Tanpa Repot", order: 11 },
+  "pinus12.avif": { caption: "Area Santai Depan Tenda", subtitle: "Piknik Santai Menikmati Kopi & Camilan", order: 12 },
+  "pinus13.avif": { caption: "Nuansa Alam Terjaga", subtitle: "Ekosistem Hijau & Udara Terbuka", order: 13 },
+  "pinus14.avif": { caption: "Kehangatan Senja Hutan", subtitle: "Cahaya Lembut Menjelang Sore Hari", order: 14 },
+  "pinus15.avif": { caption: "Malam Hari di Hutan Pinus", subtitle: "Ketenangan Suasana Berkemah Autentik", order: 15 },
+};
+
+// Dynamically read ALL images from public/images/accommodations/pinuscamp folder
+function getPinusCampImages(): Array<{ src: string; caption: string; subtitle: string }> {
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'accommodations', 'pinuscamp');
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(file => /\.(avif|webp|jpe?g|png)$/i.test(file));
+      files.sort((a, b) => {
+        const orderA = pinusMetaMap[a]?.order ?? (parseInt(a.replace(/\D/g, ''), 10) || 99);
+        const orderB = pinusMetaMap[b]?.order ?? (parseInt(b.replace(/\D/g, ''), 10) || 99);
+        return orderA - orderB || a.localeCompare(b);
+      });
+      return files.map(file => {
+        const meta = pinusMetaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Pinus Camp Jolotundo"
+        };
+        return {
+          src: encodeURI(`/images/accommodations/pinuscamp/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading pinus camp images:", err);
+  }
+  return [];
+}
+
 const deluxeGalleryImages = getDeluxeCampImages();
 const riverGalleryImages = getRiverCampImages();
 const koreanGalleryImages = getKoreanGlampingImages();
 const superiorGalleryImages = getSuperiorCampImages();
 const groundGalleryImages = getGroundCampImages();
+const indianGalleryImages = getIndianCampImages();
+const pinusGalleryImages = getPinusCampImages();
 
 // Curate diverse, photorealistic preview images tailored for this camp experience
 const campGalleries: Record<string, Array<{ src: string; caption: string; subtitle: string }>> = {
-  "deluxe-camp": deluxeGalleryImages.length > 0 ? deluxeGalleryImages : [
-    { src: "/images/accommodations/deluxecamp/deluxe1.avif", caption: "Kabin Jati Tepi Sungai", subtitle: "AC & Kenyamanan Hotel Bintang" }
-  ],
+  "deluxe-camp": deluxeGalleryImages,
   "deluxe": deluxeGalleryImages,
   "deluxecamp": deluxeGalleryImages,
-  "river-camp": riverGalleryImages.length > 0 ? riverGalleryImages : [
-    { src: "/images/accommodations/rivercamp/river1.avif", caption: "Dek Kayu Tepi Sungai", subtitle: "Sensasi Suara Alam Mengalir" },
-    { src: "/images/accommodations/river-camp-editorial.jpg", caption: "Alunan Air Alami", subtitle: "Gemericik Sungai Berbatu Alami" }
-  ],
+  "river-camp": riverGalleryImages,
   "rivercamp": riverGalleryImages,
   "river": riverGalleryImages,
-  "korean-glamping": koreanGalleryImages.length > 0 ? koreanGalleryImages : [
-    { src: "/images/accommodations/koreanglamping/korean1.avif", caption: "Aesthetic Korean Camp", subtitle: "Desain Hangat & Fotogenik" }
-  ],
+  "korean-glamping": koreanGalleryImages,
   "koreanglamping": koreanGalleryImages,
   "korean": koreanGalleryImages,
-  "superior-camp": superiorGalleryImages.length > 0 ? superiorGalleryImages : [
-    { src: "/images/accommodations/superior/superior.avif", caption: "Kabin Modern Superior", subtitle: "Smart TV, AC & Tea Maker" }
-  ],
+  "indian-camp": indianGalleryImages,
+  "indian": indianGalleryImages,
+  "superior-camp": superiorGalleryImages,
   "superior": superiorGalleryImages,
-  "camping-ground": groundGalleryImages.length > 0 ? groundGalleryImages : [
-    { src: "/images/accommodations/ground/ground.avif", caption: "Hamparan Berkemah Luas", subtitle: "Esensi Berkemah Murni di Alam" }
-  ],
+  "camping-ground": groundGalleryImages,
   "ground": groundGalleryImages,
-  "pinus-camp-plus": [
-    { src: "/images/accommodations/pinus-camp-plus-new.jpg", caption: "Panggung Dek & Sungai", subtitle: "Tenda Menghadap Aliran Air" },
-    { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Deretan Ribuan Pinus", subtitle: "Privasi Asri & Alami" },
-    { src: "/images/grill/bbq-gear-rental.jpg", caption: "Meja & Kursi Santai", subtitle: "Ngopi Pagi Menghirup Udara Sejuk" },
-    { src: "/images/upgrade/paket-a-atv-comfort.jpg", caption: "Petualangan Wana Wisata", subtitle: "Jalur Off-road Hutan Pinus" },
-    { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Malam Dingin Pegunungan", subtitle: "Hangat Bersama Api Unggun" }
-  ],
-  "pinus-camp": [
-    { src: "/images/accommodations/pinus-camp-editorial.jpg", caption: "Tenda Autentik Pinus", subtitle: "Menyatu Murni dengan Alam Bebas" },
-    { src: "/images/accommodations/pinus-camp-plus-new.jpg", caption: "Panggung Kayu Elevated", subtitle: "Terlindung Bebas Lembab Tanah" },
-    { src: "/images/grill/bbq-gear-rental.jpg", caption: "Santai Kopi & Teh", subtitle: "Menghayati Ketenangan Hutan" },
-    { src: "/images/upgrade/paket-c-campfire-choice.jpg", caption: "Api Unggun Hutan", subtitle: "Cahaya Bara di Tengah Malam" }
-  ]
+  "pinus-camp": pinusGalleryImages,
+  "pinus": pinusGalleryImages,
+  "pinuscamp": pinusGalleryImages,
+  "pinus-camp-plus": pinusGalleryImages
 };
 
-// Select images: prioritize dynamic folders if camp is deluxe, river camp, korean glamping, superior, or ground
+// Select images: prioritize dynamic folders if camp matches any known accommodation
 const isDeluxe = camp.id === 'deluxe-camp' || camp.id === 'deluxe' || camp.id.includes('delux');
 const isRiver = camp.id === 'river-camp' || camp.id === 'rivercamp' || camp.id.includes('river');
 const isKorean = camp.id === 'korean-glamping' || camp.id === 'koreanglamping' || camp.id.includes('korean');
+const isIndian = camp.id === 'indian-camp' || camp.id === 'indian' || camp.id.includes('indian');
 const isSuperior = camp.id === 'superior-camp' || camp.id === 'superior' || camp.id.includes('superior');
+const isPinus = camp.id === 'pinus-camp' || camp.id === 'pinus-camp-plus' || camp.id.includes('pinus');
 const isGround = camp.id === 'camping-ground' || camp.id === 'ground' || camp.id.includes('ground');
 
 const galleryImages = (isDeluxe && deluxeGalleryImages.length > 0)
@@ -312,8 +384,12 @@ const galleryImages = (isDeluxe && deluxeGalleryImages.length > 0)
   ? riverGalleryImages
   : (isKorean && koreanGalleryImages.length > 0)
   ? koreanGalleryImages
+  : (isIndian && indianGalleryImages.length > 0)
+  ? indianGalleryImages
   : (isSuperior && superiorGalleryImages.length > 0)
   ? superiorGalleryImages
+  : (isPinus && pinusGalleryImages.length > 0)
+  ? pinusGalleryImages
   : (isGround && groundGalleryImages.length > 0)
   ? groundGalleryImages
   : (campGalleries[camp.id] || [
@@ -463,12 +539,12 @@ const scrollHeightVh = Math.max(220, Math.min(340, 180 + galleryImages.length * 
           </div>
 
           <a 
-            href={`https://wa.me/${siteData.brand.whatsapp}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin cek ketersediaan dan booking untuk *${camp.name}*.`)}`}
+            href="https://jolotundo.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            class="px-5 sm:px-6 py-2.5 sm:py-3 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-[0_8px_20px_rgba(20,17,16,0.3)] shrink-0"
+            class="px-5 sm:px-6 py-2.5 sm:py-3 bg-[#141110] hover:bg-black text-[#f4efe6] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#141110] hover:shadow-[0_8px_20px_rgba(20,17,16,0.3)] shrink-0 flex items-center gap-2"
           >
-            <span>Reservasi</span>
+            <span>Pesan Tenda</span>
             <span>↗</span>
           </a>
         </div>

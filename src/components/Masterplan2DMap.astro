@@ -437,11 +437,15 @@ const forestClumps = [
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
       <!-- MAP VIEWPORT CANVAS (8 COLS ON DESKTOP) -->
-      <div class="lg:col-span-8 relative border border-[#141110]/30 bg-[#f3efc6] overflow-hidden shadow-md">
+      <div 
+        class="lg:col-span-8 relative border border-[#141110]/30 bg-[#f3efc6] overflow-hidden shadow-md"
+        data-lenis-prevent
+      >
         
         <!-- Top-Left Floating Status Pill inside Map -->
-        <div class="absolute top-3 left-3 z-20 pointer-events-none bg-[#141110]/90 text-[#f4efe6] px-3 py-1.5 text-[10px] font-mono-tag uppercase tracking-widest">
-          <span>KLIK ITEM UNTUK POPUP INFO • SCROLL / TOMBOL +/- UNTUK ZOOM</span>
+        <div class="absolute top-3 left-3 z-20 pointer-events-none bg-[#141110]/90 text-[#f4efe6] px-3 py-1.5 text-[10px] font-mono-tag uppercase tracking-widest border border-white/10 shadow-md">
+          <span class="hidden sm:inline">KLIK ITEM INFO • SCROLL MOUSE / TOMBOL +/- UNTUK ZOOM</span>
+          <span class="sm:hidden">TAP ITEM INFO • SWIPE 2 JARI / TOMBOL +/- UNTUK ZOOM</span>
         </div>
 
         <!-- Bottom-Right Floating On-Canvas Zoom Controls -->
@@ -455,8 +459,21 @@ const forestClumps = [
         <div 
           id="map-pan-zoom-viewport" 
           class="w-full relative overflow-hidden cursor-grab active:cursor-grabbing select-none"
-          style="aspect-ratio: 1200 / 1650; max-height: 1120px; background-color: #f3efc6;"
+          style="aspect-ratio: 1200 / 1650; max-height: 1120px; background-color: #f3efc6; touch-action: pan-y;"
+          data-lenis-prevent
         >
+          <!-- Two-Finger Mobile Gesture Hint Overlay (Google Maps Style) -->
+          <div 
+            id="mobile-gesture-overlay"
+            class="opacity-0 pointer-events-none transition-opacity duration-300 absolute inset-0 z-40 bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center p-6 text-center select-none"
+          >
+            <div class="px-5 py-3 bg-[#141110] border border-[#d8c39e]/50 text-white shadow-2xl flex items-center gap-3">
+              <span class="text-xl">✌️</span>
+              <span class="font-mono-tag text-xs tracking-wider uppercase text-[#f4efe6]">
+                Gunakan 2 jari untuk menggeser & zoom peta
+              </span>
+            </div>
+          </div>
           <!-- ================================================================= -->
           <!-- IN-MAP FLOATING CALLOUT TOOLTIP WITH POINTER ARROW                -->
           <!-- Appears directly above the clicked tent or zone!                  -->
@@ -1766,19 +1783,46 @@ const forestClumps = [
     zoomResetBtn?.addEventListener('click', handleZoomReset);
     canvasZoomReset?.addEventListener('click', handleZoomReset);
 
+    // =========================================================================
+    // DESKTOP: MOUSE WHEEL ZOOM & CURSOR-FOCUSED CONTROL
+    // =========================================================================
+    // When cursor is inside viewport: freeze outer page scroll (Lenis) so 100% of wheel zooms map
+    viewport.addEventListener('mouseenter', () => {
+      if (window.__lenis) {
+        window.__lenis.stop();
+      }
+    });
+
+    viewport.addEventListener('mouseleave', () => {
+      if (window.__lenis && !isPinching) {
+        window.__lenis.start();
+      }
+    });
+
+    window.addEventListener('blur', () => {
+      if (window.__lenis) window.__lenis.start();
+    });
+
+    // Mouse wheel zoom focused directly on cursor point
     viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
+      e.stopPropagation();
+
       const rect = viewport.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
       const mouseRelX = (e.clientX - rect.left) / rect.width;
       const mouseRelY = (e.clientY - rect.top) / rect.height;
       const focusX = vx + mouseRelX * vw;
       const focusY = vy + mouseRelY * vh;
 
-      const delta = e.deltaY < 0 ? 0.28 : -0.28;
+      // Smooth proportional delta zoom
+      const delta = e.deltaY < 0 ? 0.32 : -0.32;
       zoomToPoint(zoom + delta, focusX, focusY);
     }, { passive: false });
 
-    let isDragging = false;
+    // Desktop Mouse Drag to Pan
+    let isMouseDragging = false;
     let dragMoved = false;
     let startClientX = 0;
     let startClientY = 0;
@@ -1787,7 +1831,7 @@ const forestClumps = [
 
     viewport.addEventListener('mousedown', (e) => {
       if (callout && callout.contains(e.target)) return;
-      isDragging = true;
+      isMouseDragging = true;
       dragMoved = false;
       startClientX = e.clientX;
       startClientY = e.clientY;
@@ -1796,7 +1840,7 @@ const forestClumps = [
     });
 
     window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
+      if (!isMouseDragging) return;
       const dx = e.clientX - startClientX;
       const dy = e.clientY - startClientY;
       if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
@@ -1823,41 +1867,141 @@ const forestClumps = [
     });
 
     window.addEventListener('mouseup', () => {
-      isDragging = false;
+      isMouseDragging = false;
     });
+
+    // =========================================================================
+    // MOBILE & TOUCH: 2-FINGER PINCH-TO-ZOOM & PAN + 1-FINGER PAGE SCROLL
+    // =========================================================================
+    const gestureOverlay = document.getElementById('mobile-gesture-overlay');
+    let overlayTimeout = null;
+
+    function showGestureHint() {
+      if (!gestureOverlay) return;
+      gestureOverlay.classList.remove('opacity-0');
+      gestureOverlay.classList.add('opacity-100');
+      if (overlayTimeout) clearTimeout(overlayTimeout);
+      overlayTimeout = setTimeout(() => {
+        gestureOverlay.classList.remove('opacity-100');
+        gestureOverlay.classList.add('opacity-0');
+      }, 1200);
+    }
+
+    let isPinching = false;
+    let initialTouchDistance = null;
+    let initialTouchZoom = zoom;
+    let touchStartMidX = 0;
+    let touchStartMidY = 0;
+    let touchFocusSvgX = 0;
+    let touchFocusSvgY = 0;
+    let lastTapTime = 0;
+    let singleTouchMoved = false;
 
     viewport.addEventListener('touchstart', (e) => {
       if (callout && callout.contains(e.target)) return;
-      if (e.touches.length === 1) {
-        isDragging = true;
-        dragMoved = false;
-        startClientX = e.touches[0].clientX;
-        startClientY = e.touches[0].clientY;
+
+      if (e.touches.length === 2) {
+        // Two fingers detected: take full control of map (pinch zoom + 2-finger pan)
+        isPinching = true;
+        const t0 = e.touches[0];
+        const t1 = e.touches[1];
+
+        initialTouchDistance = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+        initialTouchZoom = zoom;
+
+        const rect = viewport.getBoundingClientRect();
+        touchStartMidX = (t0.clientX + t1.clientX) / 2;
+        touchStartMidY = (t0.clientY + t1.clientY) / 2;
         startVx = vx;
         startVy = vy;
+
+        const relX = (touchStartMidX - rect.left) / rect.width;
+        const relY = (touchStartMidY - rect.top) / rect.height;
+        touchFocusSvgX = vx + relX * vw;
+        touchFocusSvgY = vy + relY * vh;
+
+        if (window.__lenis) window.__lenis.stop();
+        e.preventDefault();
+      } else if (e.touches.length === 1) {
+        // Single finger: allow native page scroll without trapping user
+        isPinching = false;
+        initialTouchDistance = null;
+        singleTouchMoved = false;
       }
-    }, { passive: true });
+    }, { passive: false });
 
     viewport.addEventListener('touchmove', (e) => {
-      if (!isDragging || e.touches.length !== 1) return;
-      const dx = e.touches[0].clientX - startClientX;
-      const dy = e.touches[0].clientY - startClientY;
-      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
-        dragMoved = true;
+      if (e.touches.length === 2 && isPinching && initialTouchDistance) {
+        // Two-finger gesture: pinch-to-zoom and two-finger pan
+        e.preventDefault();
+        e.stopPropagation();
+
+        const t0 = e.touches[0];
+        const t1 = e.touches[1];
+        const currentDistance = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+        const rect = viewport.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const scale = currentDistance / initialTouchDistance;
+        const targetZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, initialTouchZoom * scale));
+
+        const currentMidX = (t0.clientX + t1.clientX) / 2;
+        const currentMidY = (t0.clientY + t1.clientY) / 2;
+        const dx = currentMidX - touchStartMidX;
+        const dy = currentMidY - touchStartMidY;
+
+        zoom = targetZoom;
+        vw = MAP_W / zoom;
+        vh = MAP_H / zoom;
+
+        const relX = (touchStartMidX - rect.left) / rect.width;
+        const relY = (touchStartMidY - rect.top) / rect.height;
+
+        vx = touchFocusSvgX - relX * vw - (dx / rect.width) * vw;
+        vy = touchFocusSvgY - relY * vh - (dy / rect.height) * vh;
+
+        applyViewBox();
+      } else if (e.touches.length === 1) {
+        // Single finger swiped across map: let page scroll, show gentle two-finger prompt
+        if (!singleTouchMoved) {
+          singleTouchMoved = true;
+          showGestureHint();
+        }
       }
-      const rect = viewport.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
+    }, { passive: false });
 
-      const svgDx = (dx / rect.width) * vw;
-      const svgDy = (dy / rect.height) * vh;
+    viewport.addEventListener('touchend', (e) => {
+      if (e.touches.length < 2) {
+        isPinching = false;
+        initialTouchDistance = null;
+        if (window.__lenis) window.__lenis.start();
+      }
 
-      vx = startVx - svgDx;
-      vy = startVy - svgDy;
-      applyViewBox();
-    }, { passive: true });
+      // Quick double-tap with single finger to zoom in or reset
+      if (e.changedTouches.length === 1 && e.touches.length === 0) {
+        const now = Date.now();
+        if (now - lastTapTime < 300) {
+          const touch = e.changedTouches[0];
+          const rect = viewport.getBoundingClientRect();
+          const mouseRelX = (touch.clientX - rect.left) / rect.width;
+          const mouseRelY = (touch.clientY - rect.top) / rect.height;
+          const focusX = vx + mouseRelX * vw;
+          const focusY = vy + mouseRelY * vh;
 
-    viewport.addEventListener('touchend', () => {
-      isDragging = false;
+          if (zoom > 1.8) {
+            handleZoomReset();
+          } else {
+            zoomToPoint(zoom + 0.8, focusX, focusY);
+          }
+        }
+        lastTapTime = now;
+      }
+    });
+
+    viewport.addEventListener('touchcancel', () => {
+      isPinching = false;
+      initialTouchDistance = null;
+      if (window.__lenis) window.__lenis.start();
     });
 
     calloutCloseBtn?.addEventListener('click', (e) => {

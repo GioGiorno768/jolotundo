@@ -22,11 +22,29 @@ const { venue, prevVenue, nextVenue } = Astro.props;
 const waPhone = venue.contactWa || "6282249829998";
 const waMessage = `Halo Admin Jolotundo Glamping & Culture, saya ingin konsultasi dan informasi ketersediaan untuk *${venue.name}*.`;
 const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(waMessage)}`;
+
+const ogImageMap: Record<string, string> = {
+  "wedding": "/images/facilities/wedding-forest.jpg",
+  "aula-hall": "/images/facilities/glass-hall-venue.jpg",
+  "gathering-outbound": "/images/facilities/meeting-hall-pendopo.jpg"
+};
+const siteBase = (Astro.site ? Astro.site.toString() : 'https://jolotundo.vercel.app').replace(/\/$/, '');
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Beranda", "item": `${siteBase}/` },
+    { "@type": "ListItem", "position": 2, "name": "Event & Gathering", "item": `${siteBase}/event` },
+    { "@type": "ListItem", "position": 3, "name": venue.name, "item": `${siteBase}/event/${venue.id}` }
+  ]
+};
 ---
 
 <Layout 
   title={`${venue.name} — Jolotundo Glamping & Culture`}
   description={`${venue.name} di Jolotundo Glamping & Culture, Bajulan, lereng Gunung Wilis. ${venue.tagline}. Mulai ${venue.priceStarting}.`}
+  image={ogImageMap[venue.id] || "/images/facilities/event-hero.jpg"}
+  schema={breadcrumbSchema}
 >
   <!-- Floating Expanding Capsule Navbar -->
   <Navbar />

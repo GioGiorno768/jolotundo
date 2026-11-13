@@ -1,4 +1,7 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
+
 interface Props {
   venue: {
     id: string;
@@ -15,17 +18,99 @@ interface Props {
 }
 
 const { venue } = Astro.props;
-const galleryImages = venue.gallery || [];
+
+// Mapping venue ID to folder name in public/images/event/
+const eventFolderMap: Record<string, string> = {
+  "wedding": "prewed",
+  "wedding-outdoor": "prewed",
+  "prewed": "prewed",
+  "aula-hall": "hall",
+  "hall": "hall",
+  "glass-hall-mice": "hall",
+  "gathering-outbound": "gathering",
+  "gathering": "gathering"
+};
+
+// Curated metadata for each event image
+const eventMetaMap: Record<string, Record<string, { caption: string; subtitle: string; order: number }>> = {
+  prewed: {
+    "wedding11.avif": { caption: "Ijab Qobul & Janji Suci", subtitle: "Momen Sakral di Bawah Kanopi Pinus", order: 1 },
+    "wedding1.avif": { caption: "Lorong Masuk Rustic Alami", subtitle: "Dekorasi Kayu & Bunga Liar Lereng Wilis", order: 2 },
+    "wedding2.avif": { caption: "Prosesi Pengantin Intimate", subtitle: "Kehangatan Keluarga Tanpa Kebisingan Kota", order: 3 },
+    "wedding3.avif": { caption: "Dekorasi Floral & Kanopi", subtitle: "Sentuhan Elegan Berpadu Alami", order: 4 },
+    "wedding4.avif": { caption: "Siluet Asri Nuansa Pinus", subtitle: "Pencahayaan Alami Pegunungan ±800 MDPL", order: 5 },
+    "wedding5.avif": { caption: "Resepsi Outdoor Asri", subtitle: "Hamparan Rumput Hijau Luas Terawat", order: 6 },
+    "wedding6.avif": { caption: "Sesi Pemotretan Pengantin", subtitle: "Momen Romantis Abadi Bersama Pasangan", order: 7 },
+    "wedding7.avif": { caption: "Sudut Temaram Romantis", subtitle: "Pendar Lampu Hangat Nuansa Senja", order: 8 },
+    "wedding8.avif": { caption: "Potret Bahagia Kedua Mempelai", subtitle: "Senyum Hangat di Pelukan Alam Wilis", order: 9 },
+    "wedding9.avif": { caption: "Lorong Pepohonan Magis", subtitle: "Keanggunan Busana Berlatar Rimba", order: 10 },
+    "wedding10.avif": { caption: "Petualangan Cinta Romantis", subtitle: "Konsep Prewedding Unik & Berkesan", order: 11 },
+    "wedding12.avif": { caption: "Pesta Romantis Hutan Pinus", subtitle: "Kenangan Abadi Pernikahan Impian", order: 12 },
+  },
+  hall: {
+    "hall2.avif": { caption: "Fasad Glasshouse Hall Modern", subtitle: "Arsitektur Kaca 360° Menghadap Hutan Pinus", order: 1 },
+    "hall1.avif": { caption: "Interior Sejuk Full AC", subtitle: "Tata Ruang Fleksibel Seminar & Rapat Kerja", order: 2 },
+    "hall3.avif": { caption: "Suasana Hangat Rapat Dinas", subtitle: "Kapasitas 60–120 Tamu Nyaman & Privat", order: 3 },
+    "hall4.avif": { caption: "Panorama 360° Sudut Kaca", subtitle: "Ketenangan Alami Pendorong Ide Strategis", order: 4 },
+  },
+  gathering: {
+    "gathering2.avif": { caption: "Keseruan Dinamika Outbound", subtitle: "Membangun Kekompakan & Sinergi Tim", order: 1 },
+    "gathering1.avif": { caption: "Ice Breaking & Fun Games", subtitle: "Tawa Ceria & Mencairkan Batas Tim", order: 2 },
+    "gathering3.avif": { caption: "Arena Lapangan Pinus Luas", subtitle: "Hamparan Rumput Hijau Terawat Kapasitas Besar", order: 3 },
+    "gathering4.avif": { caption: "Yel-Yel & Semangat Kebersamaan", subtitle: "Energi Positif Dipandu Trainer Profesional", order: 4 },
+    "gathering5.avif": { caption: "Foto Bersama Rombongan", subtitle: "Kenangan Berkesan Komunitas & Korporat", order: 5 },
+  }
+};
+
+// Dynamically read images from folder if available
+function getEventImages(venueId: string): Array<{ src: string; caption: string; subtitle: string }> {
+  const folder = eventFolderMap[venueId];
+  if (!folder) return [];
+  try {
+    const dirPath = path.join(process.cwd(), 'public', 'images', 'event', folder);
+    if (fs.existsSync(dirPath)) {
+      const files = fs.readdirSync(dirPath).filter(f => /\.(avif|webp|jpe?g|png)$/i.test(f));
+      const metaMap = eventMetaMap[folder] || {};
+      files.sort((a, b) => {
+        const orderA = metaMap[a]?.order ?? 99;
+        const orderB = metaMap[b]?.order ?? 99;
+        return orderA - orderB || a.localeCompare(b);
+      });
+      // Route through /images/event/wedding if folder is prewed for clean URLs, or directly folder
+      const publicFolder = folder === 'prewed' ? 'wedding' : folder;
+      return files.map(file => {
+        const meta = metaMap[file] || {
+          caption: file.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ').toUpperCase(),
+          subtitle: "Jolotundo Glamping & Culture"
+        };
+        return {
+          src: encodeURI(`/images/event/${publicFolder}/${file}`),
+          caption: meta.caption,
+          subtitle: meta.subtitle
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error reading event images:", err);
+  }
+  return [];
+}
+
+const dynamicImages = getEventImages(venue.id);
+const galleryImages = dynamicImages.length > 0 ? dynamicImages : (venue.gallery || []);
 
 // WhatsApp Hotline
 const waPhone = venue.contactWa || "6282249829998";
 const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jolotundo, saya ingin informasi reservasi dan cek jadwal untuk *${venue.name}*.`)}`;
+
+// Calculate dynamic scroll height based on image count
+const scrollHeightVh = Math.max(220, Math.min(340, 180 + galleryImages.length * 12));
 ---
 
 <!-- 
   =============================================================================
   SECTION: STICKY HORIZONTAL SCROLL PREVIEW GALLERY (1:1 GOUNCHARTED REFERENCE)
-  - Outer Container: Tall vertical scroll distance (280vh)
+  - Outer Container: Dynamic vertical scroll distance based on image count
   - Sticky Viewport: Pins at top of screen (h-screen)
   - Horizontal Track: Translates -X on vertical scroll
   - Bottom Bar: 1:1 with GoUncharted (Title, Specs, Progress Line, Price, CTA)
@@ -34,7 +119,7 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
 <section 
   id="event-preview-gallery" 
   class="relative bg-[#f4efe6] text-[#141110] border-t border-[#141110]/15 select-none"
-  style="height: 280vh;"
+  style={`height: ${scrollHeightVh}vh;`}
 >
   
   <!-- Sticky Viewport Frame (Pins at top of screen) -->
@@ -51,7 +136,7 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
       </div>
       <div class="flex items-center gap-2 text-[11px] font-mono-tag text-[#141110]/60 uppercase tracking-widest">
         <span class="inline-block w-1.5 h-1.5 bg-[#141110] animate-pulse"></span>
-        <span class="hidden sm:inline">Gulir ke bawah untuk menjelajahi sudut venue</span>
+        <span class="hidden sm:inline">Scroll ke bawah untuk menjelajahi sudut venue</span>
         <span class="sm:hidden">Scroll untuk foto venue</span>
       </div>
     </div>
@@ -64,24 +149,24 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
         style="transform: translate3d(0, 0px, 0);"
       >
         {galleryImages.map((img, i) => (
-          <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-2xl group cursor-pointer transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+          <div class="gallery-card shrink-0 relative h-[48vh] sm:h-[54vh] lg:h-[58vh] aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-[#141110] border border-[#141110]/20 shadow-xl group cursor-pointer transform-gpu will-change-transform contain-paint">
             
             <!-- Image with Smooth Hover Zoom -->
             <img 
               src={img.src} 
               alt={img.caption} 
               class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              loading="lazy"
+              loading={i < 3 ? "eager" : "lazy"}
               decoding="async"
             />
 
             <!-- Soft Vignette Gradient -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/20 pointer-events-none"></div>
 
-            <!-- Top Index Tag -->
+            <!-- Top Index Tag (2-digit: 01 // 12, etc.) -->
             <div class="absolute top-4 left-4 z-10 pointer-events-none">
               <span class="text-[10px] font-mono-tag tracking-widest text-[#d8c39e] uppercase px-2.5 py-1 bg-black/75 backdrop-blur-md border border-white/10 font-bold">
-                0{i + 1} // 0{galleryImages.length}
+                {String(i + 1).padStart(2, '0')} // {String(galleryImages.length).padStart(2, '0')}
               </span>
             </div>
 
@@ -103,12 +188,12 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
     <!-- Bottom: 1:1 GoUncharted Bottom Sub-Bar -->
     <div class="w-full max-w-[1680px] mx-auto shrink-0 flex flex-col gap-3 pt-1">
       
-      <!-- Hairline Divider with Dynamic Sliding Progress Bar Line -->
+      <!-- Hairline Divider with Dynamic Sliding Progress Bar Line (GPU ScaleX) -->
       <div class="relative w-full h-[2px] bg-[#141110]/15 overflow-hidden">
         <div 
           id="event-gallery-progress-bar" 
-          class="absolute top-0 left-0 h-full bg-[#141110] transition-all duration-75 will-change-[width]"
-          style="width: 15%;"
+          class="absolute top-0 left-0 h-full w-full bg-[#141110] transform-gpu origin-left will-change-transform"
+          style="transform: scaleX(0.15);"
         ></div>
       </div>
 
@@ -187,7 +272,7 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
 </style>
 
 <!-- ========================================================================= -->
-<!-- JAVASCRIPT: STICKY HORIZONTAL SCROLL CONTROLLER SCRIPT                    -->
+<!-- JAVASCRIPT: ZERO-REFLOW GPU SCROLL CONTROLLER SCRIPT                      -->
 <!-- ========================================================================= -->
 <script is:inline>
   function initEventGallery() {
@@ -199,48 +284,92 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
     if (!section || !track || !progressBar || !sliderWindow) return;
 
     let isTicking = false;
+    let sectionTop = 0;
+    let totalDistance = 1;
+    let maxScrollX = 0;
+    let windowHeight = window.innerHeight;
 
-    function updateScroll() {
+    // Cache DOM measurements on load and resize only
+    function updateMetrics() {
       const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
-      const windowHeight = window.innerHeight;
+      const currentScrollY = window.__lenis ? window.__lenis.scroll : window.scrollY;
+      sectionTop = rect.top + currentScrollY;
+      windowHeight = window.innerHeight;
+      totalDistance = Math.max(1, section.offsetHeight - windowHeight);
 
-      // Calculate vertical scroll progress through the section [0, 1]
-      const totalScrollableDistance = sectionHeight - windowHeight;
-      const scrolledDistance = -rect.top;
-
-      let progress = 0;
-      if (scrolledDistance > 0) {
-        progress = Math.min(1, Math.max(0, scrolledDistance / totalScrollableDistance));
-      }
-
-      // Horizontal track dimensions
       const trackWidth = track.scrollWidth;
       const windowWidth = sliderWindow.offsetWidth;
-      const maxHorizontalScroll = Math.max(0, trackWidth - windowWidth + 40);
-
-      // Interpolate horizontal translation using smooth GPU transform
-      const currentTranslateX = progress * maxHorizontalScroll;
-      track.style.transform = `translate3d(-${currentTranslateX.toFixed(1)}px, 0, 0)`;
-
-      // Update progress bar width
-      const barPercentage = Math.max(12, Math.min(100, (progress * 88) + 12));
-      progressBar.style.width = `${barPercentage.toFixed(1)}%`;
+      maxScrollX = Math.max(0, trackWidth - windowWidth + 64);
     }
 
-    function handleScroll() {
+    function renderGallery(currentScroll) {
+      const scrolled = currentScroll - sectionTop;
+
+      // Skip off-screen rendering
+      if (scrolled < -windowHeight || scrolled > totalDistance + windowHeight) {
+        return;
+      }
+
+      const progress = Math.max(0, Math.min(1, scrolled / totalDistance));
+      const translateX = progress * maxScrollX;
+
+      // Pure GPU transform - 0 layout reflows!
+      track.style.transform = `translate3d(-${translateX.toFixed(1)}px, 0, 0)`;
+      progressBar.style.transform = `scaleX(${(0.15 + progress * 0.85).toFixed(4)})`;
+    }
+
+    function onScrollNative() {
       if (!isTicking) {
         requestAnimationFrame(() => {
-          updateScroll();
+          const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+          renderGallery(currentScroll);
           isTicking = false;
         });
         isTicking = true;
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    updateScroll();
+    // Direct synchronization with Lenis smooth scroll
+    if (window.__lenis) {
+      window.__lenis.on('scroll', (e) => {
+        renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+      });
+    } else {
+      window.addEventListener('scroll', onScrollNative, { passive: true });
+      const checkLenis = setInterval(() => {
+        if (window.__lenis) {
+          window.removeEventListener('scroll', onScrollNative);
+          window.__lenis.on('scroll', (e) => {
+            renderGallery(typeof e.scroll === 'number' ? e.scroll : window.scrollY);
+          });
+          clearInterval(checkLenis);
+        }
+      }, 150);
+      setTimeout(() => clearInterval(checkLenis), 3000);
+    }
+
+    // Refresh metrics on resize
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updateMetrics();
+        const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+        renderGallery(currentScroll);
+      }, 100);
+    }, { passive: true });
+
+    // Initial setup
+    updateMetrics();
+    const initialScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+    renderGallery(initialScroll);
+
+    // Re-verify metrics once all images have laid out
+    window.addEventListener('load', () => {
+      updateMetrics();
+      const currentScroll = window.__lenis ? window.__lenis.scroll : window.scrollY;
+      renderGallery(currentScroll);
+    }, { once: true });
   }
 
   if (document.readyState === 'loading') {
@@ -249,4 +378,3 @@ const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(`Halo Admin Jo
     initEventGallery();
   }
 </script>
-

@@ -25,11 +25,32 @@ const waPhone = activity.contactType === "corporate"
   : (siteData.brand.whatsapp || "6282249828998");
 
 const waUrl = `https://wa.me/${waPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Halo Admin Jolotundo Edupark, saya ingin reservasi slot dan info ketersediaan untuk wahana *${activity.name}*.`)}`;
+
+const ogImageMap: Record<string, string> = {
+  "atv-adventure": "/images/activities/atv-adventure.jpg",
+  "jeep-offroad": "/images/activities/jeep-offroad.jpg",
+  "wisata-berkuda": "/images/activities/horse-riding.jpg",
+  "forest-spa": "/images/activities/forest-spa.jpg",
+  "mini-zoo": "/images/activities/mini-zoo.jpg",
+  "outbound-gathering": "/images/activities/outbound-gathering.jpg"
+};
+const siteBase = (Astro.site ? Astro.site.toString() : 'https://jolotundo.vercel.app').replace(/\/$/, '');
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Beranda", "item": `${siteBase}/` },
+    { "@type": "ListItem", "position": 2, "name": "Wahana & Rekreasi", "item": `${siteBase}/wahana` },
+    { "@type": "ListItem", "position": 3, "name": activity.name, "item": `${siteBase}/wahana/${activity.id}` }
+  ]
+};
 ---
 
 <Layout 
   title={`${activity.name} — Jolotundo Glamping & Edupark`}
   description={`${activity.name} di Jolotundo Glamping & Edupark, Bajulan, Nganjuk. ${activity.tagline}. Mulai ${activity.priceStarting}.`}
+  image={ogImageMap[activity.id] || "/images/activities/wahana-hero.jpg"}
+  schema={breadcrumbSchema}
 >
   <!-- Floating Expanding Capsule Navbar -->
   <Navbar />

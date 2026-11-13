@@ -10,7 +10,7 @@
       "Aspal Rata & Terang",
       "Penjagaan 24 Jam"
     ],
-    "image": "/images/facilities/parking-area.jpg"
+    "image": "/images/facilities/parking-area.avif"
   },
   {
     "id": "meeting-hall-pendopo",
@@ -75,7 +75,7 @@
       "Cakupan Area Glamping",
       "Free Unlimited Access"
     ],
-    "image": "/images/facilities/wifi-access.jpg"
+    "image": "/images/facilities/wifi-access.avif"
   },
   {
     "id": "security-24h",
@@ -101,6 +101,6 @@
       "Madu & Kopi Lereng Wilis",
       "Kriya UMKM Terpilih"
     ],
-    "image": "/images/facilities/souvenir-merchandise.jpg"
+    "image": "/images/facilities/souvenir-merchandise.avif"
   }
 ]

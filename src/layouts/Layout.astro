@@ -1,16 +1,104 @@
 ---
 import '../styles/global.css';
+import siteData from '../data/siteData.json';
 // import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	canonical?: string;
+	type?: 'website' | 'article';
+	noindex?: boolean;
+	preloadHero?: string;
+	keywords?: string;
+	schema?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const { 
-	title = "Jolotundo Glamping & Edupark - Dian Group",
-	description = "Pionir destinasi ekowisata terpadu di lereng Gunung Wilis, Bajulan, Nganjuk. Menghadirkan kemewahan glamping tematik, outbound korporat, eduwisata, dan nuansa hutan pinus berkabut."
+	title = "Jolotundo Glamping & Edupark — Ekowisata Pegunungan Nganjuk (Dan Group)",
+	description = "Pionir destinasi ekowisata terpadu di lereng Gunung Wilis, Bajulan, Nganjuk. Menghadirkan kemewahan glamping tematik, outbound korporat, eduwisata, dan nuansa hutan pinus berkabut.",
+	image = "/images/hero.jpg",
+	canonical,
+	type = "website",
+	noindex = false,
+	preloadHero,
+	keywords = "Jolotundo Glamping, Jolotundo Edupark, Glamping Nganjuk, Wisata Bajulan Nganjuk, Camping Gunung Wilis, Outbound Nganjuk, River Camp, Deluxe Camp, Indian Camp, Korean Glamping, River Breeze Cafe",
+	schema
 } = Astro.props;
+
+const siteBase = (Astro.site ? Astro.site.toString() : 'https://jolotundo.vercel.app').replace(/\/$/, '');
+const rawPath = canonical
+	? (canonical.startsWith('http') ? canonical : `${siteBase}${canonical.startsWith('/') ? canonical : `/${canonical}`}`)
+	: `${siteBase}${Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '')}`;
+const canonicalURL = rawPath;
+
+// Social crawlers (WhatsApp, IG, FB, X) reliably render JPEG/PNG; fallback to hero.jpg if an AVIF path is passed
+const safeOgPath = /\.(jpe?g|png|webp)$/i.test(image) ? image : '/images/hero.jpg';
+const ogImageURL = safeOgPath.startsWith('http') ? safeOgPath : `${siteBase}${safeOgPath}`;
+
+// Global Schema.org Structured Data (Campground / TouristAttraction & WebSite)
+const baseSchemas: Array<Record<string, any>> = [
+	{
+		"@context": "https://schema.org",
+		"@type": ["Campground", "TouristAttraction"],
+		"@id": `${siteBase}/#organization`,
+		"name": siteData.brand.fullName,
+		"alternateName": "Jolotundo Glamping & Culture",
+		"description": siteData.brand.subHeadline,
+		"url": siteBase,
+		"image": `${siteBase}/images/hero.jpg`,
+		"telephone": `+${siteData.brand.whatsapp}`,
+		"email": siteData.brand.email,
+		"priceRange": "Rp 150.000 - Rp 1.200.000",
+		"isAccessibleForFree": true,
+		"address": {
+			"@type": "PostalAddress",
+			"streetAddress": "Dusun Plakat, Desa Bajulan",
+			"addressLocality": "Kec. Loceret",
+			"addressRegion": "Kab. Nganjuk, Jawa Timur",
+			"postalCode": "64471",
+			"addressCountry": "ID"
+		},
+		"geo": {
+			"@type": "GeoCoordinates",
+			"latitude": -7.738389,
+			"longitude": 111.825667
+		},
+		"openingHoursSpecification": [
+			{
+				"@type": "OpeningHoursSpecification",
+				"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+				"opens": "09:00",
+				"closes": "20:00"
+			},
+			{
+				"@type": "OpeningHoursSpecification",
+				"dayOfWeek": ["Friday", "Saturday", "Sunday"],
+				"opens": "09:00",
+				"closes": "22:00"
+			}
+		],
+		"parentOrganization": {
+			"@type": "Organization",
+			"name": siteData.brand.group
+		}
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		"@id": `${siteBase}/#website`,
+		"url": siteBase,
+		"name": siteData.brand.fullName,
+		"inLanguage": "id-ID",
+		"publisher": {
+			"@id": `${siteBase}/#organization`
+		}
+	}
+];
+
+const extraSchemas = Array.isArray(schema) ? schema : (schema ? [schema] : []);
+const allSchemas = [...baseSchemas, ...extraSchemas];
 ---
 
 <!doctype html>
@@ -18,13 +106,54 @@ const {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#0b130e" />
+
+		<!-- Primary SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="author" content="Jolotundo Glamping & Edupark (Dan Group)" />
+		<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+		<link rel="canonical" href={canonicalURL} />
 
-		<!-- Preload Hero LCP Image for Instant First Paint on Mobile & Desktop -->
-		<link rel="preload" as="image" href="/images/hero.jpg" fetchpriority="high" />
+		<!-- Local SEO / Geo Meta Tags (Bajulan, Nganjuk, Jawa Timur) -->
+		<meta name="geo.region" content="ID-JI" />
+		<meta name="geo.placename" content="Bajulan, Loceret, Nganjuk, Jawa Timur" />
+		<meta name="geo.position" content="-7.738389;111.825667" />
+		<meta name="ICBM" content="-7.738389, 111.825667" />
+
+		<!-- Favicons & Web App Manifest -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<!-- Open Graph / Facebook / WhatsApp -->
+		<meta property="og:type" content={type} />
+		<meta property="og:locale" content="id_ID" />
+		<meta property="og:site_name" content="Jolotundo Glamping & Edupark" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:alt" content={title} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
+
+		<!-- Conditional Preload Hero LCP Image -->
+		{preloadHero && (
+			<link rel="preload" as="image" href={preloadHero} fetchpriority="high" />
+		)}
+
+		<!-- JSON-LD Structured Data (Schema.org) -->
+		{allSchemas.map((item) => (
+			<script type="application/ld+json" set:html={JSON.stringify(item)} />
+		))}
 
 		<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono (GoUncharted Editorial Typography) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
