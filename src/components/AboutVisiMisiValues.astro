@@ -105,8 +105,7 @@ const valuesSlides = [
     <div class="border-b border-[#141110]/15 pb-16 sm:pb-24 flex flex-col items-center text-center max-w-5xl mx-auto">
       
       <div class="flex items-center justify-center gap-2 text-xs font-mono-tag text-[#141110]/50 tracking-[0.25em] uppercase mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-800"></span>
-        <span>VISI KAMI // OUR VISION</span>
+        <span>VISI KAMI</span>
       </div>
 
       <blockquote 
@@ -231,7 +230,7 @@ const valuesSlides = [
   <div class="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 pt-10 sm:pt-14 flex items-center justify-between text-xs font-mono-tag tracking-wider uppercase">
     <div class="flex items-center gap-2 sm:gap-3 text-white/80">
       <span class="text-[#d8c39e]">—</span>
-      <span class="tracking-[0.25em] text-white">OUR VALUES // PRINSIP & NILAI KAMI</span>
+      <span class="tracking-[0.25em] text-white">PRINSIP & NILAI KAMI</span>
     </div>
     
     <div class="flex items-center gap-2 text-white/60">
@@ -518,7 +517,6 @@ const valuesSlides = [
     const SLIDE_DURATION = 6000; // 6 seconds per slide
     let slideStartTime = performance.now();
     let isIntersecting = false;
-    let animFrameId = null;
 
     // --- Parallax Translate-Y Engine ---
     function updateValuesParallax() {
@@ -609,7 +607,7 @@ const valuesSlides = [
         }
       }
 
-      animFrameId = requestAnimationFrame(loop);
+      requestAnimationFrame(loop);
     }
 
     // --- Interactive Pagination Number Clicks ---
@@ -654,7 +652,7 @@ const valuesSlides = [
 
     // Initial setup
     setSlide(0);
-    animFrameId = requestAnimationFrame(loop);
+    requestAnimationFrame(loop);
   }
 
   function setupVisiMisiValues() {

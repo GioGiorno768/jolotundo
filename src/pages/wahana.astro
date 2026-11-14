@@ -76,7 +76,7 @@ const activities = [
     setting: "Pine Forest Zoo",
     capacity: "Anak, Balita & Keluarga",
     tagline: "Interaksi hangat mengenal dan memberi makan satwa jinak ramah anak di bawah naungan sejuknya hutan pinus lereng Wilis.",
-    pills: ["Mulai Rp 15.000", "Feeding Kelinci & Rusa", "Ramah Anak & Balita", "Paket Edukasi Sekolah"],
+    pills: ["Gratis Kunjungan", "Rusa Totol & Domba", "Ramah Anak & Balita", "Area Terbuka Pinus"],
     image: "/images/activities/zoo/zoo1.avif",
     gridClass: "grid-col-7 camp-card-hero"
   },
@@ -108,11 +108,11 @@ const activities = [
   <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white pb-20">
 
     <!-- ========================================================================= -->
-    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 GOUNCHARTED "BUILT ON FORTY-TWO PLACES")-->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 RIVER BREEZE STYLE)                     -->
     <!-- ========================================================================= -->
     <header 
       id="wahana-hero" 
-      class="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
+      class="relative h-screen h-[100dvh] min-h-[100dvh] w-full flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
     >
       <!-- Parallax Translate-Y Background Layer -->
       <div 
@@ -123,63 +123,67 @@ const activities = [
         <img 
           src="/images/activities/horse/horse1.avif" 
           alt="Wana Wisata & Rekreasi Jolotundo Glamping & Edupark" 
-          class="w-full h-full object-cover object-center"
+          class="w-full h-full object-cover object-center scale-105"
           fetchpriority="high"
           loading="eager"
         />
         <!-- Atmospheric Vignettes / Dual Scrim for Editorial Typography Contrast -->
-        <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/85 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
       </div>
 
       <!-- Top Spacer to clear floating pill navbar -->
-      <div class="relative z-10 w-full pt-28 sm:pt-36"></div>
+      <div class="h-20 sm:h-28 shrink-0"></div>
 
-      <!-- Center Display Typography (1:1 GoUncharted with Eyebrow and Giant Title) -->
-      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto my-auto w-full">
+      <!-- Center Display Typography (Pure River Breeze Clean Brutalist-Luxury) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-5 max-w-4xl mx-auto my-auto w-full py-4 sm:py-8">
         
-        <!-- Small Centered Eyebrow Kicker: [ FIELD GUIDE & RECREATION // GUNUNG WILIS ±800 MDPL ] -->
-        <span class="text-xs sm:text-sm font-mono-tag tracking-[0.25em] sm:tracking-[0.35em] text-[#d8c39e] uppercase mb-5 sm:mb-7 drop-shadow-md">
-          [ FIELD GUIDE & RECREATION ]
+        <!-- Subtle Monospaced Eyebrow Kicker -->
+        <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.2em] sm:tracking-[0.28em] text-[#d8c39e] uppercase mb-3 sm:mb-5 block">
+          — FIELD GUIDE & RECREATION
         </span>
 
-        <!-- Giant Bold Display Headline (Untamed trails, restorative calm.) -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-extrabold uppercase tracking-tight text-white leading-[0.98] font-sans drop-shadow-2xl">
-          Untamed trails,<br />
-          <span class="font-light italic tracking-normal lowercase font-serif text-[#d8c39e]">restorative</span> calm.
+        <!-- Clean, Powerful & Elegant Title -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-[-0.03em] text-white leading-[1.02] sm:leading-[0.96] font-sans drop-shadow-lg"> 
+          Wahana & Rekreasi.
         </h1>
+
+        <!-- Simple, Clean & Poetic Subtitle -->
+        <p class="text-xs sm:text-base md:text-lg font-sans text-white/80 max-w-md sm:max-w-xl mx-auto mt-3 sm:mt-5 drop-shadow leading-relaxed font-light">
+          Petualangan alam bebas di lereng Gunung Wilis. Dari pacuan adrenalin ATV & Jeep Offroad hingga ketenangan berkuda dan eduwisata ramah keluarga.
+        </p>
+
+        <!-- Clean Subtle Action Links -->
+        <div class="flex items-center gap-3 sm:gap-6 mt-6 sm:mt-10 text-[11px] sm:text-xs font-mono-tag tracking-wider uppercase">
+          <a 
+            href="https://wa.me/6282249828998?text=Halo%20Admin%20Jolotundo%2C%20saya%20tertarik%20tanya%20info%20dan%20reservasi%20wahana%20rekreasi."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 sm:px-5 py-2.5 sm:py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-bold transition-colors shadow-md flex items-center gap-1.5"
+          >
+            <span>Reservasi Wahana</span>
+            <span>↗</span>
+          </a>
+          <a 
+            href="#activity-catalog-grid" 
+            class="px-3 py-2 text-white/80 hover:text-white transition-colors border-b border-white/40 pb-0.5 flex items-center gap-1"
+          >
+            <span>Katalog Wahana</span>
+            <span>↓</span>
+          </a>
+        </div>
       </div>
 
-      <!-- Bottom Metadata Bar (1:1 GoUncharted: Hairline Divider + Specs Columns) -->
-      <div class="relative z-10 w-full">
-        <!-- Thin Hairline Divider -->
-        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
-          <div class="w-full border-t border-white/20"></div>
-        </div>
-
-        <!-- Metadata Columns (Identik GoUncharted Bottom Bar: LISBON BASED, FORTY-TWO PLACES...) -->
-        <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono-tag text-white/70 uppercase tracking-wider">
-          <div class="flex flex-wrap items-center gap-6 sm:gap-10">
-            <div class="flex items-center gap-2">
-              <span class="text-white/40">LOCATION</span>
-              <span class="text-white font-bold">BAJULAN // WILIS</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-white/40">ELEVASI</span>
-              <span class="text-white font-bold">±800 MDPL</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-white/40">SEKTOR</span>
-              <span class="text-[#d8c39e] font-bold">06 KLUSTER WAHANA</span>
-            </div>
-            <div class="hidden md:flex items-center gap-2">
-              <span class="text-white/40">OFFICIAL SUPPORT</span>
-              <span class="text-white/90">PERHUTANI • PEMKAB</span>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 text-white/60 text-[11px] font-mono-tag">
-            <span>SCROLL TO EXPLORE</span>
-            <span class="animate-bounce">↓</span>
+      <!-- Bottom Metadata Bar: Clean Single Row on Mobile, Full on Desktop -->
+      <div class="relative z-10 w-full px-5 sm:px-12 lg:px-16 pb-4 sm:pb-8 pt-3 border-t border-white/15 bg-gradient-to-t from-black/85 via-black/40 to-transparent shrink-0">
+        <div class="max-w-[1680px] mx-auto flex items-center justify-center gap-2 text-[10px] sm:text-xs font-mono-tag tracking-wider sm:tracking-widest uppercase text-white/70">
+          
+          <div class="flex items-center gap-2 sm:gap-6 text-white/60 shrink-0">
+            <span class="hidden sm:inline">06 KLUSTER AKTIVITAS</span>
+            <span class="hidden sm:inline">•</span>
+            <span>ELEVASI ±800 MDPL</span>
+            <span>•</span>
+            <span class="text-[#d8c39e] font-bold">ALL SEASONS</span>
           </div>
         </div>
       </div>
@@ -252,65 +256,52 @@ const activities = [
               decoding="async"
             />
 
-            <!-- Dark Gradient Layer (Soft on Idle, Deepens on Hover for Razor-Sharp Text Contrast) -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity duration-500 pointer-events-none"></div>
+            <!-- Clean Atmospheric Gradient Layer -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/35 opacity-90 group-hover:opacity-95 transition-opacity duration-500 pointer-events-none"></div>
 
-            <!-- Top Sharp Meta Badges (Index & Setting) -->
-            <div class="absolute top-5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
-              <span class="text-[11px] font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10 font-bold">
-                {act.index}
+            <!-- Top Clean Typographic Meta Row -->
+            <div class="absolute top-5 left-5 right-5 sm:top-7 sm:left-8 sm:right-8 flex items-center justify-between gap-4 pointer-events-none z-10">
+              <span class="text-[11px] font-mono-tag tracking-[0.25em] text-[#d8c39e] uppercase font-bold drop-shadow-sm">
+                NO. {act.index}
               </span>
-              <span class="text-[10px] font-mono-tag tracking-wider text-white/80 uppercase px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10">
+              <span class="text-[10px] sm:text-[11px] font-mono-tag tracking-[0.18em] text-white/80 uppercase text-right drop-shadow-sm truncate">
                 {act.setting}
               </span>
             </div>
 
-            <!-- In-Image Content Overlay (Docked at Bottom) -->
-            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10 flex flex-col justify-end z-10 pointer-events-none">
+            <!-- In-Image Content Overlay (Minimal Clean Layout) -->
+            <div class="absolute bottom-0 left-0 right-0 p-5 sm:p-8 lg:p-10 flex flex-col justify-end z-10 pointer-events-none">
               
               <!-- Activity Name (Visible Idle -> Translates Upwards on Hover/Active) -->
               <div class="camp-title-wrap">
-                <span class="text-[11px] font-mono-tag text-[#d8c39e] uppercase tracking-widest block mb-1 font-semibold">
+                <span class="text-[10px] sm:text-[11px] font-mono-tag text-[#d8c39e]/95 uppercase tracking-[0.22em] block mb-1.5 font-semibold">
                   {act.tier}
                 </span>
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white uppercase leading-none font-sans drop-shadow-md">
+                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white uppercase leading-[1.05] font-sans drop-shadow-md">
                   {act.name}
                 </h3>
               </div>
 
-              <!-- Collapsible Reveal Drawer (Hidden on Idle -> Expands & Fades In on Hover/Active) -->
+              <!-- Collapsible Reveal Drawer (Hidden on Idle -> Clean Reveal on Hover/Active) -->
               <div class="camp-drawer">
                 <div class="camp-drawer-inner">
-                  <div class="camp-drawer-content pt-3.5 pb-2 flex flex-col gap-3.5 pointer-events-auto">
+                  <div class="camp-drawer-content pt-3 flex flex-col gap-3 pointer-events-auto">
                     
-                    <!-- Keterangan / Editorial Tagline -->
-                    <p class="text-xs sm:text-sm text-white/85 font-light leading-relaxed max-w-xl">
+                    <!-- Concise 2-Line Tagline -->
+                    <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed max-w-lg line-clamp-2">
                       {act.tagline}
                     </p>
 
-                    <!-- Feature Pills (Sharp rectangular pills) -->
-                    <div class="flex flex-wrap gap-2">
-                      {act.pills.map((pill) => (
-                        <span class="text-[10px] font-mono-tag text-white/90 bg-white/10 backdrop-blur-sm px-2.5 py-1 border border-white/15">
-                          {pill}
-                        </span>
-                      ))}
-                    </div>
+                    <!-- Clean Single-Line Spec Summary (Replaces Noisy Boxed Pills) -->
+                    <p class="text-[10px] sm:text-[11px] font-mono-tag text-[#d8c39e]/85 tracking-wider uppercase truncate">
+                      {act.pills.slice(0, 3).join('  ·  ')}
+                    </p>
 
-                    <!-- Direct Action: Button Lihat Detail (Persis Menu Page Akomodasi) -->
-                    <div class="pt-3.5 pb-1 border-t border-white/15 flex items-center justify-between gap-3">
-                      <div class="flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-[#d8c39e] inline-block"></span>
-                        <span class="text-[10px] sm:text-[11px] font-mono-tag text-white/70 uppercase tracking-wider">
-                          Rincian Tarif & Ketentuan
-                        </span>
-                      </div>
-
-                      <!-- Sharp Button Lihat Detail (Direct Link to Wahana Detail Page) -->
+                    <!-- Clean Action Bar (Responsive Full-Width on Mobile, Compact on Desktop) -->
+                    <div class="pt-3 border-t border-white/15 flex items-center justify-between gap-3">
                       <a
                         href={`/wahana/${act.id}`}
-                        class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] shrink-0"
-                        onclick="event.stopPropagation();"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#f4efe6] hover:bg-white text-[#141110] font-mono-tag text-[11px] font-bold uppercase tracking-wider transition-all duration-200 border border-[#f4efe6] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] whitespace-nowrap"
                       >
                         <span>Lihat Detail</span>
                         <span>↗</span>
@@ -563,8 +554,30 @@ const activities = [
       });
     });
 
-    // Mobile touch toggle
+    // Mobile auto-reveal on scroll & anchor propagation guard
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches || ('ontouchstart' in window);
+    if (isMobile && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const card = entry.target;
+          if (entry.isIntersecting) {
+            card.classList.add('is-active');
+          } else {
+            card.classList.remove('is-active');
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '-8% 0px -12% 0px',
+        threshold: 0.18
+      });
+      cards.forEach((card) => observer.observe(card));
+    }
+
     cards.forEach((card) => {
+      card.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', (e) => e.stopPropagation());
+      });
       card.addEventListener('click', (e) => {
         if (window.innerWidth < 1024) {
           const target = e.target;

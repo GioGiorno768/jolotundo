@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import siteData from '../data/siteData.json';
+
+const generalPhone = siteData.brand.whatsappDisplay || "0822 2950 0998";
+const generalWa = siteData.brand.whatsapp || "6282229500998";
+const generalWaUrl = `https://wa.me/${generalWa}?text=${encodeURIComponent("Halo Admin Jolotundo, saya ingin informasi reservasi glamping dan layanan kawasan.")}`;
+
+const outboundPhone = siteData.brand.whatsappOutboundDisplay || "0822 4982 9998";
+const outboundWa = siteData.brand.whatsappOutbound || "6282249829998";
+const outboundWaUrl = `https://wa.me/${outboundWa}?text=${encodeURIComponent("Halo Admin Dan Group Jolotundo, saya ingin konsultasi paket outbound / gathering instansi.")}`;
+---
+
+<Layout
+  title="Kontak Kami — Jolotundo Glamping & Edupark"
+  description="Hubungi kontak resmi Jolotundo Glamping & Edupark. Tersedia 2 saluran layanan: nomor 0822 2950 0998 untuk layanan umum & reservasi glamping, dan nomor 0822 4982 9998 khusus outbound & gathering korporat."
+  image="/images/hero.jpg"
+>
+  <!-- Floating Expanding Pill Navbar -->
+  <Navbar />
+
+  <!-- Main Canvas: Warm Stone Background 1:1 GoUncharted Clean Editorial Canvas -->
+  <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white flex flex-col justify-between pt-24 sm:pt-32 lg:pt-36 pb-8 px-4 sm:px-8 lg:px-14 xl:px-20">
+    
+    <div class="w-full max-w-[1600px] mx-auto flex-1 flex flex-col justify-center">
+
+      <!-- ======================================================================= -->
+      <!-- TOP BREADCRUMB / KICKER SUB-BAR (1:1 with GoUncharted Screenshot)       -->
+      <!-- ======================================================================= -->
+      <div class="flex items-center justify-between pb-8 sm:pb-12 text-[10px] sm:text-xs font-mono-tag uppercase tracking-[0.22em] text-[#141110]/60">
+        <div>
+          <span>CONTACT &nbsp;/&nbsp; PLAN A TRIP</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-700 animate-pulse"></span>
+          <span>RESPONS CEPAT • SETIAP HARI</span>
+        </div>
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- MAIN SPLIT WORKSPACE: LEFT (HEADLINE + 2 KONTAK) & RIGHT (ENQUIRY FORM) -->
+      <!-- ======================================================================= -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-start pb-16 sm:pb-20">
+
+        <!-- ===================================================================== -->
+        <!-- LEFT COLUMN: EDITORIAL HEADLINE + 2 SALURAN KONTAK ELEGAN             -->
+        <!-- ===================================================================== -->
+        <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-between space-y-8 sm:space-y-12">
+          
+          <div class="space-y-4 sm:space-y-6">
+            <!-- Big Editorial Headline (Sentence case with period) -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] font-normal tracking-[-0.03em] text-[#141110] leading-[1.02] sm:leading-[0.96] font-sans">
+              Ceritakan kapan Anda ingin berada di sini.
+            </h1>
+
+            <!-- Editorial One-liner Description -->
+            <p class="text-xs sm:text-base text-[#141110]/70 font-sans leading-relaxed max-w-lg font-light">
+              Setiap pesan dibaca langsung oleh tim concierge dan fasilitator kawasan di lereng Gunung Wilis.
+            </p>
+          </div>
+
+          
+
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- RIGHT COLUMN: 1:1 GOUNCHARTED MINIMALIST UNDERLINE ENQUIRY FORM       -->
+        <!-- ===================================================================== -->
+        <div class="lg:col-span-6 xl:col-span-6 lg:pl-6 xl:pl-10">
+          
+          <!-- 2 Distinct Elegant Contact Channels (Sesuai Permintaan User) -->
+          <div class="space-y-6 sm:space-y-8 pt-4">
+
+            <!-- 01. Kontak Umum & Reservasi Glamping -->
+            <div class="border-t border-[#141110]/15 pt-5 sm:pt-6 space-y-2 group">
+              <span class="text-[10px] sm:text-[11px] font-mono-tag tracking-[0.24em] text-[#141110]/50 uppercase block">
+                01 &nbsp;/&nbsp; LAYANAN UMUM &amp; RESERVASI GLAMPING
+              </span>
+              <div class="flex items-baseline justify-between flex-wrap gap-2">
+                <a 
+                  href={generalWaUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-2xl sm:text-3xl md:text-4xl font-mono-tag font-bold tracking-tight text-[#141110] hover:text-emerald-800 transition-colors inline-flex items-center gap-2"
+                >
+                  <span>{generalPhone}</span>
+                  <span class="text-base transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
+                </a>
+                <span class="text-[10px] font-mono-tag text-emerald-800 font-semibold tracking-wider uppercase">
+                  ● KESELURUHAN KAWASAN
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-[#141110]/70 font-light leading-relaxed max-w-md pt-0.5">
+                Reservasi 7 tipe tenda glamping, tiket edupark &amp; wahana (ATV, Jeep, Berkuda, Mini Zoo, Spa) serta meja River Breeze Cafe.
+              </p>
+            </div>
+
+            <!-- 02. Kontak Khusus Outbound & Gathering -->
+            <div class="border-t border-[#141110]/15 pt-5 sm:pt-6 space-y-2 group">
+              <span class="text-[10px] sm:text-[11px] font-mono-tag tracking-[0.24em] text-[#141110]/50 uppercase block">
+                02 &nbsp;/&nbsp; KHUSUS OUTBOUND &amp; GATHERING
+              </span>
+              <div class="flex items-baseline justify-between flex-wrap gap-2">
+                <a 
+                  href={outboundWaUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="text-2xl sm:text-3xl md:text-4xl font-mono-tag font-bold tracking-tight text-[#141110] hover:text-emerald-800 transition-colors inline-flex items-center gap-2"
+                >
+                  <span>{outboundPhone}</span>
+                  <span class="text-base transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
+                </a>
+                <span class="text-[10px] font-mono-tag text-[#141110]/60 font-semibold tracking-wider uppercase">
+                  ● B2B &amp; EVENT MICE
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-[#141110]/70 font-light leading-relaxed max-w-md pt-0.5">
+                Khusus instansi, BUMN, korporat &amp; sekolah. Modul team building outbound berlisensi, sewa aula kaca AC &amp; paket katering.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- BOTTOM FOOTER SUB-BAR (1:1 with GoUncharted Screenshot)                    -->
+    <!-- ========================================================================= -->
+    <footer class="w-full max-w-[1600px] mx-auto border-t border-[#141110]/15 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tag tracking-wider uppercase text-[#141110]/60">
+      <div>
+        <a href="mailto:jolotundoedupark@gmail.com" class="hover:text-[#141110] transition-colors underline underline-offset-4">
+          JOLOTUNDOEDUPARK@GMAIL.COM
+        </a>
+      </div>
+      <div>
+        <span>BAJULAN, NGANJUK &nbsp;//&nbsp; SENIN — MINGGU: 09.00 — 22.00 WIB</span>
+      </div>
+    </footer>
+
+  </main>
+
+</Layout>
+
+<!-- Form Auto-Routing Logic to Correct WhatsApp Number -->
+<script is:inline>
+  function initContactForm() {
+    const form = document.getElementById('contact-enquiry-form');
+    const categorySelect = document.getElementById('form-category');
+    const btnLabel = document.getElementById('btn-label-text');
+    if (!form || !categorySelect) return;
+
+    // Numbers
+    const generalWaNumber = '6282229500998';
+    const outboundWaNumber = '6282249829998';
+
+    function updateButtonDestination() {
+      const isOutbound = categorySelect.value === 'outbound';
+      if (btnLabel) {
+        btnLabel.textContent = isOutbound 
+          ? 'Hubungi WhatsApp Khusus Outbound (0822 4982 9998)' 
+          : 'Hubungi WhatsApp Umum (0822 2950 0998)';
+      }
+    }
+
+    categorySelect.addEventListener('change', updateButtonDestination);
+    updateButtonDestination();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const catValue = categorySelect.value;
+      const isOutbound = catValue === 'outbound';
+      const targetNumber = isOutbound ? outboundWaNumber : generalWaNumber;
+
+      const catText = categorySelect.options[categorySelect.selectedIndex]?.text || 'Reservasi Kawasan';
+      const dateVal = document.getElementById('form-date')?.value.trim() || 'Fleksibel / Belum Ditentukan';
+      const guestsVal = document.getElementById('form-guests')?.value.trim() || '-';
+      const nameVal = document.getElementById('form-name')?.value.trim() || 'Tamu Jolotundo';
+      const notesVal = document.getElementById('form-notes')?.value.trim() || '-';
+
+      const waMessage = 
+`Halo Admin ${isOutbound ? 'Outbound & Gathering Dan Group' : 'Jolotundo Glamping'}, saya ingin konsultasi:
+
+• Kategori: ${catText}
+• Rencana Tanggal: ${dateVal}
+• Jumlah Tamu: ${guestsVal}
+• Nama / Instansi: ${nameVal}
+• Catatan: ${notesVal}
+
+Mohon informasi jadwal ketersediaan dan penawarannya. Terima kasih!`;
+
+      const targetUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(waMessage)}`;
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactForm);
+  } else {
+    initContactForm();
+  }
+</script>
+
+<style>
+  .font-mono-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+</style>

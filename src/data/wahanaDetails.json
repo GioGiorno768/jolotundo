@@ -239,11 +239,10 @@
       { "label": "MINYAK", "value": "Rempah Alami" }
     ],
     "gallery": [
-      { "src": "/images/activities/forest-spa.jpg", "caption": "Pine Forest Spa & Massage", "subtitle": "Relaksasi Tenang di Bawah Kanopi Pinus" },
-      { "src": "/images/accommodations/deluxe-camp-new.jpg", "caption": "Private In-Cabin Spa", "subtitle": "Layanan Khusus Tamu Deluxe Camp" },
-      { "src": "/images/accommodations/river-camp-editorial.jpg", "caption": "Alunan Gemericik Air Sungai", "subtitle": "Terapi Suara Alami yang Menenangkan Raga" },
-      { "src": "/images/activities/wahana-hero.jpg", "caption": "Udara Bersih Lereng Wilis", "subtitle": "Nafas Segar Bebas Polusi Kota" },
-      { "src": "/images/facilities/pine-resto-cafe.jpg", "caption": "Teh Herbal Hangat", "subtitle": "Penyegar Tubuh Setelah Perawatan" }
+      { "src": "/images/activities/spa/spa1.jpg", "caption": "Ruang Treatment Utama", "subtitle": "Suite Bersih & Tenang Berbalut Kayu Jati" },
+      { "src": "/images/activities/spa/spa2.jpg", "caption": "Area Refleksi & Foot Spa", "subtitle": "Kursi Santai Ergonomis & Rendaman Herbal" },
+      { "src": "/images/activities/spa/spa3.jpg", "caption": "Kamar Privat Massage & Lulur", "subtitle": "Layanan Khusus Tamu Deluxe dengan Rempah Hangat" },
+      { "src": "/images/activities/spa/spa4.jpg", "caption": "Sudut Aromaterapi & Teh Herbal", "subtitle": "Minyak Esensial Wilis & Penyegar Tubuh Alami" }
     ],
     "packageSection": {
       "kicker": "THE PACKAGES",
@@ -304,7 +303,7 @@
     "heroImage": "/images/activities/zoo/zoo1.avif",
     "category": "edukasi",
     "contactType": "personal",
-    "priceStarting": "Rp 15.000",
+    "priceStarting": "Gratis",
     "specs": [
       { "label": "HABITAT", "value": "Hutan Pinus Terbuka" },
       { "label": "SATWA", "value": "Kelinci, Rusa & Unggas" },
@@ -312,11 +311,12 @@
       { "label": "RAMAH", "value": "Anak, Balita & Lansia" }
     ],
     "gallery": [
-      { "src": "/images/activities/zoo/zoo1.avif", "caption": "Fasad Mini Zoo Edupark", "subtitle": "Habitat Terbuka di Bawah Rimba Pinus" },
-      { "src": "/images/activities/zoo/zoo2.avif", "caption": "Taman Kelinci & Marmut", "subtitle": "Interaksi Langsung & Feeding Sayur Segar" },
-      { "src": "/images/activities/zoo/zoo3.avif", "caption": "Penangkaran Rusa Jinak", "subtitle": "Satwa Anggun di Lereng Gunung Wilis" },
-      { "src": "/images/activities/zoo/zoo4.avif", "caption": "Aviary Burung Hias", "subtitle": "Kicauan Alami Ragam Unggas Eksotis" },
-      { "src": "/images/activities/zoo/zoo5.avif", "caption": "Petting Farm & Domba Lucu", "subtitle": "Pengalaman Edukatif Penuh Kehangatan" }
+      { "src": "/images/activities/zoo/zoo1.avif", "caption": "Penangkaran Rusa Totol", "subtitle": "Satwa Jinak di Lereng Gunung Wilis" },
+      { "src": "/images/activities/zoo/zoo2.avif", "caption": "Interaksi & Feeding Rusa", "subtitle": "Beri Pakan Wortel Segar Secara Langsung" },
+      { "src": "/images/activities/zoo/zoo3.avif", "caption": "Rusa di Kawasan Rimba Pinus", "subtitle": "Habitat Terbuka Dekat Area Glamping" },
+      { "src": "/images/activities/zoo/zoo-domba.avif", "caption": "Zona Edukasi Domba Dorper", "subtitle": "Papan Informasi & Area Padang Rumput Pinus" },
+      { "src": "/images/activities/zoo/zoo-kandang2.avif", "caption": "Kompleks Kandang Kayu Edupark", "subtitle": "Sarana Terawat di Tengah Hutan Pinus" },
+      { "src": "/images/activities/zoo/zoo-kandang3.avif", "caption": "Koridor Kandang & Area Satwa", "subtitle": "Lingkungan Bersih, Sejuk & Ramah Anak" }
     ],
     "packageSection": {
       "kicker": "TIKET & PAKET EDUKASI",
@@ -324,12 +324,13 @@
       "narrative": "Akses terbuka bagi anak-anak dan keluarga untuk berinteraksi, membelai, dan memberi makan aneka satwa jinak dengan pendampingan edukator ramah.",
       "rows": [
         {
-          "label": "TIKET MASUK REGULER",
-          "value": "Rp 15.000 / orang",
-          "desc": "Akses bebas menjelajahi area Mini Zoo, taman kelinci, penangkaran rusa, aviary burung hias, dan spot foto interaktif satwa."
+          "label": "TIKET MASUK KUNJUNGAN",
+          "value": "Gratis (Bebas Biaya Masuk)",
+          "badge": "FREE ENTRY",
+          "desc": "Kunjungan untuk melihat area Mini Zoo, penangkaran rusa totol, zona edukasi domba dorper, dan area satwa terbuka tidak dipungut biaya tiket masuk."
         },
         {
-          "label": "KERANJANG PAKAN SATWA",
+          "label": "KERANJANG PAKAN SATWA (OPSIONAL)",
           "value": "Rp 10.000 / keranjang",
           "desc": "Pilihan pakan higienis (wortel segar untuk kelinci/rusa atau biji-bijian bernutrisi untuk unggas dan burung aviary)."
         },
@@ -337,7 +338,7 @@
           "label": "PAKET EDUKASI SEKOLAH / TK",
           "value": "Rp 35.000 / anak",
           "badge": "FAVORIT STUDY TOUR",
-          "desc": "Minimal 25 siswa. Sudah termasuk tiket masuk, pakan satwa, edukator pemandu materi zoologi dasar, worksheet edukasi, dan free pendamping guru."
+          "desc": "Minimal 25 siswa. Kunjungan reguler gratis; paket khusus rombongan mencakup pakan satwa, edukator pemandu materi zoologi dasar, worksheet edukasi, dan free pendamping guru."
         },
         {
           "label": "JAM OPERASIONAL",

@@ -31,6 +31,8 @@ const activityFolderMap: Record<string, string> = {
   "mini-zoo": "zoo",
   "mini-zoo-edupark": "zoo",
   "zoo": "zoo",
+  "forest-spa": "spa",
+  "spa": "spa",
   "outbound-gathering": "outbond",
   "outbound": "outbond",
   "outbond": "outbond"
@@ -71,11 +73,18 @@ const activityMetaMap: Record<string, Record<string, { caption: string; subtitle
     "horse5.avif": { caption: "Wisata Ramah Keluarga", subtitle: "Cocok untuk Anak & Pemula", order: 5 },
   },
   zoo: {
-    "zoo1.avif": { caption: "Fasad Mini Zoo Edupark", subtitle: "Habitat Terbuka di Bawah Naungan Pinus", order: 1 },
-    "zoo2.avif": { caption: "Taman Kelinci & Marmut", subtitle: "Interaksi Langsung & Feeding Sayuran Segar", order: 2 },
-    "zoo3.avif": { caption: "Penangkaran Rusa Jinak", subtitle: "Satwa Anggun di Lereng Gunung Wilis", order: 3 },
-    "zoo4.avif": { caption: "Aviary Burung Eksotis", subtitle: "Kicauan Asri Satwa Unggas Terbuka", order: 4 },
-    "zoo5.avif": { caption: "Petting Farm & Domba Lucu", subtitle: "Pengalaman Edukatif Ramah Anak & Balita", order: 5 },
+    "zoo1.avif": { caption: "Penangkaran Rusa Totol", subtitle: "Satwa Jinak di Lereng Gunung Wilis", order: 1 },
+    "zoo2.avif": { caption: "Interaksi & Feeding Rusa", subtitle: "Beri Pakan Wortel Segar Secara Langsung", order: 2 },
+    "zoo3.avif": { caption: "Rusa di Kawasan Rimba Pinus", subtitle: "Habitat Terbuka Dekat Area Glamping", order: 3 },
+    "zoo-domba.avif": { caption: "Zona Edukasi Domba Dorper", subtitle: "Papan Informasi & Area Padang Rumput Pinus", order: 4 },
+    "zoo-kandang2.avif": { caption: "Kompleks Kandang Kayu Edupark", subtitle: "Sarana Terawat di Tengah Hutan Pinus", order: 5 },
+    "zoo-kandang3.avif": { caption: "Koridor Kandang & Area Satwa", subtitle: "Lingkungan Bersih, Sejuk & Ramah Anak", order: 6 },
+  },
+  spa: {
+    "spa1.jpg": { caption: "Ruang Treatment Utama", subtitle: "Suite Bersih & Tenang Berbalut Kayu Jati", order: 1 },
+    "spa2.jpg": { caption: "Area Refleksi & Foot Spa", subtitle: "Kursi Santai Ergonomis & Rendaman Herbal", order: 2 },
+    "spa3.jpg": { caption: "Kamar Privat Massage & Lulur", subtitle: "Layanan Khusus Tamu Deluxe dengan Rempah Hangat", order: 3 },
+    "spa4.jpg": { caption: "Sudut Aromaterapi & Teh Herbal", subtitle: "Minyak Esensial Wilis & Penyegar Tubuh Alami", order: 4 },
   },
   outbond: {
     "outbond1.avif": { caption: "Sinergi & Team Building", subtitle: "Membangun Kekompakan Kelompok", order: 1 },
@@ -266,7 +275,9 @@ const scrollHeightVh = Math.max(220, Math.min(340, 180 + galleryImages.length * 
         <!-- Right: Starting Price + CTA Booking WhatsApp -->
         <div class="flex items-center justify-between sm:justify-end gap-5">
           <div class="text-right">
-            <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block">Mulai Dari</span>
+            <span class="text-[10px] font-mono-tag text-[#141110]/50 uppercase tracking-widest block">
+              {activity.priceStarting.toLowerCase().includes('gratis') ? 'Tiket Masuk' : 'Mulai Dari'}
+            </span>
             <span class="text-lg sm:text-xl font-bold font-mono-tag text-[#141110] leading-none">
               {activity.priceStarting}
             </span>

@@ -19,9 +19,12 @@
       ]
     },
     "location": "Dusun Plakat, Desa Bajulan, Kec. Loceret, Kab. Nganjuk, Jawa Timur 64471",
-    "whatsapp": "6282249829998",
+    "whatsapp": "6282229500998",
+    "whatsappDisplay": "0822 2950 0998",
+    "whatsappOutbound": "6282249829998",
+    "whatsappOutboundDisplay": "0822 4982 9998",
     "email": "jolotundoedupark@gmail.com",
-    "bookingUrl": "https://jolotundo.netlify.app/"
+    "bookingUrl": "/kontak"
   },
   "heroStats": [
     {

@@ -20,6 +20,7 @@ export const GET: APIRoute = ({ site }) => {
     { path: '/event', priority: '0.9', changefreq: 'weekly' },
     { path: '/lokasi', priority: '0.8', changefreq: 'monthly' },
     { path: '/tentang', priority: '0.7', changefreq: 'monthly' },
+    { path: '/kontak', priority: '0.9', changefreq: 'weekly' },
     { path: '/fasilitas/river-breeze', priority: '0.8', changefreq: 'weekly' },
     { path: '/fasilitas/jolotundo-cafe', priority: '0.8', changefreq: 'weekly' }
   ];

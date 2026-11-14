@@ -48,7 +48,7 @@ const breadcrumbSchema = {
 
 <Layout 
   title={`${activity.name} — Jolotundo Glamping & Edupark`}
-  description={`${activity.name} di Jolotundo Glamping & Edupark, Bajulan, Nganjuk. ${activity.tagline}. Mulai ${activity.priceStarting}.`}
+  description={`${activity.name} di Jolotundo Glamping & Edupark, Bajulan, Nganjuk. ${activity.tagline} ${activity.priceStarting.toLowerCase().includes('gratis') ? 'Gratis tiket masuk kunjungan.' : `Mulai ${activity.priceStarting}.`}`}
   image={ogImageMap[activity.id] || "/images/activities/wahana-hero.jpg"}
   schema={breadcrumbSchema}
 >
@@ -58,108 +58,92 @@ const breadcrumbSchema = {
   <main class="min-h-screen bg-[#f4efe6] text-[#141110] selection:bg-[#141110] selection:text-white">
 
     <!-- ========================================================================= -->
-    <!-- 1. GOUNCHARTED 1:1 CINEMATIC HERO (EDGE-TO-EDGE WITH PARALLAX TRANSLATE-Y)-->
+    <!-- 1. FULLSCREEN EDITORIAL HERO (1:1 RIVER BREEZE STYLE)                     -->
     <!-- ========================================================================= -->
-    <section 
+    <header 
       id="wahana-hero" 
-      class="relative w-full h-screen min-h-[640px] max-h-[1100px] overflow-hidden bg-[#141110] text-[#f4efe6] flex flex-col justify-between select-none"
+      class="relative h-screen h-[100dvh] min-h-[100dvh] w-full flex flex-col justify-between overflow-hidden bg-[#141110] text-[#f4efe6] select-none"
     >
-      
       <!-- Hardware-Accelerated Parallax Image Layer -->
       <div 
         id="hero-parallax-layer" 
-        class="absolute inset-x-0 w-full h-[135%] -top-[17.5%] will-change-transform pointer-events-none"
+        class="absolute inset-x-0 w-full h-[125%] -top-[12.5%] will-change-transform pointer-events-none z-0"
         style="transform: translate3d(0, 0px, 0);"
       >
         <img 
           src={activity.heroImage || activity.image} 
           alt={`${activity.name} - Jolotundo Edupark`}
-          class="w-full h-full object-cover object-center"
+          class="w-full h-full object-cover object-center scale-105"
+          fetchpriority="high"
           loading="eager"
           decoding="async"
         />
+        <!-- Atmospheric Vignettes / Dual Scrim for Editorial Typography Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
       </div>
-
-      <!-- Contrast Gradients (Soft upper vignette, clear deep lower gradient) -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none z-0"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none z-0"></div>
 
       <!-- Top Spacer for Navbar -->
-      <div class="relative z-10 w-full pt-28 sm:pt-36"></div>
+      <div class="h-20 sm:h-28 shrink-0"></div>
 
-      <!-- CENTER DISPLAY TYPOGRAPHY (1:1 GoUncharted Style) -->
-      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto my-auto w-full">
+      <!-- CENTER DISPLAY TYPOGRAPHY (Pure River Breeze Clean Luxury) -->
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-5 max-w-4xl mx-auto my-auto w-full py-4 sm:py-8">
         
-        <!-- Small Centered Eyebrow Kicker -->
-        <span class="text-xs sm:text-sm md:text-base font-mono-tag tracking-[0.3em] sm:tracking-[0.4em] text-[#d8c39e] uppercase mb-4 sm:mb-6 drop-shadow-md">
-          {activity.setting} // {activity.elevation || "±800 MDPL"}
+        <!-- Subtle Monospaced Eyebrow Kicker -->
+        <span class="text-[10px] sm:text-xs font-mono-tag tracking-[0.2em] sm:tracking-[0.28em] text-[#d8c39e] uppercase mb-3 sm:mb-5 block">
+          — {activity.tier || "WAHANA REKREASI"} · {activity.elevation || "±800 MDPL"}
         </span>
 
-        <!-- Giant Bold Display Headline -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-extrabold uppercase tracking-tight text-white leading-none font-sans drop-shadow-2xl">
-          {activity.name}
+        <!-- Clean, Powerful & Elegant Title -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-[-0.03em] text-white leading-[1.02] sm:leading-[0.96] font-sans drop-shadow-lg">
+          {activity.name}.
         </h1>
 
-        <!-- Short Sub-tagline -->
-        <p class="text-xs sm:text-base font-sans text-white/80 max-w-xl mx-auto mt-4 sm:mt-6 drop-shadow leading-relaxed font-light hidden sm:block">
+        <!-- Simple, Clean & Poetic Subtitle -->
+        <p class="text-xs sm:text-base md:text-lg font-sans text-white/80 max-w-md sm:max-w-xl mx-auto mt-3 sm:mt-5 drop-shadow leading-relaxed font-light">
           {activity.tagline}
         </p>
+
+        <!-- Clean Subtle Action Links -->
+        <div class="flex items-center gap-3 sm:gap-6 mt-6 sm:mt-10 text-[11px] sm:text-xs font-mono-tag tracking-wider uppercase">
+          <a 
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 sm:px-5 py-2.5 sm:py-3 bg-[#d8c39e] hover:bg-white text-[#141110] font-bold transition-colors shadow-md flex items-center gap-1.5"
+          >
+            <span>Check Availability</span>
+            <span>↗</span>
+          </a>
+          <a 
+            href="#wahana-preview-gallery" 
+            class="px-3 py-2 text-white/80 hover:text-white transition-colors border-b border-white/40 pb-0.5 flex items-center gap-1"
+          >
+            <span>Galeri & Tarif</span>
+            <span>↓</span>
+          </a>
+        </div>
       </div>
 
-      <!-- BOTTOM METADATA & CTA ROW (1:1 GoUncharted Hairline Divider + Specs + Action Button) -->
-      <div class="relative z-10 w-full">
-        
-        <!-- Thin Hairline Divider Line -->
-        <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20">
-          <div class="w-full border-t border-white/20"></div>
-        </div>
-
-        <!-- Metadata Columns + CTA Button -->
-        <div class="max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-20 py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          
-          <!-- Left Specs Group -->
-          <div class="flex flex-wrap items-center gap-6 sm:gap-10 text-xs sm:text-sm font-mono-tag">
-            
-            <div class="flex items-center gap-2.5">
-              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">SEKTOR</span>
-              <span class="text-[#d8c39e] font-bold tracking-wider">{activity.index} // 05</span>
-            </div>
-
-            <div class="flex items-center gap-2.5">
-              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">LEVEL</span>
-              <span class="text-white font-bold tracking-wider">{activity.tier}</span>
-            </div>
-
-            <div class="flex items-center gap-2.5">
-              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">MULAI DARI</span>
-              <span class="text-emerald-400 font-bold tracking-wider">{activity.priceStarting}</span>
-            </div>
-
-            <div class="hidden md:flex items-center gap-2.5">
-              <span class="text-white/50 uppercase tracking-widest text-[10px] sm:text-xs">ELEVASI</span>
-              <span class="text-white font-bold tracking-wider">{activity.elevation || "±800 MDPL"}</span>
-            </div>
-
+      <!-- Bottom Metadata Bar: Clean Single Row on Mobile, Full on Desktop -->
+      <div class="relative z-10 w-full px-5 sm:px-12 lg:px-16 pb-4 sm:pb-8 pt-3 border-t border-white/15 bg-gradient-to-t from-black/85 via-black/40 to-transparent shrink-0">
+        <div class="max-w-[1680px] mx-auto flex items-center justify-between gap-2 text-[10px] sm:text-xs font-mono-tag tracking-wider sm:tracking-widest uppercase text-white/70">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+            <span class="text-white font-medium truncate">{activity.setting || "LEMBAH WILIS"}</span>
           </div>
-
-          <!-- Right Action Button: Check Availability -->
-          <div class="flex items-center gap-3">
-            <a 
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-between sm:justify-center gap-3 px-6 sm:px-8 py-3.5 bg-black/80 hover:bg-black text-[#f4efe6] backdrop-blur-md border border-white/25 font-mono-tag text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:border-white shadow-2xl w-full sm:w-auto"
-            >
-              <span>Check Availability</span>
-              <span>↗</span>
-            </a>
+          <div class="flex items-center gap-2 sm:gap-6 text-white/60 shrink-0">
+            <span class="hidden sm:inline">SEKTOR {activity.index} // 06</span>
+            <span class="hidden sm:inline">•</span>
+            <span>{activity.elevation || "±800 MDPL"}</span>
+            <span>•</span>
+            <span class="text-[#d8c39e] font-bold">
+              {activity.priceStarting.toLowerCase().includes('gratis') ? 'FREE ENTRY' : activity.priceStarting}
+            </span>
           </div>
-
         </div>
-
       </div>
-
-    </section>
+    </header>
 
     <!-- ========================================================================= -->
     <!-- 2. STICKY HORIZONTAL SCROLL PREVIEW GALLERY (SEBELUM KETERANGAN RINCIAN)   -->
@@ -195,7 +179,7 @@ const breadcrumbSchema = {
           
           <div class="border-t border-[#141110] divide-y divide-[#141110]/15">
             
-            {activity.packageSection?.rows.map((row) => (
+            {activity.packageSection?.rows.map((row: { label: string; value: string; desc: string; originalPrice?: string; badge?: string }) => (
               <div class="py-6 sm:py-7 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 items-start group">
                 
                 <!-- Left Sub-col: Small Monospaced Label -->

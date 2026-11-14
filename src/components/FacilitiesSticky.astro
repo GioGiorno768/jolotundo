@@ -48,7 +48,7 @@ import siteData from '../data/siteData.json';
             class="w-full h-full flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
             style="transform: translateY(0%);"
           >
-            {facilities.map((fac, idx) => (
+            {facilities.map((fac) => (
               <div class="w-full h-full shrink-0 relative bg-black overflow-hidden">
                 
                 <!-- Inner Parallax Layer (Taller than slide: 135% height with -17.5% offset, translated along Y on scroll) -->
@@ -122,12 +122,12 @@ import siteData from '../data/siteData.json';
         {facilities.map((fac, idx) => (
           <article 
             id={`facility-card-${idx}`}
-            class={`facility-story-card min-h-[38vh] sm:min-h-[44vh] py-10 sm:py-14 flex flex-col justify-center border-b border-[#141110]/15 last:border-b-0 transition-opacity duration-500 ease-out ${
+            class={`facility-story-card min-h-[26vh] sm:min-h-[32vh] py-8 sm:py-11 flex flex-col justify-center border-b border-[#141110]/15 last:border-b-0 transition-opacity duration-500 ease-out ${
               idx === 0 ? "opacity-100" : "opacity-25 hover:opacity-60 cursor-pointer"
             }`}
             data-index={idx}
           >
-            <!-- Border Left Accent + Story Content (1:1 with GoUncharted Screenshot Line & Statement) -->
+            <!-- Border Left Accent + Story Content -->
             <div class={`facility-quote-wrapper border-l-2 pl-6 sm:pl-8 py-2 transition-all duration-500 ${
               idx === 0 ? "border-[#141110]" : "border-transparent"
             }`}>
@@ -140,14 +140,9 @@ import siteData from '../data/siteData.json';
               </div>
 
               <!-- Main Editorial Title -->
-              <h3 class="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#141110] uppercase tracking-tight font-sans mb-3.5 leading-tight">
+              <h3 class="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#141110] uppercase tracking-tight font-sans mb-4 leading-tight">
                 {fac.title}
               </h3>
-
-              <!-- Big Poetic Statement (GoUncharted Typographic Hallmark) -->
-              <blockquote class="text-lg sm:text-xl lg:text-[22px] font-light text-[#141110] leading-snug tracking-tight mb-5 italic max-w-2xl">
-                {fac.statement}
-              </blockquote>
 
               <!-- Minimalist Metadata Row (GoUncharted Style) -->
               <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-mono-tag tracking-wider text-[#141110]/70 uppercase">
@@ -323,7 +318,7 @@ import siteData from '../data/siteData.json';
       });
     });
 
-    indicatorBtns.forEach((btn, i) => {
+    indicatorBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const targetIdx = parseInt(btn.getAttribute('data-target-index') || '0', 10);
         scrollToCard(targetIdx);

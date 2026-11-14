@@ -442,10 +442,9 @@ const forestClumps = [
         data-lenis-prevent
       >
         
-        <!-- Top-Left Floating Status Pill inside Map -->
-        <div class="absolute top-3 left-3 z-20 pointer-events-none bg-[#141110]/90 text-[#f4efe6] px-3 py-1.5 text-[10px] font-mono-tag uppercase tracking-widest border border-white/10 shadow-md">
-          <span class="hidden sm:inline">KLIK ITEM INFO • SCROLL MOUSE / TOMBOL +/- UNTUK ZOOM</span>
-          <span class="sm:hidden">TAP ITEM INFO • SWIPE 2 JARI / TOMBOL +/- UNTUK ZOOM</span>
+        <!-- Top-Left Floating Status Pill inside Map (Desktop Only so it never covers Mobile Map Title) -->
+        <div class="hidden sm:block absolute top-3 left-3 z-20 pointer-events-none bg-[#141110]/90 text-[#f4efe6] px-3 py-1.5 text-[10px] font-mono-tag uppercase tracking-widest border border-white/10 shadow-md">
+          <span>KLIK ITEM INFO • SCROLL MOUSE / TOMBOL +/- UNTUK ZOOM</span>
         </div>
 
         <!-- Bottom-Right Floating On-Canvas Zoom Controls -->
@@ -455,11 +454,11 @@ const forestClumps = [
           <button id="canvas-zoom-in" type="button" class="w-8 h-8 hover:bg-white/15 font-mono-tag text-sm font-bold flex items-center justify-center cursor-pointer" title="Zoom In">+</button>
         </div>
 
-        <!-- Interactive Clamped ViewBox Pan/Zoom Container (Exact 1200:1650 Aspect Ratio so ZERO Outer Void ever appears) -->
+        <!-- Interactive Clamped ViewBox Pan/Zoom Container (Dynamic Responsive ViewBox) -->
         <div 
           id="map-pan-zoom-viewport" 
           class="w-full relative overflow-hidden cursor-grab active:cursor-grabbing select-none"
-          style="aspect-ratio: 1200 / 1650; max-height: 1120px; background-color: #f3efc6; touch-action: pan-y;"
+          style="aspect-ratio: 1200 / 1650; max-height: min(1000px, 85vh); background-color: #f3efc6; touch-action: pan-y;"
           data-lenis-prevent
         >
           <!-- Two-Finger Mobile Gesture Hint Overlay (Google Maps Style) -->
@@ -535,7 +534,7 @@ const forestClumps = [
           <svg 
             id="interactive-svg-map"
             viewBox="0 0 1200 1650" 
-            preserveAspectRatio="xMidYMid slice"
+            preserveAspectRatio="xMidYMid meet"
             class="w-full h-full block"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -1687,25 +1686,72 @@ const forestClumps = [
 
     const MAP_W = 1200;
     const MAP_H = 1650;
-    const MIN_ZOOM = 1.0;
+    const PAD_X = 24;
+    const PAD_Y = 28;
+    const TOTAL_W = MAP_W + PAD_X * 2;
+    const TOTAL_H = MAP_H + PAD_Y * 2;
+    const MAP_ASPECT = TOTAL_W / TOTAL_H;
+    const MIN_ZOOM = 0.85;
     const MAX_ZOOM = 3.5;
 
     let zoom = 1.0;
-    let vx = 0;
-    let vy = 0;
-    let vw = MAP_W;
-    let vh = MAP_H;
+    let baseVw = TOTAL_W;
+    let baseVh = TOTAL_H;
+    let baseVx = -PAD_X;
+    let baseVy = -PAD_Y;
+    let vx = baseVx;
+    let vy = baseVy;
+    let vw = TOTAL_W;
+    let vh = TOTAL_H;
 
     let activeAnchorX = null;
     let activeAnchorY = null;
 
+    function getViewportRatio() {
+      const rect = viewport.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        return rect.width / rect.height;
+      }
+      return MAP_ASPECT;
+    }
+
+    function calculateBaseBounds() {
+      const vRatio = getViewportRatio();
+      if (vRatio >= MAP_ASPECT) {
+        // Viewport is wider than map: fit full height, expand width proportionally and center horizontally
+        baseVh = TOTAL_H;
+        baseVw = TOTAL_H * vRatio;
+        baseVx = (MAP_W - baseVw) / 2;
+        baseVy = -PAD_Y;
+      } else {
+        // Viewport is taller than map: fit full width, expand height proportionally and center vertically
+        baseVw = TOTAL_W;
+        baseVh = TOTAL_W / vRatio;
+        baseVx = -PAD_X;
+        baseVy = (MAP_H - baseVh) / 2;
+      }
+    }
+
     function clampViewBox() {
-      vw = MAP_W / zoom;
-      vh = MAP_H / zoom;
-      const maxVx = Math.max(0, MAP_W - vw);
-      const maxVy = Math.max(0, MAP_H - vh);
-      vx = Math.max(0, Math.min(maxVx, vx));
-      vy = Math.max(0, Math.min(maxVy, vy));
+      calculateBaseBounds();
+      vw = baseVw / zoom;
+      vh = baseVh / zoom;
+
+      const marginX = Math.max(0, (baseVw - MAP_W) / 2);
+      const marginY = Math.max(0, (baseVh - MAP_H) / 2);
+
+      const minVx = -marginX - PAD_X - 120;
+      const maxVx = Math.max(minVx, MAP_W + marginX + PAD_X + 120 - vw);
+      const minVy = -marginY - PAD_Y - 80;
+      const maxVy = Math.max(minVy, MAP_H + marginY + PAD_Y + 80 - vh);
+
+      if (zoom <= 1.01) {
+        vx = baseVx;
+        vy = baseVy;
+      } else {
+        vx = Math.max(minVx, Math.min(maxVx, vx));
+        vy = Math.max(minVy, Math.min(maxVy, vy));
+      }
     }
 
     function updateCalloutPosition() {
@@ -1735,6 +1781,7 @@ const forestClumps = [
     }
 
     function zoomToPoint(newZoom, focusSvgX, focusSvgY) {
+      calculateBaseBounds();
       const clampedZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoom));
       const cx = focusSvgX !== undefined ? focusSvgX : vx + vw / 2;
       const cy = focusSvgY !== undefined ? focusSvgY : vy + vh / 2;
@@ -1743,8 +1790,8 @@ const forestClumps = [
       const relY = (cy - vy) / vh;
 
       zoom = clampedZoom;
-      vw = MAP_W / zoom;
-      vh = MAP_H / zoom;
+      vw = baseVw / zoom;
+      vh = baseVh / zoom;
 
       vx = cx - relX * vw;
       vy = cy - relY * vh;
@@ -1753,26 +1800,28 @@ const forestClumps = [
     }
 
     function centerOnSvgPoint(targetX, targetY, targetZoom) {
+      calculateBaseBounds();
       if (targetZoom && targetZoom > zoom) {
         zoom = Math.min(MAX_ZOOM, targetZoom);
       }
-      vw = MAP_W / zoom;
-      vh = MAP_H / zoom;
+      vw = baseVw / zoom;
+      vh = baseVh / zoom;
       vx = targetX - vw / 2;
       vy = targetY - vh / 2;
       applyViewBox();
     }
 
     function handleZoomIn() {
-      zoomToPoint(zoom + 0.4, activeAnchorX ?? (vx + vw / 2), activeAnchorY ?? (vy + vh / 2));
+      zoomToPoint(zoom + 0.35, activeAnchorX ?? (vx + vw / 2), activeAnchorY ?? (vy + vh / 2));
     }
     function handleZoomOut() {
-      zoomToPoint(zoom - 0.4, activeAnchorX ?? (vx + vw / 2), activeAnchorY ?? (vy + vh / 2));
+      zoomToPoint(zoom - 0.35, activeAnchorX ?? (vx + vw / 2), activeAnchorY ?? (vy + vh / 2));
     }
     function handleZoomReset() {
+      calculateBaseBounds();
       zoom = 1.0;
-      vx = 0;
-      vy = 0;
+      vx = baseVx;
+      vy = baseVy;
       applyViewBox();
     }
 
@@ -1851,9 +1900,10 @@ const forestClumps = [
       if (rect.width === 0 || rect.height === 0) return;
 
       if (zoom <= 1.01 && dragMoved) {
+        calculateBaseBounds();
         zoom = 1.35;
-        vw = MAP_W / zoom;
-        vh = MAP_H / zoom;
+        vw = baseVw / zoom;
+        vh = baseVh / zoom;
         startVx = (MAP_W - vw) / 2;
         startVy = (MAP_H - vh) / 2;
       }
@@ -1951,8 +2001,8 @@ const forestClumps = [
         const dy = currentMidY - touchStartMidY;
 
         zoom = targetZoom;
-        vw = MAP_W / zoom;
-        vh = MAP_H / zoom;
+        vw = baseVw / zoom;
+        vh = baseVh / zoom;
 
         const relX = (touchStartMidX - rect.left) / rect.width;
         const relY = (touchStartMidY - rect.top) / rect.height;
@@ -2145,7 +2195,16 @@ const forestClumps = [
       if (e.key === 'Enter') handleSearch();
     });
 
-    window.addEventListener('resize', updateCalloutPosition);
+    function handleResize() {
+      calculateBaseBounds();
+      applyViewBox();
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    // Initial ViewBox layout computation
+    calculateBaseBounds();
+    applyViewBox();
   }
 
   if (document.readyState === 'loading') {

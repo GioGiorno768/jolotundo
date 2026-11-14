@@ -25,5 +25,10 @@
     "react-dom": "^19.3.1",
     "tailwindcss": "^4.3.3",
     "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^26.6.6",
+    "typescript": "^6.0.3"
   }
 }
